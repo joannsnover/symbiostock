@@ -1,0 +1,154 @@
+@charset "utf-8";
+/* CSS Document */
+.symbiostock_slider {
+}
+.symbiostock_slider input[type="text"] {
+	
+	width: 75%;
+}
+a#add_row {
+	color: #0C6;
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+	float: right;
+	background-color: #EFEFEF;
+	border-radius: 5px;
+	padding: 3px 6px;;
+	}
+a#add_row:hover {
+	color: #FFF;
+	background-color: #093;
+	}	
+a#remove{
+	color: #FF8080;
+	font-size: 18px;
+	}
+a#remove:hover {
+	color: #F00;
+	}
+#symbiostock-image-meta div label {
+	width: 100px;
+	float: left;
+}
+#symbiostock-image-meta select {
+	width: 100px;
+	}
+.symbiostock_settings {
+	
+	width: 500px;
+	
+	}
+/* uploader */
+#symbiostock_uploader_container{
+width: 50%;
+min-width: 400px;
+}
+#symbiostock_uploader_container .supported {
+	text-align: center;
+	}
+#symbiostock_uploader_container .info {
+	padding-left: 10px;
+	}		
+#symbiostock_uploader_container h1{
+	text-align: center;
+	}	
+/* processor */
+.symbiostock-image-processor {
+	
+	width: 75%;
+	margin-top: 20px;
+	}
+.symbiostock-image-processor .key {
+	
+	background-color: #f1f1f1;
+	
+	}	
+	
+.symbiostock-image-processor .check_info .negative{
+	color: #900;
+	
+	}
+.symbiostock-image-processor .check_info .positive{
+	color: #060;
+	
+	}
+.symbiostock-image-processor .check_info .neutral{
+	color: #F60;
+	
+	}	
+.symbiostock-image-processor .check_info  img{
+	display: inline;
+	padding-right: 10px;
+	
+	}
+.admin_preview_pic{
+  opacity: .5;
+   transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+	}
+.admin_preview_pic:hover{
+  opacity: 1;
+	}		
+.preview_pic{
+	padding: 10px;
+	border: 1px #E6E6E6 solid;
+	display: block;
+	}	
+/*------network page-----*/
+#symbiostock_network_container div{
+	
+	}
+.symbiostock_frame_container{
+	margin: 10px;
+	padding: 10px;	
+	margin-bottom: 0;
+	padding-bottom: 0;
+	margin-left: 0;
+	padding-left: 0;
+	}
+	
+#symbiostock_network_header,
+#symbiostock_network_main,
+#symbiostock_network_sidebar,
+#symbiostock_network_update,
+#symbiostock_network_footer{
+	
+	}
+#symbiostock_network_header{
+	width: 100%;
+	
+	}
+#symbiostock_network_main{
+	width: 66%;
+	float: left;
+	}
+#symbiostock_network_sidebar{
+	width: 33%;
+	float: left;
+	}
+#symbiostock_network_update{
+	width: 100%;
+	clear: both;
+	}
+#symbiostock_network_footer{
+	width: 100%;
+	clear: both;
+	}
+th.symbiostock_network_site_header{
+	width: 75px;
+	}
+.longfield{
+	width: 50%;
+	}
+.savelink{
+	text-align: center;
+	}
+.paypal_donate{
+	float: right;
+	background-color: #FFF;
+	padding: 10px;
+	border: 1px solid #CCC;
+	margin-bottom: 10px;
+	}		
