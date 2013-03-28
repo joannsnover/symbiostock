@@ -13,7 +13,7 @@
  
 //define some paths for easy working
 //remove code editing ability
-define('DISALLOW_FILE_EDIT', TRUE);
+//define('DISALLOW_FILE_EDIT', TRUE);
 //http constants
 $symbiostock_template_directory = get_bloginfo('template_directory');
 define('symbiostock_CLASSDIR', $symbiostock_template_directory . '/inc/classes' );
@@ -655,8 +655,8 @@ add_action( 'pre_get_posts', 'symbiostock_network_results_per_page' );
 //Symbiostock Decode Entities function
 function ssde($text) {
     $text= html_entity_decode($text,ENT_QUOTES,"ISO-8859-1"); #NOTE: UTF-8 does not work!
-    $text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
-    $text= preg_replace('/&#x([a-f0-9]+);/mei',"chr(0x\\1)",$text);  #hex notation
+    //$text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
+    //$text= preg_replace('/&#x([a-f0-9]+);/mei',"chr(0x\\1)",$text);  #hex notation
 	
     return $text;
 }

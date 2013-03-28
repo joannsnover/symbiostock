@@ -99,7 +99,7 @@ class symbiostock_mail{
 			'symbiostock_customer_page'
 		);
 		foreach($site_info as $info){
-			$value = get_option($info, '');			
+			$value = stripslashes(get_option($info, ''));			
 			$this->site_info[$info] = $value;
 			
 			}

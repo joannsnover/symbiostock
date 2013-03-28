@@ -8,6 +8,7 @@ function get_include_contents($filename) {
     return false;
 }
 //create our RF content folder - 
+update_option('symbiostock_credit_links', 'product_page');
 $upload_dir = wp_upload_dir();
 //make our content directory for wordpress, which holds previews on product pages
 if (!file_exists($upload_dir['basedir'] . '/symbiostock_rf_content/')) {

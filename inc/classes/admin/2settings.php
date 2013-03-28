@@ -39,7 +39,8 @@ global $current_user;
 	<thead>
         <tr>
             <th colspan="2">
-            <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="/wp-admin/upload.php">media uploader</a> below.
+            <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="/wp-admin/upload.php">media uploader</a> below. 
+            <br /><br /><em>Need some templates? (<a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a>)</em>
             </th>
         </tr>
   	</thead>
@@ -103,7 +104,7 @@ global $current_user;
     
      <tr>
         <th scope="row">Customer Area Greeting</th>
-        <td><textarea class="symbiostock_settings" name="symbiostock_customer_area_greeting"  id="symbiostock_customer_area_greeting"><?php echo get_option('symbiostock_customer_area_greeting'); ?></textarea>
+        <td><textarea class="symbiostock_settings" name="symbiostock_customer_area_greeting"  id="symbiostock_customer_area_greeting"><?php echo stripslashes(get_option('symbiostock_customer_area_greeting')); ?></textarea>
             <br />
            
             Welcome your customer, talk about stuff -  <?php echo symbiostock_customer_area( '<em>Top of Customer Area.</em>' ); ?> HTML allowed.</em></td>
@@ -111,14 +112,14 @@ global $current_user;
     
     <tr>
     <th scope="row">Customer Welcome Email</th>
-    <td><textarea class="symbiostock_settings" name="symbiostock_customer_welcome_body"  id="symbiostock_customer_welcome_body"><?php echo get_option('symbiostock_customer_welcome_body'); ?></textarea>
+    <td><textarea class="symbiostock_settings" name="symbiostock_customer_welcome_body"  id="symbiostock_customer_welcome_body"><?php echo stripslashes(get_option('symbiostock_customer_welcome_body')); ?></textarea>
         <br />
         Body of the welcome email sent to the customer. Use <strong>&lt;br /&gt;</strong> for line breaks. </td>
     </tr>
     
     <tr>
         <th scope="row">Customer Thank You Email</th>
-        <td><textarea class="symbiostock_settings" name="symbiostock_customer_thank_you"  id="symbiostock_customer_thank_you"><?php echo get_option('symbiostock_customer_thank_you'); ?></textarea>
+        <td><textarea class="symbiostock_settings" name="symbiostock_customer_thank_you"  id="symbiostock_customer_thank_you"><?php echo stripslashes(get_option('symbiostock_customer_thank_you')); ?></textarea>
             <br />
             Email sent to customer at purchase. Thank your customer. Use your name. Be human.</td>
     </tr>

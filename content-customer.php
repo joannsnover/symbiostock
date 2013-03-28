@@ -9,7 +9,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title"><i class="icon-user">&nbsp;</i><i class="icon-shopping-cart">&nbsp;</i><?php the_title(); ?>
-        <br /><small><?php echo get_option('symbiostock_customer_area_greeting'); ?></small></h1>
+        <br /><small><?php echo stripslashes(get_option('symbiostock_customer_area_greeting')); ?></small></h1>
   
 	</header><!-- .entry-header -->
 <div class="row-fluid">

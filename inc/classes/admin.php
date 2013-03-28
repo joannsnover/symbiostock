@@ -168,7 +168,7 @@ function symbiostock_load_scripts()
 {			
 	global $pagenow;
 	
-	if ( $pagenow  != 'symbiostock-control-options' )
+	if ( $_GET['page'] != 'symbiostock-control-options' )
 		return;
 	
     wp_enqueue_script( 'symbiostock_admin', symbiostock_JSDIR . '/admin.js', array(

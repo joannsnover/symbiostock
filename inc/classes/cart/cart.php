@@ -596,7 +596,7 @@ class symbiostock_cart
 			isset($this->product_info['symbiostock_referral_label_'.$referral_site_count][0]) && !empty($this->product_info['symbiostock_referral_label_'.$referral_site_count][0])			
 			){
 				
-			echo '<a title="'.$this->product_info['symbiostock_referral_label_'.$referral_site_count][0].'" href="'.$this->product_info['symbiostock_referral_link_'.$referral_site_count][0].'">
+			echo '<a title="'.stripslashes($this->product_info['symbiostock_referral_label_'.$referral_site_count][0]).'" href="'.$this->product_info['symbiostock_referral_link_'.$referral_site_count][0].'">
 			'.$this->product_info['symbiostock_referral_label_'.$referral_site_count][0].'</a><hr />';	
 				}
 			
