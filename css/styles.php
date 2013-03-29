@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/css; charset: UTF-8");
-require_once( $_SERVER['DOCUMENT_ROOT']. '/wp-load.php' );
+require_once( dirname( __FILE__ ) . '/../../../../wp-load.php' );;
 define('CSSBG', get_bloginfo('template_url') . '/img/bg');
 ?>
 html {

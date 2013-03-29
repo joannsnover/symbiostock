@@ -14,11 +14,10 @@ function symbiostock_content_header( $type )
     
 }
 if ( isset( $_POST[ 'download_file' ] ) ) {
-    $parse_uri = explode( 'wp-content', $_SERVER[ 'SCRIPT_FILENAME' ] );
-    
+    $parse_path = explode( 'wp-content', dirname( __FILE__ ) );
+    require_once( $parse_path[ 0 ] . 'wp-load.php' );   
     //wp-load will give us access to wordpress's info / functions
-    require_once( $parse_uri[ 0 ] . 'wp-load.php' );
-    
+    require_once( $parse_path[ 0 ] . 'wp-load.php' );    
     //we need wide-image for resizing functions. Images are resized on demand.
     include_once( symbiostock_CLASSROOT . 'image-processor/wideimage/lib/WideImage.php' );
     
@@ -61,7 +60,7 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
         if ( $selection == 'bloggee' || $selection == 'small' || $selection == 'medium' || $selection == 'large' ) {
             
             //use wide-image class to dynamically resize image
-            $symbiostock_img = WideImage::load( $_SERVER[ 'DOCUMENT_ROOT' ] . '/symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
+            $symbiostock_img = WideImage::load( ABSPATH . 'symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
             
             $resized = $symbiostock_img->resize( $size_width, $size_height );
             
@@ -71,7 +70,7 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
 			
         } else if ( $selection == 'vector' || $selection == 'zip' ) {
             
-            echo file_get_contents( $_SERVER[ 'DOCUMENT_ROOT' ] . '/symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
+            echo file_get_contents( ABSPATH . 'symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
             
         }
         

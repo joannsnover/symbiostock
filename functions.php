@@ -28,7 +28,7 @@ define('symbiostock_32_DEFAULT', symbiostock_IMGDIR . '/32_default.jpg');
 define('symbiostock_128_DEFAULT', symbiostock_IMGDIR . '/128_default.jpg');
 //filepath constants 
 $symbiostock_theme_root = get_theme_root() . '/symbiostock';
-define('symbiostock_STOCKDIR', $_SERVER['DOCUMENT_ROOT'] . '/symbiostock_rf/' );
+define('symbiostock_STOCKDIR', ABSPATH . 'symbiostock_rf/' );
 define('symbiostock_CLASSROOT', $symbiostock_theme_root . '/inc/classes/' );
 define('symbiostock_INCLUDESROOT', $symbiostock_theme_root . '/inc/' );
 define('symbiostock_NETWORK_MANAGER', $symbiostock_theme_root . '/inc/classes/network-manager/' );

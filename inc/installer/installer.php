@@ -15,8 +15,8 @@ if (!file_exists($upload_dir['basedir'] . '/symbiostock_rf_content/')) {
 mkdir($upload_dir['basedir'] . '/symbiostock_rf_content/', 0755);
 }
 //make our directory for downloadable products 
-if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '/symbiostock_rf/')) {
-mkdir($_SERVER['DOCUMENT_ROOT'] . '/symbiostock_rf/', 0700);
+if (!file_exists(ABSPATH . 'symbiostock_rf/')) {
+mkdir(ABSPATH . 'symbiostock_rf/', 0700);
 }
 //make our htaccess, to protect downloadable products
 $handle = fopen(symbiostock_CSSROOT . 'styles.css', 'w') or die('Cannot open file:  '.$htaccess);
@@ -24,7 +24,7 @@ $data = get_include_contents(symbiostock_CSSROOT . 'styles.php');
 fwrite($handle, $data);
 fclose($handle);
 //protect files
-$htaccess = $_SERVER['DOCUMENT_ROOT'] . '/symbiostock_rf/.htaccess';
+$htaccess = ABSPATH . 'symbiostock_rf/.htaccess';
 $handle = fopen($htaccess, 'w') or die('Cannot open file:  '.$htaccess);
 $data = 'deny from all';
 fwrite($handle, $data);

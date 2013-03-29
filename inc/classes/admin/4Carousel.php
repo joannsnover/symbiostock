@@ -80,5 +80,5 @@ while($slide_count <= 9){
             </tr>
         </tfoot>
     </table>
-    <p>Upload slide images to <a title="Media Uploader" href = "/wp-admin/media-new.php">media uploader</a> then paste links into list below. Add description if desired. (Max 10)</p>
+    <p>Upload slide images to <a title="Media Uploader" href = "<?php echo get_home_url(); ?>/wp-admin/media-new.php">media uploader</a> then paste links into list below. Add description if desired. (Max 10)</p>
 </div>

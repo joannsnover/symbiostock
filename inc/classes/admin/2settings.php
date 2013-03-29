@@ -39,7 +39,7 @@ global $current_user;
 	<thead>
         <tr>
             <th colspan="2">
-            <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="/wp-admin/upload.php">media uploader</a> below. 
+            <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">media uploader</a> below. 
             <br /><br /><em>Need some templates? (<a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a>)</em>
             </th>
         </tr>

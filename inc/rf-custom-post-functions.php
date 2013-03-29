@@ -42,7 +42,7 @@ function symbiostock_image_manager_register( )
             'editor',
             'thumbnail' 
         ),
-        'rewrite' => false,
+        'rewrite' => true,
         
     );
     

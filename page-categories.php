@@ -24,9 +24,10 @@ get_header(); ?>
 						$term_list = '';
 						foreach ($symbiostock_terms as $term) {
 							$i++;
-							$term_list .= '<a href="/image-type/' . $term->slug . '" title="' . sprintf(__('View all images  under %s', 'my_localization_domain'), $term->name) . '">' . $term->name . '</a> (' . $term->count. ')<br />';
+							$term_list .= '<a href="' . get_term_link( $term->slug, 'image-type' ) . '">' . $term->name . '</a> (' . $term->count. ')<br />';
 							if ($count != $i) $term_list .= ' &middot; '; else $term_list .= '</p>';
 						}
+						
 						echo $term_list;
 					}			
 					

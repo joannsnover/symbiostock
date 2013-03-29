@@ -5,8 +5,7 @@
             <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
         </div>
     </form>
-    <div class="info">
-    
+    <div class="info">    
     <p><em>Want to use <strong>FTP</strong></em>? Here is the uploads folder:  <input size="140" type="text" onClick="this.select();" value="<?php echo get_theme_root() . "/symbiostock/inc/classes/plupload/uploads/"; ?>" /></p>
     
     <h3>Uploading Directions <strong>( .jpg .eps .png .zip )</strong></h3>
@@ -24,6 +23,7 @@
     </p>
     <hr />
     <h4>When uploading is completed...</h4>
-    <p>...proceed to <strong><a title="Process files" href="/wp-admin/edit.php?post_type=image&page=symbiostock-process-images">Process Images</a></strong> to process them.</p>
+    <p>...proceed to <strong><a title="Process files" href="<?php echo get_home_url(); ?>/wp-admin/edit.php?post_type=image&page=symbiostock-process-images">Process Images</a></strong> to process them.</p>
+	
     </div>
 </div>

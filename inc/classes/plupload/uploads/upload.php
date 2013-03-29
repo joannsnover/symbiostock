@@ -15,7 +15,9 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 //get wordpress
-include_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
+$parse_path = explode( 'wp-content', dirname( __FILE__ ) );
+require_once( $parse_path[ 0 ] . 'wp-load.php' ); 
+include_once($parse_path[ 0 ]  . '/wp-load.php');
 // Settings
 $targetDir = get_theme_root() . "/symbiostock/inc/classes/plupload/uploads/";
 //$targetDir = 'uploads';

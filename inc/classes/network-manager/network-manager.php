@@ -114,14 +114,20 @@ class network_manager
             $network_limit = 5;
             $site_count    = 1;
             
+			
+			
             while ( $site_count <= 5 ) {
                 
                 $this->network_site_count = $site_count;
                 
                 $network_site = get_option( 'symbiostock_network_site_' . $site_count );
                 
+				//different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
+				//so we have to disect our url to get it to function properly...see $query below
+				$sub_level = parse_url(get_home_url());
+				
                 if ( symbiostock_validate_url( $network_site ) ) {
-                    
+                   				   				    
                     $arr_params = array(
                          'symbiostock_network_search' => true,
                         'symbiostock_network_info' => true,
@@ -131,7 +137,12 @@ class network_manager
 					
                     $query = add_query_arg( $arr_params );					
                     
-									
+					//if we don't remove the path from our own url, we will mess up the query going to our friend's site
+					//hard to explain. If you want to see what happens when you don't do what is shown  here,
+					//comment out the line below and uncomment the echo statement below that
+					$query = str_replace($sub_level['path'], '', $query);
+					//echo $query;
+												
                     $network_results = $this->get_remote_xml( $network_site . $query );
                     
                     $this->xml_results = $network_results;

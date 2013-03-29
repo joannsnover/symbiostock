@@ -357,7 +357,6 @@ class symbiostock_image_processor
 		foreach ($extensions as $type){
 			
 			$old_file = $this->upload_dir . $image_file . '.' . $type;
-			
 			  if ( file_exists( $old_file ) ) {
 				if ( !copy( $old_file, symbiostock_STOCKDIR . $created_page . '.' . $type ) ) {
 					echo "failed to copy $file...\n";
@@ -413,6 +412,12 @@ class symbiostock_image_processor
             die( 'Error: IPTC data found in source image, cannot continue' );
         } //isset( $info[ 'APP13' ] )
         
+		if( isset($info[ '2#025' ] ) && is_array($info[ '2#025' ]) && !empty($info[ '2#025' ] )){
+			
+			$keywords = implode( ",\n ", $info[ '2#025' ] );
+			
+			} else {$keywords = "graphic,\n image,\n ";}
+		
         // Set the IPTC tags
         $size = getimagesize( $old_file, $info );
         $info = iptcparse( $info[ 'APP13' ] );
@@ -428,7 +433,7 @@ class symbiostock_image_processor
             //DATE
             '2#116' => $info[ '2#055' ][ 0 ],
             //KEYWORDS
-            '2#025' => implode( ",\n ", $info[ '2#025' ] ) 
+            '2#025' => $keywords 
             
         );
         
@@ -1146,16 +1151,20 @@ class symbiostock_image_processor
             return;
         }
         
-        
+        $medium_size = get_option('symbiostock_medium_size', 1000);
+		$small_size = get_option('symbiostock_small_size', 500);
+		$blogge_size = get_option('symbiostock_bloggee_size', 250);
+		
+		
         $sizes = array(
             
              'large' => $this->create_size_specs( 0, $width, $height ),
             
-            'medium' => $this->create_size_specs( 1000, $width, $height ),
+            'medium' => $this->create_size_specs( $medium_size, $width, $height ),
             
-            'small' => $this->create_size_specs( 500, $width, $height ),
+            'small' => $this->create_size_specs( $small_size, $width, $height ),
             
-            'bloggee' => $this->create_size_specs( 250, $width, $height ),
+            'bloggee' => $this->create_size_specs( $blogge_size, $width, $height ),
             
             'preview' => $this->create_size_specs( 590, $width, $height, 'preview' ),
             
