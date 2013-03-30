@@ -14,24 +14,33 @@ get_header(); ?>
             <div id="primary" class="content-area span12">
                 <div id="content" class="site-content" role="main">
     				<div class="hero-unit">
-                    <h2>Image Categories</h2><hr />
-                    <?php while ( have_posts() ) : the_post(); 
-										
-					$symbiostock_terms = get_terms( 'image-type', 'orderby=count&hide_empty=0' );
-					$count = count($symbiostock_terms); $i=0;
-					if ($count > 0) {
-						$cape_list = '<p class="my_term-archive">';
-						$term_list = '';
-						foreach ($symbiostock_terms as $term) {
-							$i++;
-							$term_list .= '<a href="' . get_term_link( $term->slug, 'image-type' ) . '">' . $term->name . '</a> (' . $term->count. ')<br />';
-							if ($count != $i) $term_list .= ' &middot; '; else $term_list .= '</p>';
-						}
-						
-						echo $term_list;
-					}			
+                                        
+                   <?php
+				   
+				   //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
+
+					$taxonomy     = 'image-type';
+					$orderby      = 'name'; 
+					$show_count   = 1;      // 1 for yes, 0 for no
+					$pad_counts   = 1;      // 1 for yes, 0 for no
+					$hierarchical = 1;      // 1 for yes, 0 for no
+					$title        = '<h2>Image Categories</h2><hr />';
 					
+					$args = array(
+					  'taxonomy'     => $taxonomy,
+					  'orderby'      => $orderby,
+					  'show_count'   => $show_count,
+					  'pad_counts'   => $pad_counts,
+					  'hierarchical' => $hierarchical,
+					  'title_li'     => $title,
+					 
+					);
 					?>
+					
+					<ul>
+					<?php wp_list_categories( $args ); ?>
+					</ul>				   
+
 					</div>               
                         
                     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -44,10 +53,7 @@ get_header(); ?>
                             <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'symbiostock' ), 'after' => '</div>' ) ); ?>
                             <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="edit-link">', '</span>' ); ?>
                         </div><!-- .entry-content -->
-                    </article><!-- #post-<?php the_ID(); ?> -->
-                    
-                    <?php endwhile; // end of the loop. ?>
-    
+                    </article><!-- #post-<?php the_ID(); ?> --> 
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
         

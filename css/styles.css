@@ -135,7 +135,7 @@ footer {
 	text-shadow: none;
 	}
 body{
-		background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/bgnoise.png);
+		background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/bgnoise.png);
 	
 	}
 h1 {
@@ -152,20 +152,20 @@ h2, h3, h4, h5, h6 {
 	}
 footer.site-footer {
 	background-color: #F4F4F4;
-	background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/type.png);
+	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/type.png);
 	border-top: 7px solid #333;
 	padding: 20px 20px;
 	color: #CCC;
 	}
 footer .footer_section{
-	background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/transparent_dark.png);
+	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark.png);
 	padding: 10px;
 	border-radius:14px 14px;
 	border: 1px solid #333;
 	margin-bottom: 10px;
 	}
 footer .footer_info {
-	background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/transparent_dark.png);
+	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark.png);
 	padding: 10px 0;
 	margin: 10px 0;
 	text-align: center;	
@@ -226,7 +226,7 @@ footer .footer_info {
 }
 .mobile_menu {
 	background-color: #666;
-	/*background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/transparent_dark.png);*/
+	/*background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark.png);*/
 	border-radius: 5px;
 	margin-bottom: 10px;
 	}
@@ -236,7 +236,7 @@ footer .footer_info {
 	}
 	
 .mobile_menu select {
-	background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/bgnoise.png);
+	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/bgnoise.png);
 	width: 100%;
 	}	
 	
@@ -357,7 +357,7 @@ ul.above-header-menu li{
 	top:100%;
 	border: #FFF 2px solid;
 	border-radius:0 0 14px 14px;
-	background-image: url(http://localhost/symbiostock/wp-content/themes/SYMBIOSTOCK/img/bg/transparent_dark3.png);
+	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark3.png);
 	padding-bottom:10px
 }
 .dropdown-toggle .sub-menu li {
