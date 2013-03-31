@@ -176,7 +176,7 @@ if(isset($_POST['symbiostock_update_images'])){
             </select></td>
     </tr>
     <tr>
-        <th colspan=2> <h3>&raquo; Pricing and Options</h3>
+        <th colspan=2> <h3>&raquo; Pricing and Options</h3>*See <strong>Settings</strong> to change currency type.
         </th>
     </tr>
     <tr>

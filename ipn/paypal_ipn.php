@@ -1,6 +1,6 @@
 <?php 
 //get wordpress - 
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' );
+require_once( dirname( __FILE__ ) . '/../../../../wp-load.php' );;
 // STEP 1: Read POST data
  
 // reading posted data from directly from $_POST causes serialization 

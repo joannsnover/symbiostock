@@ -26,6 +26,18 @@ $symbiostock_credit_links = get_option('symbiostock_credit_links');
 $symbiostock_credit_links == 'product_page' || !isset($symbiostock_credit_links)  ? $symbiostock_credit_links_product_page = 'checked="checked"' : $symbiostock_credit_links_product_page = '';
 $symbiostock_credit_links == 'footer' ? $symbiostock_credit_links_footer = 'checked="checked"' : $symbiostock_credit_links_footer = '';
 $symbiostock_credit_links == 'no_use' ? $symbiostock_credit_links_no_use = 'checked="checked"' : $symbiostock_credit_links_no_use = '';
+
+//symbiostock_currency
+if(isset($_POST['symbiostock_currency'])){ 
+update_option('symbiostock_currency', $_POST['symbiostock_currency']); 
+}
+$symbiostock_currency = get_option('symbiostock_currency');
+$symbiostock_currency == 'USD' || !isset($symbiostock_currency)  ? $symbiostock_currency_USD = 'selected="selected"' : $symbiostock_currency_USD = '';
+$symbiostock_currency == 'EUR' ? $symbiostock_currency_EUR = 'selected="selected"' : $symbiostock_currency_EUR = '';
+$symbiostock_currency == 'GBP' ? $symbiostock_currency_GBP = 'selected="selected"' : $symbiostock_currency_GBP = '';
+$symbiostock_currency == 'CAD' ? $symbiostock_currency_CAD = 'selected="selected"' : $symbiostock_currency_CAD = '';
+$symbiostock_currency == 'JPY' ? $symbiostock_currency_JPY = 'selected="selected"' : $symbiostock_currency_JPY = '';
+
 //watermark
 $watermark = symbiostock_CLASSDIR . '/image-processor/symbiostock-watermark.png';
 $logo = get_option('symbiostock_logo_link', symbiostock_LOGO  );
@@ -93,7 +105,35 @@ global $current_user;
              <br />
             <label for="symbiostock_logo_for_paypal"><input class="symbiostock_settings" type="text" name="symbiostock_logo_for_paypal"  id="symbiostock_logo_for_paypal" value="<?php echo get_option('symbiostock_logo_for_paypal'); ?>" /> Site Paypal Logo</label>
             <br />*Your logo seen on the paypal site when the customer is paying. Exactly <strong>150px by 50px</strong>.
-            </td>
+            
+               <!--CURRENCY-->
+            <br />
+            <label for="symbiostock_currency"> <?php
+            $symbiostock_currencies = array(
+                'USD' => __( 'US Dollars ($)', 'symbiostock' ),
+                'EUR' => __( 'Euros (€)', 'symbiostock' ),
+                'GBP' => __( 'Pounds Sterling (£)', 'symbiostock' ),
+                'CAD' => __( 'Canadian Dollars ($)', 'symbiostock' ),
+                'JPY' => __( 'Japanese Yen (¥)', 'symbiostock' ),
+            );
+            ?>
+            <select id="symbiostock_currency" name="symbiostock_currency">
+            <?php
+            foreach ($symbiostock_currencies as $currency => $desc){
+					echo 'symbiostock_currency_'.$currency;
+					$symbiostock_currency_selected = ${'symbiostock_currency_'.$currency};					
+					?>                                   
+                    <option <?php echo $symbiostock_currency_selected; ?> value="<?php echo $currency ?>" ><?php echo $desc; ?></option>
+                    <?php	
+                }
+            ?>
+            </select> - Shop Currency
+            </label>
+            
+            <!--/CURRENCY-->           
+            
+        </td>
+                        
     </tr>
      <tr>
         <th scope="row">Correspondence Email</th>

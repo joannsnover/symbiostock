@@ -458,6 +458,7 @@ function symbiostock_post_meta($postid){
 	return $image_meta;
 		
 	}
+	
 function symbiostock_get_user_files($user_id=''){
 		
 		if(empty($user_id)){

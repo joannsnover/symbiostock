@@ -143,8 +143,6 @@ class symbiostock_image_processor
             
             //make our transparency preview
             
-            $image = WideImage::load( $this->upload_dir . $image_file . '.png' );
-            
             $transparency_resized = $image->resize( 515, 515 );
             
             $transparency_preview = $checkerboard_transpency->merge( $transparency_resized, 'center', 'center', 100 );
@@ -165,16 +163,20 @@ class symbiostock_image_processor
             
             $watermarked = $resized->merge( $watermark, 'center', 'center', 100 );
             
+			unset($resized);
+			
             $watermarked->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 100 );
             
+			unset($watermarked);		
+			
             //make our thumbnail
-            
-            $image = WideImage::load( $this->upload_dir . $image_file . '.jpg' );
             
             $resized = $image->resize( $thumb_size[ 'width' ], $thumb_size[ 'height' ] );
             
             $resized->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 100 );
             
+			unset($image);
+			
             //copy iptc data over
             $this->copy_iptc( $this->upload_dir . $image_file . '.jpg', $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg' );
             

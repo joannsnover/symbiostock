@@ -160,6 +160,7 @@ class symbiostock_cart
     {	
 		//if product is not for sale, abort 
 		if($this->product_info['live'][0] == 'not_live'){return;}
+		$curr = $this->currency();
 ?>
         <form id="symbiostock_product_form" class="symbiostock_product" action="" method="post">
         <table id="symbiostock_product_table" class="table table-striped table-hover">
@@ -175,7 +176,7 @@ class symbiostock_cart
                 File Info
                 </th>
                 <th>
-                Price <?php 
+                Price <br />( <?php echo $curr[0]; ?> )<?php 
 						
 				$discount = $this->product_info['discount_percent'][0];
 				$discount == 0?  $savings = '' : $savings = '<em>' . $discount . '% off</em>';
@@ -293,7 +294,7 @@ class symbiostock_cart
 		return;
 		
 		}
-		
+		$curr = $this->currency();
 		$cart_items = $this->cart['products'];
 				
 		$email = $this->cart['cart_email'];
@@ -324,12 +325,13 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo get_option('symbiostock_logo_for_paypal'); ?>" name="image_url" />
             <input type="hidden" value="<?php echo $paypal_vars; ?>" name="custom" />
             <input type="hidden" value="<?php echo get_option('symbiostock_paypal_email', ''); ?>" name="business" />
+            <input type="hidden" name="currency_code" value="<?php echo $curr[2]; ?>">
             <table class="table cart">
         <thead>
             <tr>
             	<th>Preview</th>
                 <th>Option</th>
-                <th>Price</th>
+                <th>Price - <?php echo $curr[0]; ?></th>
                 <th>&nbsp;</th>
             </tr>            
         </thead>
@@ -367,7 +369,7 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo $product; ?>" name="item_number_<?php echo $product_count; ?>" /> 
             <input name="return" type="hidden" value="<?php echo symbiostock_customer_area_link(); ?>" />           
             <?php 
-			echo '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $price['compare'] . '</td><td><a id="remove_' . $product . '" class="remove_from_cart" href="#"><i class="icon-remove-sign">&nbsp;</i></a></td>'; ?> 
+			echo '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $curr[1] . $price['compare'] . '</td><td><a id="remove_' . $product . '" class="remove_from_cart" href="#"><i class="icon-remove-sign">&nbsp;</i></a></td>'; ?> 
 			</tr>
             <?php
 		}
@@ -558,6 +560,25 @@ class symbiostock_cart
 		return $total;
 	
 	}
+	
+	public function currency(){
+			
+			$symbiostock_currency = get_option('symbiostock_currency');
+			!isset($symbiostock_currency)  ? $symbiostock_currency = 'USD' : '';
+		
+	        $symbiostock_currencies = array(
+                'USD' => array( 'US Dollars ($)',       '$', 'USD' ),
+                'EUR' => array( 'Euros (€)',            '€', 'EUR' ),
+                'GBP' => array( 'Pounds Sterling (£)',  '£', 'GBP' ),
+                'CAD' => array( 'Canadian Dollars ($)', '$', 'CAD' ),
+                'JPY' => array( 'Japanese Yen (¥)',     '¥', 'JPY' ),
+            );		
+			
+			$symbiostock_currency = $symbiostock_currencies[$symbiostock_currency];	
+			
+			return $symbiostock_currency;		
+			
+		}
 	
     //creates the cart array, which can be manipulated. Beautiful alternative to database based cart system
     private function cart_template( )

@@ -418,7 +418,12 @@ SYMBIOSTOCK CONTENT
 .content-wrap{
 	clear: both;
 	}
-	
+.item-preview img.photo {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}	
 .site-main {
 	border-top: #CCC 0px solid;
 	}
