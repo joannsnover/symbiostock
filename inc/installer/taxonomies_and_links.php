@@ -86,7 +86,7 @@ $symbiostock_categories = array(
 	'Business',
 	'Cities | Rural | Places',
 	'Concepts',
-	'Eduction',
+	'Education',
 	'Food | Drink',
 	'Health',
 	'Healthcare',

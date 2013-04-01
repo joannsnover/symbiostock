@@ -100,7 +100,7 @@ global $current_user;
         </th>
         <td><label for="symbiostock_paypal_email"><input class="symbiostock_settings" type="text" name="symbiostock_paypal_email"  id="symbiostock_paypal_email" value="<?php echo get_option('symbiostock_paypal_email'); ?>" /> Paypal Email</label>
         <br />
-             <label for="symbiostock_ipn"><strong><input id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_bloginfo( 'stylesheet_directory' ) . '/ipn/paypal_ipn.php'; ?>" /></strong> Paypal IPN</label>
+             <label for="symbiostock_ipn"><strong><input onClick="this.select();" id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>" /></strong> Paypal IPN</label>
              <br />*Ensure you've set up your paypal email and your <strong><a title="IPN Directions" href="https://www.paypal.com/ipn">paypal IPN</a></strong> properly, or your payment system will not work.
              <br />
             <label for="symbiostock_logo_for_paypal"><input class="symbiostock_settings" type="text" name="symbiostock_logo_for_paypal"  id="symbiostock_logo_for_paypal" value="<?php echo get_option('symbiostock_logo_for_paypal'); ?>" /> Site Paypal Logo</label>
