@@ -1,6 +1,7 @@
 Welcome to Symbiostock, the wordpress theme for selling royalty free content and networking with your fellow artists.
 
 <strong>DOWNLOAD:</strong> https://github.com/orangeman555/symbiostock/blob/master/symbiostock.zip?raw=true
+
 <strong>Child Theme:</strong> https://github.com/orangeman555/symbiostock/blob/master/symbiostock-child.zip?raw=true
 
 All communication and technical support for this project is presently hosted on microstockgroup.com:
