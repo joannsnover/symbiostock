@@ -8,7 +8,7 @@ All communication and technical support for this project is presently hosted on 
 
 http://www.microstockgroup.com/symbiostock/
 <hr />
-<strong>IMPORTANT:</strong> This theme generally does not work on entry-level server environments due to its unique functions. <strong>Bluehost - <a href="http://www.bluehost.com/track/symbiostock">BLUEHOST.COM</a></strong> - seems to be the best setting for Symbiostock deployments.
+<strong>IMPORTANT:</strong> This theme generally does not work on entry-level server environments due to its unique functions. <strong>Bluehost - <a href="http://www.bluehost.com/track/symbiostock">BLUEHOST.COM</a></strong> - seems to be the best option for Symbiostock deployments.
 
 Current project priorities:
 
