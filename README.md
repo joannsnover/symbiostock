@@ -19,7 +19,7 @@ http://www.microstockgroup.com/symbiostock/
 
 <h3>Symbiostock is currently in the testing phase. </h3>
 
-You will notice many features you would like added. This is open source. It can be added! Please get more PHP developers involved in the project. I will add the most important features as they are agreed upon. For now, what we have is "base functionality" sufficient to a good start in testing.
+You will notice you may want more features added. This is open source. It can be added! Please get more PHP developers involved in the project. I will add the most important features as they are agreed upon. For now, what we have is "base functionality" sufficient to a good start in testing.
 
 <em>The Symbiostock community has blossomed</em>, and its very helpful to new users and people not greatly familiar with wordpress and direct selling of their work. Over the course of time please work together develop a Symbiostock <em>"Best Practice" and "Model Site"</em> standard together. Please share design strategies, child themes, and other useful things that will make the Symbiostock network successful. 
 
