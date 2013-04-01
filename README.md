@@ -15,9 +15,9 @@ Current project priorities:
 
 Symbiostock is currently in the testing phase. 
 
-You will notice many features you would like added. This is open source. It can be added! Please get more PHP developers involved in the project. I will add the most important ones as they are agreed upon. For now, what we have is "base functionality" sufficient to a good start in testing.
+You will notice many features you would like added. This is open source. It can be added! Please get more PHP developers involved in the project. I will add the most important features as they are agreed upon. For now, what we have is "base functionality" sufficient to a good start in testing.
 
-The Symbiostock community has blossomed, and its very helpful to new users and people not greatly familiar with wordpress. Over the course of time please work together develop a Symbiostock "Best Practice" and "Model Site" standard together. Please share design strategies, child themes, and other useful things that will make the Symbiostock network successful. 
+The Symbiostock community has blossomed, and its very helpful to new users and people not greatly familiar with wordpress and direct selling of their work. Over the course of time please work together develop a Symbiostock <em>"Best Practice" and "Model Site"</em> standard together. Please share design strategies, child themes, and other useful things that will make the Symbiostock network successful. 
 
 The most impressive aspect of Symbiostock isn't the theme, but the enthusiastic, hard working, helpful community that has surfaced. The rest is just details. 
 
