@@ -95,11 +95,20 @@ class symbiostock_cart
     
     private function list_eps( )
     {
+		//check our availability and proceed accordingly
+		if(isset($this->product_info['symbiostock_' . 'vector' . '_available'][0]) 
+		&& $this->product_info['symbiostock_' . 'vector' . '_available'][0] == 'no'){ return; }	
+
+		//check our select / no-select status		
+		if(isset($this->product_info['symbiostock_' . 'vector' . '_available'][0]) 
+		&& $this->product_info['symbiostock_'  . 'vector' .  '_available'][0] == 'no_select'){ 
+			$available_class = 'not_available'; } else {$available_class = ''; }	
+					
 		$price = $this->calc_discount($this->product_info[ 'price_vector' ][ 0 ], $this->product_info['discount_percent'][0]);
 		
         $option = $this->product_option( 'eps', 'vector' );
         
-        $row = '<tr class="' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . '</td><td>eps</td><td>Filesize: ' . $this->product_info[ 'size_eps' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
+        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . '</td><td>eps</td><td>Filesize: ' . $this->product_info[ 'size_eps' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
 		';
         
         return $row;
@@ -108,11 +117,21 @@ class symbiostock_cart
     
     private function list_zip( )
     {
+
+		//check our availability and proceed accordingly
+		if(isset($this->product_info['symbiostock_' . 'zip' . '_available'][0]) 
+		&& $this->product_info['symbiostock_' . 'zip' . '_available'][0] == 'no'){ return; }	
+		
+		//check our select / no-select status		
+		if(isset($this->product_info['symbiostock_' . 'zip' . '_available'][0]) 
+		&& $this->product_info['symbiostock_'  . 'zip' .  '_available'][0] == 'no_select'){ 
+			$available_class = 'not_available'; } else {$available_class = ''; }				
+				
 		$price = $this->calc_discount($this->product_info[ 'price_zip' ][ 0 ], $this->product_info['discount_percent'][0]);
 			
         $option = $this->product_option( 'zip', 'zip' );
         
-        $row = '<tr class="' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . 'Supporting Files</td><td>ZIP</td><td>Filesize: ' . $this->product_info[ 'size_zip' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
+        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . 'Supporting Files</td><td>ZIP</td><td>Filesize: ' . $this->product_info[ 'size_zip' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
 		';
         
         return $row;
@@ -176,7 +195,7 @@ class symbiostock_cart
                 File Info
                 </th>
                 <th>
-                Price <br />( <?php echo $curr[0]; ?> )<?php 
+                Price <br /><span class="symbiostock_currency">( <?php echo $curr[0]; ?> )</span><?php 
 						
 				$discount = $this->product_info['discount_percent'][0];
 				$discount == 0?  $savings = '' : $savings = '<em>' . $discount . '% off</em>';
