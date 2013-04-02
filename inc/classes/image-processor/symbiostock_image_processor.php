@@ -789,17 +789,19 @@ class symbiostock_image_processor
             while ( false !== ( $entry = readdir( $handle ) ) ) {
                 if ( $entry != "." && $entry != ".." && $entry != "upload.php" && $entry != "tmp" && $entry != ".htaccess"  ) {
                     $entry = explode( '.', $entry );
-               
+               		
+					$lower_case_ext = strtolower( $entry[ 1 ] );
+										
                     if ( !in_array( $files[ $entry[ 0 ] ], $files ) ) {
+												
                         $files[ $entry[ 0 ] ][ 'extensions' ] = array(
-                             $entry[ 1 ] 
+                        	$lower_case_ext
                         );
                           
                     } //!in_array( $files[ $entry[ 0 ] ], $files )
                     else { 
-                        array_push( $files[ $entry[ 0 ] ][ 'extensions' ], $entry[ 1 ] );
-                        
-                                           
+                        array_push( $files[ $entry[ 0 ] ][ 'extensions' ], $lower_case_ext );
+                                                                   
                     }
                          //get size of file if jpeg or png
                        
