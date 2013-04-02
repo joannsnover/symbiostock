@@ -12,25 +12,35 @@
 				</header><!-- .entry-header -->
 				<div class="entry-content">
 					
-                    <div class="hero-unit">
-                    <h2>Try browsing the categories. You may find some hidden gems!</h2><hr />
-                    <?php
-										
-					$symbiostock_terms = get_terms( 'image-type', 'orderby=count&hide_empty=0' );
-					$count = count($symbiostock_terms); $i=0;
-					if ($count > 0) {
-						$cape_list = '<p class="my_term-archive">';
-						$term_list = '';
-						foreach ($symbiostock_terms as $term) {
-							$i++;
-							$term_list .= '<a href="/image-type/' . $term->slug . '" title="' . sprintf(__('View all images  under %s', 'my_localization_domain'), $term->name) . '">' . $term->name . '</a> (' . $term->count. ')<br />';
-							if ($count != $i) $term_list .= ' &middot; '; else $term_list .= '</p>';
-						}
-						echo $term_list;
-					}
+   		<div class="hero-unit">
+                    <h2>No Results found. Try browsing the categories. Maybe you will find some hidden gems!</h2>                    
+                   <?php
+				   
+				   //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
+
+					$taxonomy     = 'image-type';
+					$orderby      = 'name'; 
+					$show_count   = 1;      // 1 for yes, 0 for no
+					$pad_counts   = 1;      // 1 for yes, 0 for no
+					$hierarchical = 1;      // 1 for yes, 0 for no
+					$title        = '<h2 class="muted">Image Categories</h2><hr />';
 					
+					$args = array(
+					  'taxonomy'     => $taxonomy,
+					  'orderby'      => $orderby,
+					  'show_count'   => $show_count,
+					  'pad_counts'   => $pad_counts,
+					  'hierarchical' => $hierarchical,
+					  'title_li'     => $title,
+					 
+					);
 					?>
-					</div>
+					
+					<ul>
+					<?php wp_list_categories( $args ); ?>
+					</ul>				   
+
+					</div>    
                     
 				</div><!-- .entry-content -->
 			</article><!-- #post-0 .post .error404 .not-found -->

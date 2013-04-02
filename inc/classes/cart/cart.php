@@ -326,6 +326,8 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo $paypal_vars; ?>" name="custom" />
             <input type="hidden" value="<?php echo get_option('symbiostock_paypal_email', ''); ?>" name="business" />
             <input type="hidden" name="currency_code" value="<?php echo $curr[2]; ?>">
+            <input type="hidden" name="notify_url" value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>"  />
+            <input name="return" type="hidden" value="<?php echo symbiostock_customer_area_link(); ?>" />           
             <table class="table cart">
         <thead>
             <tr>
@@ -367,7 +369,7 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo $size_name; ?>" name="os0_<?php echo $product_count; ?>" />
             <input type="hidden" value="<?php echo $price['final_price']; ?>" name="amount_<?php echo $product_count; ?>" />
             <input type="hidden" value="<?php echo $product; ?>" name="item_number_<?php echo $product_count; ?>" /> 
-            <input name="return" type="hidden" value="<?php echo symbiostock_customer_area_link(); ?>" />           
+           
             <?php 
 			echo '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $curr[1] . $price['compare'] . '</td><td><a id="remove_' . $product . '" class="remove_from_cart" href="#"><i class="icon-remove-sign">&nbsp;</i></a></td>'; ?> 
 			</tr>

@@ -99,9 +99,9 @@ global $current_user;
         </label>
         </th>
         <td><label for="symbiostock_paypal_email"><input class="symbiostock_settings" type="text" name="symbiostock_paypal_email"  id="symbiostock_paypal_email" value="<?php echo get_option('symbiostock_paypal_email'); ?>" /> Paypal Email</label>
-        <br />
+        <br /><br />
              <label for="symbiostock_ipn"><strong><input onClick="this.select();" id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>" /></strong> Paypal IPN</label>
-             <br />*Ensure you've set up your paypal email and your <strong><a title="IPN Directions" href="https://www.paypal.com/ipn">paypal IPN</a></strong> properly, or your payment system will not work.
+             <br />
              <br />
             <label for="symbiostock_logo_for_paypal"><input class="symbiostock_settings" type="text" name="symbiostock_logo_for_paypal"  id="symbiostock_logo_for_paypal" value="<?php echo get_option('symbiostock_logo_for_paypal'); ?>" /> Site Paypal Logo</label>
             <br />*Your logo seen on the paypal site when the customer is paying. Exactly <strong>150px by 50px</strong>.
@@ -162,31 +162,8 @@ global $current_user;
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_thank_you"  id="symbiostock_customer_thank_you"><?php echo stripslashes(get_option('symbiostock_customer_thank_you')); ?></textarea>
             <br />
             Email sent to customer at purchase. Thank your customer. Use your name. Be human.</td>
-    </tr>
-    
-    
-    <thead>
-        <tr>
-            <th colspan="2">
-            <strong>Licensing</strong>
-            </th>
-        </tr>
-  	</thead>
-    
-     <tr>
-        <th scope="row">See License Link</th>
-        
-        <?php		
-		$eula_page_id = get_option('symbiostock_eula_page'); 
-		
-		$eula_page =  get_permalink( $eula_page_id );
-		
-		?>
-        <td><input class="symbiostock_settings" type="text" name="symbiostock_eula_page"  id="symbiostock_eula_page" value="<?php echo $eula_page; ?>" />
-            <br />
-           Page that contains your image licensing. </td>
-    </tr>
-    
+    </tr>    
+      
     <thead>
         <tr>
             <th colspan="2">

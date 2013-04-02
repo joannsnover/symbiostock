@@ -1,4 +1,7 @@
 <?php
+
+ini_set( "memory_limit", "1024M" );
+
 function symbiostock_content_header( $type )
 {
     if ( $type == 'eps' ) {

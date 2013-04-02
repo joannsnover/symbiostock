@@ -729,3 +729,12 @@ require_once('inc/classes/cart/cart.php');
 require_once('inc/classes/symbiostock_ajax_frontend.php');
 //get our interpreter class, for displaying network data and search results
 require_once(symbiostock_NETWORK_MANAGER . '/network-manager.php');
+
+//added support for other plugins 
+
+//http://wordpress.org/extend/plugins/gecka-terms-thumbnails/
+//category thumbnails
+
+if( function_exists('add_term_thumbnails_support') )
+add_term_thumbnails_support ('image-type');
+

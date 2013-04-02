@@ -53,9 +53,11 @@ class network_manager
         }
         //case by case, we change our search query
         if ( is_tax( 'image-tags' ) || is_search() ) {
+			
             $tax_query = array(
                  array(
                      'taxonomy' => 'image-tags',
+					 'include_children' => true,
                     'field' => 'name',
                     'terms' =>  preg_split('/[+\s_-]/', $image_tags ),
                     'operator' => 'AND' 
@@ -64,12 +66,19 @@ class network_manager
         }
         
         if ( is_tax( 'image-type' ) ) {
+				
+			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );			
+			$term_ID = $term->term_taxonomy_id;
+			
+			$children = get_term_children( $term_ID, 'image-type' );
+			array_push($children, $term_ID);
+			
             $tax_query = array(
                  array(
                      'taxonomy' => 'image-type',
-                    'field' => 'slug',
-                    'terms' => explode( ' ', $category ),
-                    'operator' => 'AND' 
+                    'field' => 'id',
+                    'terms' => $children,
+         
                 ) 
             );
         }
@@ -94,8 +103,7 @@ class network_manager
 	 		'post-type' => 'image',
             'paged' => $paged,
             'tax_query' => $tax_query,
-	
-	
+				
         );
         $xml = symbiostock_xml_results( $local_query );
       	
