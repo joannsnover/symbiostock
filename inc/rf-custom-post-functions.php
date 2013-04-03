@@ -89,7 +89,6 @@ function symbiostock_image_manager_register( )
 		'rewrite' => array(
 			'slug' => 'search-images', // This controls the base slug that will display before each term
 			'with_front' => false, 
-			'hierarchical' => false 
 		),
     ) );
     
@@ -112,7 +111,7 @@ function symbiostock_size_available($size, $available){
 	?>
 <select name="symbiostock_<?php echo $size ?>_available">
     <option <?php echo $yes ?> type="radio" value="yes">Available</option>
-    <option <?php echo $no ?> value="no">Not Avaiable</option>
+    <option <?php echo $no ?> value="no">Not Available</option>
     <option <?php echo $no_select ?> type="radio" value="no_select">No Select</option>
 </select>
 <?php

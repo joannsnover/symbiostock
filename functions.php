@@ -690,6 +690,33 @@ function symbiostock_credit_links( $position )
     }
     
 }
+
+//prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
+
+function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
+{
+    
+    if ( $taxonomy == 'image-type' ) {
+        
+        if ( isset( $_POST[ 'slug' ] ) && !empty( $_POST[ 'slug' ] ) ) {
+            $name = sanitize_title( $_POST[ 'slug' ] ) . '-images';
+        } elseif ( isset( $_POST[ 'tag-name' ] ) && !empty( $_POST[ 'tag-name' ] ) ) {
+            $name = sanitize_title( $_POST[ 'tag-name' ] ) . '-images';
+        } elseif ( isset( $_POST[ 'newimage-type' ] ) && !empty( $_POST[ 'newimage-type' ] ) ) {
+            $name = sanitize_title( $_POST[ 'newimage-type' ] ) . '-images';
+        }
+        
+        wp_update_term( $term_id, $taxonomy, array(
+            
+             'slug' => $name 
+            
+        ) );
+        
+    }
+    
+}
+add_action( 'create_term', 'symbiostock_unique_category', 10, 3 );
+
 /**
  * Implement the Custom Header feature
  */

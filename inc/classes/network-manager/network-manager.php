@@ -58,7 +58,7 @@ class network_manager
                  array(
                      'taxonomy' => 'image-tags',
 					 'include_children' => true,
-                    'field' => 'name',
+                    'field' => 'slug',
                     'terms' =>  preg_split('/[+\s_-]/', $image_tags ),
                     'operator' => 'AND' 
                 ) 
