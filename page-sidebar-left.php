@@ -10,13 +10,13 @@ Template Name: Page - Sidebar Left
  */
 get_header(); ?>
 		<div class="home row-fluid">
-    
+            <div class="span4">            
+                <?php get_sidebar(); ?>
+            </div>            
+            
             <div id="primary" class="content-area span8">            
             	            
-                <div class="span4">            
-                    <?php get_sidebar(); ?>
-                </div>            
-            
+               
                 <div id="content" class="site-content" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>
