@@ -71,6 +71,7 @@ class symbiostock_image_processor
         //find which watermark we are using
         $watermark_path = get_option( 'symbiostock_watermark_link' );
         
+		$watermark_path_url = $watermark_path;
         
         if ( $watermark_path == false ) {
             $watermark_path = symbiostock_CLASSDIR . '/image-processor/symbiostock-watermark.png';
@@ -78,9 +79,15 @@ class symbiostock_image_processor
         } //$watermark_path == false
         else {
             $url_vars = parse_url( $watermark_path );
-            
-            $watermark_path = $_SERVER[ 'DOCUMENT_ROOT' ] . trim( $url_vars[ 'path' ] );
-            ;
+                          	
+			if (file_exists($_SERVER[ 'DOCUMENT_ROOT' ] . trim( $url_vars[ 'path' ] ))) {
+				//first we try to get it on server
+				$watermark_path = $_SERVER[ 'DOCUMENT_ROOT' ] . trim( $url_vars[ 'path' ] );
+			
+			} else {
+				//if not, we try to get it direct from url
+				$watermark_path = $watermark_path_url;
+			}
             
         }
         
