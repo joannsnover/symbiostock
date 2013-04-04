@@ -67,8 +67,8 @@ class network_manager
         
         if ( is_tax( 'image-type' ) ) {
 				
-			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );			
-			$term_ID = $term->term_taxonomy_id;
+			$term = get_term_by( 'slug', get_query_var( 'image-type' ),  'image-type' );		
+			$term_ID = $term->term_id;
 			
 			$children = get_term_children( $term_ID, 'image-type' );
 			array_push($children, $term_ID);
