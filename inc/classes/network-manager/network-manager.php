@@ -31,7 +31,7 @@ class network_manager
     
     //local search, responsible for generating local search results, returns xml.
     public function local_search( )
-    {	
+    {
         
         //determine number of results to show -
         
@@ -43,7 +43,7 @@ class network_manager
         } else {
             $image_tags = get_query_var( 'image-tags' );
         }
-        			
+        
         //if this is a category page, then we set the value
         $category = get_query_var( 'image-type' );
         if ( isset( $category ) ) {
@@ -53,60 +53,69 @@ class network_manager
         }
         //case by case, we change our search query
         if ( is_tax( 'image-tags' ) || is_search() ) {
-			
+            
             $tax_query = array(
                  array(
                      'taxonomy' => 'image-tags',
-					 'include_children' => true,
+                    'include_children' => true,
                     'field' => 'slug',
-                    'terms' =>  preg_split('/[+\s_-]/', $image_tags ),
+                    'terms' => preg_split( '/[+\s_-]/', $image_tags ),
                     'operator' => 'AND' 
                 ) 
             );
         }
         
         if ( is_tax( 'image-type' ) ) {
-				
-			$term = get_term_by( 'slug', get_query_var( 'image-type' ),  'image-type' );		
-			$term_ID = $term->term_id;
-			
-			$children = get_term_children( $term_ID, 'image-type' );
-			array_push($children, $term_ID);
-			
+            
+            $term    = get_term_by( 'slug', get_query_var( 'image-type' ), 'image-type' );
+            $term_ID = $term->term_id;
+            
+            $children = get_term_children( $term_ID, 'image-type' );
+            array_push( $children, $term_ID );
+            
             $tax_query = array(
                  array(
                      'taxonomy' => 'image-type',
                     'field' => 'id',
-                    'terms' => $children,
-         
+                    'terms' => $children 
+                    
                 ) 
             );
         }
         
-		//get correct page variable
-		
-		if ( get_query_var('paged') )
-		
-			$paged = get_query_var('paged');
-			
-		elseif ( get_query_var('page') )
-		
-			$paged = get_query_var('page');
-			
-		else
-    		$paged = 1;	
-			
-		//make offset	
+        //get correct page variable
         
-		$offset = ( $paged - 1 ) * $results_per_page;
-        $local_query = array(  
-	 		'post-type' => 'image',
-            'paged' => $paged,
-            'tax_query' => $tax_query,
-				
-        );
+        if ( get_query_var( 'paged' ) )
+            $paged = get_query_var( 'paged' );
+        
+        elseif ( get_query_var( 'page' ) )
+            $paged = get_query_var( 'page' );
+        
+        else
+            $paged = 1;
+        
+        //make offset	
+        
+        $offset = ( $paged - 1 ) * $results_per_page;
+        
+		//Write query to display results or archive accordingly
+        if ( !is_post_type_archive( 'image' ) ) {
+            $local_query = array(
+                 'post-type' => 'image',
+                'paged' => $paged,
+                'tax_query' => $tax_query                 
+            );
+        } else {            
+            $local_query = array(
+                 'post_type' => 'image',
+                'post_status' => 'publish',
+                'caller_get_posts' => 1                 
+            );
+            
+            
+        }
         $xml = symbiostock_xml_results( $local_query );
-      	
+        
         $this->xml_results = $xml;
     }
     
@@ -122,35 +131,35 @@ class network_manager
             $network_limit = 5;
             $site_count    = 1;
             
-			
-			
+            
+            
             while ( $site_count <= 5 ) {
                 
                 $this->network_site_count = $site_count;
                 
                 $network_site = get_option( 'symbiostock_network_site_' . $site_count );
                 
-				//different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
-				//so we have to disect our url to get it to function properly...see $query below
-				$sub_level = parse_url(get_home_url());
-				
+                //different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
+                //so we have to disect our url to get it to function properly...see $query below
+                $sub_level = parse_url( get_home_url() );
+                
                 if ( symbiostock_validate_url( $network_site ) ) {
-                   				   				    
+                    
                     $arr_params = array(
                          'symbiostock_network_search' => true,
                         'symbiostock_network_info' => true,
-						'paged'=> 1
+                        'paged' => 1 
                         //'symbiostock_number_results' => 5 
-                    );                    
-					
-                    $query = add_query_arg( $arr_params );					
+                    );
                     
-					//if we don't remove the path from our own url, we will mess up the query going to our friend's site
-					//hard to explain. If you want to see what happens when you don't do what is shown  here,
-					//comment out the line below and uncomment the echo statement below that
-					$query = str_replace($sub_level['path'], '', $query);
-					//echo $query;
-												
+                    $query = add_query_arg( $arr_params );
+                    
+                    //if we don't remove the path from our own url, we will mess up the query going to our friend's site
+                    //hard to explain. If you want to see what happens when you don't do what is shown  here,
+                    //comment out the line below and uncomment the echo statement below that
+                    $query = str_replace( $sub_level[ 'path' ], '', $query );
+                    //echo $query;
+                    
                     $network_results = $this->get_remote_xml( $network_site . $query );
                     
                     $this->xml_results = $network_results;
@@ -178,7 +187,7 @@ class network_manager
         
         // $network_search set to true if a network search, false if local.
         
-        $xml     = $this->xml_results;
+        $xml = $this->xml_results;
         
         $results = symbiostock_interpret_results( $xml );
         
@@ -195,7 +204,7 @@ class network_manager
         
         $ch = curl_init();
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
         curl_setopt( $ch, CURLOPT_URL, $url ); // get the url contents
         
         $data = curl_exec( $ch ); // execute curl request

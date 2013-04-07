@@ -15,18 +15,21 @@ get_header(); ?>
 	<div class="row-fluid">
 		<section id="primary" class="content-area">
 			<div id="content" class="site-content span12" role="main">
-			<?php
-			$title = get_query_var('term');
-			if($title){
-				$title = ucwords(str_replace('-', ' ', get_query_var('term')));
-				
-				} else {
-					
-					$title=' - - - ';
-					
-					}
 			
-			echo '<h1 class="results_for">Images in category: <strong>"' . $title  . '"</strong></h1>';
+			<?php
+			//add support for YOAST SEO
+			 if ( function_exists('yoast_breadcrumb') ) {
+            yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span>');
+            } ?>
+	
+            
+			<?php
+						
+			$term = get_term_by( 'slug', get_query_var( 'image-type' ),  'image-type' );		
+			$title = $term->name;
+					
+			
+			echo '<h1 class="results_for">Images in category: <strong>"' . ucwords($title)  . '"</strong></h1>';
 			
 			$local_results->display_results(false);
 			

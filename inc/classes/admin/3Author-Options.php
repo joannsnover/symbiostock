@@ -1,6 +1,9 @@
 <?php
-include_once(symbiostock_CLASSROOT . '/paypal.php');
 //updates all images on site with current values if needed
+
+//in case user updates ALL posts, we up the time limit so it doesn't crash
+set_time_limit ( 120);
+
 function symbiostock_update_all_images(){
 	
 	$meta_values = array(
@@ -125,6 +128,11 @@ if(isset($_POST['symbiostock_medium_size'])){
 	update_option( 'symbiostock_medium_size', $_POST[ 'symbiostock_medium_size' ] );
 }
 
+//SEO title
+if(isset($_POST['symbiostock_title_seo_text'])){ 
+	update_option( 'symbiostock_title_seo_text', $_POST[ 'symbiostock_title_seo_text' ] );
+}
+
 $symbiostock_bloggee_available = get_option( 'symbiostock_bloggee_available', 'yes');
 $symbiostock_small_available   = get_option( 'symbiostock_small_available', 'yes');
 $symbiostock_medium_available  = get_option( 'symbiostock_medium_available', 'yes');
@@ -158,7 +166,8 @@ if(isset($_POST['symbiostock_update_images'])){
 <h1>Author Default Settings and Pricing</h1>
 <table class="form-table symbiostock-settings">
     <tr>
-        <th colspan=2> <h3>&raquo; Image Status</h3>
+        <th colspan=2> 
+        <strong>&raquo; Image Status</strong>
         </th>
     </tr>
     <tr>
@@ -176,7 +185,7 @@ if(isset($_POST['symbiostock_update_images'])){
             </select></td>
     </tr>
     <tr>
-        <th colspan=2> <h3>&raquo; Pricing and Options</h3>*See <strong>Settings</strong> to change  type.
+        <th colspan=2> <strong>&raquo; Pricing and Options</strong><br />*See <strong>Settings</strong> to change type.
         </th>
     </tr>
     <tr>
@@ -215,7 +224,7 @@ if(isset($_POST['symbiostock_update_images'])){
             Enter "<strong>00</strong>" to reset to 0.</td>
     </tr>
     <tr>
-        <th colspan=2> <h3>&raquo; Default Size Settings</h3>
+        <th colspan=2> <strong>&raquo; Default Size Settings</strong>
             *<strong>Note</strong> - Size settings cannot be changed on image edit page yet. Choose carefully. <em>Large</em> size is original upload size. </th>
     </tr>
     <tr>
@@ -230,8 +239,21 @@ if(isset($_POST['symbiostock_update_images'])){
         <th scope="row"><strong>Bloggee</strong></th>
         <td><input type="text" name="symbiostock_bloggee_size"  id="symbiostock_bloggee_size" value="<?php echo $symbiostock_bloggee_size ?>" /></td>
     </tr>
+    
+    
+     <tr>
+        <th colspan=2> <strong>&raquo; Image SEO</strong>
+            *Entering "<strong><em>-Royalty Free Image</em></strong>" will append that phrase to all image titles. </th>
+    </tr>
     <tr>
-        <th colspan=2> <h3>&raquo; Referral Links</h3>
+        <th scope="row"><br /><br /><strong>Append-to-Title Text</strong></th>
+        <td><input type="text" name="symbiostock_title_seo_text"  id="symbiostock_title_seo_text" value="<?php echo get_option('symbiostock_title_seo_text', ''); ?>" /><br /><br /></td>
+    </tr>
+    
+    
+    
+    <tr>
+        <th colspan=2> <strong>&raquo; Referral Links</strong>
         </th>
     </tr>
     <tr>

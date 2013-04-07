@@ -18,7 +18,7 @@ function symbiostock_image_manager_register( )
         'not_found' => 'No image found',
         'not_found_in_trash' => 'No images found in Trash',
         'parent_item_colon' => '',
-        'menu_name' => 'RF Images', 
+        'menu_name' => 'Royalty Free Images', 
 		'not_found' =>  __('No images found'),
     );
     
@@ -110,9 +110,9 @@ function symbiostock_size_available($size, $available){
 	
 	?>
 <select name="symbiostock_<?php echo $size ?>_available">
-    <option <?php echo $yes ?> type="radio" value="yes">Available</option>
+    <option <?php echo $yes ?> value="yes">Available</option>
     <option <?php echo $no ?> value="no">Not Available</option>
-    <option <?php echo $no_select ?> type="radio" value="no_select">No Select</option>
+    <option <?php echo $no_select ?> value="no_select">No Select</option>
 </select>
 <?php
 }	

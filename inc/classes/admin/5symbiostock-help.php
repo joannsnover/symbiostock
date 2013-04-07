@@ -1,4 +1,3 @@
-<?php include_once(symbiostock_CLASSROOT . '/paypal.php'); ?>
 <div>
 <strong>Symbiostock Resources</strong>
 <ul>

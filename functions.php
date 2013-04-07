@@ -654,6 +654,8 @@ function symbiostock_network_results_per_page( $query ) {
 }
 add_action( 'pre_get_posts', 'symbiostock_network_results_per_page' );
 //Symbiostock Decode Entities function
+
+
 function ssde($text) {
     $text= html_entity_decode($text,ENT_QUOTES,"ISO-8859-1"); #NOTE: UTF-8 does not work!
     //$text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
@@ -691,6 +693,30 @@ function symbiostock_credit_links( $position )
     
 }
 
+//appends an SEO phrase to image titles
+function symbiostock_seo_title( $title ) {
+
+	if ( is_single($post) && 'image' == get_post_type() && in_the_loop() ){
+
+		$append = get_option('symbiostock_title_seo_text', '');
+		
+		$title = $title . ' ' . $append;
+	
+	}
+
+	return $title;
+}
+add_filter( 'the_title', 'symbiostock_seo_title', 10, 2 );
+
+function symbiostock_seo_title_text( ) {
+
+		$title = get_option('symbiostock_title_seo_text', '');
+		
+		$title = ' ' . $title;
+				
+	return $title;
+}
+
 //prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
 
 function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
@@ -716,6 +742,38 @@ function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
     
 }
 add_action( 'create_term', 'symbiostock_unique_category', 10, 3 );
+
+//generates copyright notice for website 
+
+function symbiostock_website_copyright(){
+	
+	$copyright_owner = stripslashes(get_option('symbiostock_copyright_name', ''));	
+	
+	?>
+    <p class="muted">	
+    Copyright &copy;
+	<?php $the_year = date("Y"); echo $the_year; ?>
+	
+	<?php echo ' <strong>' . $copyright_owner  . '</strong>, ' . get_bloginfo('url') . ''; ?>
+	All Rights Reserved. 
+	</p>
+	<?php
+    $theme_credit = get_option('symbiostock_theme_credit', '');
+	
+	if(empty($theme_credit) || $theme_credit == 'on' ){
+		?>
+		<div class="muted">
+			<small>
+			<?php do_action( 'symbiostock_credits' ); ?>
+			<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'symbiostock' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'symbiostock' ), 'WordPress' ); ?></a>
+			<span class="sep"> | </span>
+			<?php printf( __( 'Theme: %1$s by %2$s.', 'symbiostock' ), 'SYMBIOSTOCK', '<a href="http://www.clipartillustration.com/" rel="designer">Leo Blanchette</a>' ); ?>
+			</small>
+		</div>    
+		<?php
+		}
+		
+	}
 
 /**
  * Implement the Custom Header feature

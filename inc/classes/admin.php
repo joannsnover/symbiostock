@@ -37,38 +37,34 @@ class symbiostock_render_admin_panel
         $this->get_pages();
         
 ?>
-    <div id="symbiostock_admin" class="wrap">
-    	
-        <?php
+
+<div id="symbiostock_admin" class="wrap">
+    <?php
         $this->symbiostock_admin_tabs();
         
 ?>
-        <form id="symbiostock_admin_form" action="" method="post" >
-        
-            <div>
-                <?php
+    
+    <form id="symbiostock_admin_form" action="" method="post" >
+        <div>
+		<?php
         
         if ( isset( $_POST[ 'symbiostock_admin_form_submit' ] ) ) {
             echo '<p>You submitted the form</p>';
         } //isset( $_POST[ 'symbiostock_admin_form_submit' ] )
         
         include_once( 'admin/' . $this->active_tab . '.php' );
-?><br />
-                
-                <?php
+?>
+        <br />
+        <?php
         submit_button();
 ?>
-                <img src="<?php
+        <img src="<?php
         echo admin_url( 'images/wpspin_light.gif' );
 ?>" class="waiting" id="symbiostock_admin_form_loader" style="display:none;" />
-                            
-            </div>
-        
-        </form>    
-    
-    </div>
-        
-    <?php
+        </div>
+    </form>
+</div>
+<?php
         
     }
     
@@ -76,7 +72,7 @@ class symbiostock_render_admin_panel
     public function symbiostock_admin_tabs( $current = '1home' )
     {
         $tabs = $this->options;
-        				
+        include_once(symbiostock_CLASSROOT . '/paypal.php');			
         echo '<div id="icon-themes" class="icon32"><br></div>';
         
         echo '<h2 class="nav-tab-wrapper">';
@@ -108,6 +104,7 @@ class symbiostock_render_admin_panel
         } //$tabs as $tab => $name
         
         echo '</h2>';
+		
         
     }
     

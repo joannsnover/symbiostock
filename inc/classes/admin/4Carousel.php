@@ -1,5 +1,4 @@
 <?php 
-include_once(symbiostock_CLASSROOT . '/paypal.php');
 function launch_pad_update_carousel(){
 	
 	//this function updates or deletes carousel options based on what was submitted.

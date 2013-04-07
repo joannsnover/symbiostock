@@ -32,11 +32,7 @@
 	</div><!-- #page .hfeed .site -->
     
    <div class="footer_info">       
-				 
-                <?php do_action( 'symbiostock_credits' ); ?>
-                <a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'symbiostock' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'symbiostock' ), 'WordPress' ); ?></a>
-                <span class="sep"> | </span>
-                <?php printf( __( 'Theme: %1$s by %2$s.', 'symbiostock' ), 'SYMBIOSTOCK', '<a href="http://www.clipartillustration.com/" rel="designer">Leo Blanchette</a>' ); ?>
+               <?php symbiostock_website_copyright(); ?>
    </div>          
 </footer><!-- #colophon .site-footer -->
 <?php include_once('modal-login.php'); ?>
