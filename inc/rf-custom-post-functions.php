@@ -23,17 +23,18 @@ function symbiostock_image_manager_register( )
     );
     
     $args = array(
-        
+                
          'labels' => $labels,
         'singular_label' => __( 'Image' ),
         'description' => 'Image Listings',
         'menu_position' => 100,
         'menu_icon' => symbiostock_IMGDIR . '/symbiostock_icon2.png',
         'public' => true,
-		'publicly_queryable' => true,
-        'show_ui' => true,
+		//'publicly_queryable' => true,
+        //'show_ui' => true,
         'capability_type' => 'post',
-        'hierarchical' => true,
+		// ----------------------------- > note - uncommenting next line seems to make issues of memory consumption.
+        //'hierarchical' => true,
         'has_archive' => true,
 		'exclude_from_search' => false,
 		'query_var' => true,
