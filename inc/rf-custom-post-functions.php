@@ -355,8 +355,7 @@ function symbiostock_image_manager_save_options( )
 		update_post_meta( $post->ID, 'symbiostock_referral_link_4', $_POST[ 'symbiostock_referral_link_4' ] );	
 		update_post_meta( $post->ID, 'symbiostock_referral_link_5', $_POST[ 'symbiostock_referral_link_5' ] );				
         
-    }
-      
+    }     
     
 }
 add_filter( 'manage_edit-image_columns', 'symbiostock_image_manager_edit_columns' );
@@ -380,18 +379,19 @@ function symbiostock_image_manager_edit_columns( $columns )
     
     return $columns;
 }
+
 add_action( 'manage_image_posts_custom_column', 'symbiostock_image_manager_custom_columns' );
 function symbiostock_image_manager_custom_columns( $column )
 {
     global $post;
-    
+    	
     $custom = get_post_custom();
     
     switch ( $column ) {
         
-		 case 'date':
-            
-                    
+		 case 'date':            
+            		
+			        
             break;
 		
 		  
@@ -462,9 +462,9 @@ function symbiostock_image_manager_custom_columns( $column )
             
             break;
             
-    } //$column
-    
+    } //$column    
 }
+
 add_action( 'init', 'symbiostock_rewrite' );
 function symbiostock_rewrite( )
 {	
