@@ -13,6 +13,11 @@ get_header(); ?>
     
             <div id="primary" class="content-area span12">
                 <div id="content" class="site-content" role="main">
+				<?php
+                //add support for YOAST SEO
+                if ( function_exists('yoast_breadcrumb') ) {
+                yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span><hr />');
+                } ?>                     
     
                     <?php while ( have_posts() ) : the_post(); ?>
 					<?php

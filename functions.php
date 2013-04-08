@@ -700,7 +700,7 @@ function symbiostock_seo_title( $title ) {
 
 		$append = get_option('symbiostock_title_seo_text', '');
 		
-		$title = $title . ' ' . $append;
+		$title = ' ' . $append;
 	
 	}
 
