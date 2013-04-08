@@ -700,7 +700,7 @@ function symbiostock_seo_title( $title ) {
 
 		$append = get_option('symbiostock_title_seo_text', '');
 		
-		$title = ' ' . $append;
+		$title = $title . ' ' . $append;
 	
 	}
 
@@ -710,11 +710,7 @@ add_filter( 'the_title', 'symbiostock_seo_title', 10, 2 );
 
 function symbiostock_seo_title_text( ) {
 
-		$title = get_option('symbiostock_title_seo_text', '');
-		
-		$title = ' ' . $title;
-				
-	return $title;
+
 }
 
 //prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
