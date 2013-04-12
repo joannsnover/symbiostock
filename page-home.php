@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: HOME Page CTAs
+Template Name: Home Page
 */
 /**
  * The template for displaying home landing page.
@@ -13,28 +13,13 @@ get_header(); ?>
     
             <div id="primary" class="content-area span12">
             
-            <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
-            
-                <div id="content" class="site-content home-content row-fluid" role="main">
+                <div id="content" class="site-content" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>
-    				<div class="span6">
-                        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                            <header class="entry-header">
-                                <h1 class="entry-title"><?php the_title(); ?></h1>
-                            </header><!-- .entry-header -->
-                            <div class="entry-content">
-                                <?php the_content(); ?>
-                               
-                                <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="edit-link">', '</span>' ); ?>
-                            </div><!-- .entry-content -->
-                        </article><!-- #post-<?php the_ID(); ?> -->
-                    </div>
-                    <div class="span6">
-                    
-                    <?php dynamic_sidebar( 'Home Page (Beside Content)' ) ?>
-                    
-                    </div>                
+    
+                        <?php get_template_part( 'content', 'page' ); ?>
+    
+                        <?php comments_template( '', true ); ?>
     
                     <?php endwhile; // end of the loop. ?>
     
@@ -42,15 +27,7 @@ get_header(); ?>
             
             
           
-            <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
-            
-            <div class="call-to-actions row-fluid">
-            
-            <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 3/3' ) ?>
-            
-            </div>
+            <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
          
     		</div><!-- #primary .content-area -->
 		
