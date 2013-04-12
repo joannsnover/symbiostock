@@ -61,22 +61,29 @@ class symbiostock_featured_images extends WP_Widget{
         echo $before_widget;
         
         if ( !empty( $title ) ) echo $before_title . $title . $after_title;
-                
-        $args = array(
         
-        'post_type' => 'image',       
-        'posts_per_page' => 4,
-		'tax_query' => array(
-		array(
-			'taxonomy' => 'image-type',
-			'field' => 'slug',
-			'terms' => 'symbiostock-featured-images'
-		)
-	)
+		$featured_images_id = get_option('symbiostock_featured_images', '');
+		
+		if(!empty($featured_images_id)){
+		        
+			$args = array(
+			
+			'post_type' => 'image',       
+			'posts_per_page' => 4,
+			'tax_query' => array(
+				array(
+						'taxonomy' => 'image-type',
+						'field' => 'id',
+						'terms' => $featured_images_id,
+						)
+					)				
+			);
         
-        );
-        
-        
+		} else {
+						
+			echo '<p>Featured Images category does not exist. Has it been deleted? Please re-activate theme and place featured images into "Symbiostock Featured Images" category.</p>';
+			
+			}
         $featuredWidget = new WP_Query($args);
         
 		?>
@@ -183,11 +190,9 @@ class symbiostock_latest_images extends WP_Widget{
         
         if ( !empty( $title ) ) echo $before_title . $title . $after_title;
                 
-        $args = array(
-        
-        'post_type' => 'image',       
-        'showposts' => 6,
-		
+        $args = array(        
+			'post_type' => 'image',       
+			'showposts' => 6,		
 		);	
         
         $featuredWidget = new WP_Query($args);

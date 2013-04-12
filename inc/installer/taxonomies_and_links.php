@@ -78,7 +78,6 @@ if(!$parent_term){
 }
 // Now we update our categories. This is a bonus feature, not required.
 $symbiostock_categories = array(
-	'Symbiostock Featured Images',
 	'Abstract | Backgrounds | Textures',
 	'Animals',
 	'Architecture | Interiors',
@@ -110,6 +109,8 @@ $symbiostock_categories = array(
 	'Industry',
 	'',
 );
+
+
 foreach($symbiostock_categories as $category){
 	$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
 	
@@ -128,4 +129,29 @@ foreach($symbiostock_categories as $category){
 		
 	}
 }
+
+//check for erroneously named term and replace it, update term info so we know featured images category
+
+$wrong_name_term = get_term_by('slug', 'symbiostock-featured-images-images', 'image-type');
+
+wp_delete_term( $wrong_name_term->term_id, 'image-type', $args );
+
+//make correct featured images category and use
+
+	$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
+	
+	if(!$parent_term){		
+		$featured_images_category_id = wp_insert_term(
+			'Symbiostock Featured Images', // the term 
+			'image-type', // the taxonomy
+			array(
+				'description'=> 'Category for Symbiostock Featured Images. Used by "Featured Images" widget.',
+				'slug' => 'Symbiostock Featured Images',
+				'parent'=> $parent_term_id
+			)
+		);
+}
+$featured_images_cat = get_term_by('slug', 'symbiostock-featured-images', 'image-type');
+update_option('symbiostock_featured_images', $featured_images_cat->term_id);
+
 ?>
