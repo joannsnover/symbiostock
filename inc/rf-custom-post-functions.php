@@ -59,7 +59,8 @@ function symbiostock_image_manager_register( )
         'rewrite' => true,
 		'exclude_from_search' =>false,
 		'public' => true, 
-        'slug' => 'image-type' 
+        'slug' => 'image-type' 		
+		
     ) );
     
     register_taxonomy( 'image-tags', array(

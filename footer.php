@@ -15,21 +15,17 @@
    	<div class="container">
 		<div class="site-info row-fluid">
       
-            <div class="span4 footer_section">
-            <?php dynamic_sidebar('Footer Left'); ?>
- 			<?php symbiostock_credit_links('footer'); ?>
-            </div>
-            <div class="span4 footer_section">
-            <?php dynamic_sidebar('Footer Middle'); ?>
-            </div>
-            <div class="span4 footer_section">
-            <?php dynamic_sidebar('Footer Right'); ?>
-			
+            
+            <?php dynamic_sidebar('Footer 1/3'); ?> 			         
+            
+            <?php dynamic_sidebar('Footer 2/3'); ?>            
+            
+            <?php dynamic_sidebar('Footer 3/3'); ?>
+            
+			<?php symbiostock_credit_links('footer'); ?>
             </div>
                     
 		</div><!-- .site-info -->
-        
-	</div><!-- #page .hfeed .site -->
     
    <div class="footer_info">       
                <?php symbiostock_website_copyright(); ?>

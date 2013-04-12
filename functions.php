@@ -122,22 +122,88 @@ function symbiostock_widgets_init() {
 		'after_title' => '</h1>',
 	) );
 	
-		
+	//Home page, above content area (typically for a slide show)
 		register_sidebar( array(
-		'name' => __( 'Featured Posts (Below Content)', 'symbiostock' ),
-		'id' => 'featured-1',
-		'before_widget' => '<div class="row-fluid"><aside id="%1$s" class="widget %2$s">',
+		'name' => __( 'Home Page (Above Content)', 'symbiostock' ),
+		'id' => 'home-page-above-content',
+		'before_widget' => '<div class="home-above-content"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+		'after_title' => '</h3></div>',
+	) );
+	//home page beside content area, such as for a sidebar type content, or CTA
+		register_sidebar( array(
+		'name' => __( 'Home Page (Beside Content)', 'symbiostock' ),
+		'id' => 'home-page-beside-content',
+		'before_widget' => '<div class="home-beside-content"><aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside></div>',
 		'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
 		'after_title' => '</h3></div>',
 	) );
 	
+	//Home page below content (for featured images)		
+		register_sidebar( array(
+		'name' => __( 'Home Page (Below Content)', 'symbiostock' ),
+		'id' => 'home-page-below-content',
+		'before_widget' => '<div class="row-fluid home-below-content"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+		'after_title' => '</h3></div>',
+	) );
+
+		//Call To Action Widgets
+			register_sidebar( array(
+		'name' => __( 'Home Page Bottom Row 1/3', 'symbiostock' ),
+		'id' => 'cta-1',
+		'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+		'name' => __( 'Home Page Bottom Row 2/3', 'symbiostock' ),
+		'id' => 'cta-2',
+		'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+		'name' => __( 'Home Page Bottom Row 3/3', 'symbiostock' ),
+		'id' => 'cta-3',
+		'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );
+		
+		//image page widget areas	
+		
+		register_sidebar( array(
+		'name' => __( 'Image Page Side', 'symbiostock' ),
+		'id' => 'image-page-side',
+		'before_widget' => '<div class="well image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );
+		
+		register_sidebar( array(
+		'name' => __( 'Image Page Bottom', 'symbiostock' ),
+		'id' => 'image-page-bottom',
+		'before_widget' => '<div class="well image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );
+			
+	
 	//footer sidebars
 	
 		register_sidebar(array(
-		'name'=>'Footer Left',
+		'name'=>'Footer 1/3',
 		
-		'before_widget' => '<div class="footer_sub_section">',
+		'before_widget' => '<div class="footer_section span4">',
 			
 		'after_widget' => "</div>\n",
 		
@@ -148,9 +214,9 @@ function symbiostock_widgets_init() {
 		
 		
 		register_sidebar(array(
-		'name'=>'Footer Middle',
+		'name'=>'Footer 2/3',
 		
-		'before_widget' => '<div class="footer_sub_section">',
+		'before_widget' => '<div class="footer_section span4">',
 			
 		'after_widget' => "</div>\n",
 		
@@ -161,9 +227,9 @@ function symbiostock_widgets_init() {
 		
 		
 		register_sidebar(array(
-		'name'=>'Footer Right',
+		'name'=>'Footer 3/3',
 		
-		'before_widget' => '<div class="footer_sub_section">',
+		'before_widget' => '<div class="footer_section span4">',
 		
 		'after_widget' => "</div>\n",
 		
@@ -236,7 +302,14 @@ function symbiostock_scripts() {
 //separate content from addon-stuff that other plugins do
 function symbiostock_sep_content($content) {
 	if(!is_feed() && !is_home()) {
-		$content = '<div class="content-wrap"><hr />' . $content . '<hr /></div>';
+		
+		$type = get_post_type( $post );
+		
+		if($type=='image'){
+		
+			$content = '<div class="content-wrap"><hr />' . $content . '<hr /></div>';
+		
+		}
 	}
 	return $content;
 }
@@ -577,13 +650,13 @@ function symbiostock_feed_display($feed_url, $qty){
 				$maxitems = $rss->get_item_quantity($qty);
 			$rss_items = $rss->get_items(0, $maxitems);
 			if ($rss_items):
-				echo "<ul>\n";
+			
 				foreach ( $rss_items as $item ) : 
 					//instead of a bunch of string concatenation or echoes, I prefer the terseness of printf 
 					//(http://php.net/manual/en/function.printf.php)
-					printf('<li><a href="%s">%s</a><p>%s</p></li>',$item->get_permalink(),$item->get_title(),$item->get_description() );
+					printf('<a href="%s">%s</a>%s',$item->get_permalink(),$item->get_title(),$item->get_description() );
 				endforeach;
-				echo "</ul>\n";
+				
 			endif;
 		endif;
 	}
@@ -631,6 +704,25 @@ function symbiostock_filter_404_title( $title )
     // just return $title
     return $title;
 }
+
+//this changes the "topics" word to "images" in taxonomy cloud
+function symbiostock_category_text( $count )
+{
+    return sprintf( _n( '%s topic', '%s Images', $count ), number_format_i18n( $count ) );
+}
+
+add_filter( 'widget_tag_cloud_args', 'symbiostock_widget_tag_cloud_args' );
+
+function symbiostock_widget_tag_cloud_args( $args )
+{
+  
+    if ( $args[ 'taxonomy' ] == 'image-type' || $args[ 'taxonomy' ] == 'image-tags') {
+        $args[ 'topic_count_text_callback' ] = symbiostock_category_text;
+    }
+    return $args;
+}
+
+
 // Hook into wp_title filter hook
 add_filter( 'wp_title', 'symbiostock_filter_404_title', 1 );
 function symbiostock_image_results_per_page( $query ) {
@@ -638,10 +730,12 @@ function symbiostock_image_results_per_page( $query ) {
 		
 		if($network_search != true && !is_admin()){
 			
-			$query->set('posts_per_page', 20);
+			$query->set('posts_per_page', 24);
 			return;
 			}
 }
+
+
 add_action( 'pre_get_posts', 'symbiostock_image_results_per_page' );
 function symbiostock_network_results_per_page( $query ) {
 		$network_search = get_query_var('symbiostock_network_search');
@@ -652,6 +746,8 @@ function symbiostock_network_results_per_page( $query ) {
 			return;
 			}
 }
+
+
 add_action( 'pre_get_posts', 'symbiostock_network_results_per_page' );
 //Symbiostock Decode Entities function
 

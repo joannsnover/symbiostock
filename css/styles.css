@@ -155,12 +155,12 @@ footer.site-footer {
 	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/type.png);
 	border-top: 7px solid #333;
 	padding: 20px 20px;
-	color: #CCC;
+	color: #E6E6E6;
 	}
 footer .footer_section{
 	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark.png);
 	padding: 10px;
-	border-radius:14px 14px;
+	border-radius:5px 5px;
 	border: 1px solid #333;
 	margin-bottom: 10px;
 	}
@@ -276,12 +276,13 @@ footer .footer_info {
 /*above header nav*/
 .above-header-menu{
 	float: right;
-	border: 1px solid #CCC;
+	border: 1px solid #E6E6E6;
 	border-width: 0 1px 1px 1px;
-	-webkit-border-radius: 0px 0px 14px 14px;
-        border-radius: 0px 0px 14px 14px;
-		padding:0 20px 0 20px;
-		width: 100%;
+	-webkit-border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px 5px 5px;
+		padding:0 10px 0 10px;
+		width: auto;
+		font-size: 12px;
 	}
 ul.above-header-menu li{
 	float: right;
@@ -294,14 +295,14 @@ ul.above-header-menu li{
 	display: none;
 }
 .header-main-nav {
-	border:1px solid #CCC;
+	border:1px solid #E6E6E6;
 	border-left:0;
 	border-right:0;
 	margin-bottom: 20px; 
 	margin-top: 10px; 	
 }
 .header-main-nav ul li {
-	border-right:dotted 1px #CCC;
+	border-right:dotted 1px #E6E6E6;
 	
 }
 .header-main-nav ul li a:link, .header-main-nav ul li a:visited {
@@ -352,12 +353,13 @@ ul.above-header-menu li{
 	}
 .dropdown-toggle a:link {
 }
+
 .dropdown-toggle .sub-menu {
 	position:absolute;
 	top:100%;
 	border: #FFF 2px solid;
 	border-radius:0 0 14px 14px;
-	background-image: url(http://localhost/symbiostock/wp-content/themes/symbiostock/img/bg/transparent_dark3.png);
+	background-color: #FFF;
 	padding-bottom:10px
 }
 .dropdown-toggle .sub-menu li {
@@ -369,7 +371,7 @@ ul.above-header-menu li{
 	background-color:transparent
 }
 .dropdown-toggle .sub-menu li a:link, .dropdown-toggle .sub-menu li a:visited {
-	color: #E2E2E2;
+	color: #666;
 	font-size:12px;
 	text-align:left;
 	padding:0 20px 0 20px;
@@ -383,14 +385,13 @@ ul.above-header-menu li{
 }
 .dropdown-toggle .sub-menu ul {
 	top:0;
-	border-width: 2px;
-	border-color:#FFF;
+	border-width: 1px;
+	border-color:#E6E6E6;
 	border-radius:14px 14px 14px 14px;
-	background-color:#333;
+	background-color:#FFF;
 	left:90%
 }
 .header-main-nav ul li.current-menu-item a:link, .header-main-nav ul li.current-menu-item a:visited, .header-main-nav ul li.current-menu-item a:hover, .header-main-nav ul li.current-menu-item a:active {
-	border-top:solid 3px #333;
 	padding-top:15px;
 	background-color: transparent;
 }
@@ -409,12 +410,12 @@ ul.above-header-menu li{
 	color:#333
 }
  .header-main-nav ul li ul li.current-menu-item a:link, .header-main-nav ul li ul li.current-menu-item a:visited, .header-main-nav ul li ul li.current-menu-item a:hover, .header-main-nav ul li ul li.current-menu-item a:active{
-	 padding-top: 0;
-	 background-color: #202020;
+	 padding-top: 0;	
 	 }
 /*--------------------------------------------------------------
 SYMBIOSTOCK CONTENT
 --------------------------------------------------------------*/
+
 .content-wrap{
 	clear: both;
 	}
@@ -425,7 +426,7 @@ SYMBIOSTOCK CONTENT
     text-align: center;
 }	
 .site-main {
-	border-top: #CCC 0px solid;
+	border-top: #E6E6E6 0px solid;
 	}
 .site-content:after {
 	content: ".";
@@ -438,7 +439,7 @@ SYMBIOSTOCK CONTENT
 .site-content{
 	margin: 0px 0px 20px 0px;
 	padding: 0px 20px 20px 0px;
-	border: 1px solid #CCC;
+	border: 1px solid #E6E6E6;
 	border-top: 0;
 	border-bottom: 0;
 	border-left: 0;
@@ -451,6 +452,15 @@ SYMBIOSTOCK CONTENT
 	border: 0;
 	
 	}
+
+.home-content h1 {
+	font-size: 24px;	
+	color: #666;
+	}
+.home-content {
+	color: #666;
+	}		
+	
 /*--------------------------------------------------------------
 SYMBIOSTOCK WIDGETS
 --------------------------------------------------------------*/	
@@ -465,7 +475,7 @@ SYMBIOSTOCK WIDGETS
 	font-size: 22px;
 	color: #999;
 	letter-spacing: 1px;
-	border-bottom: 3px solid #CCC;
+	border-bottom: 3px solid #E6E6E6;
 	padding: 5px 0 5px 0;
 	margin: 5px 0 4px 0;
 	line-height: 1.618;
@@ -484,14 +494,18 @@ SYMBIOSTOCK WIDGETS
 .widget-area ul li{
 	padding-top: 5px;
 	padding-bottom: 4px;
-	border-bottom: 1px #CCC solid;
+	border-bottom: 1px #E6E6E6 solid;
 	}
 	
 /*--------------------------------------------------------------
 SYMBIOSTOCK CART
 --------------------------------------------------------------*/	
+.symbiostock_product th {
+	background-color: #E6E6E6;
+	}
 #symbiostock_product_table tr{
 	}
+	
 #symbiostock_product_table tr.in_cart td,
 #symbiostock_product_table tr.in_cart label {
 	font-style: oblique;
@@ -504,7 +518,7 @@ span.compare_discount{
 	
 	}
 .not_available {
-	color: #CCC;
+	color: #E6E6E6;
 	}
 	
 .not_available label {
@@ -548,10 +562,38 @@ a:active.remove_from_cart {}
 /*--------------------------------------------------------------
 SYMBIOSTOCK FEATURED POSTS
 --------------------------------------------------------------*/	
-#primary .widget-featured img {
-	border: #FFF 2px solid;
+
+.widget-featured .inner-featured{
+
+	}
+.front-page-featured{
+	
+	}
+.widget_symbiostock_latest_images h3, .widget_symbiostock_featured_images h3 {
+	background-color: #F0F0F0;
+	margin: 0;
+	margin-bottom: 10px;
+	padding-left: 10px;	
+	}	
+.widget_symbiostock_latest_images, .widget_symbiostock_featured_images {
+	border-top: 1px solid #E6E6E6;
+	border-bottom: 1px solid #E6E6E6;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	}	
+.widget_symbiostock_featured_images_homepage h3{
+	font-size: 16px;	
+	}	
+.widget-featured img {
+	border: #E6E6E6 1px solid;
 	-webkit-border-radius: 12px;
-border-radius: 12px; 
+	border-radius: 12px; 
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 10px;
+	
 	}
 .widget-area .widget-featured {
 	height: 61px;
@@ -674,6 +716,20 @@ SYMBIOSTOCK SEARCH RESULTS
 	}
 /* =Content
 ----------------------------------------------- */
+
+.symbiostock-image a:link, 
+.symbiostock-image a:visited,
+.symbiostock-image a:hover, 
+.symbiostock-image :active{	
+	text-decoration: none;
+	color: #666;
+	}
+.symbiostock-image h1 {
+	font-size: 18px;
+	margin-top: 0;
+	margin-bottom: 20px;	
+	}
+
 .sticky {
 }
 .hentry {
@@ -731,7 +787,7 @@ img.size-full {
 	padding: 0;
 }
 .wp-caption {
-	border: 1px solid #ccc;
+	border: 1px solid #E6E6E6;
 	max-width: 100%;
 }
 .wp-caption.aligncenter,
@@ -826,6 +882,8 @@ padding-left: 10px;
 #searchsubmit {
 	display: none;
 }
+
+
 /**
  * The following are CSS styles extrapolated from the bp-default theme.
  * Use these styles as a guideline. You will probably need to adjust some
@@ -863,7 +921,7 @@ form#whats-new-form #whats-new-content {
 }
 form#whats-new-form textarea {
 	background: #fff;
-	border: 1px inset #ccc;
+	border: 1px inset #E6E6E6;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -1216,7 +1274,7 @@ div.activity-comments form.loading {
 }
 div.activity-comments form .ac-textarea {
 	background: #fff;
-	border: 1px inset #ccc;
+	border: 1px inset #E6E6E6;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -1330,7 +1388,7 @@ ul.button-nav li.current a {
 .standard-form select,
 .standard-form input[type=password],
 .dir-search input[type=text] {
-	border: 1px inset #ccc;
+	border: 1px inset #E6E6E6;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -1476,7 +1534,7 @@ div.generic-button a,
 	background: -ms-linear-gradient(top, #ffffff 0%,#ededed 100%); /* IE10+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
 	background: linear-gradient(top, #ffffff 0%,#ededed 100%); /* W3C */
-	border: 1px solid #ccc;
+	border: 1px solid #E6E6E6;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -1556,7 +1614,7 @@ input[type="reset"].loading:hover {
 	background-image: url( ../buddypress/bp-themes/bp-default/_inc/images/ajax-loader.gif ), -ms-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* IE10+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( enabled=0 ); /* IE6-9 */
 	background-image: url( ../buddypress/bp-themes/bp-default/_inc/images/ajax-loader.gif ), linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* W3C */
-	border: 1px solid #ccc;
+	border: 1px solid #E6E6E6;
 	padding-right: 25px;
 }
 input[type="submit"].pending,
@@ -2250,7 +2308,7 @@ form#whats-new-form {
 	}
 	form#whats-new-form #whats-new-textarea {
 		padding: 8px;
-		border: 1px inset #ccc;
+		border: 1px inset #E6E6E6;
 		margin-bottom: 10px;
 	}
 	form#whats-new-form textarea {
@@ -2324,7 +2382,7 @@ div.activity-comments form {
 	}
 	div.activity-comments form .ac-textarea {
 		padding: 8px;
-		border: 1px inset #ccc;
+		border: 1px inset #E6E6E6;
 		margin-bottom: 10px;
 	}
 		div.activity-comments form textarea {

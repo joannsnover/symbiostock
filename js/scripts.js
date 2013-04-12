@@ -1,16 +1,20 @@
 // JavaScript Document
 //navigation menu
 jQuery(document).ready(function ($) {
+ 
+ 
     $('.dropdown-toggle ul').css('display', 'block').slideUp(0);
     $('.dropdown-toggle').hover(
     function () {
         //drops submenu
-        $(this).children('ul').slideDown(100);
+        $(this).children('ul').stop(true,true).fadeIn("slow");
     },
     function () {
         //retracts submenu
-        $(this).children('ul').slideUp(100);
+        $(this).children('ul').stop(true,true).fadeOut("slow");
     });
+	
+	
     //carousel
     $('.carousel').carousel()
     //window sizing and responsive adjustments for devices

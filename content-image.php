@@ -13,7 +13,7 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
 //var_dump($symbiostock_post_meta);
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class("row-fluid"); ?>>
-    <div class="span7">
+    <div class="symbiostock-image span7">
         <header class="entry-header">
             <div itemscope itemtype="http://schema.org/ImageObject" class="hmedia">
                 <div class="well">
@@ -47,6 +47,14 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
                 ?>
                     
                 </div>
+                
+                <?php
+				
+				//get bottom sidebar
+				dynamic_sidebar( 'Image Page Bottom' );
+				
+				?>
+                
             </div>
             <?php if ( 'post' == get_post_type() ) : ?>
             <div class="entry-meta">
@@ -66,6 +74,9 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
 		$cart_options = new symbiostock_cart($symbiostock_post_meta);
 		
 		$cart_options->display_product_table();
+		
+		//get sidebar
+		dynamic_sidebar( 'Image Page Side' );
 		
 		$cart_options->display_referral_links();
 		symbiostock_credit_links('product_page');

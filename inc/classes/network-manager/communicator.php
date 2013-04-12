@@ -243,7 +243,7 @@ function symbiostock_xml_results($network_query){
 		$symbiostock_xml->createElement( "network_info" ) );
 		
 		foreach($network_info_array as $key => $value){
-			
+
 			$network_info->appendChild( 
 			$symbiostock_xml->createElement( $key, ssde($value) ) );		
 			

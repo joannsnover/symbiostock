@@ -1,16 +1,16 @@
 <?php
-class symbiostock_featured_posts_homepage extends WP_Widget{
+class symbiostock_featured_images extends WP_Widget{
     
     public function __construct() {
         //widget actual process
         
         parent::__construct(
         
-            'symbiostock_featured_posts_homepage',
+            'symbiostock_featured_images',
             
-            'Featured Posts (Below Content)',
+            'Symbiostock - Featured Images',
             
-            array( 'description' => __( 'symbiostock featured posts below content area.' ) )
+            array( 'description' => __( 'Symbiostock featured images below content area.' ) )
         
         );
         
@@ -20,17 +20,20 @@ class symbiostock_featured_posts_homepage extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Featured Posts';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Featured Images';
         
         ?>
-        <p>
-        
-        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title: ' ); ?></label>
-        
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
-        
-        </p>      
-        <?php
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+        <?php _e( 'Title: ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+    <br />
+    <br />
+    Symbiostock installs with a <em><strong>Symbiostock Featured Images</strong></em> category. Images in this category will show up where this widget is added. 6 images suggested max.
+</p>
+<?php
                 
         }    
         
@@ -48,8 +51,9 @@ class symbiostock_featured_posts_homepage extends WP_Widget{
         
     public function widget( $args, $instance ){
         
-        //outputs the content of the widget
-        
+        //outputs the content of the widget   
+		
+		
         extract( $args );
         
         $title = apply_filters( 'widget_title', $instance[ 'title' ] );
@@ -60,42 +64,52 @@ class symbiostock_featured_posts_homepage extends WP_Widget{
                 
         $args = array(
         
-        'post_type' => 'post',
-		
-		'tag' => 'featured',
-        
-        'posts_per_page' => 4
+        'post_type' => 'image',       
+        'posts_per_page' => 4,
+		'tax_query' => array(
+		array(
+			'taxonomy' => 'image-type',
+			'field' => 'slug',
+			'terms' => 'symbiostock-featured-images'
+		)
+	)
         
         );
         
         
         $featuredWidget = new WP_Query($args);
         
-		?> <div class="row-fluid"> <?php 
+		?>
+<div class="row-fluid front-page-featured">
+    <?php 
 		
         while ( $featuredWidget->have_posts() ) : 
             $featuredWidget->the_post(); 
 								
 			?>
+    <div class="widget-featured search-result">
+        <div class="inner-featured">
+            <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+                <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
+                </a> </div>
+      <!--  <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+            <?php the_title(); ?>
+            </a>
+
+            <?php  the_excerpt( ); ?>
             
-            <div class="widget-featured span3">
+            <p class="entry-date"><i class="icon-calendar"> </i>
+                <?php the_time('F j, Y'); ?>
+            </p>-->
             
-                <div class="thumb">
-                <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>"><?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'homepage-thumb-cropped' ); } ?></a>
-                </div>
-                
-                <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                
-                <p class="entry-date"><i class="icon-calendar"> </i> <?php the_time('F j, Y'); ?></p>
-                
-                <?php  the_excerpt( ); ?>                
-            </div>    
-            
-        
-        <?php
+        </div>
+    </div>
+    <?php
         endwhile;   
         
-		?> </div> <?php 
+		?>
+</div>
+<?php 
 		
         wp_reset_postdata();
         
@@ -104,20 +118,21 @@ class symbiostock_featured_posts_homepage extends WP_Widget{
     }
     
 }
-register_widget( 'symbiostock_featured_posts_homepage' );
-class symbiostock_featured_posts_sidebar extends WP_Widget{
+register_widget( 'symbiostock_featured_images' );
+
+
+class symbiostock_latest_images extends WP_Widget{
     
     public function __construct() {
-        
         //widget actual process
         
         parent::__construct(
         
-            'symbiostock_featured_posts_sidebar',
+            'symbiostock_latest_images',
             
-            'Featured Posts (SideBar)',
+            'Symbiostock - Latest Images',
             
-            array( 'description' => __( 'symbiostock featured posts placed on sidebar.' ) )
+            array( 'description' => __( 'Displays your latest images on whatever widget you assign it to.' ) )
         
         );
         
@@ -127,17 +142,20 @@ class symbiostock_featured_posts_sidebar extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Featured Posts';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Latest Images';
         
         ?>
-        <p>
-        
-        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title: ' ); ?></label>
-        
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
-        
-        </p>      
-        <?php
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+        <?php _e( 'Title: ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+    <br />
+    <br />
+    Displays your latest images!
+</p>
+<?php
                 
         }    
         
@@ -155,8 +173,8 @@ class symbiostock_featured_posts_sidebar extends WP_Widget{
         
     public function widget( $args, $instance ){
         
-        //outputs the content of the widget
-        
+        //outputs the content of the widget   		
+		
         extract( $args );
         
         $title = apply_filters( 'widget_title', $instance[ 'title' ] );
@@ -167,37 +185,39 @@ class symbiostock_featured_posts_sidebar extends WP_Widget{
                 
         $args = array(
         
-        'post_type' => 'post',
+        'post_type' => 'image',       
+        'showposts' => 6,
 		
-		'tag' => 'featured',
-        
-        'posts_per_page' => 4
-        
-        );
-        
+		);	
         
         $featuredWidget = new WP_Query($args);
         
-		?> <ul> <?php 
+		?>
+<div class="row-fluid front-page-featured">
+    <?php 
 		
         while ( $featuredWidget->have_posts() ) : 
-            $featuredWidget->the_post(); ?>
+            $featuredWidget->the_post(); 
+								
+			?>
+    <div class="widget-featured search-result">
+        <div class="inner-latest">
+            <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+                <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
+                </a> </div>
             
-            <li class="widget-featured">
+            <p class="entry-date"><i class="icon-calendar"> </i>
+                <?php the_time('F j, Y'); ?>
+            </p>
             
-               
-                <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>"><?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'mini-thumb' ); } ?></a>
-               
-                <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                <p class="entry-date"><i class="icon-calendar"> </i>  <?php the_time('F j, Y'); ?></p>
-                                         
-            </li>    
-            
-        
-        <?php
+        </div>
+    </div>
+    <?php
         endwhile;   
         
-		?> </ul> <?php 
+		?>
+</div>
+<?php 
 		
         wp_reset_postdata();
         
@@ -206,7 +226,9 @@ class symbiostock_featured_posts_sidebar extends WP_Widget{
     }
     
 }
-register_widget( 'symbiostock_featured_posts_sidebar' );
+register_widget( 'symbiostock_latest_images' );
+
+
 class symbiostock_mobile_navigation extends WP_Widget{
     
     public function __construct() {
@@ -217,7 +239,7 @@ class symbiostock_mobile_navigation extends WP_Widget{
         
             'symbiostock_mobile_nav',
             
-            'Mobile Navigation',
+            'Symbiostock - Mobile Navigation',
             
             array( 'description' => __( 'Dropdown menu of main navigation for devices with small screens.' ) )
         
@@ -232,14 +254,13 @@ class symbiostock_mobile_navigation extends WP_Widget{
         $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Mobile Navigation';
         
         ?>
-        <p>
-        
-        <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title: ' ); ?></label>
-        
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
-        
-        </p>      
-        <?php
+<p>
+    <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+        <?php _e( 'Title: ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+</p>
+<?php
                 
         }    
         
@@ -273,4 +294,126 @@ class symbiostock_mobile_navigation extends WP_Widget{
     
 }
 register_widget( 'symbiostock_mobile_navigation' );
+
+
+
+
+
+//similar images widget STILL UNDER CONSTRUCTION
+/*
+class symbiostock_similar_images extends WP_Widget{
+    
+    public function __construct() {
+        
+        //widget actual process
+        
+        parent::__construct(
+        
+            'symbiostock_similar_images',
+            
+            'Symbiostock - Similar Images',
+            
+            array( 'description' => __( 'Shows related images on a given image page.' ) )
+        
+        );
+        
+    }
+        
+    public function form( $instance ) {
+        
+        //outputs the options form on Admin screen
+        
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Similar Images';
+        
+        ?>
+<p>
+    <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+        <?php _e( 'Title: ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+</p>
+<?php
+                
+        }    
+        
+    public function widget( $args, $instance )
+{
+    
+    //get current image id
+    global $wp_query;
+    
+    $post = $wp_query->post;
+    
+    $image_ID = $post->ID;
+    
+    //outputs the content of the widget
+    
+    extract( $args );
+    
+    $tags = wp_get_object_terms( $image_ID, 'image-tags' );
+    
+    $title = apply_filters( 'widget_title', $instance[ 'title' ] );
+    
+    echo $before_widget;
+    
+    if ( !empty( $title ) )
+        echo $before_title . $title . $after_title;
+    
+    //this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin
+    
+    if ( $tags ) {
+        $tag_ids = array( );
+        foreach ( $tags as $individual_tag )
+            $tag_ids[ ] = $individual_tag->term_id;
+        
+        $query_args = array(
+			  'post_type' => 'image',
+			  'tax_query' => array(
+							array(
+								'taxonomy' => 'image-tags',
+								'field' => 'id',
+								'terms' => $tag_ids,
+								'operator'=> 'IN' //Or 'AND' or 'NOT IN'
+							 )),
+			  'showposts' => 6,	
+			  'orderby' => 'ASC',
+			  'post__not_in'=>array($post->ID)
+        );
+        
+        $similar_images_query = new wp_query( $query_args );
+        
+        if ( $similar_images_query->have_posts() ) {
+            
+            while ( $similar_images_query->have_posts() ) {
+                $similar_images_query->the_post();
+			?>
+			
+			<div class="widget-featured search-result">
+				<div class="inner-featured">
+					<div class="thumb"> 
+					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+						<?php
+							if ( has_post_thumbnail() ) {
+								the_post_thumbnail();
+							}				
+						?>
+					</a> </div>
+				</div>
+			</div>
+			<?php
+            }
+            
+        }
+    }
+    
+    echo '<div class="clearfix"></div>';
+    echo $after_widget;
+    
+}
+
+
+    
+}
+register_widget( 'symbiostock_similar_images' );
+*/
 ?>

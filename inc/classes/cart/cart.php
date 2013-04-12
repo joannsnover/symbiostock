@@ -411,7 +411,7 @@ class symbiostock_cart
                 </td>
               
                 <td ><span class="total">Total: <?php echo $this->get_cart_value(); ?></span>
-                <button class="btn btn-large" type="submit"><i class="icon-shopping-cart"> Get Licenses</i></button></td>
+                <button class="btn btn-large" type="submit"><i class="icon-shopping-cart"> Pay Now </i></button></td>
                 <td>&nbsp;</td>
                 </tr>         
               	

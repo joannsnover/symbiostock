@@ -21,10 +21,13 @@ class nav_walker_description extends Walker_Nav_Menu
 			//assign home icon if home url
 			rtrim( $item->url, "/" ) == get_home_url()? $icon = '<i class="icon-home"></i> ' : $icon = '';
 			
+			//gives us a chevron if a dropdown
 			if(is_array($item->classes)){
 			
 			in_array( 'dropdown-toggle', $item->classes )? $icon_dropdown = ' <i class="icon-chevron-down"> </i> ' : $icon_dropdown  = '';
 			
+			empty( $item->description ) && in_array( 'dropdown-toggle', $item->classes ) ? $icon_dropdown_top = ' <i class="icon-chevron-down"> </i> ' : $icon_dropdown_top  = '';
+						
 			}
 			
            $prepend = '<strong>' .$icon;
@@ -35,10 +38,10 @@ class nav_walker_description extends Walker_Nav_Menu
                      $description = $append = $prepend = "";
            }
             $item_output = $args->before;
-            $item_output .= '<a'. $attributes .'>';
+            $item_output .=  '<a'. $attributes .'>';
             $item_output .= $args->link_before .$prepend.apply_filters( 'the_title', $item->title, $item->ID ).$append;
             $item_output .= $description.$args->link_after;
-            $item_output .= '</a>';
+            $item_output .= $icon_dropdown_top . '</a>';
             $item_output .= $args->after;
             $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
             }
