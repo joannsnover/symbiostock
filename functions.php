@@ -592,12 +592,12 @@ function symbiostock_customer_area($text){
 //customer login page is generated on setup. We retrieve this at various parts of site
 function symbiostock_customer_login($text){
 	
-	$eula_page_id = get_option('symbiostock_eula_page'); 
+	$login_page_id = get_option('symbiostock_login_page'); 
 	
-	$permalink =  get_permalink( $eula_page_id );
+	$permalink =  get_permalink( $login_page_id );
 	
-	$eula_page_id_link = '<a title="' . $text. '" href="' . $permalink . '"><i class="icon-file"> </i> ' . $text . '</a>';
-	return $eula_page_id_link;
+	$login_page_id_link = '<a title="' . $text. '" href="' . $permalink . '"><i class="icon-file"> </i> ' . $text . '</a>';
+	return $login_page_id_link;
 	
 }	
 function symbiostock_eula($text){
@@ -675,6 +675,9 @@ function symbiostock_wp_query_vars( $qvars ){
 	$qvars[] = 'symbiostock_network_search'; //is this a network query?
 	$qvars[] = 'symbiostock_network_info'; //do we want network info?
 	$qvars[] = 'symbiostock_number_results'; //how many search results do we want?
+	
+	$qvars[] = 'paypal_return_message'; //if returning from paypal, we show a message in user area
+	
 	return $qvars;
 	}
 add_filter('query_vars', 'symbiostock_wp_query_vars');
@@ -749,9 +752,8 @@ function symbiostock_network_results_per_page( $query ) {
 
 
 add_action( 'pre_get_posts', 'symbiostock_network_results_per_page' );
+
 //Symbiostock Decode Entities function
-
-
 function ssde($text) {
     $text= html_entity_decode($text,ENT_QUOTES,"ISO-8859-1"); #NOTE: UTF-8 does not work!
     //$text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
@@ -759,6 +761,7 @@ function ssde($text) {
 	
     return $text;
 }
+
 function symbiostock_credit_links( $position )
 {
     
@@ -804,10 +807,84 @@ function symbiostock_seo_title( $title ) {
 }
 add_filter( 'the_title', 'symbiostock_seo_title', 10, 2 );
 
-function symbiostock_seo_title_text( ) {
+//get related images function (used in Author Options area...generates relataged images for Similar Images widget)
 
+function symbiostock_get_related_image_ids( $post_id, $number = 6 ) {
+	
+	// thanks to keesiemeijer
+	// http://wordpress.org/support/topic/custom-query-related-posts-by-common-tag-amount?replies=7
+	
+	$related_ids = false;
 
+	$post_ids = array();
+	// get tag ids belonging to $post_id
+	$tag_ids = wp_get_object_terms( $post_id, 'image-tags', array( 'fields' => 'ids' ) );
+		
+	if ( $tag_ids ) {
+		// get all posts that have the same tags
+		$tag_posts = get_posts(
+			array(
+				'posts_per_page' => -1, // return all posts \
+				'post_type'      => 'image',
+				'no_found_rows'  => true, // no need for pagination
+				'fields'         => 'ids', // only return ids
+				'post__not_in'   => array( $post_id ), // exclude $post_id from results
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'image-tags',
+						'field'    => 'id',
+						'terms'    => $tag_ids,
+						'operator' => 'IN'
+					)
+				)
+			)
+		);
+		
+		// loop through posts with the same tags
+		if ( $tag_posts ) {
+			$score = array();
+			$i = 0;
+			foreach ( $tag_posts as $tag_post ) {
+				// get tags for related post
+				$terms = wp_get_object_terms( $tag_post, 'image-tags', array( 'fields' => 'ids' ) );
+				$total_score = 0;
+				
+				foreach ( $terms as $term ) {
+					if ( in_array( $term, $tag_ids ) ) {
+						++$total_score;
+					}
+				}
+
+				if ( $total_score > 0 ) {
+					$score[$i]['ID'] = $tag_post;
+					// add number $i for sorting 
+					$score[$i]['score'] = array( $total_score, $i );
+				}
+				++$i;
+			}
+
+			// sort the related posts from high score to low score
+			uasort( $score, 'symbiostock_sort_tag_score' );
+			
+			// get sorted related post ids
+			$related_ids = wp_list_pluck( $score, 'ID' );
+			// limit ids
+			$related_ids = array_slice( $related_ids, 0, (int) $number );
+		}
+	}
+	
+	return $related_ids;
 }
+
+
+function symbiostock_sort_tag_score( $item1, $item2 ) {
+	if ( $item1['score'][0] != $item2['score'][0] ) {
+		return $item1['score'][0] < $item2['score'][0] ? 1 : -1;
+	} else {
+		return $item1['score'][1] < $item2['score'][1] ? -1 : 1; // ASC
+	}
+}
+
 
 //prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
 
@@ -834,6 +911,7 @@ function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
     
 }
 add_action( 'create_term', 'symbiostock_unique_category', 10, 3 );
+
 
 //generates copyright notice for website 
 

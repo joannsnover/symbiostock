@@ -17,24 +17,29 @@ jQuery(document).ready(function ($) {
 	
     //carousel
     $('.carousel').carousel()
-    //window sizing and responsive adjustments for devices
-    var window_size = $(window).width();
-    var main_nav = $('#main-navigation').clone(true, true);
-    var mobile_nav = $('.mobile_menu').clone(true, true).addClass('cloned span12');
-    if (window_size < 1000) {
-        $('#main-navigation').hide();
-        $(mobile_nav).insertAfter('.main-navigation');
-    }
-    $(window).on('resize', function () {
-        var resized = $(window).width();
-        if (resized < 1000) {
-            $('#main-navigation').hide();
-            $(mobile_nav).insertAfter('.main-navigation');
-        } else {
-            $(mobile_nav).remove();
-            $('#main-navigation').show();
-        }
-    });
+	
+	if ($('#symbiostock_mobile_menu').length) {
+		
+		//window sizing and responsive adjustments for devices
+		var window_size = $(window).width();
+		var main_nav = $('#main-navigation').clone(true, true);
+		var mobile_nav = $('.mobile_menu').clone(true, true).addClass('cloned span12');
+		if (window_size < 1000) {
+			$('#main-navigation').hide();
+			$(mobile_nav).insertAfter('.main-navigation');
+		}
+		$(window).on('resize', function () {
+			var resized = $(window).width();
+			if (resized < 1000) {
+				$('#main-navigation').hide();
+				$(mobile_nav).insertAfter('.main-navigation');
+			} else {
+				$(mobile_nav).remove();
+				$('#main-navigation').show();
+			}
+		});
+	
+	}
     //Product Ajax
     //if product selection changes...
     $(document).on("click", 'input[name="product"]', function (event) {

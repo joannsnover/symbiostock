@@ -192,4 +192,3 @@ while($site_count <= 5){
                 Deactivate</label>
         </p>
     </div>
-</div>

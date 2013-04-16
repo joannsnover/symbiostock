@@ -478,7 +478,7 @@ class symbiostock_image_processor
         $info = $this->files[ $file_name ];
         
         if ( in_array( 'jpg', $info[ 'extensions' ] ) ) {
-            $size = GetImageSize( $dir . $file_name . '.jpg', &$info );
+            $size = getimagesize( $dir . $file_name . '.jpg', $info );
             
             $iptc = iptcparse( $info[ "APP13" ] );
             
@@ -965,7 +965,7 @@ class symbiostock_image_processor
         $image_tags = explode( ',', $image_meta_array[ 'keywords' ] );
         
         $post = array(
-             'comment_status' => 'open', // 'closed' means no comments.
+             'comment_status' => get_option('symbiostock_comments', 'open'), // 'closed' means no comments.
             
             'ping_status' => 'open', // 'closed' means pingbacks or trackbacks turned off
             

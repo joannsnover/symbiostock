@@ -61,7 +61,7 @@ function symbiostock_mobile_menu(){
     'menu'            => '', 
     'container'       => 'div', 
     'container_class' => 'mobile_menu', 
-    'container_id'    => '',
+    'container_id'    => 'symbiostock_mobile_menu',
     'menu_class'      => '', 
     'menu_id'         => '',
     'echo'            => true,

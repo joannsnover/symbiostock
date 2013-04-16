@@ -305,7 +305,7 @@ register_widget( 'symbiostock_mobile_navigation' );
 
 
 //similar images widget STILL UNDER CONSTRUCTION
-/*
+
 class symbiostock_similar_images extends WP_Widget{
     
     public function __construct() {
@@ -335,7 +335,10 @@ class symbiostock_similar_images extends WP_Widget{
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
         <?php _e( 'Title: ' ); ?>
     </label>
-    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
+    <br /> For this widget to work you must: 
+    <br /><br /> <strong>A:</strong> Run the "related images" update in <a title="Update Related Images" href="<?php echo get_home_url() ?>/wp-admin/admin.php?page=symbiostock-control-options&tab=3Author-Options">Author Options</a>, located at bottom of page.
+    <br /><br /> <strong>B:</strong> Ensure the widget is located on the <em>Image Page</em> widget areas. 
 </p>
 <?php
                 
@@ -365,60 +368,55 @@ class symbiostock_similar_images extends WP_Widget{
         echo $before_title . $title . $after_title;
     
     //this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin
-    
-    if ( $tags ) {
-        $tag_ids = array( );
-        foreach ( $tags as $individual_tag )
-            $tag_ids[ ] = $individual_tag->term_id;
-        
-        $query_args = array(
-			  'post_type' => 'image',
-			  'tax_query' => array(
-							array(
-								'taxonomy' => 'image-tags',
-								'field' => 'id',
-								'terms' => $tag_ids,
-								'operator'=> 'IN' //Or 'AND' or 'NOT IN'
-							 )),
-			  'showposts' => 6,	
-			  'orderby' => 'ASC',
-			  'post__not_in'=>array($post->ID)
-        );
-        
-        $similar_images_query = new wp_query( $query_args );
-        
-        if ( $similar_images_query->have_posts() ) {
-            
-            while ( $similar_images_query->have_posts() ) {
-                $similar_images_query->the_post();
-			?>
+	
+	$related_image_ids = get_post_meta($image_ID, 'symbiostock_related_images', array());
+	
+	$post_type = get_post_type();
+		
+		if(!empty($related_image_ids[0]) && $post_type=='image'){
+					
+			$related_image_ids = array_reverse($related_image_ids);
+						
+			$args = array(
+				'post__in'  => $related_image_ids[0],
+				'post_type' => 'image',		 
+						
+			);		
 			
-			<div class="widget-featured search-result">
-				<div class="inner-featured">
-					<div class="thumb"> 
-					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
-						<?php
-							if ( has_post_thumbnail() ) {
-								the_post_thumbnail();
-							}				
+			$relatedImagesWidget = new WP_Query($args);
+			
+			?>
+			<div class="row-fluid front-page-featured">
+				<?php 
+					
+				while ( $relatedImagesWidget->have_posts() ) : 
+					$relatedImagesWidget->the_post(); 									
 						?>
-					</a> </div>
+				<div class="widget-featured search-result">
+					<div class="inner-featured">
+						<div class="thumb"> 
+							<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+								<?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
+							</a> 
+						</div>
+					</div>
 				</div>
+				<?php
+				endwhile; 
+				?>
 			</div>
-			<?php
-            }
-            
-        }
-    }
-    
-    echo '<div class="clearfix"></div>';
-    echo $after_widget;
-    
+			<?php 
+				
+			wp_reset_postdata();
+			
+		echo '<div class="clearfix"></div>';
+		echo $after_widget;
+		
+		}
+
 }
-
-
     
 }
 register_widget( 'symbiostock_similar_images' );
-*/
+
 ?>

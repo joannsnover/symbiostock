@@ -179,7 +179,7 @@ function symbiostock_xml_results($network_query){
 				if ( $keywords ) {
 					foreach ( $keywords as $keyword ) {
 						$keyTag->appendChild( 
-							$symbiostock_xml->createElement( "keyword", htmlentities($keyword->name) ) );
+							$symbiostock_xml->createElement( "keyword", ssde($keyword->name) ) );
 					}
 				}
 				

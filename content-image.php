@@ -104,6 +104,7 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
             </span>
             <?php endif; ?>
             <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="sep"> | </span><span class="edit-link">', '</span>' ); ?>
+                         
         </footer>
         <!-- .entry-meta --> 
         

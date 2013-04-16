@@ -549,7 +549,7 @@ if(isset($_GET[ 'page' ])){
 			url : '<?php
 			echo symbiostock_CLASSDIR;
 	?>/plupload/uploads/upload.php',
-			max_file_size : '100mb',
+			max_file_size : '1000mb',
 			unique_names : false,
 			// Specify what files to browse for
 			filters : [

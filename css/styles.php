@@ -396,7 +396,6 @@ ul.above-header-menu li{
 	left:90%
 }
 .header-main-nav ul li.current-menu-item a:link, .header-main-nav ul li.current-menu-item a:visited, .header-main-nav ul li.current-menu-item a:hover, .header-main-nav ul li.current-menu-item a:active {
-	padding-top:15px;
 	background-color: transparent;
 }
 .header-main-nav ul li.current-menu-item ul a:link, .header-main-nav ul li.current-menu-item ul a:visited {
@@ -470,6 +469,9 @@ SYMBIOSTOCK WIDGETS
 .widget-area{
 	color: #999;
 	}
+.widget-area ul {
+	list-style-type: none;
+	}	    
 .widget-area aside{
 	padding-bottom: 40px;
 	}

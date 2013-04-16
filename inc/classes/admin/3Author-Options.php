@@ -1,79 +1,131 @@
 <?php
+
 //updates all images on site with current values if needed
 
 //in case user updates ALL posts, we up the time limit so it doesn't crash
-set_time_limit ( 120);
+set_time_limit ( 0 );
 
-function symbiostock_update_all_images(){
+
+function symbiostock_update_all_images( )
+{
+	ini_set( "memory_limit", "1024M" );
+    
+    $meta_values = array(
+         'symbiostock_exclusive' => 'exclusive',
+        'symbiostock_live' => 'live',
+        'price_bloggee' => 'price_bloggee',
+        'price_small' => 'price_small',
+        'price_medium' => 'price_medium',
+        'price_large' => 'price_large',
+        'price_vector' => 'price_vector',
+        'price_zip' => 'price_zip',
+        'symbiostock_discount' => 'discount_percent',
+        
+        'symbiostock_bloggee_available' => 'symbiostock_bloggee_available',
+        'symbiostock_small_available' => 'symbiostock_small_available',
+        'symbiostock_medium_available' => 'symbiostock_medium_available',
+        'symbiostock_large_available' => 'symbiostock_large_available',
+        'symbiostock_vector_available' => 'symbiostock_vector_available',
+        'symbiostock_zip_available' => 'symbiostock_zip_available',
+        
+        'symbiostock_referral_label_1' => 'symbiostock_referral_label_1',
+        'symbiostock_referral_label_2' => 'symbiostock_referral_label_2',
+        'symbiostock_referral_label_3' => 'symbiostock_referral_label_3',
+        'symbiostock_referral_label_4' => 'symbiostock_referral_label_4',
+        'symbiostock_referral_label_5' => 'symbiostock_referral_label_5',
+        
+        'symbiostock_referral_link_1' => 'symbiostock_referral_link_1',
+        'symbiostock_referral_link_2' => 'symbiostock_referral_link_2',
+        'symbiostock_referral_link_3' => 'symbiostock_referral_link_3',
+        'symbiostock_referral_link_4' => 'symbiostock_referral_link_4',
+        'symbiostock_referral_link_5' => 'symbiostock_referral_link_5' 
+    );
+    
+    $args       = array(
+         'post_type' => 'image',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'caller_get_posts' => 1,
+		'fields' => 'ids'
+    );
+    $all_images = null;
+    $all_images = new WP_Query( $args );
 	
-	$meta_values = array(
-		'symbiostock_exclusive'          => 'exclusive',
-		'symbiostock_live'               => 'live',
-		'price_bloggee'                  => 'price_bloggee',	
-		'price_small'                    => 'price_small',
-		'price_medium'                   => 'price_medium',
-		'price_large'                    => 'price_large',
-		'price_vector'                   => 'price_vector',
-		'price_zip'                      => 'price_zip',
-		'symbiostock_discount'           => 'discount_percent',
-		
-		'symbiostock_bloggee_available'  => 'symbiostock_bloggee_available',
-		'symbiostock_small_available'    => 'symbiostock_small_available',
-		'symbiostock_medium_available'   => 'symbiostock_medium_available',
-		'symbiostock_large_available'    => 'symbiostock_large_available',
-		'symbiostock_vector_available'   => 'symbiostock_vector_available',
-		'symbiostock_zip_available'      => 'symbiostock_zip_available',
-		
-		 'symbiostock_referral_label_1'  => 'symbiostock_referral_label_1',
-		 'symbiostock_referral_label_2'  => 'symbiostock_referral_label_2',
-		 'symbiostock_referral_label_3'  => 'symbiostock_referral_label_3',	
-		 'symbiostock_referral_label_4'  => 'symbiostock_referral_label_4',	
-		 'symbiostock_referral_label_5'  => 'symbiostock_referral_label_5',
-				
-		 'symbiostock_referral_link_1'   => 'symbiostock_referral_link_1',
-		 'symbiostock_referral_link_2'   => 'symbiostock_referral_link_2',
-		 'symbiostock_referral_link_3'   => 'symbiostock_referral_link_3',
-		 'symbiostock_referral_link_4'   => 'symbiostock_referral_link_4',
-		 'symbiostock_referral_link_5'   => 'symbiostock_referral_link_5',		
-	);
+	$count = 0;
+	$total_count = 0;
 	
-	$args=array(
-	  'post_type' => 'image',
-	  'post_status' => 'publish',
-	  'posts_per_page' => -1,
-	  'caller_get_posts'=> 1
-	);
-	$all_images = null;
-	$all_images = new WP_Query($args);
-	if( $all_images->have_posts() ) {
-	  while ($all_images->have_posts()) : $all_images->the_post();
-		
-		$id =  get_the_ID();
-		
-		$edit = get_post_meta($id, 'locked', 'not_locked');
-		
-		if($edit == 'not_locked'){
-			
-			foreach($meta_values as $key => $meta_value){
+    if ( $all_images->have_posts() ) {
+        while ( $all_images->have_posts() ):
+            $all_images->the_post();
+            
+            $id = get_the_ID();
+            
+            if ( isset( $_POST[ 'symbiostock_update_images' ] ) ) {
 				
-				$option = get_option($key, '');
-				
-				//echo $meta_value . ': ' . $option . '<br />';
-								
-				if(!empty($option)){
+                $edit = get_post_meta($id, 'locked', 'not_locked');
+		
+				if($edit == 'not_locked'){
 					
-					update_post_meta($id, $meta_value, $option);
-					
+					foreach($meta_values as $key => $meta_value){
+						
+						$option = get_option($key, '');
+						
+						//echo $meta_value . ': ' . $option . '<br />';
+										
+						if(!empty($option)){
+							
+							update_post_meta($id, $meta_value, $option);
+							
+						}
+						
 					}
-				
-				}
-			
+					
 			}
+            }
+            if ( isset( $_POST[ 'symbiostock_generate_related_images' ] ) ) {
+                
+                // get related posts (symbiostock_generate_related_images)
+                $related = symbiostock_get_related_image_ids( $id, 12 );
+                
+                if ( $related ) {                   
+                        
+                        $related_posts_array = array( );
+                        
+                        foreach ( $related as $related_post ) {
+                            
+                            array_push( $related_posts_array, $related_post );
+                            
+                        }
+                        
+                        update_post_meta( $id, 'symbiostock_related_images', $related_posts_array );
+                
+                }
+                
+            }
+		$count++;
+		$total_count++;
+		if($count == 100){
+			
+			$subject = 'Image Process Update: ' . $total_count . ' Completed.';
+			$message = 'Image process update: ' . $total_count . ' image pages updated on ' . get_bloginfo('wpurl');
+			
+			wp_mail(get_option('admin_email'), $subject, $message);
+			
+			$count = 0;
+			
+			}	
+        //update post
+        endwhile;
 		
-		//update post
-	  endwhile;
-	}
+		$complete = 'Operation complete!' . $total_count . ' images updated.';
+		
+		wp_mail(get_option('admin_email'), $complete, $complete);
+
+    }
 }
+
+
+
 	
 settings_fields( 'symbiostock_settings_group' ); 
 //exclusivity
@@ -133,6 +185,15 @@ if(isset($_POST['symbiostock_title_seo_text'])){
 	update_option( 'symbiostock_title_seo_text', $_POST[ 'symbiostock_title_seo_text' ] );
 }
 
+//comments on or off on images
+if(isset($_POST['symbiostock_comments'])){ 
+	update_option( 'symbiostock_comments', $_POST[ 'symbiostock_comments' ] );
+}
+
+$symbiostock_comment_status = get_option('symbiostock_comments');
+$symbiostock_comment_status == 'open' || !isset($symbiostock_comment_selected)  ? $symbiostock_comment_selected = 'selected="selected"' : $symbiostock_comment_selected = '';
+$symbiostock_comment_status == 'closed' ? $symbiostock_comment_not_selected = 'selected="selected"' : $symbiostock_comment_not_selected = '';
+
 $symbiostock_bloggee_available = get_option( 'symbiostock_bloggee_available', 'yes');
 $symbiostock_small_available   = get_option( 'symbiostock_small_available', 'yes');
 $symbiostock_medium_available  = get_option( 'symbiostock_medium_available', 'yes');
@@ -154,7 +215,7 @@ if(isset($_POST['symbiostock_referral_link_' . $referral_count])){
 	}
 $referral_count++;	
 }
-if(isset($_POST['symbiostock_update_images'])){
+if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_generate_related_images'])){
 	
 	symbiostock_update_all_images();
 	
@@ -247,6 +308,16 @@ if(isset($_POST['symbiostock_update_images'])){
    
     </tr>   
    
+   
+       </tr>
+    
+        <th scope="row"><strong>Image Comments</strong> <br /> Applied during processing. Must manually change afterward.</th>
+        <td><select id="symbiostock_comments"  name="symbiostock_comments">
+                <option <?php echo $symbiostock_comment_selected; ?> value="open">Allowed</option>
+                <option <?php echo $symbiostock_comment_not_selected; ?> value="closed">Disabled</option>
+            </select></td>
+    </tr>
+   
     <tr>
         <th colspan=2> <strong>&raquo; Referral Links</strong> </th>
     </tr>
@@ -296,6 +367,13 @@ if(isset($_POST['symbiostock_update_images'])){
 <label for="symbiostock_update_images">
     <input value="1" id="symbiostock_update_images" type="checkbox" name="symbiostock_update_images" />
     <strong>Update all existing images</strong> with new values? <em>Caution!</em></label>
+<br />
+<br />   
+<label for="symbiostock_generate_related_images">
+    <input value="1" id="symbiostock_generate_related_images" type="checkbox" name="symbiostock_generate_related_images" />
+    <strong>Update Related Images</strong> <em><a title="Apply related images widget to image page." href="<?php echo get_home_url() . '/wp-admin/widgets.php'; ?>">(For related images widget)</a></em>.*</label> 
+    <p><strong>*Note: </strong> Generating <em>related images</em> is a complicated process. <br /> The process is allowed to run for as long as it has to. Please be patient. 
+    <br />It could take a <em>long</em> time. You may navigate away from this page if needed...it will continue to update. It will email you with progress.</p>   
 <?php
 //if image update occured, notify user 
 if(isset($symbiostock_edited_all_images)){echo $symbiostock_edited_all_images;} 

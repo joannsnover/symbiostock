@@ -105,15 +105,18 @@ class network_manager
                 'paged' => $paged,
                 'tax_query' => $tax_query                 
             );
+			
         } else {            
             $local_query = array(
                  'post_type' => 'image',
                 'post_status' => 'publish',
-                'caller_get_posts' => 1                 
+                'caller_get_posts' => 1,    
+				'paged' => $paged             
             );
             
             
         }
+
         $xml = symbiostock_xml_results( $local_query );
         
         $this->xml_results = $xml;
