@@ -266,7 +266,7 @@ class symbiostock_cart
 		
 		//get cart link and amount
 		$cart_value = '(' . $this->get_cart_value() . ')';			
-		echo symbiostock_customer_area( 'Customer / Licensing Area ' . $cart_value);
+		echo symbiostock_customer_area( 'Go to Licenses & Images ' . $cart_value);
 		
 ?></td>
                     </tr>

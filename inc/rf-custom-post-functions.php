@@ -41,7 +41,8 @@ function symbiostock_image_manager_register( )
         'supports' => array(
              'title',
             'editor',
-            'thumbnail' 
+            'thumbnail', 
+			'comments' 
         ),
         'rewrite' => true,
         
