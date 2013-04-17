@@ -197,7 +197,14 @@ function symbiostock_widgets_init() {
 		'after_title' => '</h3>',
 		) );
 			
-	
+		register_sidebar( array(
+		'name' => __( 'Image Page Bottom Fullwidth', 'symbiostock' ),
+		'id' => 'image-page-bottom-fullwidth',
+		'before_widget' => '<hr /><div class="row-fluid image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside></div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		) );	
 	//footer sidebars
 	
 		register_sidebar(array(
