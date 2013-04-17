@@ -152,7 +152,7 @@ function symbiostock_widgets_init() {
 	) );
 
 		//Call To Action Widgets
-			register_sidebar( array(
+		register_sidebar( array(
 		'name' => __( 'Home Page Bottom Row 1/3', 'symbiostock' ),
 		'id' => 'cta-1',
 		'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',

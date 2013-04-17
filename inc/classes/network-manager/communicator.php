@@ -185,11 +185,11 @@ function symbiostock_xml_results($network_query){
 				
 				//create the author element
 				$imageTag->appendChild( 
-					$symbiostock_xml->createElement( "author", $author ) );
+					$symbiostock_xml->createElement( "author", ssde($author) ) );
 					
 				//create the if this is a network search element
 				$imageTag->appendChild( 
-					$symbiostock_xml->createElement( "network", $author ) );	
+					$symbiostock_xml->createElement( "network", ssde($author) ) );	
 				
 				endwhile;
 		  

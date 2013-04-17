@@ -94,7 +94,7 @@ class symbiostock_featured_images extends WP_Widget{
             $featuredWidget->the_post(); 
 								
 			?>
-    <div class="widget-featured search-result">
+    <div class="widget-featured symbiostock-featured search-result">
         <div class="inner-featured">
             <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
                 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
@@ -205,7 +205,7 @@ class symbiostock_latest_images extends WP_Widget{
             $featuredWidget->the_post(); 
 								
 			?>
-    <div class="widget-featured search-result">
+    <div class="widget-featured symbiostock-latest search-result">
         <div class="inner-latest">
             <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
                 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
@@ -391,7 +391,7 @@ class symbiostock_similar_images extends WP_Widget{
 				while ( $relatedImagesWidget->have_posts() ) : 
 					$relatedImagesWidget->the_post(); 									
 						?>
-				<div class="widget-featured search-result">
+				<div class="widget-featured symbiostock-similar search-result">
 					<div class="inner-featured">
 						<div class="thumb"> 
 							<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
