@@ -579,13 +579,19 @@ function symbiostock_customer_area_link(){
 	return $permalink;
 	
 }	
-function symbiostock_customer_area($text){
+function symbiostock_customer_area($text, $btn = false){
+	
+	if($btn == true){
+		
+		$btn_class="btn btn-primary alignright";
+		
+		}
 	
 	$customer_page_id = get_option('symbiostock_customer_page'); 
 	
 	$permalink =  get_permalink( $customer_page_id );
 	
-	$customer_page_link = '<a title="' . $text. '" href="' . $permalink . '"><i class="icon-shopping-cart"> </i> ' . $text . '</a>';
+	$customer_page_link = '<a class="' . $btn_class . '" title="' . $text. '" href="' . $permalink . '"><i class="icon-shopping-cart"> </i> ' . $text . '</a>';
 	return $customer_page_link;
 	
 }	

@@ -40,6 +40,14 @@ jQuery(document).ready(function ($) {
 		});
 	
 	}
+	
+	//disable image link, but keep it for SEO
+
+	$('#stock-image-preview').css( 'cursor', 'default' );
+	$('#stock-image-preview').click(function(e) {
+    	e.preventDefault();
+	});
+	
     //Product Ajax
     //if product selection changes...
     $(document).on("click", 'input[name="product"]', function (event) {

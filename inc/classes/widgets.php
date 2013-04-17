@@ -362,26 +362,25 @@ class symbiostock_similar_images extends WP_Widget{
     
     $title = apply_filters( 'widget_title', $instance[ 'title' ] );
     
-    echo $before_widget;
-    
-    if ( !empty( $title ) )
-        echo $before_title . $title . $after_title;
-    
-    //this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin
 	
 	$related_image_ids = get_post_meta($image_ID, 'symbiostock_related_images', array());
 	
 	$post_type = get_post_type();
 		
 		if(!empty($related_image_ids[0]) && $post_type=='image'){
-					
-			$related_image_ids = array_reverse($related_image_ids);
-						
+		
+		    echo $before_widget;
+    
+		if ( !empty( $title ) )
+			echo $before_title . $title . $after_title;
+		
+		//this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin		
+									
 			$args = array(
-				'post__in'  => $related_image_ids[0],
-				'post_type' => 'image',		 
-						
-			);		
+				'post__in'  => array_reverse($related_image_ids[0]),
+				'post_type' => 'image',	
+				'orderby'   => 'none'
+			);						
 			
 			$relatedImagesWidget = new WP_Query($args);
 			
@@ -410,10 +409,11 @@ class symbiostock_similar_images extends WP_Widget{
 			wp_reset_postdata();
 			
 		echo '<div class="clearfix"></div>';
+		
 		echo $after_widget;
 		
 		}
-
+	
 }
     
 }

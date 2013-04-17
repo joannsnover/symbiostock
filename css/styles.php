@@ -26,6 +26,9 @@ section {
 ol, ul {
 	list-style: none;
 }
+ul {
+	list-style-type: circle;
+	}
 table { /* tables still need 'cellspacing="0"' in the markup */
 	border-collapse: separate;
 	border-spacing: 0;

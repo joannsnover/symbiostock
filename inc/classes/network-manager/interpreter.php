@@ -309,8 +309,9 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 		
 		if(isset($link) && !empty($link)){
 			
-		$user_link = remove_query_arg( $remove_vars, $link);				
-	
+		$user_link = explode('?', $link);
+		$user_link = $user_link[0];	
+		
 		//a little confusion going on here. Watch for bugs.
 		//$user_link = $link;		
 		$edited_link = str_replace($link, $user_link, html_entity_decode($href_link));

@@ -266,7 +266,7 @@ class symbiostock_cart
 		
 		//get cart link and amount
 		$cart_value = '(' . $this->get_cart_value() . ')';			
-		echo symbiostock_customer_area( 'Go to Licenses & Images ' . $cart_value);
+		echo symbiostock_customer_area( 'Go to Licenses & Images ' . $cart_value, true);
 		
 ?></td>
                     </tr>
@@ -346,7 +346,7 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo get_option('symbiostock_paypal_email', ''); ?>" name="business" />
             <input type="hidden" name="currency_code" value="<?php echo $curr[2]; ?>" />
             <input type="hidden" name="notify_url" value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>"  />
-            <input name="return" type="hidden" value="<?php echo symbiostock_customer_area_link() . '?paypal_return_message="1"'; ?>" />           
+            <input type="hidden" name="return"  value="<?php echo symbiostock_customer_area_link() . '?paypal_return_message=1'; ?>" />           
             <table class="table cart">
         <thead>
             <tr>

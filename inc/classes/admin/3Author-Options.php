@@ -62,6 +62,12 @@ function symbiostock_update_all_images( )
             
             if ( isset( $_POST[ 'symbiostock_update_images' ] ) ) {
 				
+				$image_post = array();
+				$image_post['ID'] = $id;
+				$image_post['comment_status'] = $_POST['symbiostock_comments'];
+				
+				wp_update_post( $image_post );
+				
                 $edit = get_post_meta($id, 'locked', 'not_locked');
 		
 				if($edit == 'not_locked'){

@@ -43,7 +43,7 @@ if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
 		$count++;
 	$fileName = $fileName_a . '_' . $count . $fileName_b;
 }
-$filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+$filePath = $targetDir . DIRECTORY_SEPARATOR . strtolower($fileName);
 // Create target dir
 if (!file_exists($targetDir))
 	@mkdir($targetDir);
