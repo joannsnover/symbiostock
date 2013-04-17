@@ -200,7 +200,7 @@ function symbiostock_widgets_init() {
 		register_sidebar( array(
 		'name' => __( 'Image Page Bottom Fullwidth', 'symbiostock' ),
 		'id' => 'image-page-bottom-fullwidth',
-		'before_widget' => '<hr /><div class="row-fluid image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
+		'before_widget' => '<div class="row-fluid image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside></div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
@@ -768,7 +768,7 @@ add_action( 'pre_get_posts', 'symbiostock_network_results_per_page' );
 
 //Symbiostock Decode Entities function
 function ssde($text) {
-    $text= html_entity_decode($text,ENT_QUOTES,"ISO-8859-1"); #NOTE: UTF-8 does not work!
+    $text= htmlspecialchars($text); #NOTE: UTF-8 does not work!
     //$text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
     //$text= preg_replace('/&#x([a-f0-9]+);/mei',"chr(0x\\1)",$text);  #hex notation
 	

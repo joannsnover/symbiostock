@@ -1,4 +1,5 @@
 <?php
+
 //check incoming variables, defined in functions - 
 //	$wp_query->set('symbiostock_network_search', 'false');
 //	$wp_query->set('symbiostock_network_info', 'false');
