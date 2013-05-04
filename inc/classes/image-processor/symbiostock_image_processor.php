@@ -365,7 +365,7 @@ function symbiostock_generate_minipic( $source, $destination, $jpg = true )
         $image = new Imagick( $source );
         
         /* Thumbnail the image */
-        $image->thumbnailImage( 150, null );
+        $image->thumbnailImage( 150, 150, true );
         
         //if user wants reflections on their thumbnail previews
         $symbiostock_reflections = get_option( 'symbiostock_reflections' );

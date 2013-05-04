@@ -29,6 +29,7 @@ define('symbiostock_128_DEFAULT', symbiostock_IMGDIR . '/128_default.jpg');
 //filepath constants 
 $symbiostock_theme_root = get_theme_root() . '/symbiostock';
 define('symbiostock_STOCKDIR', ABSPATH . 'symbiostock_rf/' );
+define('symbiostock_NETDIR', ABSPATH . 'symbiostock_network/');
 define('symbiostock_CLASSROOT', $symbiostock_theme_root . '/inc/classes/' );
 define('symbiostock_INCLUDESROOT', $symbiostock_theme_root . '/inc/' );
 define('symbiostock_NETWORK_MANAGER', $symbiostock_theme_root . '/inc/classes/network-manager/' );
@@ -511,6 +512,8 @@ function symbiostock_post_meta($postid){
 		'symbiostock_large_available',			
 		'symbiostock_vector_available',			
 		'symbiostock_zip_available',
+		'symbiostock_model_release',
+		'symbiostock_property_release',
 		
 		'symbiostock_referral_link_1',
 		'symbiostock_referral_link_2',
@@ -538,7 +541,7 @@ function symbiostock_post_meta($postid){
 	return $image_meta;
 		
 	}
-	
+
 function symbiostock_get_user_files($user_id=''){
 		
 		if(empty($user_id)){
@@ -683,14 +686,16 @@ function symbiostock_validate_url($url){
 	}
 }
 //set up some unique variables for wp_query so that our network search gets parameters properly
-function symbiostock_wp_query_vars( $qvars ){
+function symbiostock_wp_query_vars( $qvars ){		
 	global $wp_query;
 	$qvars[] = 'symbiostock_network_search'; //is this a network query?
 	$qvars[] = 'symbiostock_network_info'; //do we want network info?
 	$qvars[] = 'symbiostock_number_results'; //how many search results do we want?
 	
 	$qvars[] = 'paypal_return_message'; //if returning from paypal, we show a message in user area
-	
+	$qvars[] = 'page';
+	$qvars[] = 'paged';
+		
 	return $qvars;
 	}
 add_filter('query_vars', 'symbiostock_wp_query_vars');
@@ -699,17 +704,48 @@ add_filter('query_vars', 'symbiostock_wp_query_vars');
 // we disguise the 404 to be a typical "no results found in search" page.
 function symbiostock_modify_query( $query ) {
 	if ( ( is_search() && get_query_var( 'post_type' ) == 'image' ) ) {
-		
+	/*	
 		$encoded_search_term = urlencode(get_query_var('s'));
 		
 		$home = home_url();
 		$params = array( 'image-tags' => $encoded_search_term);
 		$redirect = add_query_arg( $params, $home );
 		wp_redirect($redirect);
-		exit();
+		exit();*/
 	
 	}
 }
+
+//symbiostock_search_pagination_mod filter fixes a horrible pagination bug with this theme. Its a creative work around, and hopefully doesnt trouble us anymore.
+//the "paged" variable does not seem to work on search results, but only on archive and taxonomy pages. 
+//So this modifies the pagination to use "page" variable instead, which seems to work fine.
+add_filter( 'paginate_links', 'symbiostock_search_pagination_mod', 1 );
+
+function symbiostock_search_pagination_mod( $link )
+{
+    
+    if ( is_search() ) {
+        
+        $pattern = '/page\/([0-9]+)\//';
+        
+        if ( preg_match( $pattern, $link, $matches ) ) {
+            $number = $matches[ 1 ];
+            
+            $link = remove_query_arg( 'paged' );
+            
+            $link = add_query_arg( 'page', $number );
+            
+        } else {
+            
+            $link = str_replace( 'paged', 'page', $link );
+            
+        }
+        
+    }
+
+    return $link;
+}
+
 add_action( 'parse_query', 'symbiostock_modify_query' );
 function symbiostock_filter_404_title( $title )
 {
@@ -956,6 +992,197 @@ function symbiostock_website_copyright(){
 		<?php
 		}
 		
+	}
+
+//simply brings you to help page and lands on given id #
+//
+function sshelp($destination_id, $subject){
+	//get_home_url(); /wp-admin/profile.php#extended_network_info"
+	return '<span class="description"> &bull; info: 
+	<a title="See help page: '.$subject.'" href="'.get_home_url().'/wp-admin/admin.php?page=symbiostock-control-options&tab=5symbiostock-help#'.$destination_id.'">'.$subject.'</a>
+	</span>';
+	
+	}
+
+//this converts the name of a network assocate to a unique value: www.mysite.com/my_symbiostock/ becomes "wwwmysitecommysymbiostock"
+//which can be used as a folder name or ID.
+function symbiostock_website_to_key($website){
+	
+	$key = preg_replace('/[^A-Za-z0-9 ]/', '', $website);
+	
+	return $key;
+	}
+
+//Symbiostock shares email addresses, and sometimes they could be harvested if .csv files are searched. This converts them to a string unrecognizeable outside our program.
+//http://stackoverflow.com/questions/16314678/php-encode-an-email-address-hide-from-spammers-decode-easily-without-flaws
+function symbiostock_email_convert($email, $action = 'encode'){
+	if($action == 'decode'){
+		//decode email address	
+		$email = base64_decode(strtr($email, '-_', '+/'));
+		} else {
+		//encode email address		
+		$email = rtrim(strtr(base64_encode($email), '+/', '-_'), '=');		
+	}	
+	return $email;	
+}	
+
+//SYMBIOSTOCK SOCIAL STUFF
+
+add_action( 'show_user_profile', 'symbiostock_social_credentials');
+add_action( 'edit_user_profile', 'symbiostock_social_credentials');
+
+function symbiostock_social_credentials( $user, $get_fields = false ) { ?>
+	
+	<?php
+	
+	$symbiostock_social_credentials = get_option('symbiostock_social_credentials'); 
+	if ( !current_user_can( 'manage_options', $user-ID ) )
+	return false;
+	
+	$prfx =  'symbiostock_';
+	
+	$text_fields = array(				
+		'Personal Photo'       => '(URL)' . sshelp('personal_photo', 'Profile Photo'),	
+		'Gallery Page'         => '(URL)' . sshelp('gallery_page', 'Gallery Page'),		
+		'Software'             => 'Illustrator, photoshop, 3d Studio Max, etc.',			
+		'Equipment'            => 'Cameras, computers, graphic tablets, etc.',			
+		'Languages'            => sshelp('languages', 'Languages'),	
+		'Clients'              => 'Who you\'ve worked for.',
+		'Home Location'        => sshelp('location_info', 'Location'),
+		'Temporary Location 1' => sshelp('temporary_location_info', 'Temp Location'),			
+		'Temporary Location 2' => sshelp('temporary_location_info', 'Temp Location'),							
+	);
+	
+	$select_dropdowns = array(
+		'Open for Assignment Jobs' => array('No', 'Yes'),	
+		'Profession 1'      => array('-', 'Illustrator', 'Photographer', 'Developer', 'Artist', 'Marketing', 'Graphic Design', '3d Design' ),
+		'Profession 2'      => array('-', 'Illustrator', 'Photographer', 'Developer', 'Artist', 'Marketing', 'Graphic Design', '3d Design' ),		
+		'Portfolio Focus 1' => array('-', 'Photography', 'Vector', '3d Design', 'Digital Painting'),	
+		'Portfolio Focus 2' => array('-', 'Photography', 'Vector', '3d Design', 'Digital Painting'),
+		'Specialty 1'   => array('-', 'Travel','People','Illustrations','Maps','Cartoon','Nature','Editorial','Landscape','Food','Lifestyle','Backgrounds','Industry', 'Mascot Series'),
+		'Specialty 2'   => array('-', 'Travel','People','Illustrations','Maps','Cartoon','Nature','Editorial','Landscape','Food','Lifestyle','Backgrounds','Industry', 'Mascot Series'),
+		
+		
+	);
+	
+	//this function can also be used to get the expected values array
+	if( $get_fields == true){ 
+	
+	$info = array();
+	
+	foreach($select_dropdowns as $key => $dropdown){		
+		array_push($info, $prfx . strtolower(str_replace(' ', '_', $key)));		
+		}
+	foreach($text_fields as $key => $text_field){		
+		array_push($info, $prfx . strtolower(str_replace(' ', '_', $key)));		
+		}		
+	//returns info, aborts function
+	
+	
+	return $info;
+	}		
+	
+	
+	$credentials = get_option('symbiostock_social_credentials');		
+
+	?>
+	<h2 id="extended_network_info">Symbiostock Profile and Extended Network Info</h2>
+	<table class="form-table">		
+        <?php
+		
+		
+			
+		foreach($text_fields as $key => $text){			
+			
+			$name_id = $prfx . strtolower(str_replace(' ', '_', $key));
+	
+				
+				
+			!empty($credentials[$name_id]) ? $value = stripslashes(trim($credentials[$name_id])) : $value = '';
+			
+				?>                
+                <tr>
+                    <th><label for="<?php echo $name_id; ?>"><?php echo $key; ?></label></th>                
+                    <td>
+                    
+                    	<?php
+						//if URL field, validate
+						if (strpos($text,'URL') && !empty($value)) {
+							
+							if(!symbiostock_validate_url($value)){
+								
+								echo '<p class="error"><strong>Invalid URL for ' . $key  . '. Please try again.</strong></p>';
+								
+								$value = '';
+							}
+							
+						}											
+						?>
+                        
+                		<input type="text" name="<?php echo $name_id; ?>" id="<?php echo $name_id; ?>" value="<?php echo $value; ?>" class="regular-text" />
+                        <span class="description"><?php echo $text; ?></span>
+                    </td>
+                </tr>                
+                <?php				
+			}
+		
+		foreach ($select_dropdowns as $key => $options){
+			$name_id = $prfx . strtolower(str_replace(' ', '_', $key));			
+									
+			?>
+                <tr>
+                    <th><label for="<?php echo $name_id; ?>"> <?php echo $key; ?></label> </th>                
+                    <td>
+                		<select id="<?php echo $name_id ?>" name="<?php echo $name_id; ?>" class="regular-text">                        
+                        <?php						
+						foreach($options as $option){
+							
+							$option == $credentials[$name_id] ? $selected = 'selected="selected"' : $selected = '';
+														
+							?> <option <?php echo $selected; ?> value="<?php echo $option; ?>"><?php echo $option; ?></option> <?php							
+							}
+						?>                        
+                        </select><br />
+                    </td>
+                </tr>                            
+            <?php			
+			}		
+			?>        
+		<input type="hidden" name="symbiostock_social_credentials" value="1" />
+	</table>
+<?php }
+
+add_action( 'personal_options_update', 'symbiostock_update_social_credentials' );
+add_action( 'edit_user_profile_update', 'symbiostock_update_social_credentials' );
+
+function symbiostock_update_social_credentials($user){
+	
+	$options = symbiostock_social_credentials( $user, true );
+	
+	$symbiostock_social_credentials = array();
+	
+	foreach($options as $option){
+	
+		if(isset($_POST[$option]) && $_POST[$option] != '-' &&  !empty($_POST[$option])){
+				//add to our symbiostock_social_credentials, which will be saved for profile and network use
+				$symbiostock_social_credentials[$option] = trim($_POST[$option]);						
+			}			
+		}
+		
+	isset($_POST['first_name']) && !empty($_POST['first_name'])?$symbiostock_social_credentials['symbiostock_first_name'] = trim($_POST['first_name']):$symbiostock_social_credentials['symbiostock_first_name'] = '';
+	isset($_POST['last_name']) && !empty($_POST['last_name'])?$symbiostock_social_credentials['symbiostock_last_name'] = trim($_POST['last_name']):$symbiostock_social_credentials['symbiostock_last_name'] = '';
+	//isset($_POST['nickname']) && !empty($_POST['nickname'])?$symbiostock_social_credentials['symbiostock_nickname'] = trim($_POST['nickname']):$symbiostock_social_credentials['symbiostock_nickname'] = '';
+	isset($_POST['url']) && !empty($_POST['url'])?$symbiostock_social_credentials['symbiostock_alternate_url'] = trim($_POST['url']):$symbiostock_social_credentials['symbiostock_alternate_url'] = '';
+	isset($_POST['description']) && !empty($_POST['description'])?$symbiostock_social_credentials['symbiostock_author_bio'] = trim($_POST['description']):$symbiostock_social_credentials['symbiostock_author_bio'] = '';
+	
+	
+				
+	update_option('symbiostock_social_credentials', $symbiostock_social_credentials);	
+}
+
+function symbiostock_get_social_credentials($user){
+	
+	
 	}
 
 /**

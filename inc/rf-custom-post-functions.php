@@ -147,6 +147,10 @@ function symbiostock_image_manager_meta_options( )
 	$symbiostock_vector_available  = $custom[ 'symbiostock_vector_available' ][ 0 ];
 	$symbiostock_zip_available     = $custom[ 'symbiostock_zip_available' ][ 0 ];
 	
+	//legal
+	$symbiostock_model_release     = $custom[ 'symbiostock_model_released' ][ 0 ];
+	$symbiostock_property_release  = $custom[ 'symbiostock_property_released' ][ 0 ];
+	
 	//referral links
 	
 	$symbiostock_referral_label_1     = $custom[ 'symbiostock_referral_label_1' ][ 0 ];
@@ -243,12 +247,42 @@ function symbiostock_image_manager_meta_options( )
         <option <?php echo $not_live; ?> value="not_live">Not Live</option>
     </select>
 </div>
+
+<?php
+
+$symbiostock_model_release == 'Yes' || !isset($symbiostock_model_release)  ? $symbiostock_model_released_yes = 'selected="selected"' : $symbiostock_model_released_yes = '';
+$symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"' : $symbiostock_model_released_no = '';
+$symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected="selected"' : $symbiostock_model_released_na = '';
+
+$symbiostock_property_release == 'Yes' || !isset($symbiostock_property_release)  ? $symbiostock_property_released_yes = 'selected="selected"' : $symbiostock_property_released_yes = '';
+$symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"' : $symbiostock_property_released_no = '';
+$symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"' : $symbiostock_property_released_na = '';
+
+?>
+
+<div><br /><br />
+    <label>Model Released: </label>    
+        <select id="symbiostock_model_released"  name="symbiostock_model_released">
+            <option <?php echo $symbiostock_model_released_yes; ?> value="Yes">Yes</option>
+            <option <?php echo $symbiostock_model_released_no; ?> value="No">No</option>
+            <option <?php echo $symbiostock_model_released_na; ?> value="N/A">N/A</option>
+        </select><br />
+    <label>Property Released: </label>    
+        <select id="symbiostock_property_released"  name="symbiostock_property_released">
+            <option <?php echo $symbiostock_property_released_yes; ?> value="Yes">Yes</option>
+            <option <?php echo $symbiostock_property_released_no; ?> value="No">No</option>
+            <option <?php echo $symbiostock_property_released_na; ?> value="N/A">N/A</option>
+    </select>
+    <br /><br /><br />        
+</div>    
+    
 <?php
 	
 	$locked == 'not_locked' || !isset($locked)  ? $not_locked = 'selected="selected"' : $not_locked = '';
 	$locked == 'locked' ? $locked = 'selected="selected"' : $locked = '';
 	
 	?>
+
 <div>
     <label>Values Locked: </label>
     <select name="locked">
@@ -344,7 +378,11 @@ function symbiostock_image_manager_save_options( )
 		update_post_meta( $post->ID, 'symbiostock_medium_available', $_POST[ 'symbiostock_medium_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_large_available', $_POST[ 'symbiostock_large_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_vector_available', $_POST[ 'symbiostock_vector_available' ] );		
-		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );		
+		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );	
+		//legal 
+		update_post_meta( $post->ID, 'symbiostock_model_released', $_POST[ 'symbiostock_model_released' ] );	
+		update_post_meta( $post->ID, 'symbiostock_property_released', $_POST[ 'symbiostock_property_released' ] );	
+		
 		//referral links
 		update_post_meta( $post->ID, 'symbiostock_referral_label_1', $_POST[ 'symbiostock_referral_label_1' ] );
 		update_post_meta( $post->ID, 'symbiostock_referral_label_2', $_POST[ 'symbiostock_referral_label_2' ] );	

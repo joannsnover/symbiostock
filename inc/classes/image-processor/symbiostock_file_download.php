@@ -60,18 +60,18 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
         
         header( "Pragma: no-cache" );
         
-        if ( $selection == 'bloggee' || $selection == 'small' || $selection == 'medium' || $selection == 'large' ) {
+        if ( $selection == 'bloggee' || $selection == 'small' || $selection == 'medium' ) {
             
-            //use wide-image class to dynamically resize image
-            $symbiostock_img = WideImage::load( ABSPATH . 'symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
-            
-            $resized = $symbiostock_img->resize( $size_width, $size_height );
-            
-            $type == 'jpg' ? $quality = 99 : $quality = 9;
-            
-            $resized->output( $type, $quality );
+            //dynamically resize and deliver image
+           
+			$type == 'jpg' ? $quality = 99 : $quality = 9;            
 			
-        } else if ( $selection == 'vector' || $selection == 'zip' ) {
+			$image = wp_get_image_editor(  ABSPATH . 'symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );            
+            $image->resize( $size_width, $size_height );			
+			$image->set_quality( $quality );            
+			$image->stream();
+			
+        } else if ( $selection == 'vector' || $selection == 'zip' || $selection == 'large') {
             
             echo file_get_contents( ABSPATH . 'symbiostock_rf/' . $file_and_selection[ 0 ] . '.' . $type );
             

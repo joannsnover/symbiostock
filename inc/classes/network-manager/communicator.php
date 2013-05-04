@@ -197,14 +197,24 @@ function symbiostock_xml_results($network_query){
 			endif;
 		
 		//make our pagination
-		global $wp_rewrite;  
+		global $wp_rewrite; 
+		
+        if ( get_query_var( 'paged' ) )
+            $paged = get_query_var( 'paged' );
+        
+        elseif ( get_query_var( 'page' ) )
+            $paged = get_query_var( 'page' );
+        
+        else
+            $paged = 1;
+        		 
 		//echo str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) );
 		$big = 999999999; // need an unlikely integer
-		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		//$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$symbiostock_search_pagination =  paginate_links( array(
 			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format' => '?page=%#%',
-			'current' => max( 1, get_query_var('paged') ),
+			'current' => max( 1, $paged ),
 			'total' => $wp_query->max_num_pages,
 			'type' => 'array',
 			'prev_text'    => __('Previous'),

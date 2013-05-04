@@ -34,6 +34,7 @@ class symbiostock_render_admin_panel
     
     public function __construct()
     {
+
         $this->get_pages();
         
 ?>
@@ -44,7 +45,7 @@ class symbiostock_render_admin_panel
         
 ?>
     
-    <form id="symbiostock_admin_form" action="" method="post" >
+    <form id="symbiostock_admin_form" action="<?php echo $PHP_SELF; ?>" enctype="multipart/form-data" method="post" >
         <div>
 		<?php
         
@@ -55,8 +56,25 @@ class symbiostock_render_admin_panel
         include_once( 'admin/' . $this->active_tab . '.php' );
 ?>
         <br />
-        <?php
+        
+        <label for="save_network_values" ><input id="save_network_values" type="checkbox" name="save_network_values" value="" /> <em>Update public network info.</em></label>
+        <label for="save_image_info" ><input id="save_image_info" type="checkbox" name="save_image_info" value="" /> <em>Update image info CSV.</em></label>
+		<input type="hidden" name="save_form_info" value="1" />
+		<?php
+		
         submit_button();
+		
+		//when saved, update network file
+		if(isset($_POST['save_network_values'])){			
+			symbiostock_save_network_info();
+			echo '<p><em>Network info updated.</em></p>';
+			}
+		//when saved, update image info file
+		if(isset($_POST['save_image_info'])){			
+			symbiostock_save_image_list_info();
+			echo '<p><em>Image info info updated.</em></p>';
+			}	
+				
 ?>
         <img src="<?php
         echo admin_url( 'images/wpspin_light.gif' );
