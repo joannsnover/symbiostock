@@ -18,15 +18,6 @@ mkdir($upload_dir['basedir'] . '/symbiostock_rf_content/', 0755);
 if (!file_exists(ABSPATH . 'symbiostock_rf/')) {
 mkdir(ABSPATH . 'symbiostock_rf/', 0700);
 }
-//make our directory for network management
-if (!file_exists(ABSPATH . 'symbiostock_network/')) {
-mkdir(ABSPATH . 'symbiostock_network/', 0755);
-}
-//now make the seeds directory, for collecting network data 
-if (!file_exists(ABSPATH . 'symbiostock_network/seeds/')) {
-mkdir(ABSPATH . 'symbiostock_network/seeds/', 0755);
-}
-
 //make our htaccess, to protect downloadable products
 $handle = fopen(symbiostock_CSSROOT . 'styles.css', 'w') or die('Cannot open file:  '.$htaccess);
 $data = get_include_contents(symbiostock_CSSROOT . 'styles.php');
@@ -176,15 +167,8 @@ require_once(ABSPATH .'/wp-admin/includes/plugin.php');
 activate_plugin($symbiostock_plugin_path . 'symbiostock_emailer.php');
 //---------------------------------------------------------------------------------------
 //notify Symbiostock of successful deployment
-
-//get version 
-
-$theme_data = wp_get_theme('symbiostock');
-
-$theme_version = $theme_data->Version;
-
 $headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';
-$message = get_site_url() . "<br />" . $theme_version . '<br />' . date("F d, Y h:ia");
+$message = get_site_url() . "<br />" . date("F d, Y h:ia");;
 $subject = 'Symbiostock Site Deployed: ' . get_site_url() . ' - ' . date("F d, Y h:ia");;
 wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);
 ?>

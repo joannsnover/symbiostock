@@ -1,8 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
-.symbiostock_networkr {
+.symbiostock_slider {
 }
-.symbiostock_networkr input[type="text"] {
+.symbiostock_slider input[type="text"] {
 	
 	width: 75%;
 }
@@ -97,26 +97,6 @@ min-width: 400px;
 	display: block;
 	}	
 /*------network page-----*/
-
-.network_links th{
-	color: #464646;
-	font-size: 18px;
-		
-	}
-.network_links .little_desc, td .little_desc{
-	font-size: 14px;
-	color: #999;
-	font-style: oblique;
-	}	
-.get_csv td{
-	font-size: 14px;	
-	}
-.get_csv img{
-	display: block;
-	float: left;
-	}
-
-
 #symbiostock_network_container div{
 	
 	}
@@ -181,20 +161,3 @@ th.symbiostock_network_site_header{
 	color: #666;
 	font-size: 10px;
 	}	
-	
-.symbiostock_help{
-	width: 50%;
-	margin-bottom: 500px;
-	}
-.symbiostock_help .help_topics{
-	
-	padding-left: 30px;
-	
-	
-	}	
-.symbiostock_help .help_topics ul li{
-	
-	border-bottom: 1px solid #CCC;
-
-	}
-		

@@ -200,26 +200,14 @@ $symbiostock_comment_status = get_option('symbiostock_comments');
 $symbiostock_comment_status == 'open' || !isset($symbiostock_comment_selected)  ? $symbiostock_comment_selected = 'selected="selected"' : $symbiostock_comment_selected = '';
 $symbiostock_comment_status == 'closed' ? $symbiostock_comment_not_selected = 'selected="selected"' : $symbiostock_comment_not_selected = '';
 
-//model release Yes / No / N/A
-if(isset($_POST['symbiostock_model_released'])){ 
-	update_option( 'symbiostock_model_released', $_POST[ 'symbiostock_model_released' ] );
+//reflections on or off on minipics
+if(isset($_POST['symbiostock_reflections'])){ 
+	update_option( 'symbiostock_reflections', $_POST[ 'symbiostock_reflections' ] );
 }
 
-$symbiostock_model_release = get_option('symbiostock_model_released');
-$symbiostock_model_release == 'Yes' || !isset($symbiostock_model_release)  ? $symbiostock_model_released_yes = 'selected="selected"' : $symbiostock_model_released_yes = '';
-$symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"' : $symbiostock_model_released_no = '';
-$symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected="selected"' : $symbiostock_model_released_na = '';
-
-//property release Yes / No / N/A
-if(isset($_POST['symbiostock_property_released'])){ 
-	update_option( 'symbiostock_property_released', $_POST[ 'symbiostock_property_released' ] );
-}
-
-$symbiostock_property_release = get_option('symbiostock_property_released');
-$symbiostock_property_release == 'Yes' || !isset($symbiostock_property_released_yes)  ? $symbiostock_property_released_yes = 'selected="selected"' : $symbiostock_property_released_yes = '';
-$symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"' : $symbiostock_property_released_no = '';
-$symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"' : $symbiostock_property_released_na = '';
-
+$symbiostock_reflections = get_option('symbiostock_reflections');
+$symbiostock_reflections == 'on' || !isset($symbiostock_reflections)  ? $symbiostock_reflections_on = 'selected="selected"' : $symbiostock_reflections_on = '';
+$symbiostock_reflections == 'off' ? $symbiostock_reflections_off = 'selected="selected"' : $symbiostock_reflections_off = '';
 
 $symbiostock_bloggee_available = get_option( 'symbiostock_bloggee_available', 'yes');
 $symbiostock_small_available   = get_option( 'symbiostock_small_available', 'yes');
@@ -264,14 +252,14 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
             </select></td>
     </tr>
     
-        <th scope="row">Live<br /><?php echo sshelp('live', 'Live'); ?></th>
+        <th scope="row">Live</th>
         <td><select id="symbiostock_live"  name="symbiostock_live">
                 <option <?php echo $live; ?> value="live">Live</option>
                 <option <?php echo $not_live; ?> value="not_live">Not Live</option>
             </select></td>
     </tr>
     <tr>
-        <th colspan=2> <strong>&raquo; Pricing and Options <?php echo sshelp('default_pricing', 'Default Pricing'); ?></strong><br />
+        <th colspan=2> <strong>&raquo; Pricing and Options</strong><br />
             *See <strong>Settings</strong> to change type. </th>
     </tr>
     <tr>
@@ -310,9 +298,7 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
             Enter "<strong>00</strong>" to reset to 0.</td>
     </tr>
     <tr>
-        <th colspan=2> <strong>&raquo; Default Size Settings</strong> *<strong>Note</strong> - Size settings cannot be changed on image edit page yet. Choose carefully. <em>Large</em> size is original upload size. 
-        <br /><?php echo sshelp('default_size_settings', 'Default Size Settings'); ?>
-        </th>
+        <th colspan=2> <strong>&raquo; Default Size Settings</strong> *<strong>Note</strong> - Size settings cannot be changed on image edit page yet. Choose carefully. <em>Large</em> size is original upload size. </th>
     </tr>
     <tr>
         <th scope="row"><strong>Medium</strong></th>
@@ -338,33 +324,23 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
     </tr>   
    
    
-    <tr>
-    
+      <tr>    
         <th scope="row"><strong>Image Comments</strong> <br /> Applied during processing. Must manually change afterward.</th>
         <td><select id="symbiostock_comments"  name="symbiostock_comments">
                 <option <?php echo $symbiostock_comment_selected; ?> value="open">Allowed</option>
                 <option <?php echo $symbiostock_comment_not_selected; ?> value="closed">Disabled</option>
             </select></td>
-    </tr>
-    
-    <tr>    
-        <th scope="row"><strong>Model Released?</strong> <br /></th>
-        <td><select id="symbiostock_model_released"  name="symbiostock_model_released">
-                <option <?php echo $symbiostock_model_released_yes; ?> value="Yes">Yes</option>
-                <option <?php echo  $symbiostock_model_released_no; ?> value="No">No</option>
-                <option <?php echo  $symbiostock_model_released_na; ?> value="N/A">N/A</option>
-            </select></td>
-    </tr>
+  	  </tr>
 
-    <tr>    
-        <th scope="row"><strong>Property Released?</strong> <br /></th>
-        <td><select id="symbiostock_property_released"  name="symbiostock_property_released">
-                <option <?php echo $symbiostock_property_released_yes; ?> value="Yes">Yes</option>
-                <option <?php echo  $symbiostock_property_released_no; ?> value="No">No</option>
-                <option <?php echo  $symbiostock_property_released_na; ?> value="N/A">N/A</option>
+       <tr>
+    <?php if ( extension_loaded( 'imagick' ) ) {  ?>
+        <th scope="row"><strong>Thumbnail Reflections</strong> <br /> Attractive for full-area pictures. Isolated pics (on white), not so much. </th>
+        <td><select id="symbiostock_reflections"  name="symbiostock_reflections">
+                <option <?php echo $symbiostock_reflections_on; ?> value="on">Reflections On</option>
+                <option <?php echo $symbiostock_reflections_off; ?> value="off">Reflections Off</option>
             </select></td>
-    </tr>    
-   
+  	  </tr>      
+    <?php } ?>
     <tr>
         <th colspan=2> <strong>&raquo; Referral Links</strong> </th>
     </tr>
@@ -418,7 +394,7 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
 <br />   
 <label for="symbiostock_generate_related_images">
     <input value="1" id="symbiostock_generate_related_images" type="checkbox" name="symbiostock_generate_related_images" />
-    <strong>Update Related Images</strong> <em><a title="Apply related images widget to image page." href="<?php echo get_home_url() . '/wp-admin/widgets.php'; ?>">(For related images widget)</a></em>.* <?php echo sshelp('update_related_images', 'Update Related Images'); ?></label> 
+    <strong>Update Related Images</strong> <em><a title="Apply related images widget to image page." href="<?php echo get_home_url() . '/wp-admin/widgets.php'; ?>">(For related images widget)</a></em>.*</label> 
     <p><strong>*Note: </strong> Generating <em>related images</em> is a complicated process. <br /> The process is allowed to run for as long as it has to. Please be patient. 
     <br />It could take a <em>long</em> time. You may navigate away from this page if needed...it will continue to update. It will email you with progress.</p>   
 <?php
