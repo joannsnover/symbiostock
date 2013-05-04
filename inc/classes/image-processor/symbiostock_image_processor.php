@@ -1,5 +1,457 @@
 <?php
 /**
+ * This is a driver for the watermarks creating
+ *
+ * LICENSE:
+ * The PHP License, version 3.0
+ *
+ * Copyright (c) 1997-2005 The PHP Group
+ *
+ * This source file is subject to version 3.0 of the PHP license,
+ * that is bundled with this package in the file LICENSE, and is
+ * available through the world-wide-web at the following url:
+ * http://www.php.net/license/3_0.txt.
+ * If you did not receive a copy of the PHP license and are unable to
+ * obtain it through the world-wide-web, please send a note to
+ * license@php.net so we can mail you a copy immediately.
+ *
+ * Class based on http://code.google.com/p/php-funs/
+ *
+ * @license     http://www.php.net/license/3_0.txt
+ *              The PHP License, version 3.0
+ */
+class symbiostock_gd_watermark
+{
+    /**
+     * Horizontal align constants
+     */
+    const ALIGN_LEFT = -1;
+    const ALIGN_CENTER = 0;
+    const ALIGN_RIGHT = +1;
+    
+    /**
+     * Vertical align constants
+     */
+    const ALIGN_TOP = -1;
+    const ALIGN_MIDDLE = 0;
+    const ALIGN_BOTTOM = +1;
+    
+    /**
+     * Display rendered image (send it to browser or to file).
+     * This method is a common implementation to render and output an image.
+     * The method calls the render() method automatically and outputs the
+     * image to the browser or to the file.
+     *
+     * @param  mixed   $input   Destination image, a filename or an image string data or a GD image resource
+     * @param  array   $options Watermark options
+     *         <pre>
+     *         watermark	string	Watermark image filename
+     *         halign		int		Horizontal align; one of Watermark::ALIGN_* constants
+     *         valign		int		Vertical align; one of Watermark::ALIGN_* constants
+     *         hshift		int		Horizontal shift
+     *         vshift		int		Vertical shift
+     *         type			int		One of IMAGETYPE_* constants supported by class
+     *         jpeg-quality	int		JPEG quality level
+     *         </pre>
+     *
+     * @return boolean          TRUE on success or FALSE on failure.
+     * @access public
+     */
+    public static function output( $input, $output = null, $options = null )
+    {
+        // Set default options
+        static $defOptions = array( 'watermark' => '', 'halign' => self::ALIGN_CENTER, 'valign' => self::ALIGN_MIDDLE, 'hshift' => 0, 'vshift' => 0, 'type' => IMAGETYPE_JPEG, 'jpeg-quality' => 90 );
+        
+        foreach ( $defOptions as $k => $v ) {
+            if ( !isset( $options[ $k ] ) ) {
+                $options[ $k ] = $v;
+            } //!isset( $options[ $k ] )
+        } //$defOptions as $k => $v
+        
+        // Load source file and render image
+        $renderImage = self::_render( $input, $options );
+        if ( !$renderImage ) {
+            user_error( 'Error rendering image', E_USER_NOTICE );
+            return false;
+        } //!$renderImage
+        
+        // Before output to browsers send appropriate headers
+        if ( empty( $output ) ) {
+            $content_type = image_type_to_mime_type( $options[ 'type' ] );
+            if ( !headers_sent() ) {
+                header( 'Content-Type: ' . $content_type );
+            } //!headers_sent()
+            else {
+                user_error( 'Headers have already been sent. Could not display image.', E_USER_NOTICE );
+                return false;
+            }
+        } //empty( $output )
+        
+        // Define outputing function
+        switch ( $options[ 'type' ] ) {
+            case IMAGETYPE_GIF:
+                $result = empty( $output ) ? imagegif( $renderImage ) : imagegif( $renderImage, $output );
+                break;
+            
+            case IMAGETYPE_PNG:
+                $result = empty( $output ) ? imagepng( $renderImage ) : imagepng( $renderImage, $output );
+                break;
+            
+            case IMAGETYPE_JPEG:
+                $result = empty( $output ) ? imagejpeg( $renderImage, '', $options[ 'jpeg-quality' ] ) : imagejpeg( $renderImage, $output, $options[ 'jpeg-quality' ] );
+                break;
+            
+            default:
+                user_error( 'Image type ' . $content_type . ' not supported by PHP', E_USER_NOTICE );
+                return false;
+        } //$options[ 'type' ]
+        
+        // Output image (to browser or to file)
+        if ( !$result ) {
+            user_error( 'Error output image', E_USER_NOTICE );
+            return false;
+        } //!$result
+        
+        // Free a memory from the target image
+        imagedestroy( $renderImage );
+        
+        return true;
+    }
+    
+    /**
+     * Draw watermark to resource.
+     *
+     * @param  mixed   $input   Destination image, a filename or an image string data or a GD image resource
+     * @param  array   $options Watermark options
+     *
+     * @return boolean			TRUE on success or FALSE on failure.
+     * @access public
+     * @see    					Watermark::output()
+     */
+    private static function _render( $input, $options )
+    {
+        $sourceImage = self::_imageCreate( $input, false );
+        if ( !is_resource( $sourceImage ) ) {
+            user_error( 'Invalid image resource', E_USER_NOTICE );
+            return false;
+        } //!is_resource( $sourceImage )
+        
+        $watermark = self::_imageCreate( $options[ 'watermark' ], true );
+        if ( !is_resource( $watermark ) ) {
+            user_error( 'Invalid watermark resource', E_USER_NOTICE );
+            return false;
+        } //!is_resource( $watermark )
+        
+        $image_width      = imagesx( $sourceImage );
+        $image_height     = imagesy( $sourceImage );
+        $watermark_width  = imagesx( $watermark );
+        $watermark_height = imagesy( $watermark );
+        $X                = self::_coord( $options[ 'halign' ], $image_width, $watermark_width ) + $options[ 'hshift' ];
+        $Y                = self::_coord( $options[ 'valign' ], $image_height, $watermark_height ) + $options[ 'vshift' ];
+        
+        imagecopy( $sourceImage, $watermark, $X, $Y, 0, 0, $watermark_width, $watermark_height );
+        imagedestroy( $watermark );
+        
+        return $sourceImage;
+    }
+    
+    /**
+     * Create a GD image resource from given input.
+     *
+     * This method tried to detect what the input, if it is a file the
+     * createImageFromFile will be called, otherwise createImageFromString().
+     *
+     * @param  mixed $input The input for creating an image resource. The value
+     *                      may a string of filename, string of image data or
+     *                      GD image resource.
+     *
+     * @return resource     An GD image resource on success or false
+     * @access public
+     * @static
+     * @see    Watermark::imageCreateFromFile(), Watermark::imageCreateFromString()
+     */
+    private static function _imageCreate( $input, $wm )
+    {
+        if ( is_file( $input ) ) {
+            return self::_imageCreateFromFile( $input, $wm );
+        } //is_file( $input )
+        else if ( is_string( $input ) ) {
+            return self::_imageCreateFromString( $input );
+        } //is_string( $input )
+        else {
+            return $input;
+        }
+    }
+    
+    /**
+     * Create a GD image resource from file (JPEG, PNG support).
+     *
+     * @param  string $filename The image filename.
+     *
+     * @return mixed            GD image resource on success, FALSE on failure.
+     * @access private
+     * @static
+     */
+    private static function _imageCreateFromFile( $filename, $wm = false )
+    {
+        if ( !is_file( $filename ) || !is_readable( $filename ) ) {
+            user_error( 'Unable to open file "' . $filename . '"', E_USER_NOTICE );
+            return false;
+        } //!is_file( $filename ) || !is_readable( $filename )
+        
+        // determine image format
+        list( , , $type ) = getimagesize( $filename );
+        
+        switch ( $type ) {
+            case IMAGETYPE_GIF:
+                return imagecreatefromgif( $filename );
+                break;
+            
+            case IMAGETYPE_JPEG:
+                return imagecreatefromjpeg( $filename );
+                break;
+            
+            case IMAGETYPE_PNG:
+                $png = imagecreatefrompng( $filename );
+                
+                if ( $wm == true ) {
+                    return $png;
+                } //$wm == true
+                else {
+                    
+                    // Create a new true color image with the same size
+                    $w     = imagesx( $png );
+                    $h     = imagesy( $png );
+                    $white = imagecreatetruecolor( $w, $h );
+                    
+                    // Fill the new image with white background, or it will be aweful black color
+                    $bg = imagecolorallocate( $white, 255, 255, 255 );
+                    imagefill( $white, 0, 0, $bg );
+                    
+                    // Copy original transparent image onto the new image
+                    imagecopy( $white, $png, 0, 0, 0, 0, $w, $h );
+                    return $white;
+                }
+                break;
+        } //$type
+        user_error( 'Unsupport image type', E_USER_NOTICE );
+        return false;
+    }
+    
+    /**
+     * Create a GD image resource from a string data.
+     *
+     * @param  string $string The string image data.
+     *
+     * @return mixed          GD image resource on success, FALSE on failure.
+     * @access private
+     * @static
+     */
+    private static function _imageCreateFromString( $string )
+    {
+        if ( !is_string( $string ) || empty( $string ) ) {
+            user_error( 'Invalid image value in string', E_USER_NOTICE );
+            return false;
+        } //!is_string( $string ) || empty( $string )
+        
+        return imagecreatefromstring( $string );
+    }
+    
+    /**
+     * Calculate watermark X or Y coordinate based on align and dimensions
+     *
+     * @param  int $align				One of Watermark::ALIGN_* constants
+     * @param  int $image_dimension		The string image data.
+     * @param  int $watermark_dimension	The string image data.
+     *
+     * @return int			Coordinate
+     * @access private
+     * @static
+     */
+    private static function _coord( $align, $image_dimension, $watermark_dimension )
+    {
+        if ( $align < self::ALIGN_CENTER ) {
+            $result = 0;
+        } //$align < self::ALIGN_CENTER
+        elseif ( $align > self::ALIGN_CENTER ) {
+            $result = $image_dimension - $watermark_dimension;
+        } //$align > self::ALIGN_CENTER
+        else {
+            $result = ( $image_dimension - $watermark_dimension ) >> 1;
+        }
+        return $result;
+    }
+}
+
+//this function applies a watermark to image
+function symbiostock_watermark_image( $source_path, $destination, $watermark_path )
+{
+    //if we have imagemagick, definitely use that!	
+    if ( extension_loaded( 'imagick' ) ) {
+        
+        $image = new Imagick();
+        $image->readImage( $source_path );
+        
+        $watermark = new Imagick();
+        $watermark->readImage( $watermark_path );
+        
+        // how big are the images?
+        $iWidth  = $image->getImageWidth();
+        $iHeight = $image->getImageHeight();
+        $wWidth  = $watermark->getImageWidth();
+        $wHeight = $watermark->getImageHeight();
+        
+        // calculate the position
+        $x = ( $iWidth - $wWidth ) / 2;
+        $y = ( $iHeight - $wHeight ) / 2;
+        
+        //we have to make the transparency go to white, or it will become an awefull black color in jpeg version        
+        $white = new Imagick();
+        $white->newImage( $image->getImageWidth(), $image->getImageHeight(), "white" );
+        $white->compositeimage( $image, Imagick::COMPOSITE_OVER, 0, 0 );
+        
+        //now apply watermark
+        $white->compositeImage( $watermark, imagick::COMPOSITE_OVER, $x, $y );
+        
+		//save
+        $white->writeImage( $destination );
+        
+        //save memory
+        $image->destroy();
+        $white->destroy();
+    } //extension_loaded( 'imagick' )
+    
+    else {
+        
+        //if we don't have imagemagic, we fall back to GD and use the attached library/class/	
+        $watermark_options = array(
+             'watermark' => $watermark_path,
+            'halign' => ALIGN_CENTER,
+            'valign' => ALIGN_MIDDLE,
+            'type' => IMAGETYPE_JPEG,
+            'jpeg-quality' => 100 
+        );
+        
+        symbiostock_gd_watermark::output( $source_path, $destination, $watermark_options );
+    }
+}
+//changes the otherwise black background of a png to jpeg save to white
+function symbiostock_imagetranstowhite($trans) {
+    // Create a new true color image with the same size
+    $w = imagesx($trans);
+    $h = imagesy($trans);
+    $white = imagecreatetruecolor($w, $h);
+ 
+    // Fill the new image with white background
+    $bg = imagecolorallocate($white, 255, 255, 255);
+    imagefill($white, 0, 0, $bg);
+ 
+    // Copy original transparent image onto the new image
+    imagecopy($white, $trans, 0, 0, 0, 0, $w, $h);
+    return $white;
+}
+
+function symbiostock_generate_minipic( $source, $destination, $jpg = true )
+{
+    
+    //jpeg = true relates to incoming filetype. PNGS have to be handled differently due to black background when saving to jpg.
+    //jpeg is default. If PNG we have to do some extra things.
+    //this function can be expanded to make different min-pic effects like reflections
+    
+    //if we have imagemagick, definitely use that!	
+    if ( extension_loaded( 'imagick' ) ) {
+        
+        /* Read the image */
+        $image = new Imagick( $source );
+        
+        /* Thumbnail the image */
+        $image->thumbnailImage( 150, null );
+        
+        //if user wants reflections on their thumbnail previews
+        $symbiostock_reflections = get_option( 'symbiostock_reflections' );
+        if ( $symbiostock_reflections == 'on' ) {
+            
+            //if we are using reflection previews or not
+            /* Create a border for the image */
+            $image->borderImage( new ImagickPixel( "white" ), 5, 5 );
+            
+            /* Clone the image and flip it */
+            $reflection = $image->clone();
+            $reflection->flipImage();
+            
+            /* Create gradient. It will be overlayed on the reflection */
+            $gradient = new Imagick();
+            
+            /* Gradient needs to be large enough for the image and the borders */
+            $gradient->newPseudoImage( $reflection->getImageWidth() + 10, $reflection->getImageHeight() + 10, "gradient:transparent-white" );
+            
+            /* Composite the gradient on the reflection */
+            $reflection->compositeImage( $gradient, imagick::COMPOSITE_OVER, 0, 0 );
+            
+            /* Add some opacity. Requires ImageMagick 6.2.9 or later */
+            $reflection->setImageOpacity( 0.3 );
+            
+            /* Create an empty canvas */
+            $canvas = new Imagick();
+            
+            /* Canvas needs to be large enough to hold the both images */
+            $width  = $image->getImageWidth() + 40;
+            $height = ( $image->getImageHeight() * 2 ) - 25;
+            $canvas->newImage( $width, $height, new ImagickPixel( "white" ) );
+            $canvas->setImageFormat( "png" );
+            
+            /* Composite the original image and the reflection on the canvas */
+            $canvas->compositeImage( $image, imagick::COMPOSITE_OVER, 20, 10 );
+            $canvas->compositeImage( $reflection, imagick::COMPOSITE_OVER, 20, $image->getImageHeight() + 10 );
+            $minipic = $canvas;
+        } //$symbiostock_reflections == 'on'
+        else {
+            
+            //we have to make the transparency go to white, or it will become an awefull black color in jpeg version        
+            $white = new Imagick();
+            $white->newImage( $image->getImageWidth(), $image->getImageHeight(), "white" );
+            $white->compositeimage( $image, Imagick::COMPOSITE_OVER, 0, 0 );
+            $minipic = $white;
+            
+        }
+        //save 
+        $minipic->writeImage( $destination );
+        
+    } //extension_loaded( 'imagick' )
+    else {
+        
+        //if using gd library
+        // Open original PNG image
+        
+        if ( $jpeg == false ) {
+            
+            $png = imagecreatefrompng( $source );
+           
+		    // Transform to white-background JPEG
+			$png = symbiostock_imagetranstowhite($png);	
+			
+			imagealphablending($png, true);
+			imagesavealpha($png, true);
+            // Save new image
+			imagepng( $png, $source, 1);
+			unset($png);
+			unset($source);		
+            
+        } //$jpeg == false
+        
+        //now use wordpress to do the dirty work        
+        $image = wp_get_image_editor( $source );
+		$image->resize( 150, 150, false );
+        $image->set_quality( 100 );
+        $image->save( $destination, 'jpg' );
+		unset($image);		
+    }
+    
+    
+}
+
+
+/**
  * Runs image processing user initiates after upload.
  *
  * This is the main symbiostock image processor. Typically its used 
@@ -48,8 +500,8 @@ class symbiostock_image_processor
         
         $this->upload_dir = get_template_directory() . '/inc/classes/plupload/uploads/';
         
-        $this->build_file_list();
-        
+        $this->build_file_list();		
+       
     }
 	
     //main image watermarking function
@@ -91,7 +543,7 @@ class symbiostock_image_processor
             
         }
         
-        $checkerboard_path = symbiostock_CLASSDIR . '/image-processor/transparency.png';
+        $checkerboard_path = symbiostock_CLASSROOT . 'image-processor/transparency.png';
         
         $sizes = get_post_meta( $posted_id, 'size_info' );
         
@@ -105,103 +557,97 @@ class symbiostock_image_processor
         
         $thumb_size = $sizes[ 'thumb' ];
         
-        //perform our resizing operations using wideimage
-        
-        include_once( symbiostock_CLASSROOT . 'image-processor/wideimage/lib/WideImage.php' );
-        //get the watermarks
-        $watermark       = WideImage::load( $watermark_path );
-        $watermark_small = WideImage::load( symbiostock_CLASSDIR . '/image-processor/symbiostock-watermark-small.png' );
-        
-        //get the transparency background
-        $checkerboard_transpency = WideImage::load( $checkerboard_path );
-        
-        //create thumbnail and previews, save in uploads/tmp folder
-        
+		                   
+        //create thumbnail and previews, save in uploads/tmp folder        
         
         if ( in_array( 'png', $extensions ) ) {
-            //make our typical preview
-            
-            $image = WideImage::load( $this->upload_dir . $image_file . '.png' );
-            
-            $resized = $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );
-            
-            // Create an empty white canvas with the original image sizes
-            $img = WideImage::createTrueColorImage( $resized->getWidth(), $resized->getHeight() );
-            
-            $bg = $img->allocateColor( 255, 255, 255 );
-            
-            $img->fill( 0, 0, $bg );
-            
-            //lay image over white canvas background - 
-            
-            $flattened = $img->merge( $resized, 'center', 'center', 100 );
-            
-            //also make minipic size
-            $mini_pic = $flattened->resize( $thumb_size[ 'width' ], $thumb_size[ 'height' ] );
-            
-            //lay watermark over preview size
-            $watermarked = $flattened->merge( $watermark, 'center', 'center', 100 );
-            
-            //save preview
-            $watermarked->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 100 );
-            
-            //save minipic
-            $mini_pic->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 100 );
+            //make our typical preview, the transparent reference file used in watermark basic preview, and transparency preview            
+            $image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );            
+            $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
+			$image->set_quality( 100 );            
+			$image->save( $this->upload_dir . 'tmp/' . $posted_id . '_tmp.png' );
+			
+			//destroy the object to keep memory free
+			unset($image);
+			
+			//now call our watermarking function to process the previously saved temp image
+			symbiostock_watermark_image( 
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp.png', 
+				$this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 
+				$watermark_path 
+			);
+			
+            //make our mini-pic
+			$image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );
+            $image->resize( $thumb_size[ 'width' ], $thumb_size[ 'height' ] );
+			$image->set_quality( 95 );
+            $image->save( $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 'jpg' );
+            unset($image);
             
             //make our transparency preview
-            
-            $transparency_resized = $image->resize( 515, 515 );
-            
-            $transparency_preview = $checkerboard_transpency->merge( $transparency_resized, 'center', 'center', 100 );
-            
-            $watermarked = $transparency_preview->merge( $watermark, 'center', 'center', 100 );
-            
-            $watermarked->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_transparency_preview.jpg', 100 );
+            //we can cheat and use our watermarking script to merge the two images, because that is fun and cool
+			symbiostock_watermark_image( 
+				$checkerboard_path, 
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp_checkerboard.png', 
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp.png'
+			);
+			
+			//now we take that file and actually watermark it for real
+			symbiostock_watermark_image( 
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp_checkerboard.png', 
+				$this->upload_dir . 'tmp/' . $posted_id . '_transparency_preview.jpg', 
+				$watermark_path
+			);	
+	
+			//make our minipic
+			symbiostock_generate_minipic(
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp.png',
+				$this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 
+				false
+			);
+			
             
         } //in_array( 'png', $extensions )
         
         //jpg from jpg
         if ( in_array( 'jpg', $extensions ) ) {
-            //make our typical preview
-            
-            $image = WideImage::load( $this->upload_dir . $image_file . '.jpg' );
-            
-            $resized = $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );
-            
-            $watermarked = $resized->merge( $watermark, 'center', 'center', 100 );
-            
-			unset($resized);
-			
-            $watermarked->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 100 );
-            
-			unset($watermarked);		
-			
-            //make our thumbnail
-            
-            $resized = $image->resize( $thumb_size[ 'width' ], $thumb_size[ 'height' ] );
-            
-            $resized->saveToFile( $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 100 );
-            
+            //make our typical preview            
+
+			$image = wp_get_image_editor(  $this->upload_dir . $image_file . '.jpg' );            
+            $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
+			$image->set_quality( 100 );            
+			$image->save( $this->upload_dir . 'tmp/' . $posted_id . '_tmp.jpg' );
+			       
+            //destroy the object to keep memory free
 			unset($image);
 			
-            //copy iptc data over
-            $this->copy_iptc( $this->upload_dir . $image_file . '.jpg', $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg' );
+			//now call our watermarking function to process the previously saved temp image
+			symbiostock_watermark_image( 
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp.jpg', 
+				$this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 
+				$watermark_path 
+			);			
+
+			
+			//make our minipic
+			symbiostock_generate_minipic(
+				$this->upload_dir . 'tmp/' . $posted_id . '_tmp.jpg',
+				$this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 
+				true
+			);
+			
             
         } //in_array( 'jpg', $extensions )
         
         //copy files over to symbiostock_rf_content folder, root
         
         //first the minipic		
-        $this->move_to_content_folder( $posted_id . '_minipic.jpg', 'minipic', $posted_id );
+        $this->move_to_content_folder( $posted_id . '_minipic.jpg', 'minipic', $posted_id );        
         
+        //now our watermarked preview        
+        $this->move_to_content_folder( $posted_id . '_preview.jpg', 'preview', $posted_id );        
         
-        //now our watermarked preview
-        
-        $this->move_to_content_folder( $posted_id . '_preview.jpg', 'preview', $posted_id );
-        
-        
-        //and then transparency preview 
-        
+        //and then transparency preview         
         $this->move_to_content_folder( $posted_id . '_transparency_preview.jpg', 'transparency', $posted_id );
         
     }
@@ -839,8 +1285,15 @@ class symbiostock_image_processor
     public function list_images( )
     {
         $listings = $this->files;
-        
-?> <table class="symbiostock-image-processor wp-list-table widefat"> 
+     
+	 if( extension_loaded( 'imagick' ) ||  class_exists( 'Imagick' ) ||  class_exists( 'ImagickPixel' )) 
+	 { $using = '<span class="description">Using <strong>ImageMagick</strong>.</span>'; } 
+	 else  
+	 { $using = '<span class="description">Using <strong>GD Library</strong>.</span>'; }
+	    
+?> 
+<p><?php echo $using; ?></p>
+<table class="symbiostock-image-processor wp-list-table widefat"> 
         
                 <thead>
                     <tr>
@@ -848,7 +1301,7 @@ class symbiostock_image_processor
                         </th>
                         <th class="manage-column jpg" scope="col">#</th>
                         <th class="manage-column jpg" scope="col">File Name</th>
-                        <th class="manage-column jpg" scope="col">Info</th>
+                        <th class="manage-column jpg" scope="col">Info </th>
                         <th class="manage-column jpg" scope="col">jpeg</th>
                         <th class="manage-column png" scope="col">png</th>
                         <th class="manage-column eps" scope="col">eps</th>

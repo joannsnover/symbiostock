@@ -200,6 +200,15 @@ $symbiostock_comment_status = get_option('symbiostock_comments');
 $symbiostock_comment_status == 'open' || !isset($symbiostock_comment_selected)  ? $symbiostock_comment_selected = 'selected="selected"' : $symbiostock_comment_selected = '';
 $symbiostock_comment_status == 'closed' ? $symbiostock_comment_not_selected = 'selected="selected"' : $symbiostock_comment_not_selected = '';
 
+//reflections on or off on minipics
+if(isset($_POST['symbiostock_reflections'])){ 
+	update_option( 'symbiostock_reflections', $_POST[ 'symbiostock_reflections' ] );
+}
+
+$symbiostock_reflections = get_option('symbiostock_reflections');
+$symbiostock_reflections == 'on' || !isset($symbiostock_reflections)  ? $symbiostock_reflections_on = 'selected="selected"' : $symbiostock_reflections_on = '';
+$symbiostock_reflections == 'off' ? $symbiostock_reflections_off = 'selected="selected"' : $symbiostock_reflections_off = '';
+
 $symbiostock_bloggee_available = get_option( 'symbiostock_bloggee_available', 'yes');
 $symbiostock_small_available   = get_option( 'symbiostock_small_available', 'yes');
 $symbiostock_medium_available  = get_option( 'symbiostock_medium_available', 'yes');
@@ -315,15 +324,23 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
     </tr>   
    
    
-       </tr>
-    
+      <tr>    
         <th scope="row"><strong>Image Comments</strong> <br /> Applied during processing. Must manually change afterward.</th>
         <td><select id="symbiostock_comments"  name="symbiostock_comments">
                 <option <?php echo $symbiostock_comment_selected; ?> value="open">Allowed</option>
                 <option <?php echo $symbiostock_comment_not_selected; ?> value="closed">Disabled</option>
             </select></td>
-    </tr>
-   
+  	  </tr>
+
+       <tr>
+    <?php if ( extension_loaded( 'imagick' ) ) {  ?>
+        <th scope="row"><strong>Thumbnail Reflections</strong> <br /> Attractive for full-area pictures. Isolated pics (on white), not so much. </th>
+        <td><select id="symbiostock_reflections"  name="symbiostock_reflections">
+                <option <?php echo $symbiostock_reflections_on; ?> value="on">Reflections On</option>
+                <option <?php echo $symbiostock_reflections_off; ?> value="off">Reflections Off</option>
+            </select></td>
+  	  </tr>      
+    <?php } ?>
     <tr>
         <th colspan=2> <strong>&raquo; Referral Links</strong> </th>
     </tr>
