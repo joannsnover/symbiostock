@@ -21,9 +21,8 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
     require_once( $parse_path[ 0 ] . 'wp-load.php' );   
     //wp-load will give us access to wordpress's info / functions
     require_once( $parse_path[ 0 ] . 'wp-load.php' );    
-    //we need wide-image for resizing functions. Images are resized on demand.
-    include_once( symbiostock_CLASSROOT . 'image-processor/wideimage/lib/WideImage.php' );
     
+        
     //get the user's purchased products
     $user_products = symbiostock_get_user_files( trim( $_POST[ 'symbiostock_current' ] ) );
     

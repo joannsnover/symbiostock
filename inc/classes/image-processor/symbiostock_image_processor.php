@@ -1,4 +1,111 @@
 <?php
+// Turn off Error Reporting
+
+
+if ( is_admin() ) {
+	
+	 error_reporting ( 0 );
+    // Change: Allow this example file to be easily relocatable - as of version 1.11
+    $Toolkit_Dir = symbiostock_CLASSROOT . 'PHP_JPEG_Metadata_Toolkit/'; // Ensure dir name includes trailing slash
+    
+    // Hide any unknown EXIF tags
+    $GLOBALS[ 'HIDE_UNKNOWN_TAGS' ] = TRUE;
+    
+    include $Toolkit_Dir . 'Toolkit_Version.php'; // Change: added as of version 1.11
+    include $Toolkit_Dir . 'JPEG.php'; // Change: Allow this example file to be easily relocatable - as of version 1.11
+    include $Toolkit_Dir . 'JFIF.php';
+    include $Toolkit_Dir . 'PictureInfo.php';
+    include $Toolkit_Dir . 'XMP.php';
+    include $Toolkit_Dir . 'Photoshop_IRB.php';
+    include $Toolkit_Dir . 'EXIF.php';
+    include $Toolkit_Dir . 'Photoshop_File_Info.php';
+    
+    function symbiostock_update_meta( $original, $source, $destination, $postid )
+    {
+        if ( file_exists( $original ) && file_exists( $destination ) && file_exists( $source ) ) {
+           
+            
+            //we get certain information from original file, but we cannot just transfer it blindly because bad things happen :D
+            
+            // Retrieve the header information
+            $jpeg_header_data = get_jpeg_header_data( $original );
+            
+            // Retreive the EXIF, XMP and Photoshop IRB information from
+            // the existing file, so that it can be updated
+            $Exif_array = get_EXIF_JPEG( $original );
+            $XMP_array  = read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) );
+            $IRB_array  = get_Photoshop_IRB( $jpeg_header_data );
+            
+            $info = get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array );
+                        
+            $permalink  = get_permalink( $postid );
+            $author_url = get_site_url();
+            
+            //set up our author variables
+            
+            global $current_user;
+            get_currentuserinfo();
+            
+            if ( !empty( $info[ 'author' ] ) ) {
+                
+                $author = $info[ 'author' ];
+                
+            } else {
+                
+                $author = $current_user->display_name;
+                
+            }
+            
+            $new_ps_file_info_array = array(
+                 'title' => $info[ 'title' ],
+                'author' => $author,
+                'authorsposition' => $info[ 'authorsposition' ],
+                'caption' => isset( $info[ 'caption' ] ) ? $info[ 'caption' ] : $info[ 'title' ],
+                'captionwriter' => isset( $info[ 'captionwriter' ] ) ? $info[ 'captionwriter' ] : $info[ 'author' ],
+                'jobname' => $info[ 'jobname' ],
+                'copyrightstatus' => "Copyrighted Work",
+                'copyrightnotice' => "Copyright (c) " . $author . " " . date( "Y" ) . "\nImage Location: " . $permalink . "\nImage Contact: " . $current_user->user_email,
+                'ownerurl' => $author_url,
+                'keywords' => $info[ 'keywords' ],
+                'category' => $info[ 'category' ],
+                'supplementalcategories' => $info[ 'supplementalcategories' ],
+                'date' => date('Y-m-d'),
+                'city' => $info[ 'city' ],
+                'state' => $info[ 'state' ],
+                'country' => $info[ 'country' ],
+                'credit' => $info[ 'credit' ],
+                'source' => $permalink,
+                'headline' => empty( $info[ 'headline' ] ) ? $info[ 'headline' ] : $info[ 'title' ],
+                'instructions' => empty( $info[ 'instructions' ] ) ? 'This image is from ' . $author_url . ', by ' . $author . '. Please contact ' . $current_user->user_email . ' if you have found this image being used unlawfully.' : '',
+                'transmissionreference' => $info[ 'transmissionreference' ],
+                'urgency' => $info[ 'urgency' ] 
+            );
+            
+            // Retrieve the header information
+            $jpeg_header_data = get_jpeg_header_data( $source );
+            
+            // Retreive the EXIF, XMP and Photoshop IRB information from
+            // the existing file, so that it can be updated
+            $Exif_array = get_EXIF_JPEG( $source );
+            $XMP_array  = read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) );
+            $IRB_array  = get_Photoshop_IRB( $jpeg_header_data );
+            
+            $info = get_Photoshop_IRB( $jpeg_header_data );
+            
+            // Update the JPEG header information with the new Photoshop File Info
+            $jpeg_header_data = put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $Exif_array, $XMP_array, $IRB_array );
+            
+            put_jpeg_header_data( $source, $destination, $jpeg_header_data );
+            
+        }
+    }
+	
+    function symbiostock_put_meta( $filename, $meta )
+    {
+        
+    }
+}
+
 /**
  * This is a driver for the watermarks creating
  *
@@ -639,8 +746,34 @@ class symbiostock_image_processor
             
         } //in_array( 'jpg', $extensions )
         
-        //copy files over to symbiostock_rf_content folder, root
         
+        ###
+		
+		//update PREVIEW image with meta info, from image and site defaults
+		$meta_info = symbiostock_update_meta(
+		    $this->upload_dir . $image_file . '.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 
+			$posted_id
+		);
+		
+		//update TRANSPARENCY image with meta info, from image and site defaults
+		$meta_info = symbiostock_update_meta(
+		    $this->upload_dir . $image_file . '.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_transparency_preview.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_transparency_preview.jpg', 
+			$posted_id
+		);
+		
+		//update MINIPIC image with meta info, from image and site defaults
+		$meta_info = symbiostock_update_meta(
+		    $this->upload_dir . $image_file . '.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg',
+			$this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 
+			$posted_id
+		);		
+		
+		//copy files over to symbiostock_rf_content folder, root
         //first the minipic		
         $this->move_to_content_folder( $posted_id . '_minipic.jpg', 'minipic', $posted_id );        
         
