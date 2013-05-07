@@ -33,6 +33,7 @@ define('symbiostock_CLASSROOT', $symbiostock_theme_root . '/inc/classes/' );
 define('symbiostock_INCLUDESROOT', $symbiostock_theme_root . '/inc/' );
 define('symbiostock_NETWORK_MANAGER', $symbiostock_theme_root . '/inc/classes/network-manager/' );
 define('symbiostock_CSSROOT', $symbiostock_theme_root . '/css/' );
+define('symbiostock_TMPROOT', $symbiostock_theme_root . '/tmp/' );
 //setup databases after activation - 
 add_action('after_switch_theme', 'symbiostock_installer');
 function symbiostock_installer(){
@@ -1002,7 +1003,198 @@ require_once(symbiostock_NETWORK_MANAGER . '/network-manager.php');
 
 //http://wordpress.org/extend/plugins/gecka-terms-thumbnails/
 //category thumbnails
+add_action( 'save_post', 'symbiostock_reprocess_image' );
 
-if( function_exists('add_term_thumbnails_support') )
-add_term_thumbnails_support ('image-type');
+function symbiostock_reprocess_image( $post_id ) {
+	global $post;
+	global $typenow;
+	$post_type_bulk = $typenow;
+		
+	if($post->post_type = 'image' || $post_type_bulk = 'image')
+		
+	//sometimes people have images of obnoxiously huge size, so we up memory to obnoxiously huge limit
+	ini_set( "memory_limit", "1024M" );
+	//set the time limit for five minutes in case theres a lot of images
+	set_time_limit( 300 );
+	
+	$attachment_id = get_post_meta($post_id , 'symbiostock_preview_id');
+	
+	$file_attachment_path = get_attached_file( $attachment_id[0] );
+		
+	include_once( symbiostock_CLASSROOT . 'image-processor/symbiostock_image_processor.php' );
+	
+	$watermark_path = symbiostock_get_watermark_path();
+	
+	$stockdir = symbiostock_STOCKDIR;
+	
+	$tmp = symbiostock_TMPROOT;
+	
+	
+	if (file_exists($stockdir . $post_id . '.jpg')) {
+		$file = $stockdir . $post_id . '.jpg';
+		$meta = true;
+	} else if(file_exists($stockdir . $post_id . '.png')){
+		$file = $stockdir . $post_id . '.png';
+		$meta = false;		
+	} else {
+		return;		
+		}
+	
+	//first generate a new preview, then save it to tmp
+	$image = wp_get_image_editor(  $file );            
+	$image->resize( 590, 590 );			
+	$image->set_quality( 100 );            
+	$image->save( $tmp . $post_id . '.jpg' );
+	
+	//watermark the image
+	symbiostock_watermark_image( 
+		$tmp . $post_id . '.jpg', 
+		$tmp . $post_id . '.jpg', 
+		$watermark_path 
+	);
+	//update its meta
+	symbiostock_update_meta( 
+		$file, 
+		$tmp . $post_id . '.jpg', 
+		$tmp . $post_id . '.jpg', 
+		$post_id 
+	);	
+	//copy it	
+	if ( !copy($tmp . $post_id . '.jpg', $file_attachment_path )){
+    	echo "failed to copy $file...\n";
+	}
+	//delete temp image
+	unlink($tmp . $post_id . '.jpg');	
+}
 
+//adding custom functionality to the bulk edit screen is not easy with current wordpress. We are using a class developed by FoxRunSoftware
+
+/*
+Plugin Name: FoxRunSoftware Custom Bulk Action Demo
+Plugin URI: http://www.foxrunsoftware.net/articles/wordpress/add-custom-bulk-action/
+Description: A working demonstration of a custom bulk action
+Author: Justin Stern
+Author URI: http://www.foxrunsoftware.net
+Version: 0.1
+
+	Copyright: © 2012 Justin Stern (email : justin@foxrunsoftware.net)
+	License: GNU General Public License v3.0
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+*/
+if(is_admin){
+	if (!class_exists('symbiostock_reprocess_images')) {
+	 
+		class symbiostock_reprocess_images {
+			
+			public function __construct() {
+				
+				if(is_admin()) {
+					// admin actions/filters
+					add_action('admin_footer-edit.php', array(&$this, 'custom_bulk_admin_footer'));
+					add_action('load-edit.php',         array(&$this, 'custom_bulk_action'));
+					add_action('admin_notices',         array(&$this, 'custom_bulk_admin_notices'));
+				}
+			}
+			
+			
+			/**
+			 * Step 1: add the custom Bulk Action to the select menus
+			 */
+			function custom_bulk_admin_footer() {
+				global $post_type;
+				
+				if($post_type == 'image') {
+					?>
+						<script type="text/javascript">
+							jQuery(document).ready(function() {
+								jQuery('<option>').val('reprocess').text('<?php _e('Reprocess')?>').appendTo("select[name='action']");
+								jQuery('<option>').val('reprocess').text('<?php _e('Reprocess')?>').appendTo("select[name='action2']");
+							});
+						</script>
+					<?php
+				}
+			}
+			
+			
+			/**
+			 * Step 2: handle the custom Bulk Action
+			 * 
+			 * Based on the post http://wordpress.stackexchange.com/questions/29822/custom-bulk-action
+			 */
+			function custom_bulk_action() {
+				global $typenow;
+				$post_type = $typenow;
+				
+				if($post_type == 'image') {
+					
+					// get the action
+					$wp_list_table = _get_list_table('WP_Posts_List_Table');  // depending on your resource type this could be WP_Users_List_Table, WP_Comments_List_Table, etc
+					$action = $wp_list_table->current_action();
+					
+					$allowed_actions = array("reprocess");
+					if(!in_array($action, $allowed_actions)) return;
+					
+					// security check
+					check_admin_referer('bulk-posts');
+					
+					// make sure ids are submitted.  depending on the resource type, this may be 'media' or 'ids'
+					if(isset($_REQUEST['post'])) {
+						$post_ids = array_map('intval', $_REQUEST['post']);
+					}
+					
+					if(empty($post_ids)) return;
+					
+					// this is based on wp-admin/edit.php
+					$sendback = remove_query_arg( array('reprocessed', 'untrashed', 'deleted', 'ids'), wp_get_referer() );
+					if ( ! $sendback )
+						$sendback = admin_url( "edit.php?post_type=$post_type" );
+					
+					$pagenum = $wp_list_table->get_pagenum();
+					$sendback = add_query_arg( 'paged', $pagenum, $sendback );
+					
+					switch($action) {
+						case 'reprocess':
+							
+							// if we set up user permissions/capabilities, the code might look like:
+							//if ( !current_user_can($post_type_object->cap->reprocess_post, $post_id) )
+							//	wp_die( __('You are not allowed to reprocess this post.') );
+							
+							$reprocessed = 0;
+							foreach( $post_ids as $post_id ) {
+								
+								symbiostock_reprocess_image( $post_id );
+				
+								$reprocessed++;
+							}
+							
+							$sendback = add_query_arg( array('reprocessed' => $reprocessed, 'ids' => join(',', $post_ids) ), $sendback );
+						break;
+						
+						default: return;
+					}
+					
+					$sendback = remove_query_arg( array('action', 'action2', 'tags_input', 'post_author', 'comment_status', 'ping_status', '_status',  'post', 'bulk_edit', 'post_view'), $sendback );
+					
+					wp_redirect($sendback);
+					exit();
+				}
+			}
+			
+			
+			/**
+			 * Step 3: display an admin notice on the Posts page after reprocessing
+			 */
+			function custom_bulk_admin_notices() {
+				global $post_type, $pagenow;
+				
+				if($pagenow == 'edit.php' && $post_type == 'image' && isset($_REQUEST['reprocessed']) && (int) $_REQUEST['reprocessed']) {
+					$message = sprintf( _n( 'Image Reprocessed.', '%s posts reprocessed.', $_REQUEST['reprocessed'] ), number_format_i18n( $_REQUEST['reprocessed'] ) );
+					echo "<div class=\"updated\"><p>{$message}</p></div>";
+				}
+			}		
+
+		}
+	}
+	
+	new symbiostock_reprocess_images();
+}
