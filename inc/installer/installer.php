@@ -12,11 +12,15 @@ function get_include_contents($filename) {
 $theme_data = wp_get_theme('symbiostock');
 $theme_version = $theme_data->Version;
 
-if($theme_version < '2.2.3'){	
+$purged = get_option('symbiostock_network_purged');
+
+if($purged != '2.2.4'){	
 	$count = 0;	
 	while($count > 9){		
-		delete_option('symbiostock_network_site_' . $count);		
+		delete_option('symbiostock_network_site_' . $count);
+		$count++;		
 		}	
+	update_option('symbiostock_network_purged', $theme_version);	
 	}
 
 
