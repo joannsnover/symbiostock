@@ -3,21 +3,15 @@
                 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
                 <link rel=StyleSheet href="style.css" type="text/css">
                 <META NAME="keywords" CONTENT="JPEG Metadata Application Segments APP0 APP1 APP2 APP3 APP12 APP13 APP14 EXIF DCF XMP RDF Photoshop IRB IPTC DCMI JFIF">
-
                 <title>The PHP JPEG Metadata Toolkit - Documentation</title>
         </head>
-
         <body>
                 <div class="headerbar">
                         <H1 align="center" style="padding:15">The PHP JPEG Metadata Toolkit - Documentation</H1>
                 </div>
-
                 <a href="index.html">Go to Documentation - Home</a>
-
                 <div class="maintext">
-
                 <h2>EXIF and Kodak &quot;Meta&quot; Function Reference</h2>
-
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -46,14 +40,10 @@
                                 <td>If an error occured in decoding</td>
                         </tr>
                 </table>
-
-
-                <br>
-                <br>
-                <br>
-                <br>
-
-
+                <br />
+                <br />
+                <br />
+                <br />
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -63,8 +53,8 @@
                                 <td>Description:</td>
                                 <td colspan=2>
                                         Stores information into a Exchangeable Image File Format (EXIF)
-                                        APP1 segment from an EXIF array.<br>
-                                        <br>
+                                        APP1 segment from an EXIF array.<br />
+                                        <br />
                                         <b>WARNING</b>: Because the EXIF standard allows pointers to data
                                         outside the APP1 segment, if there are any such pointers in
                                         a makernote, this function will DAMAGE them since it will not
@@ -93,13 +83,10 @@
                                 <td>If an error occured</td>
                         </tr>
                 </table>
-
-
-                <br>
-                <br>
-                <br>
-                <br>
-
+                <br />
+                <br />
+                <br />
+                <br />
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -134,13 +121,10 @@
                                 <td>If an error occured in decoding</td>
                         </tr>
                 </table>
-
-
-                <br>
-                <br>
-                <br>
-                <br>
-
+                <br />
+                <br />
+                <br />
+                <br />
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -149,8 +133,8 @@
                         <tr>
                                 <td>Description:</td>
                                 <td colspan=2>
-                                        Stores information into a Meta APP3 segment from a Meta array.<br>
-                                        <br>
+                                        Stores information into a Meta APP3 segment from a Meta array.<br />
+                                        <br />
                                         <b>WARNING</b>: Because the Meta (EXIF) standard allows pointers to data
                                         outside the APP1 segment, if there are any such pointers in
                                         a makernote, this function will DAMAGE them since it will not
@@ -176,12 +160,10 @@
                                 <td>If an error occured</td>
                         </tr>
                 </table>
-
-                <br>
-                <br>
-                <br>
-                <br>
-
+                <br />
+                <br />
+                <br />
+                <br />
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -211,12 +193,10 @@
                                 <td>If an error occured in decoding</td>
                         </tr>
                 </table>
-
-                <br>
-                <br>
-                <br>
-                <br>
-
+                <br />
+                <br />
+                <br />
+                <br />
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
                                 <td>Function:</td>
@@ -247,8 +227,6 @@
                                 <td> A string containing the HTML</td>
                         </tr>
                 </table>
-
-
                 <h3>Notes:</h3>
                 <p>
                         Unfortunately, because EXIF data may be distributed anywhere
@@ -262,23 +240,19 @@
                         To work on an internet file, copy it locally to start with:
                 </p>
                 <blockquote>
-                        $newfilename = tempnam ( $dir, "tmpexif" );<br>
+                        $newfilename = tempnam ( $dir, "tmpexif" );<br />
                         copy ( "http://whatever.com", $newfilename );
                 </blockquote>
-
                 <p>
                         There are three global variables which can be set to alter the look of any HTML
                         output from Interpret_EXIF_to_HTML:
                 </p>
                 <blockquote>
-                        $GLOBALS['HIDE_UNKNOWN_TAGS'];<br>
-                        $GLOBALS['SHOW_BINARY_DATA_HEX'];<br>
+                        $GLOBALS['HIDE_UNKNOWN_TAGS'];<br />
+                        $GLOBALS['SHOW_BINARY_DATA_HEX'];<br />
                         $GLOBALS['SHOW_BINARY_DATA_TEXT'];
                 </blockquote>
                 <p>These variables are all boolean and all default to FALSE</p>
-
-
                 </div>
-
         </body>
 </html>

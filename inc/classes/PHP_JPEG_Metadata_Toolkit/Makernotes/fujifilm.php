@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     fujifilm.php
@@ -36,20 +35,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Fujifilm_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Fujifilm_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Fujifilm_Makernote_Html";
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Fujifilm_Makernote
@@ -77,10 +66,8 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Fuj
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Fujifilm_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
-
         // Check if the Make Field contains the word Fuji or Nikon (One Nikon camera uses this format Makernote)
         if ( ( stristr( $Make_Field, "Fuji" ) === FALSE ) &&
              ( stristr( $Make_Field, "Nikon" ) === FALSE ) )
@@ -95,43 +82,26 @@ function get_Fujifilm_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fi
                 // This isn't a Fuji Makernote, abort
                 return FALSE;
         }
-
         // The 4 bytes after the header are the offset to the Fujifilm IFD
         // Get the offset of the IFD
         $ifd_offset = hexdec( bin2hex( strrev( substr( $Makernote_Tag['Data'], 8, 4 ) ) ) );
-
         // Seek to the start of the IFD
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + $ifd_offset );
-
         // Fuji Makernotes are always Intel Byte Aligned
         $Makernote_Tag['ByteAlign'] = "II";
         
         // Read the IFD(s) into an array
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'], $Makernote_Tag['ByteAlign'], "Fujifilm" );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Fujifilm";
         $Makernote_Tag['Makernote Tags'] = "Fujifilm";
-
-
         // Return the new tag
         return $Makernote_Tag;
-
 }
-
 /******************************************************************************
 * End of Function:     get_Fujifilm_Makernote
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Fujifilm_Text_Value
@@ -151,7 +121,6 @@ function get_Fujifilm_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fi
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Fujifilm_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
         // Check that this tag uses the Fujifilm tag Definitions, otherwise it can't be decoded here
@@ -163,20 +132,9 @@ function get_Fujifilm_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
         
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Fujifilm_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Fujifilm_Makernote_Html
@@ -195,7 +153,6 @@ function get_Fujifilm_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Fujifilm_Makernote_Html( $Makernote_tag, $filename )
 {
         // Check that this tag uses the Fujifilm tags, otherwise it can't be interpreted here
@@ -207,25 +164,10 @@ function get_Fujifilm_Makernote_Html( $Makernote_tag, $filename )
         
         // Interpret the IFD normally
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
-
 }
-
 /******************************************************************************
 * End of Function:     get_Fujifilm_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Fujifilm
 *
@@ -233,15 +175,11 @@ function get_Fujifilm_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Fujifilm"] = array(
-
 0 => array(     'Name' => "Version",
                 'Type' => "String" ),
-
 4096 => array(  'Name' => "Quality",
                 'Type' => "String" ),
-
 4097 => array(  'Name' => "Sharpness",
                 'Type' => "Lookup",
                 1 => "Softest",
@@ -249,7 +187,6 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Fujifilm"] = array(
                 3 => "Normal",
                 4 => "Hard",
                 5 => "Hardest" ),
-
 4098 => array(  'Name' => "White Balance",
                 'Type' => "Lookup",
                 0 => "Auto",
@@ -260,45 +197,37 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Fujifilm"] = array(
                 770 => "White-fluorescence",
                 1024 => "Incandenscense",
                 3840 => "Custom white balance" ),
-
 4099 => array(  'Name' => "Colour Saturation",
                 'Type' => "Lookup",
                 0 => "Normal",
                 256 => "High",
                 512 => "Low" ),
-
 4100 => array(  'Name' => "Tone (Contrast)",
                 'Type' => "Lookup",
                 0 => "Normal",
                 256 => "High",
                 512 => "Low" ),
-
 4112 => array(  'Name' => "Flash Mode",
                 'Type' => "Lookup",
                 0 => "Auto",
                 1 => "On",
                 2 => "Off",
                 3 => "Red-eye Reduction" ),
-
 4113 => array(  'Name' => "Flash Strength",
                 'Type' => "Numeric",
                 'Units' => "EV" ),
-
 4128 => array(  'Name' => "Macro",
                 'Type' => "Lookup",
                 0 => "Off",
                 1 => "On" ),
-
 4129 => array(  'Name' => "Focus Mode",
                 'Type' => "Lookup",
                 0 => "Auto Focus",
                 1 => "Manual Focus" ),
-
 4144 => array(  'Name' => "Slow Sync",
                 'Type' => "Lookup",
                 0 => "Off",
                 1 => "On" ),
-
 4145 => array(  'Name' => "Picture Mode",
                 'Type' => "Lookup",
                 0 => "Auto",
@@ -310,35 +239,24 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Fujifilm"] = array(
                 256 => "Aperture priority AE",
                 512 => "Shutter priority AE",
                 768 => "Manual Exposure" ),
-
 4352 => array(  'Name' => "Continuous taking or auto bracketing mode",
                 'Type' => "Lookup",
                 0 => "Off",
                 1 => "On" ),
-
 4864 => array(  'Name' => "Blur Warning",
                 'Type' => "Lookup",
                 0 => "No Blur Warning",
                 1 => "Blur Warning" ),
-
 4865 => array(  'Name' => "Focus warning",
                 'Type' => "Lookup",
                 0 => "Auto Focus Good",
                 1 => "Out of Focus" ),
-
 4866 => array(  'Name' => "Auto Exposure Warning",
                 'Type' => "Lookup",
                 0 => "Auto Exposure Good",
                 1 => "Over exposure (>1/1000s,F11)" )
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Fujifilm
 ******************************************************************************/
-
-
-
-
-
 ?>

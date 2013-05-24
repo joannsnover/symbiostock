@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     panasonic.php
@@ -43,18 +42,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Panasonic_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Panasonic_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Panasonic_Makernote_Html";
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Panasonic_Makernote
@@ -82,7 +73,6 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Pan
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Panasonic_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Panasonic
@@ -92,7 +82,6 @@ function get_Panasonic_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_F
                 return FALSE;
         }
         
-
         // Check if the header exists at the start of the Makernote
         if ( substr( $Makernote_Tag['Data'], 0, 4 ) == "MKED" )
         {
@@ -108,18 +97,14 @@ function get_Panasonic_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_F
         else if ( substr( $Makernote_Tag['Data'], 0, 12 ) == "Panasonic\x00\x00\x00" )
         {
                 // Panasonic Type 1 - IFD Makernote
-
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 12 );
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Panasonic", FALSE, FALSE );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Panasonic";
                 $Makernote_Tag['Makernote Tags'] = "Panasonic";
-
                 // Return the new tag
                 return $Makernote_Tag;
         }
@@ -128,24 +113,12 @@ function get_Panasonic_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_F
                 // Unknown Header
                 return FALSE;
         }
-
         // Shouldn't get here
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Panasonic_Makernote
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Panasonic_Text_Value
@@ -165,10 +138,8 @@ function get_Panasonic_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_F
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Panasonic_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
-
         // Check that this tag uses the Olympus tags, otherwise it can't be decoded here
         if ( $Tag_Definitions_Name == "Panasonic" )
         {
@@ -178,20 +149,9 @@ function get_Panasonic_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
         
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Panasonic_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Panasonic_Makernote_Html
@@ -210,7 +170,6 @@ function get_Panasonic_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Panasonic_Makernote_Html( $Makernote_tag, $filename )
 {
         if ( $Makernote_tag['Makernote Type'] == "Panasonic" )
@@ -227,28 +186,12 @@ function get_Panasonic_Makernote_Html( $Makernote_tag, $filename )
                 // Unknown Makernote Type
                 return FALSE;
         }
-
         // Shouldn't get here
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Panasonic_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Panasonic
 *
@@ -256,37 +199,24 @@ function get_Panasonic_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Panasonic"] = array(
-
 0x01 => array(  'Name' => "Quality Mode",
                 'Type' => "Numeric" ),
-
 0x02 => array(  'Name' => "Version",
                 'Type' => "String" ),
-
 0x1c => array(  'Name' => "Macro Mode",
                 'Type' => "Lookup",
                 1 => "On",
                 2 => "Off" ),
-
 0x1f => array(  'Name' => "Record Mode",
                 'Type' => "Lookup",
                 1 => "Normal",
                 2 => "Portrait",
                 9 => "Macro" ),
-
 0xE00 => array( 'Name' => "Print Image Matching Info",
                 'Type' => "PIM" ),
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Panasonic
 ******************************************************************************/
-
-
-
-
-
 ?>

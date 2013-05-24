@@ -1,34 +1,83 @@
 <?php
 
-set_time_limit( 0 );
-
-ini_set( "memory_limit", "1024M" );
-
-
-
 // Turn off Error Reporting
- error_reporting ( 0 );
+// error_reporting ( 0 );
 // Change: Allow this example file to be easily relocatable - as of version 1.11
 $Toolkit_Dir = symbiostock_CLASSROOT . 'PHP_JPEG_Metadata_Toolkit/'; // Ensure dir name includes trailing slash
-
 // Hide any unknown EXIF tags
 $GLOBALS[ 'HIDE_UNKNOWN_TAGS' ] = TRUE;
+require_once $Toolkit_Dir . 'Toolkit_Version.php'; // Change: added as of version 1.11
+require_once $Toolkit_Dir . 'JPEG.php'; // Change: Allow this example file to be easily relocatable - as of version 1.11
+require_once $Toolkit_Dir . 'JFIF.php';
+require_once $Toolkit_Dir . 'PictureInfo.php';
+require_once $Toolkit_Dir . 'XMP.php';
+require_once $Toolkit_Dir . 'Photoshop_IRB.php';
+require_once $Toolkit_Dir . 'EXIF.php';
+require_once $Toolkit_Dir . 'Photoshop_File_Info.php';
 
-include $Toolkit_Dir . 'Toolkit_Version.php'; // Change: added as of version 1.11
-include $Toolkit_Dir . 'JPEG.php'; // Change: Allow this example file to be easily relocatable - as of version 1.11
-include $Toolkit_Dir . 'JFIF.php';
-include $Toolkit_Dir . 'PictureInfo.php';
-include $Toolkit_Dir . 'XMP.php';
-include $Toolkit_Dir . 'Photoshop_IRB.php';
-include $Toolkit_Dir . 'EXIF.php';
-include $Toolkit_Dir . 'Photoshop_File_Info.php';
-
+function symbiostock_get_meta($file){
+	// Retrieve the header information
+		$jpeg_header_data = get_jpeg_header_data( $file );
+		
+		// Retreive the EXIF, XMP and Photoshop IRB information from
+		// the existing file, so that it can be updated
+		$Exif_array = get_EXIF_JPEG( $file );
+		$XMP_array  = read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) );
+		$IRB_array  = get_Photoshop_IRB( $jpeg_header_data );
+		
+		$info = get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array );
+	  		
+		$author_url = get_site_url();
+		
+		//set up our author variables
+		
+		global $current_user;
+		get_currentuserinfo();
+		
+		if ( !empty( $info[ 'author' ] ) ) {
+			
+			$author = $info[ 'author' ];
+			
+		} else {
+			
+			$author = $current_user->display_name;	
+					
+		}
+		
+		$date = date("Y/m/d H:i:s"). substr((string)microtime(), 1, 6);
+		$new_ps_file_info_array = array(
+			 'title' => isset($info[ 'title' ]) && !empty($info[ 'title' ]) ? $info[ 'title' ] : 'Stock image by ' . $author,
+			'author' => trim($author),
+			'authorsposition' => $info[ 'authorsposition' ],
+			'caption' => !empty( $info[ 'caption' ] ) ? $info[ 'caption' ] : 'Stock image by ' . $author,
+			'captionwriter' => !empty( $info[ 'captionwriter' ] ) ? $info[ 'captionwriter' ] : $info[ 'author' ],
+			'jobname' => $info[ 'jobname' ],
+			'copyrightstatus' => "Copyrighted Work",
+			'copyrightnotice' => trim("Copyright (c) " . trim(date( "Y" )) . " " . $author . "\nImage Location: " . $permalink . "\nImage Contact: " . $current_user->user_email),
+			'ownerurl' => $author_url,
+			'keywords' => isset($info[ 'keywords' ]) && !empty($info[ 'keywords' ]) ? $info[ 'keywords' ] : 'Stock Image, Download, Graphic, Image',
+			'category' => $info[ 'category' ],
+			'supplementalcategories' => $info[ 'supplementalcategories' ],
+			'date' => !empty($info['date'])?$info['date']: $date,
+			'city' => $info[ 'city' ],
+			'state' => $info[ 'state' ],
+			'country' => $info[ 'country' ],
+			'credit' => $info[ 'credit' ],
+			'source' => $permalink,
+			'headline' => !empty( $info[ 'headline' ] ) ? $info[ 'headline' ] : $info[ 'title' ],
+			'instructions' => !empty( $info[ 'instructions' ] ) ? 'This image is from ' . $author_url . ', by ' . $author . '. Please contact ' . $current_user->user_email . ' if you have found this image being used unlawfully.' : '',
+			'transmissionreference' => $info[ 'transmissionreference' ],
+			'urgency' => $info[ 'urgency' ] 
+		);
+		
+		return $new_ps_file_info_array;
+	
+	}
 
 function symbiostock_update_meta( $original, $source, $destination, $postid )
 {
 	if ( file_exists( $original ) && file_exists( $destination ) && file_exists( $source ) ) {
-	   
-		
+	   	
 		//we get certain information from original file, but we cannot just transfer it blindly because bad things happen :D
 		
 		// Retrieve the header information
@@ -60,6 +109,8 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
 			
 		}
 		
+		$date = date("Y/m/d H:i:s"). substr((string)microtime(), 1, 6);
+		
 		$new_ps_file_info_array = array(
 			 'title' => $info[ 'title' ],
 			'author' => trim($author),
@@ -73,7 +124,7 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
 			'keywords' => $info[ 'keywords' ],
 			'category' => $info[ 'category' ],
 			'supplementalcategories' => $info[ 'supplementalcategories' ],
-			'date' => !empty($info['date'])?$info['date']:trim(date('Y-m-d')),
+			'date' => !empty($info['date'])?$info['date']:$date,
 			'city' => $info[ 'city' ],
 			'state' => $info[ 'state' ],
 			'country' => $info[ 'country' ],
@@ -103,13 +154,10 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
 	  
 	}
 }
-
 function symbiostock_put_meta( $filename, $meta )
 {
 	
 }
-
-
 /**
  * This is a driver for the watermarks creating
  *
@@ -393,7 +441,6 @@ class symbiostock_gd_watermark
         return $result;
     }
 }
-
 //this function applies a watermark to image
 function symbiostock_watermark_image( $source_path, $destination, $watermark_path )
 {
@@ -461,7 +508,6 @@ function symbiostock_imagetranstowhite($trans) {
     imagecopy($white, $trans, 0, 0, 0, 0, $w, $h);
     return $white;
 }
-
 function symbiostock_generate_minipic( $source, $destination, $jpg )
 {
     
@@ -545,22 +591,28 @@ function symbiostock_generate_minipic( $source, $destination, $jpg )
 			imagesavealpha($png, true);
             // Save new image
 			imagepng( $png, $source, 1);
-			unset($png);
-			unset($source);		
+			unset($png);				
             
         } //$jpeg == false
         
         //now use wordpress to do the dirty work        
         $image = wp_get_image_editor( $source );
-		$image->resize( 150, 150, false );
-        $image->set_quality( 100 );
-        $image->save( $destination, 'jpg' );
-		unset($image);		
+			if ( ! is_wp_error( $image ) ){
+			$image->resize( 150, 150, false );
+			$image->set_quality( 100 );
+			$image->save( $destination, 'jpg' );
+			unset($image);
+		} else {
+			
+				$error = $image->get_error_message();
+				echo $error;
+				die();
+				
+			}
     }
     
     
 }
-
 function symbiostock_get_watermark_path(){
 	
 	        //find which watermark we are using
@@ -586,7 +638,6 @@ function symbiostock_get_watermark_path(){
         }
 		return $watermark_path;
 	}
-
 /**
  * Runs image processing user initiates after upload.
  *
@@ -619,7 +670,7 @@ class symbiostock_image_processor
     
     //this holds status reports / errors
     public $report = '';
-	
+
     
     //current user's email for status updates 
     
@@ -662,17 +713,17 @@ class symbiostock_image_processor
         $sizes = unserialize( $sizes[ 0 ] );
         
         $extensions = get_post_meta( $posted_id, 'extensions' );
-        
+        				
         $extensions = unserialize( $extensions[ 0 ] );
         
         $preview_size = $sizes[ 'preview' ];
         
         $thumb_size = $sizes[ 'thumb' ];
-        
-		                   
+	                   
         //create thumbnail and previews, save in uploads/tmp folder        
-        
+       	
         if ( in_array( 'png', $extensions ) ) {
+		
             //make our typical preview, the transparent reference file used in watermark basic preview, and transparency preview            
             $image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );            
             $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
@@ -722,9 +773,8 @@ class symbiostock_image_processor
         } //in_array( 'png', $extensions )
         
         //jpg from jpg
-        if ( in_array( 'jpg', $extensions ) ) {
-            //make our typical preview            
-
+        if ( in_array( 'jpg', $extensions ) ) {			
+		    //make our typical preview            
 			$image = wp_get_image_editor(  $this->upload_dir . $image_file . '.jpg' );            
             $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
 			$image->set_quality( 100 );            
@@ -739,7 +789,6 @@ class symbiostock_image_processor
 				$this->upload_dir . 'tmp/' . $posted_id . '_preview.jpg', 
 				$watermark_path 
 			);			
-
 			
 			//make our minipic
 			symbiostock_generate_minipic(
@@ -1385,9 +1434,7 @@ class symbiostock_image_processor
 										
                     if ( !in_array( $files[ $entry[ 0 ] ], $files ) ) {
 												
-                        $files[ $entry[ 0 ] ][ 'extensions' ] = array(
-                        	$lower_case_ext
-                        );
+                        $files[ $entry[ 0 ] ][ 'extensions' ] = array( $lower_case_ext );
                           
                     } //!in_array( $files[ $entry[ 0 ] ], $files )
                     else { 
@@ -1430,7 +1477,7 @@ class symbiostock_image_processor
 	 { $using = '<span class="description">Using <strong>GD Library</strong>.</span>'; }
 	    
 ?> 
-<p><?php echo $using; ?></p>
+<p><?php echo $using; ?> <?php echo sshelp('image_processing', 'Image Processing.'); ?></p>
 <table class="symbiostock-image-processor wp-list-table widefat"> 
         
                 <thead>
@@ -1552,9 +1599,13 @@ class symbiostock_image_processor
     private function create_image_page( $image_meta_array, $image_file )
     {
         $_POST[ 'action' ] == 'process_publish' ? $status = 'publish' : $status = 'draft';
-        
-        $image_tags = explode( ',', $image_meta_array[ 'keywords' ] );
-        
+		
+		file_exists($this->upload_dir . $image_file . '.jpg') ? $file = $this->upload_dir . $image_file . '.jpg' : $file = $this->upload_dir . $image_file . '.png';
+		###
+        extract(symbiostock_get_meta($file));
+        !empty($caption) ? $content = $caption : $content = $headline;
+		!empty($caption) ? $excerpt =  $title : $excerpt =  $headline;	
+
         $post = array(
              'comment_status' => get_option('symbiostock_comments', 'open'), // 'closed' means no comments.
             
@@ -1562,22 +1613,22 @@ class symbiostock_image_processor
             
             'post_author' => get_current_user_id(), //The user ID number of the author.
             
-            'post_content' => $image_meta_array[ 'description' ], //The full text of the post.
+            'post_content' => $content, //The full text of the post.
             
-            'post_excerpt' => $image_meta_array[ 'description' ], //For all your post excerpt needs.
+            'post_excerpt' => $excerpt, //For all your post excerpt needs.
             
-            'post_name' => $image_meta_array[ 'title' ], // The name (slug) for your post
+            'post_name' => !isset($title) || empty($title) ? 'Image / Graphic' : $title, // The name (slug) for your post
             
             'post_status' => $status, //[ 'draft' | 'publish' | 'pending'| 'future' | 'private' | custom registered status ] 
             
-            'post_title' => $image_meta_array[ 'title' ], //The title of your post.
+            'post_title' => $title,
             
             'post_type' => 'image', //You may want to insert a regular post, page, link, a menu item or some custom post type
             
-            'tags_input' => $image_meta_array[ 'keywords' ], //For tags.
+            'tags_input' => $keywords , //For tags.
             
             'tax_input' => array(
-                 'image-tags' => $image_tags 
+                 'image-tags' => $keywords 
             ) // support for custom taxonomies. 
         );
         
@@ -1887,6 +1938,9 @@ class symbiostock_image_processor
         //get posted files and process them
         foreach ( $_POST[ 'process-image' ] as $image_file ) {
             
+			set_time_limit( 0 );
+			ini_set( "memory_limit", "256M" );
+			
 			//update our current file for the class
 			
 			$this->current_file = $image_file;
@@ -1930,12 +1984,16 @@ class symbiostock_image_processor
             
 			$processed = $this->transfer_original($created_page, $image_file, $image_meta_array );
 			
+			//create teh datasheet
+			symbiostock_datasheet( $created_page );
+			
 			$this->cleanup($processed);
 			
 			unset( $this->files[ $this->current_file ] );
             
         } //$_POST[ 'process-image' ] as $image_file
-        
+        //update network info
+		symbiostock_save_network_info();
     }
     
 }

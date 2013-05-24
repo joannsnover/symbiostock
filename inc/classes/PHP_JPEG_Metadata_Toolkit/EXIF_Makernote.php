@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     EXIF_Makernote.php
@@ -46,36 +45,22 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // Create the Makernote Parser and Interpreter Function Array
-
 $GLOBALS['Makernote_Function_Array'] = array(   "Read_Makernote_Tag" => array( ),
                                                 "get_Makernote_Text_Value" => array( ),
                                                 "Interpret_Makernote_to_HTML" => array( ) );
-
-
 // Include the Main TIFF and EXIF Tags array
-
 include_once 'EXIF.php';
-
-
-
 /******************************************************************************
 *
 * Include the Makernote Scripts
 *
 ******************************************************************************/
-
 // Set the Makernotes Directory
-
 $dir = dirname(__FILE__) . "/Makernotes/";      // Change: as of version 1.11 - to allow directory portability
-
 // Open the directory
 $dir_hnd = @opendir ( $dir );
-
 // Cycle through each of the files in the Makernotes directory
-
 while ( ( $file = readdir( $dir_hnd ) ) !== false )
 {
         // Check if the current item is a file
@@ -83,7 +68,6 @@ while ( ( $file = readdir( $dir_hnd ) ) !== false )
         {
                 // Item is a file, break it into it's parts
                 $path_parts = pathinfo( $dir . $file );
-
                 // Check if the extension is php
                 if ( $path_parts["extension"] == "php" )
                 {
@@ -94,16 +78,6 @@ while ( ( $file = readdir( $dir_hnd ) ) !== false )
 }
 // close the directory
 closedir( $dir_hnd );
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     Read_Makernote_Tag
@@ -125,10 +99,8 @@ closedir( $dir_hnd );
 *                               modified to contain the decoded information
 *
 ******************************************************************************/
-
 function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
 {
-
         // Check if the Makernote is present but empty - this sometimes happens
         if ( ( strlen( $Makernote_Tag['Data'] ) === 0 ) ||
              ( $Makernote_Tag['Data'] === str_repeat ( "\x00", strlen( $Makernote_Tag['Data'] )) ) )
@@ -138,11 +110,9 @@ function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
                 $Makernote_Tag['Makernote Type'] = "Empty";
                 $Makernote_Tag['Makernote Tags'] = "Empty";
                 $Makernote_Tag['Decoded'] = TRUE;
-
                 // Return the new makernote
                 return $Makernote_Tag;
         }
-
         // Check if the Make Field exists in the TIFF IFD
         if ( array_key_exists ( 271, $EXIF_Array[0] ) )
         {
@@ -154,14 +124,11 @@ function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
                 // No Make field found
                 $Make_Field = "";
         }
-
         // Cycle through each of the "Read_Makernote_Tag" functions
-
         foreach( $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'] as $func )
         {
                 // Run the current function, and save the result
                 $New_Makernote_Tag = $func( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field );
-
                 // Check if a valid result was returned
                 if ( $New_Makernote_Tag !== FALSE )
                 {
@@ -169,7 +136,6 @@ function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
                         break;
                 }
         }
-
         // Check if a valid result was returned
         if ( $New_Makernote_Tag === false )
         {
@@ -178,24 +144,12 @@ function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
                 $New_Makernote_Tag['Decoded'] = FALSE;
                 $New_Makernote_Tag['Makernote Type'] = "Unknown Makernote";
         }
-
         // Return the new makernote tag
         return $New_Makernote_Tag;
-
 }
-
 /******************************************************************************
 * End of Function:     Read_Makernote_Tag
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Makernote_Text_Value
@@ -215,17 +169,13 @@ function Read_Makernote_Tag( $Makernote_Tag, $EXIF_Array, $filehnd )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Makernote_Text_Value( $Tag, $Tag_Definitions_Name )
 {
-
         // Cycle through each of the "get_Makernote_Text_Value" functions
-
         foreach( $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'] as $func )
         {
                 // Run the current function, and save the result
                 $Text_Val = $func( $Tag, $Tag_Definitions_Name );
-
                 // Check if a valid result was returned
                 if ( $Text_Val !== FALSE )
                 {
@@ -233,24 +183,12 @@ function get_Makernote_Text_Value( $Tag, $Tag_Definitions_Name )
                         return $Text_Val;
                 }
         }
-
         // No Special tag handler found for this tag - return false
         return FALSE;
-
 }
-
-
 /******************************************************************************
 * End of Function:     get_Makernote_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     Interpret_Makernote_to_HTML
@@ -266,21 +204,16 @@ function get_Makernote_Text_Value( $Tag, $Tag_Definitions_Name )
 * Returns:      output - the html representing the makernote
 *
 ******************************************************************************/
-
 function Interpret_Makernote_to_HTML( $Makernote_tag, $filename )
 {
-
         // Create a string to receive the HTML
         $output_str = "";
-
         // Check if the makernote tag is valid
         if ( $Makernote_tag === FALSE )
         {
                 // No makernote info - return
                 return $output_str;
         }
-
-
         // Check if the makernote has been marked as unknown
         if ( $Makernote_tag['Makernote Type'] == "Unknown Makernote" )
         {
@@ -293,21 +226,17 @@ function Interpret_Makernote_to_HTML( $Makernote_tag, $filename )
                 // Makernote is known - add a heading to the output
                 $output_str .= "<p class=\"EXIF_Makernote_Text\">Makernote Coding: " . $Makernote_tag['Makernote Type'] . "</p>\n";
         }
-
         // Check if this is an empty makernote
         if ( $Makernote_tag['Makernote Type'] == "Empty" )
         {
                 // It is empty - don't try to interpret
                 return $output_str;
         }
-
         // Cycle through each of the "Interpret_Makernote_to_HTML" functions
-
         foreach( $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'] as $func )
         {
                 // Run the current function, and save the result
                 $html_text = $func( $Makernote_tag, $filename );
-
                 // Check if a valid result was returned
                 if ( $html_text !== FALSE )
                 {
@@ -315,20 +244,11 @@ function Interpret_Makernote_to_HTML( $Makernote_tag, $filename )
                         return $output_str . $html_text;
                 }
         }
-
         // No Interpreter function handled the makernote - return a message
-
         $output_str .= "<h4 class=\"EXIF_Makernote_Small_Heading\">Could not Decode Makernote, it may be corrupted or empty</h4>\n";
-
         return $output_str;
-
-
 }
-
 /******************************************************************************
 * End of Function:     Interpret_Makernote_to_HTML
 ******************************************************************************/
-
-
-
 ?>

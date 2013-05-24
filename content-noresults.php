@@ -17,7 +17,6 @@
                    <?php
 				   
 				   //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
-
 					$taxonomy     = 'image-type';
 					$orderby      = 'name'; 
 					$show_count   = 1;      // 1 for yes, 0 for no
@@ -39,7 +38,6 @@
 					<ul>
 					<?php wp_list_categories( $args ); ?>
 					</ul>				   
-
 					</div>    
                     
 				</div><!-- .entry-content -->

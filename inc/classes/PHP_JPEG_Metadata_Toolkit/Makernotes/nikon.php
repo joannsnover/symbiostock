@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     Nikon.php
@@ -57,19 +56,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Nikon_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Nikon_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Nikon_Makernote_Html";
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Nikon_Makernote
@@ -97,7 +87,6 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Nik
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Nikon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Nikon
@@ -106,8 +95,6 @@ function get_Nikon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 // Nikon not found in maker field - abort
                 return FALSE;
         }
-
-
         // Check if the header exists at the start of the Makernote
         if ( substr( $Makernote_Tag['Data'],0 , 8 ) == "Nikon\x00\x01\x00" )
         {
@@ -115,38 +102,29 @@ function get_Nikon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 8 );
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Nikon Type 1" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Nikon Type 1";
                 $Makernote_Tag['Makernote Tags'] = "Nikon Type 1";
-
-
                 // Return the new tag
                 return $Makernote_Tag;
         
-
         }
         else if ( ( substr( $Makernote_Tag['Data'],0 , 10 ) == "Nikon\x00\x02\x10\x00\x00" ) ||
                   ( substr( $Makernote_Tag['Data'],0 , 10 ) == "Nikon\x00\x02\x00\x00\x00" ) )
         {
                 // Nikon Type 3 Makernote
-
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 10 );
-
                 // Read the TIFF header and IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = process_TIFF_Header( $filehnd, "Nikon Type 3" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Makernote Type'] = "Nikon Type 3";
                 $Makernote_Tag['Makernote Tags'] = "Nikon Type 3";
                 $Makernote_Tag['Decoded'] = TRUE;
                 
-
                 // Return the new tag
                 return $Makernote_Tag;
         }
@@ -159,42 +137,23 @@ function get_Nikon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
         else
         {
                 // No header - Nikon Type 2
-
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 0 );
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Nikon Type 3" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Nikon Type 2";
                 $Makernote_Tag['Makernote Tags'] = "Nikon Type 3";
-
-
                 // Return the new tag
                 return $Makernote_Tag;
         }
-
-
         // Shouldn't get here
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Nikon_Makernote
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Nikon_Text_Value
@@ -214,10 +173,8 @@ function get_Nikon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
-
         // Check that this tag uses the Nikon tags, otherwise it can't be interpreted here
         // And check which variety of tags
         if ( $Tag_Definitions_Name == "Nikon Type 1" )
@@ -235,7 +192,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                 {
                         return "\"" .HTML_UTF8_Escape( $Exif_Tag['Data'] ) . "\" (" . bin2hex( $Exif_Tag['Data'] ) . " hex)";
                 }
-
                 else if ( ( $Exif_Tag['Tag Number'] == 2  ) ||   // ISO Speed Used
                           ( $Exif_Tag['Tag Number'] == 19 ) )    // ISO Speed Requested
                 {
@@ -272,7 +228,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                         $outputstr = "Shooting Mode: Unknown\n";
                                         break;
                         }
-
                         // Add flash bracketing to output from fifth bit
                         if ( ( $Exif_Tag['Data'][0] & 0x10 ) == 0x10 )
                         {
@@ -295,7 +250,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                         
                         // Return the output
                         return $outputstr;
-
                 }
                 else if ( $Exif_Tag['Tag Number'] == 136  )     // Auto Focus Area
                 {
@@ -307,7 +261,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                         {
                                 $outputstr .= "Manual Focus, or\n";
                         }
-
                         // Add AF mode according to the first byte
                         switch ( ord($Exif_Tag['Data']{0}) )
                         {
@@ -324,7 +277,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                         $outputstr .= "Auto Focus Mode: Unknown AF Mode\n";
                                         break;
                         }
-
                         // Add AF area according to second byte
                         switch ( ord($Exif_Tag['Data']{1}) )
                         {
@@ -373,7 +325,6 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                 $outputstr .= "Right ";
                         }
                         $outputstr .= "\n";
-
                         // return the string
                         return $outputstr;
                 }
@@ -383,18 +334,12 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                         return FALSE;
                 }
         }
-
         
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Nikon_Text_Value
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Nikon_Makernote_Html
@@ -413,10 +358,8 @@ function get_Nikon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Nikon_Makernote_Html( $Makernote_tag, $filename )
 {
-
         // Check that this is a Nikon Makernote, otherwise it can't be interpreted here
         if ( ( $Makernote_tag['Makernote Type'] != "Nikon Type 1" ) &&
              ( $Makernote_tag['Makernote Type'] != "Nikon Type 2" ) &&
@@ -425,28 +368,12 @@ function get_Nikon_Makernote_Html( $Makernote_tag, $filename )
                 // Not a Nikon Makernote - cannot interpret it - abort
                 return FALSE;;
         }
-
         // Interpret the IFD and return the HTML
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
 }
-
 /******************************************************************************
 * End of Function:     get_Nikon_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Nikon Type 1
 *
@@ -454,10 +381,7 @@ function get_Nikon_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
-
-
 3 => array(     'Name' => "Quality",
                 'Description' => "1: VGA Basic, 2: VGA Normal, 3: VGA Fine, 4: SXGA Basic, 5: SXGA Normal, 6: SXGA Fine",
                 'Type' => "Lookup",
@@ -473,13 +397,11 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
                 10 => "UXGA (1600x1200) Basic",
                 11 => "UXGA (1600x1200) Normal",
                 12 => "UXGA (1600x1200) Fine" ),
-
 4 => array(     'Name' => "Colour Mode",
                 'Description' => "1: Colour, 2: Monochrome.",
                 'Type' => "Lookup",
                 1 => "Colour",
                 2 => "Monochrome" ),
-
 5 => array(     'Name' => "Image Adjustment",
                 'Description' => "0: Normal, 1: Bright+, 2: Bright-, 3: Contrast+, 4: Contrast-.",
                 'Type' => "Lookup",
@@ -488,7 +410,6 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
                 2 => "Bright-",
                 3 => "Contrast+",
                 4 => "Contrast-" ),
-
 6 => array(     'Name' => "CCD Sensitivity",
                 'Description' => "0: ISO80, 2: ISO160, 4: ISO320, 5: ISO100",
                 'Type' => "Lookup",
@@ -496,7 +417,6 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
                 2 => "ISO 160",
                 4 => "ISO 320",
                 5 => "ISO 100" ),
-
 7 => array(     'Name' => "White Balance",
                 'Description' => "0: Auto, 1: Preset, 2: Daylight, 3: Incandescense, 4: Fluorescence, 5: Cloudy, 6: SpeedLight",
                 'Type' => "Lookup",
@@ -507,31 +427,21 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
                 4 => "Flourescence",
                 5 => "Cloudy",
                 6 => "Speedlight" ),
-
 8 => array(     'Name' => "Focus",
                 'Description' => "If infinite focus, value is '1/0'.",
                 'Type' => "Numeric" ),
-
 10 => array(    'Name' => "Digital Zoom",
                 'Description' => "'160/100' means 1.6x digital zoom, '0/100' means no digital zoom (optical zoom only).",
                 'Type' => "Numeric" ),
-
 11 => array(    'Name' => "Converter",
                 'Description' => "If Fisheye Converter is used, value is 1",
                 'Type' => "Lookup",
                 0 => "No Converter Used",
                 1 => "Fish-eye Converter Used" )
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Nikon Type 1
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Nikon Type 3
 *
@@ -539,48 +449,32 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 1"] = array(
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 3"] = array(
-
-
 1 => array(     'Name' => "Nikon Makernote Version",
                 'Type' => "Special" ),
-
 2 => array(     'Name' => "ISO Speed Used",
                 'Type' => "Special" ),
-
 3 => array(     'Name' => "Colour Mode",
                 'Type' => "String" ),
-
 4 => array(     'Name' => "Quality",
                 'Type' => "String" ),
-
 5 => array(     'Name' => "White Balance",
                 'Type' => "String" ),
-
 6 => array(     'Name' => "Sharpening",
                 'Type' => "String" ),
-
 7 => array(     'Name' => "Focus Mode",
                 'Type' => "String" ),
-
 8 => array(     'Name' => "Flash Setting",
                 'Type' => "String" ),
-
 9 => array(     'Name' => "Auto Flash Mode",
                 'Type' => "String"  ),
-
 11 => array(    'Name' => "White Balance Bias Value",
                 'Type' => "Numeric",
                 'Units' => "(Units Approx: 100 Mired per increment)" ),
-
 12 => array(    'Name' => "White Balance Red, Blue Coefficients?",
                 'Type' => "Numeric"  ),
-
 15 => array(    'Name' => "ISO Selection?",
                 'Type' => "String" ),
-
-
 18 => array(    'Name' => "Flash Compensation",
                 'Type' => "Lookup",
                 0x06 => "+1.0 EV",
@@ -600,16 +494,12 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 3"] = array(
                 0xf1 => "-2.5 EV",
                 0xf0 => "-2.7 EV",
                 0xee => "-3.0 EV" ),
-
 19 => array(    'Name' => "ISO Speed Requested",
                 'Type' => "Special",
                 'Units' => "(May be different to Speed Used when Auto ISO is on)" ),
-
-
 22 => array(    'Name' => "Photo corner coordinates",
                 'Type' => "Numeric",
                 'Units' => "Pixels"  ),
-
 24 => array(    'Name' => "Flash Bracket Compensation Applied",
                 'Type' => "Lookup",
                 0x06 => "+1.0 EV",
@@ -629,67 +519,51 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 3"] = array(
                 0xf1 => "-2.5 EV",
                 0xf0 => "-2.7 EV",
                 0xee => "-3.0 EV" ),
-
 25 => array(    'Name' => "AE Bracket Compensation Applied",
                 'Type' => "Numeric",
                 'Units' => "EV" ),
-
 128 => array(   'Name' => "Image Adjustment?",
                 'Type' => "String" ),
-
 129 => array(   'Name' => "Tone Compensation (Contrast)",
                 'Type' => "String" ),
-
 130 => array(   'Name' => "Auxiliary Lens (Adapter)",
                 'Type' => "String" ),
-
 131 => array(   'Name' => "Lens Type?",
                 'Type' => "Lookup",
                 6 => "Nikon D series Lens",
                 14 => "Nikon G series Lens" ),
-
 132 => array(   'Name' => "Lens Min/Max Focal Length, Min/Max Aperture",
                 'Type' => "Numeric",
                 'Units' => " mm, mm, F#, F#" ),
-
 133 => array(   'Name' => "Manual Focus Distance?",
                 'Type' => "Numeric"),
-
 134 => array(   'Name' => "Digital Zoom Factor?",
                 'Type' => "Numeric" ),
-
 135 => array(   'Name' => "Flash Used",
                 'Type' => "Lookup",
                 0 => "Flash Not Used",
                 9 => "Flash Fired" ),
-
 136 => array(   'Name' => "Auto Focus Area",
                 'Description' => "byte 1 : AF Mode: 00 = single area, 01 = Dynamic Area, 02 = Closest Subject\n
                                   byte 2 : AF Area Selected : 00 = Centre, 01 = Top, 02 = Bottom, 03 = Left, 04 = Right\n
                                   byte 3 : Unknown, always zero\n
                                   byte 4 : Properly focused Area(s) : bit 0 = Centre, bit 1 = Top, bit 2 = Bottom, bit 3 = Left, bit 4 = Right",
                 'Type' => "Special" ),
-
 137 => array(   'Name' => "Bracketing & Shooting Mode",
                 'Description' => "bit 0&1 (0 = single frame, 1 = continuous,2=timer, 3=remote timer? 4 = remote?\n
                                   bit 4, Bracketing on or off\n
                                   bit 6, white Balance Bracketing on",
                 'Type' => "Special" ),
-
 141 => array(   'Name' => "Colour Mode",
                 'Description' =>"1a = Portrait sRGB, 2 = Adobe RGB, 3a = Landscape sRGB",
                 'Type' => "String" ),
-
 143 => array(   'Name' => "Scene Mode?",
                 'Type' => "Numeric" ),
-
 144 => array(   'Name' => "Lighting Type",
                 'Type' => "String" ),
-
 146 => array(   'Name' => "Hue Adjustment",
                 'Type' => "Numeric",
                 'Units' => "Degrees" ),
-
 148 => array(   'Name' => "Saturation?",
                 'Type' => "Lookup",
                 -3 => "Black and White",
@@ -698,34 +572,21 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Nikon Type 3"] = array(
                 0 =>  "Normal",
                 1 =>  "+1",
                 2 =>  "+2" ),
-
 149 => array(   'Name' => "Noise Reduction",
                 'Type' => "String" ),
-
 167 => array(   'Name' => "Total Number of Shutter Releases for Camera",
                 'Type' => "Numeric",
                 'Units' => "Shutter Releases" ),
-
 169 => array(   'Name' => "Image optimisation",
                 'Type' => "String" ),
-
 170 => array(   'Name' => "Saturation",
                 'Type' => "String" ),
-
 171 => array(   'Name' => "Digital Vari-Program",
                 'Type' => "String" )
-
-
 // Tags that exist but are unknown: 10, 13, 14, 16, 17, 23, 24, 138, 139, 145,
 // 151, 152, 160, 162 163, 165, 166, 168
-
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Nikon Type 3
 ******************************************************************************/
-
-
-
 ?>

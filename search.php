@@ -43,8 +43,7 @@ else{
 							
 		if($symbiostock_image_search == true){
 		
-		include_once('modal-search.php');
-		
+		get_template_part('modal-search');		
 	
 		$sscount = new results_counter();
 	
@@ -53,14 +52,22 @@ else{
 		
 		$local_results->local_search();
 		
-		$local_results->display_results(false);
-		
+		$local_results->display_results(false);		
 		
 		//now do network search
 		$network_results = new network_manager();
 		
 		$network_results->network_search_all_similar();
 		
+		$use_network = get_option('symbiostock_use_network');
+		
+		if($use_network == 'true'){
+				
+				?> <div class="clearfix">&nbsp;</div> <?php 
+				
+				get_template_part('see-directory');
+			}
+			
 			} else {
 			?>
 					<?php if ( have_posts() ) : ?>

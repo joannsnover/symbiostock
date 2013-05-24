@@ -1,8 +1,7 @@
 <?php
 
-//check incoming variables, defined in functions - 
-//	$wp_query->set('symbiostock_network_search', 'false');
-//	$wp_query->set('symbiostock_network_info', 'false');
+
+//this turns creates xml results from a local query
 function symbiostock_xml_results($network_query){
 	
 	$wp_query= new WP_Query($network_query);
@@ -197,14 +196,24 @@ function symbiostock_xml_results($network_query){
 			endif;
 		
 		//make our pagination
-		global $wp_rewrite;  
+		global $wp_rewrite; 
+		
+        if ( get_query_var( 'paged' ) )
+            $paged = get_query_var( 'paged' );
+        
+        elseif ( get_query_var( 'page' ) )
+            $paged = get_query_var( 'page' );
+        
+        else
+            $paged = 1;
+        		 
 		//echo str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) );
 		$big = 999999999; // need an unlikely integer
-		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		//$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$symbiostock_search_pagination =  paginate_links( array(
 			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format' => '?page=%#%',
-			'current' => max( 1, get_query_var('paged') ),
+			'current' => max( 1, $paged ),
 			'total' => $wp_query->max_num_pages,
 			'type' => 'array',
 			'prev_text'    => __('Previous'),
@@ -244,7 +253,6 @@ function symbiostock_xml_results($network_query){
 		$symbiostock_xml->createElement( "network_info" ) );
 		
 		foreach($network_info_array as $key => $value){
-
 			$network_info->appendChild( 
 			$symbiostock_xml->createElement( $key, ssde($value) ) );		
 			
@@ -257,6 +265,104 @@ function symbiostock_xml_results($network_query){
 		
 	//make the output pretty
 	$symbiostock_xml->formatOutput = true;
+	return $symbiostock_xml->saveXML();
+}
+//this simulates "generic" results for special cases, like when a site does not respond in time and 
+//results must be substituted
+function symbiostock_xml_generic_results($url, $site=''){
+	
+	$meta_values = array(
+		 'collection_img'           => '#',
+		'live'                      => '#',
+		'price_bloggee'             => '#',
+		'price_small'               => '#',
+		'price_medium'              => '#',
+		'price_large'               => '#',
+		'price_vector'              => '#',
+		'price_zip'                 => '#',
+		'locked'                    => '#',
+		'discount_percent'          => '#',
+		'exclusive'                 => '#',
+		'symbiostock_minipic'       => symbiostock_IMGDIR . '/generic-user.jpg',
+		'symbiostock_preview'       => '#',
+		'symbiostock_transparency'  => '#',
+		'size_eps'                  => '#',
+		'size_zip'                  => '#'
+	);
+	
+	$meta_values_serialized = array(
+		 'extensions',
+		'collections',
+		'related_images',
+		'size_info' 
+	);
+			
+	//create the xml document
+	$symbiostock_xml = new DOMDocument();	
+	
+	$root = $symbiostock_xml->appendChild( $symbiostock_xml->createElement( "symbiostock_search_results" ) );
+	
+		//create a image element
+		$totalResults = $root->appendChild( 
+			$symbiostock_xml->createElement( "total_results", $wp_query->found_posts ) );
+
+		//create "directive" tags that will say this is a generic response, so initiate something...
+		
+		//create the permalink element
+		$totalResults = $root->appendChild( 
+			$symbiostock_xml->createElement( "load_ajax", 1 ) );
+
+		$retry_search = $root->appendChild( 
+			$symbiostock_xml->createElement( "retry_search", ssde( $url ) ) );	
+	
+		$network_info = $root->appendChild( 
+			$symbiostock_xml->createElement( "network_info" ) );
+			
+			$network_info->appendChild( 
+				$symbiostock_xml->createElement( 'url', $site ) );					
+			
+		//----------------------------------------------
+				
+		//create a image element
+		$imageTag = $root->appendChild( 
+			$symbiostock_xml->createElement( "image" ) );
+		$author = '#';
+
+		//create the permalink element
+		$imageTag->appendChild( 
+			$symbiostock_xml->createElement( "permalink", '#' ) );
+		
+		//create the id element
+		$imageTag->appendChild( 
+			$symbiostock_xml->createElement( "id", '0' ) );
+		
+		//title -> basic verbage for preview
+		$imageTag->appendChild( 
+			$symbiostock_xml->createElement( "title", 'Symbiostock' ) );
+		
+		//loop through our meta values to build the elements
+		
+		foreach ( $meta_values as $name => $value ) {
+						
+			$imageTag->appendChild( 
+				$symbiostock_xml->createElement( $name, $value ) );
+		
+			
+		}
+		
+
+		//create the author element
+		$imageTag->appendChild( 
+			$symbiostock_xml->createElement( "author", '#' ) );
+			
+		//create the if this is a network search element
+		$imageTag->appendChild( 
+			$symbiostock_xml->createElement( "network", '#' ) );							
+
+		
+	//make the output pretty
+	$symbiostock_xml->formatOutput = true;
+	
 	return $symbiostock_xml->saveXML();
 }
 ?>

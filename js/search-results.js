@@ -1,5 +1,8 @@
 
 jQuery(document).ready(function ($) {
+	
+	$(".search-result").bind("load", function () { $(this).fadeIn(); });
+	
     function pageFunctions() {
         var symbiostock_loading_image = symbiostock_large_loader;
         $('#search_selection_symbiostock_preview').attr("src", symbiostock_loading_image);
@@ -62,12 +65,51 @@ jQuery(document).ready(function ($) {
             action: 'symbiostock_process',
             symbiostock_network_query: network_query,
             symbiostock_site_order: site_order[2],
-            symbiostock_start_count: start_count
+            symbiostock_start_count: start_count,
+			ajax_request: 1
         }, function (response) {
-            $("#" + network_box).replaceWith(response);
-            pageFunctions()
+			
+			$("#" + network_box).replaceWith(response);
+			$("#" + network_box + ' .search-result').hide();	
+			
+			$("#" + network_box + ' .search-result').each(function () {
+				$(this).fadeIn('slow')
+			});	
+
+			pageFunctions()
+
         });
         e.preventDefault();
         return false;
     });
+	
+	$('.site_load_ajax').each(function () {
+		var network_box = ($(this).closest('.network_results').attr('id'));
+		var site_order = network_box.split("_")
+        //var get_page = $(this).attr('href');
+        var get_vars = $('#' + network_box + '_vars').val();
+        var network_query = $(this).attr('data-search');
+        var start_count = $('#network_site_' + site_order[2] + '_start_count').val()
+		
+        // Initialise the request
+        $.post(ajaxurl, {
+            action: 'symbiostock_process',
+            symbiostock_network_query: network_query,
+            symbiostock_site_order: site_order[2],
+            symbiostock_start_count: start_count,
+			ajax_request: 1
+        }, function (response) {
+				
+			$("#" + network_box).replaceWith(response);
+			$("#" + network_box + ' .search-result').hide();	
+			
+			$("#" + network_box + ' .search-result').each(function () {
+				$(this).fadeIn('slow')
+			});	
+				
+			pageFunctions()
+        });	
+		
+	});		
+	
 });

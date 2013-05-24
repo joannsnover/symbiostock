@@ -43,8 +43,6 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 /******************************************************************************
 *
 * Function:     get_relative_path
@@ -58,7 +56,6 @@
 * Returns:      output - the relative path
 *
 ******************************************************************************/
-
 function get_relative_path( $target, $fromdir )
 {
         // Check that the fromdir has a trailing slash, otherwise realpath will
@@ -68,12 +65,10 @@ function get_relative_path( $target, $fromdir )
         {
                 $fromdir .= "/";
         }
-
         // get a real directory name for each of the target and from directory
         $from = realpath( $fromdir );
         $target = realpath( $target );
         $to = dirname( $target  );
-
         // Can't get relative path with drive in path - remove it
         if ( ( $colonpos = strpos( $target, ":" ) ) != FALSE )
         {
@@ -87,8 +82,6 @@ function get_relative_path( $target, $fromdir )
         {
                 $to = substr( $to, $colonpos+1 );
         }
-
-
         $path = "../";
         $posval = 0;
         // Step through the paths until a difference is found (ignore slash, backslash differences
@@ -102,7 +95,6 @@ function get_relative_path( $target, $fromdir )
         }
         // Save the position of the first difference
         $diffpos = $posval;
-
         // Check if the directories are the same or
         // the if target is in a subdirectory of the fromdir
         if ( ( ! $from[$posval] ) &&
@@ -127,7 +119,6 @@ function get_relative_path( $target, $fromdir )
                                 $path .= "../";
                         }
                 }
-
                 // Search backwards to find where the first common directory
                 // as some letters in the first different directory names
                 // may have been the same
@@ -137,14 +128,10 @@ function get_relative_path( $target, $fromdir )
                         $diffpos--;
                 }
                 // Build relative path to return
-
                 return ( $path . substr( $target, $diffpos+1, strlen( $target ) ) );
         }
 }
-
 /******************************************************************************
 * End of Function:     get_relative_path
 ******************************************************************************/
-
-
 ?>

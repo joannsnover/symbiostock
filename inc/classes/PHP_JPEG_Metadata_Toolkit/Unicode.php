@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     Unicode.php
@@ -50,12 +49,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // TODO: UTF-16 functions have not been tested fully
-
-
-
 /******************************************************************************
 *
 * Unicode UTF-8 Encoding Functions
@@ -78,10 +72,6 @@
 *--------------------------------------------------------------------------------
 *
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Unicode UTF-16 Encoding Functions
@@ -113,12 +103,6 @@
 *
 *
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     UTF8_fix
@@ -132,24 +116,19 @@
 * Returns:      output - the well formed UTF-8 version of the string
 *
 ******************************************************************************/
-
 function UTF8_fix( $utf8_text )
 {
         // Initialise the current position in the string
         $pos = 0;
-
         // Create a string to accept the well formed output
         $output = "" ;
-
         // Cycle through each group of bytes, ensuring the coding is correct
         while ( $pos < strlen( $utf8_text ) )
         {
                 // Retreive the current numerical character value
                 $chval = ord($utf8_text{$pos});
-
                 // Check what the first character is - it will tell us how many bytes the
                 // Unicode value covers
-
                 if ( ( $chval >= 0x00 ) && ( $chval <= 0x7F ) )
                 {
                         // 1 Byte UTF-8 Unicode (7-Bit ASCII) Character
@@ -186,8 +165,6 @@ function UTF8_fix( $utf8_text )
                         $bytes = 0;
                         $pos++;
                 }
-
-
                 // check that there is enough data remaining to read
                 if (($pos + $bytes - 1) < strlen( $utf8_text ) )
                 {
@@ -205,23 +182,12 @@ function UTF8_fix( $utf8_text )
                         break;
                 }
         }
-
         // Return the result
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     UTF8_fix
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     UTF16_fix
@@ -237,24 +203,19 @@ function UTF8_fix( $utf8_text )
 * Returns:      output - the well formed UTF-16 version of the string
 *
 ******************************************************************************/
-
 function UTF16_fix( $utf16_text, $MSB_first )
 {
         // Initialise the current position in the string
         $pos = 0;
-
         // Create a string to accept the well formed output
         $output = "" ;
-
         // Cycle through each group of bytes, ensuring the coding is correct
         while ( $pos < strlen( $utf16_text ) )
         {
                 // Retreive the current numerical character value
                 $chval1 = ord($utf16_text{$pos});
-
                 // Skip over character just read
                 $pos++;
-
                 // Check if there is another character available
                 if ( $pos  < strlen( $utf16_text ) )
                 {
@@ -266,10 +227,8 @@ function UTF16_fix( $utf16_text, $MSB_first )
                         // Error - no second byte to this UTF-16 value - end processing
                         continue 1;
                 }
-
                 // Skip over character just read
                 $pos++;
-
                 // Calculate the 16 bit unicode value
                 if ( $MSB_first )
                 {
@@ -281,9 +240,6 @@ function UTF16_fix( $utf16_text, $MSB_first )
                         // Little Endian
                         $UTF16_val = $chval2 * 0x100 + $chval1;
                 }
-
-
-
                 if ( ( ( $UTF16_val >= 0x0000 ) && ( $UTF16_val <= 0xD7FF ) ) ||
                      ( ( $UTF16_val >= 0xE000 ) && ( $UTF16_val <= 0xFFFF ) ) )
                 {
@@ -301,7 +257,6 @@ function UTF16_fix( $utf16_text, $MSB_first )
                                 // Another 2 characters are available - get them
                                 $chval3 = ord( $utf16_text{$pos} );
                                 $chval4 = ord( $utf16_text{$pos+1} );
-
                                 // Calculate the second 16 bit unicode value
                                 if ( $MSB_first )
                                 {
@@ -313,14 +268,12 @@ function UTF16_fix( $utf16_text, $MSB_first )
                                         // Little Endian
                                         $UTF16_val2 = $chval4 * 0x100 + $chval3;
                                 }
-
                                 // Check that this is a low surrogate
                                 if ( ( $UTF16_val2 >= 0xDC00 ) && ( $UTF16_val2 <= 0xDFFF ) )
                                 {
                                         // Low surrogate found following high surrogate
                                         // Add both to the output
                                         $output .= chr( $chval1 ) . chr ( $chval2 ) . chr( $chval3 ) . chr ( $chval4 );
-
                                         // Skip over the low surrogate
                                         $pos += 2;
                                 }
@@ -330,14 +283,12 @@ function UTF16_fix( $utf16_text, $MSB_first )
                                         // Don't add either to the output
                                         // Only the High surrogate is skipped and processing continues after it
                                 }
-
                         }
                         else
                         {
                                 // Error - not enough data for low surrogate - end processing
                                 continue 1;
                         }
-
                 }
                 else
                 {
@@ -345,21 +296,13 @@ function UTF16_fix( $utf16_text, $MSB_first )
                         // This should not happen - it means this is a lone low surrogate
                         // Dont add it to the output
                 }
-
         }
-
         // Return the result
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     UTF16_fix
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     UTF8_to_unicode_array
@@ -372,21 +315,17 @@ function UTF16_fix( $utf16_text, $MSB_first )
 * Returns:      output - the array containing the unicode character numbers
 *
 ******************************************************************************/
-
 function UTF8_to_unicode_array( $utf8_text )
 {
         // Create an array to receive the unicode character numbers output
         $output = array( );
-
         // Cycle through the characters in the UTF-8 string
         for ( $pos = 0; $pos < strlen( $utf8_text ); $pos++ )
         {
                 // Retreive the current numerical character value
                 $chval = ord($utf8_text{$pos});
-
                 // Check what the first character is - it will tell us how many bytes the
                 // Unicode value covers
-
                 if ( ( $chval >= 0x00 ) && ( $chval <= 0x7F ) )
                 {
                         // 1 Byte UTF-8 Unicode (7-Bit ASCII) Character
@@ -428,51 +367,38 @@ function UTF8_to_unicode_array( $utf8_text )
                         // Invalid Code - do nothing
                         $bytes = 0;
                 }
-
                 // Check if the byte was valid
                 if ( $bytes !== 0 )
                 {
                         // The byte was valid
-
                         // Check if there is enough data left in the UTF-8 string to allow the
                         // retrieval of the remainder of this unicode character
                         if ( $pos + $bytes - 1 < strlen( $utf8_text ) )
                         {
                                 // The UTF-8 string is long enough
-
                                 // Cycle through the number of bytes required,
                                 // minus the first one which has already been done
                                 while ( $bytes > 1 )
                                 {
                                         $pos++;
                                         $bytes--;
-
                                         // Each remaining byte is coded with 6 bits of data and 10b on the high
                                         // order bits. Hence we need to shift left by 6 bits (0x40) then add the
                                         // current characer after it has been bitwise ANDed with 0x3F to remove the
                                         // highest two bits.
                                         $outputval = $outputval*0x40 + ( (ord($utf8_text{$pos})) & 0x3F );
                                 }
-
                                 // Add the calculated Unicode number to the output array
                                 $output[] = $outputval;
                         }
                 }
-
         }
-
         // Return the resulting array
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     UTF8_to_unicode_array
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     UTF16_to_unicode_array
@@ -487,25 +413,19 @@ function UTF8_to_unicode_array( $utf8_text )
 * Returns:      output - the array containing the unicode character numbers
 *
 ******************************************************************************/
-
 function UTF16_to_unicode_array( $utf16_text, $MSB_first )
 {
         // Create an array to receive the unicode character numbers output
         $output = array( );
-
-
         // Initialise the current position in the string
         $pos = 0;
-
         // Cycle through each group of bytes, ensuring the coding is correct
         while ( $pos < strlen( $utf16_text ) )
         {
                 // Retreive the current numerical character value
                 $chval1 = ord($utf16_text{$pos});
-
                 // Skip over character just read
                 $pos++;
-
                 // Check if there is another character available
                 if ( $pos  < strlen( $utf16_text ) )
                 {
@@ -517,10 +437,8 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                         // Error - no second byte to this UTF-16 value - end processing
                         continue 1;
                 }
-
                 // Skip over character just read
                 $pos++;
-
                 // Calculate the 16 bit unicode value
                 if ( $MSB_first )
                 {
@@ -532,8 +450,6 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                         // Little Endian
                         $UTF16_val = $chval2 * 0x100 + $chval1;
                 }
-
-
                 if ( ( ( $UTF16_val >= 0x0000 ) && ( $UTF16_val <= 0xD7FF ) ) ||
                      ( ( $UTF16_val >= 0xE000 ) && ( $UTF16_val <= 0xFFFF ) ) )
                 {
@@ -551,7 +467,6 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                                 // Another 2 characters are available - get them
                                 $chval3 = ord( $utf16_text{$pos} );
                                 $chval4 = ord( $utf16_text{$pos+1} );
-
                                 // Calculate the second 16 bit unicode value
                                 if ( $MSB_first )
                                 {
@@ -563,14 +478,12 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                                         // Little Endian
                                         $UTF16_val2 = $chval4 * 0x100 + $chval3;
                                 }
-
                                 // Check that this is a low surrogate
                                 if ( ( $UTF16_val2 >= 0xDC00 ) && ( $UTF16_val2 <= 0xDFFF ) )
                                 {
                                         // Low surrogate found following high surrogate
                                         // Add both to the output
                                         $output[] = 0x10000 + ( ( $UTF16_val - 0xD800 ) * 0x400 ) + ( $UTF16_val2 - 0xDC00 );
-
                                         // Skip over the low surrogate
                                         $pos += 2;
                                 }
@@ -580,14 +493,12 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                                         // Don't add either to the output
                                         // The high surrogate is skipped and processing continued
                                 }
-
                         }
                         else
                         {
                                 // Error - not enough data for low surrogate - end processing
                                 continue 1;
                         }
-
                 }
                 else
                 {
@@ -595,25 +506,13 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
                         // This should not happen - it means this is a lone low surrogate
                         // Don't add it to the output
                 }
-
         }
-
         // Return the result
         return $output;
-
-
 }
-
 /******************************************************************************
 * End of Function:     UTF16_to_unicode_array
 ******************************************************************************/
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     unicode_array_to_UTF8
@@ -626,13 +525,10 @@ function UTF16_to_unicode_array( $utf16_text, $MSB_first )
 * Returns:      output - the UTF-8 encoded string representing the data
 *
 ******************************************************************************/
-
 function unicode_array_to_UTF8( $unicode_array )
 {
-
         // Create a string to receive the UTF-8 output
         $output = "";
-
         // Cycle through each Unicode character number
         foreach( $unicode_array as $unicode_char )
         {
@@ -640,20 +536,17 @@ function unicode_array_to_UTF8( $unicode_array )
                 if ( ( $unicode_char >= 0x00 ) && ( $unicode_char <= 0x7F ) )
                 {
                         // 1 Byte UTF-8 Unicode (7-Bit ASCII) Character
-
                         $output .= chr($unicode_char);          // Output is equal to input for 7-bit ASCII
                 }
                 else if ( ( $unicode_char >= 0x80 ) && ( $unicode_char <= 0x7FF ) )
                 {
                         // 2 Byte UTF-8 Unicode - binary encode data as : 110xxxxx 10xxxxxx
-
                         $output .= chr(0xC0 + ($unicode_char/0x40));
                         $output .= chr(0x80 + ($unicode_char & 0x3F));
                 }
                 else if ( ( $unicode_char >= 0x800 ) && ( $unicode_char <= 0xFFFF ) )
                 {
                         // 3 Byte UTF-8 Unicode - binary encode data as : 1110xxxx 10xxxxxx 10xxxxxx
-
                         $output .= chr(0xE0 + ($unicode_char/0x1000));
                         $output .= chr(0x80 + (($unicode_char/0x40) & 0x3F));
                         $output .= chr(0x80 + ($unicode_char & 0x3F));
@@ -661,7 +554,6 @@ function unicode_array_to_UTF8( $unicode_array )
                 else if ( ( $unicode_char >= 0x10000 ) && ( $unicode_char <= 0x1FFFFF ) )
                 {
                         // 4 Byte UTF-8 Unicode - binary encode data as : 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-
                         $output .= chr(0xF0 + ($unicode_char/0x40000));
                         $output .= chr(0x80 + (($unicode_char/0x1000) & 0x3F));
                         $output .= chr(0x80 + (($unicode_char/0x40) & 0x3F));
@@ -670,7 +562,6 @@ function unicode_array_to_UTF8( $unicode_array )
                 else if ( ( $unicode_char >= 0x200000 ) && ( $unicode_char <= 0x3FFFFFF ) )
                 {
                         // 5 Byte UTF-8 Unicode - binary encode data as : 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-
                         $output .= chr(0xF8 + ($unicode_char/0x1000000));
                         $output .= chr(0x80 + (($unicode_char/0x40000) & 0x3F));
                         $output .= chr(0x80 + (($unicode_char/0x1000) & 0x3F));
@@ -680,7 +571,6 @@ function unicode_array_to_UTF8( $unicode_array )
                 else if ( ( $unicode_char >= 0x4000000 ) && ( $unicode_char <= 0x7FFFFFFF ) )
                 {
                         // 6 Byte UTF-8 Unicode - binary encode data as : 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-
                         $output .= chr(0xFC + ($unicode_char/0x40000000));
                         $output .= chr(0x80 + (($unicode_char/0x1000000) & 0x3F));
                         $output .= chr(0x80 + (($unicode_char/0x40000) & 0x3F));
@@ -692,25 +582,13 @@ function unicode_array_to_UTF8( $unicode_array )
                 {
                         // Invalid Code - do nothing
                 }
-
         }
-
         // Return resulting UTF-8 String
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     unicode_array_to_UTF8
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     unicode_array_to_UTF16
@@ -725,13 +603,10 @@ function unicode_array_to_UTF8( $unicode_array )
 * Returns:      output - the UTF-16 encoded string representing the data
 *
 ******************************************************************************/
-
 function unicode_array_to_UTF16( $unicode_array, $MSB_first )
 {
-
         // Create a string to receive the UTF-16 output
         $output = "";
-
         // Cycle through each Unicode character number
         foreach( $unicode_array as $unicode_char )
         {
@@ -740,7 +615,6 @@ function unicode_array_to_UTF16( $unicode_array, $MSB_first )
                      ( ( $unicode_char >= 0xE000 ) && ( $unicode_char <= 0xFFFF ) ) )
                 {
                         // Normal 16 Bit Character  (Not a Surrogate Pair)
-
                         // Check what byte order should be used
                         if ( $MSB_first )
                         {
@@ -752,16 +626,13 @@ function unicode_array_to_UTF16( $unicode_array, $MSB_first )
                                 // Little Endian
                                 $output .= chr( $unicode_char % 0x100 ) . chr( $unicode_char / 0x100 ) ;
                         }
-
                 }
                 else if ( ( $unicode_char >= 0x10000 ) && ( $unicode_char <= 0x10FFFF ) )
                 {
                         // Surrogate Pair required
-
                         // Calculate Surrogates
                         $High_Surrogate = ( ( $unicode_char - 0x10000 ) / 0x400 ) + 0xD800;
                         $Low_Surrogate = ( ( $unicode_char - 0x10000 ) % 0x400 ) + 0xDC00;
-
                         // Check what byte order should be used
                         if ( $MSB_first )
                         {
@@ -782,21 +653,13 @@ function unicode_array_to_UTF16( $unicode_array, $MSB_first )
                         // Unicode value should never be between 0xD800 and 0xDFFF
                         // Do not output this point - there is no way to encode it in UTF-16
                 }
-
         }
-
         // Return resulting UTF-16 String
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     unicode_array_to_UTF16
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     xml_UTF8_clean
@@ -816,24 +679,17 @@ function unicode_array_to_UTF16( $unicode_array, $MSB_first )
 * Returns:      output - the array containing the unicode character numbers
 *
 ******************************************************************************/
-
 function xml_UTF8_clean( $UTF8_text )
 {
         // Ensure that the Unicode UTF8 encoding is valid.
-
         $UTF8_text = UTF8_fix( $UTF8_text );
-
-
         // XML only allows characters in the following unicode ranges
         // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
         // Hence we need to delete any characters that dont fit this
-
         // Convert the UTF-8 string to an array of unicode character numbers
         $unicode_array = UTF8_to_unicode_array( $UTF8_text );
-
         // Create a new array to receive the valid unicode character numbers
         $new_unicode_array = array( );
-
         // Cycle through the unicode character numbers
         foreach( $unicode_array as  $unichar )
         {
@@ -848,35 +704,20 @@ function xml_UTF8_clean( $UTF8_text )
                        // Unicode character is valid for XML - add it to the valid characters array
                        $new_unicode_array[] = $unichar;
                 }
-
         }
-
         // Convert the array of valid unicode character numbers back to UTF-8 encoded text
         $UTF8_text = unicode_array_to_UTF8( $new_unicode_array );
-
         // Escape any special HTML characters present
         $UTF8_text =  htmlspecialchars ( $UTF8_text, ENT_QUOTES );
-
         // Escape CR, LF and TAB characters, so that they are kept and not treated as expendable white space
         $trans = array( "\x09" => "&#x09;", "\x0A" => "&#x0A;", "\x0D" => "&#x0D;" );
         $UTF8_text = strtr( $UTF8_text, $trans );
-
         // Return the resulting XML valid string
         return $UTF8_text;
 }
-
 /******************************************************************************
 * End of Function:     xml_UTF8_clean
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     xml_UTF16_clean
@@ -898,24 +739,17 @@ function xml_UTF8_clean( $UTF8_text )
 * Returns:      output - the array containing the unicode character numbers
 *
 ******************************************************************************/
-
 function xml_UTF16_clean( $UTF16_text, $MSB_first )
 {
         // Ensure that the Unicode UTF16 encoding is valid.
-
         $UTF16_text = UTF16_fix( $UTF16_text, $MSB_first );
-
-
         // XML only allows characters in the following unicode ranges
         // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
         // Hence we need to delete any characters that dont fit this
-
         // Convert the UTF-16 string to an array of unicode character numbers
         $unicode_array = UTF16_to_unicode_array( $UTF16_text, $MSB_first );
-
         // Create a new array to receive the valid unicode character numbers
         $new_unicode_array = array( );
-
         // Cycle through the unicode character numbers
         foreach( $unicode_array as  $unichar )
         {
@@ -930,32 +764,20 @@ function xml_UTF16_clean( $UTF16_text, $MSB_first )
                        // Unicode character is valid for XML - add it to the valid characters array
                        $new_unicode_array[] = $unichar;
                 }
-
         }
-
         // Convert the array of valid unicode character numbers back to UTF-16 encoded text
         $UTF16_text = unicode_array_to_UTF16( $new_unicode_array, $MSB_first );
-
         // Escape any special HTML characters present
         $UTF16_text =  htmlspecialchars ( $UTF16_text, ENT_QUOTES );
-
         // Escape CR, LF and TAB characters, so that they are kept and not treated as expendable white space
         $trans = array( "\x09" => "&#x09;", "\x0A" => "&#x0A;", "\x0D" => "&#x0D;" );
         $UTF16_text = strtr( $UTF16_text, $trans );
-
         // Return the resulting XML valid string
         return $UTF16_text;
 }
-
 /******************************************************************************
 * End of Function:     xml_UTF16_clean
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     HTML_UTF8_Escape
@@ -974,23 +796,17 @@ function xml_UTF16_clean( $UTF16_text, $MSB_first )
 * Returns:      htmloutput - a string containing the HTML equivalent
 *
 ******************************************************************************/
-
 function HTML_UTF8_Escape( $UTF8_text )
 {
-
         // Ensure that the Unicode UTF8 encoding is valid.
         $UTF8_text = UTF8_fix( $UTF8_text );
-
         // Change: changed to use smart_htmlspecialchars, so that characters which were already escaped would remain intact, as of revision 1.10
         // Escape any special HTML characters present
         $UTF8_text =  smart_htmlspecialchars( $UTF8_text, ENT_QUOTES );
-
         // Convert the UTF-8 string to an array of unicode character numbers
         $unicode_array = UTF8_to_unicode_array( $UTF8_text );
-
         // Create a string to receive the escaped HTML
         $htmloutput = "";
-
         // Cycle through the unicode character numbers
         foreach( $unicode_array as  $unichar )
         {
@@ -1006,17 +822,12 @@ function HTML_UTF8_Escape( $UTF8_text )
                         $htmloutput .= "&#x" . dechex($unichar) . ";";
                 }
         }
-
         // Return the resulting escaped HTML
         return $htmloutput;
 }
-
 /******************************************************************************
 * End of Function:     HTML_UTF8_Escape
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     HTML_UTF8_UnEscape
@@ -1029,7 +840,6 @@ function HTML_UTF8_Escape( $UTF8_text )
 * Returns:      utfoutput - a string containing the UTF-8 equivalent
 *
 ******************************************************************************/
-
 function HTML_UTF8_UnEscape( $HTML_text )
 {
         preg_match_all( "/\&\#(\d+);/", $HTML_text, $matches);
@@ -1039,25 +849,16 @@ function HTML_UTF8_UnEscape( $HTML_text )
                 $matches[0][] = $hexmatches[0][$index];
                 $matches[1][] = hexdec( $match );
         }
-
         for ( $i = 0; $i < count( $matches[ 0 ] ); $i++ )
         {
                 $trans = array( $matches[0][$i] => unicode_array_to_UTF8( array( $matches[1][$i] ) ) );
-
                 $HTML_text = strtr( $HTML_text , $trans );
         }
         return $HTML_text;
 }
-
 /******************************************************************************
 * End of Function:     HTML_UTF8_UnEscape
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     HTML_UTF16_Escape
@@ -1078,23 +879,17 @@ function HTML_UTF8_UnEscape( $HTML_text )
 * Returns:      htmloutput - a string containing the HTML equivalent
 *
 ******************************************************************************/
-
 function HTML_UTF16_Escape( $UTF16_text, $MSB_first )
 {
-
         // Ensure that the Unicode UTF16 encoding is valid.
         $UTF16_text = UTF16_fix( $UTF16_text, $MSB_first );
-
         // Change: changed to use smart_htmlspecialchars, so that characters which were already escaped would remain intact, as of revision 1.10
         // Escape any special HTML characters present
         $UTF16_text =  smart_htmlspecialchars( $UTF16_text );
-
         // Convert the UTF-16 string to an array of unicode character numbers
         $unicode_array = UTF16_to_unicode_array( $UTF16_text, $MSB_first );
-
         // Create a string to receive the escaped HTML
         $htmloutput = "";
-
         // Cycle through the unicode character numbers
         foreach( $unicode_array as  $unichar )
         {
@@ -1110,16 +905,12 @@ function HTML_UTF16_Escape( $UTF16_text, $MSB_first )
                         $htmloutput .= "&#x" . dechex($unichar) . ";";
                 }
         }
-
         // Return the resulting escaped HTML
         return $htmloutput;
 }
-
 /******************************************************************************
 * End of Function:     HTML_UTF16_Escape
 ******************************************************************************/
-
-
 /******************************************************************************
 *
 * Function:     HTML_UTF16_UnEscape
@@ -1134,21 +925,14 @@ function HTML_UTF16_Escape( $UTF16_text, $MSB_first )
 * Returns:      utfoutput - a string containing the UTF-16 equivalent
 *
 ******************************************************************************/
-
 function HTML_UTF16_UnEscape( $HTML_text, $MSB_first )
 {
         $utf8_text = HTML_UTF8_UnEscape( $HTML_text );
-
         return unicode_array_to_UTF16( UTF8_to_unicode_array( $utf8_text ), $MSB_first );
 }
-
 /******************************************************************************
 * End of Function:     HTML_UTF16_UnEscape
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     smart_HTML_Entities
@@ -1161,15 +945,12 @@ function HTML_UTF16_UnEscape( $HTML_text, $MSB_first )
 * Returns:      HTML_text_out - a string containing the escaped HTML text
 *
 ******************************************************************************/
-
 function smart_HTML_Entities( $HTML_text )
 {
         // Get a table containing the HTML entities translations
         $translation_table = get_html_translation_table( HTML_ENTITIES );
-
         // Change the ampersand to translate to itself, to avoid getting &amp;
         $translation_table[ chr(38) ] = '&';
-
         // Perform replacements
         // Regular expression says: find an ampersand, check the text after it,
         // if the text after it is not one of the following, then replace the ampersand
@@ -1180,13 +961,9 @@ function smart_HTML_Entities( $HTML_text )
         // d) a hash symbol, an 'X' character, then between 2 and 7 digits
         return preg_replace( "/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,7}|#x[0-9]{2,7}|#X[0-9]{2,7};)/","&amp;" , strtr( $HTML_text, $translation_table ) );
 }
-
 /******************************************************************************
 * End of Function:     smart_HTML_Entities
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     smart_htmlspecialchars
@@ -1199,15 +976,12 @@ function smart_HTML_Entities( $HTML_text )
 * Returns:      HTML_text_out - a string containing the escaped HTML text
 *
 ******************************************************************************/
-
 function smart_htmlspecialchars( $HTML_text )
 {
         // Get a table containing the HTML special characters translations
         $translation_table=get_html_translation_table (HTML_SPECIALCHARS);
-
         // Change the ampersand to translate to itself, to avoid getting &amp;
         $translation_table[ chr(38) ] = '&';
-
         // Perform replacements
         // Regular expression says: find an ampersand, check the text after it,
         // if the text after it is not one of the following, then replace the ampersand
@@ -1218,10 +992,7 @@ function smart_htmlspecialchars( $HTML_text )
         // d) a hash symbol, an 'X' character, then between 2 and 7 digits
         return preg_replace( "/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,7}|#x[0-9]{2,7}|#X[0-9]{2,7};)/","&amp;" , strtr( $HTML_text, $translation_table ) );
 }
-
 /******************************************************************************
 * End of Function:     smart_htmlspecialchars
 ******************************************************************************/
-
-
 ?>

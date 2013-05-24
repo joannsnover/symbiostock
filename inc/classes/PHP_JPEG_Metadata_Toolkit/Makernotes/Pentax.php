@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     pentax.php
@@ -50,26 +49,12 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // Pentax Type 2 makernote uses Casio Type 2 tags - ensure they are included
-
 include_once 'casio.php';
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Pentax_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Pentax_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Pentax_Makernote_Html";
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Pentax_Makernote
@@ -97,7 +82,6 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Pen
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Pentax_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Pentax or Asahi
@@ -107,7 +91,6 @@ function get_Pentax_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fiel
                 // Couldn't find Pentax or Asahi in the maker - abort
                 return FALSE;
         }
-
         // Check if the header exists at the start of the Makernote
         if ( substr( $Makernote_Tag['Data'], 0, 4 ) == "AOC\x00" )
         {
@@ -115,15 +98,12 @@ function get_Pentax_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fiel
                 
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 6 );
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Casio Type 2" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Casio Type 2";
                 $Makernote_Tag['Makernote Tags'] = "Casio Type 2";
-
                 // Return the new tag
                 return $Makernote_Tag;
         }
@@ -133,34 +113,21 @@ function get_Pentax_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fiel
                 
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 0 );
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Pentax" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Pentax";
                 $Makernote_Tag['Makernote Tags'] = "Pentax";
-
                 // Return the new tag
                 return $Makernote_Tag;
         }
-
-
         // Shouldn't get here
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Pentax_Makernote
 ******************************************************************************/
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Pentax_Text_Value
@@ -180,7 +147,6 @@ function get_Pentax_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fiel
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Pentax_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
         // Check that this tag uses the Pentax tags, otherwise it can't be interpreted here
@@ -189,19 +155,11 @@ function get_Pentax_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                 // No Special Tags so far
                 return FALSE;
         }
-
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Pentax_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Pentax_Makernote_Html
@@ -220,7 +178,6 @@ function get_Pentax_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Pentax_Makernote_Html( $Makernote_tag, $filename )
 {
         // Check that this is a Pentax type makernote
@@ -229,25 +186,12 @@ function get_Pentax_Makernote_Html( $Makernote_tag, $filename )
                 // Not a Pentax makernote - abort
                 return False;
         }
-
         // Interpret the IFD and return the html
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
-
 }
-
 /******************************************************************************
 * End of Function:     get_Pentax_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Pentax
 *
@@ -255,35 +199,28 @@ function get_Pentax_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Pentax"] = array(
-
-
 0x0001 => array(        'Name' => "Capture Mode",
                         'Type' => "Lookup",
                         0 => "Auto",
                         1 => "Night-scene",
                         2 => "Manual",
                         4 => "Multiple" ),
-
 0x0002 => array(        'Name' => "Quality Level",
                         'Type' => "Lookup",
                         0 => "Good",
                         1 => "Better",
                         2 => "Best" ),
-
 0x0003 => array(        'Name' => "Focus Mode",
                         'Type' => "Lookup",
                         2 => "Custom",
                         3 => "Auto" ),
-
 0x0004 => array(        'Name' => "Flash Mode",
                         'Type' => "Lookup",
                         1 => "Auto",
                         2 => "Flash on",
                         4 => "Flash off",
                         6 => "Red-eye Reduction" ),
-
 0x0007 => array(        'Name' => "White Balance",
                         'Type' => "Lookup",
                         0 => "Auto",
@@ -292,62 +229,43 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Pentax"] = array(
                         3 => "Tungsten",
                         4 => "Fluorescent",
                         5 => "Manual" ),
-
-
 0x000a => array(        'Name' => "Digital Zoom",
                         'Type' => "Numeric",
                         'Units' => "  (0 = Off)" ),
-
 0x000b => array(        'Name' => "Sharpness",
                         'Type' => "Lookup",
                         0 => "Normal",
                         1 => "Soft",
                         2 => "Hard" ),
-
 0x000c => array(        'Name' => "Contrast",
                         'Type' => "Lookup",
                         0 => "Normal",
                         1 => "Low",
                         2 => "High" ),
-
 0x000d => array(        'Name' => "Saturation",
                         'Type' => "Lookup",
                         0 => "Normal",
                         1 => "Low",
                         2 => "High" ),
-
 0x0014 => array(        'Name' => "ISO Speed",
                         'Type' => "Lookup",
                         10 => "100",
                         16 => "200",
                         100 => "100",
                         200 => "200" ),
-
 0x0017 => array(        'Name' => "Colour",
                         'Type' => "Lookup",
                         1 => "Normal",
                         2 => "Black & White",
                         3 => "Sepia" ),
-
 0x0e00 => array(        'Name' => "Print Image Matching Info",
                         'Type' => "PIM" ),
-
 0x1000 => array(        'Name' => "Time Zone",
                         'Type' => "String" ),
-
 0x1001 => array(        'Name' => "Daylight Savings",
                         'Type' => "String" ),
-
-
-
-
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Pentax
 ******************************************************************************/
-
-
-
 ?>

@@ -44,7 +44,6 @@ get_header(); ?>
             <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
          
     		</div><!-- #primary .content-area -->
-
         </div>        
         
     	

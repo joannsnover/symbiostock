@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     sony.php
@@ -35,20 +34,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Sony_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Sony_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Sony_Makernote_Html";
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Sony_Makernote
@@ -76,10 +65,8 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Son
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Sony_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
-
         // Check if the Make Field contains the word Sony
         if ( stristr( $Make_Field, "Sony" ) === FALSE )
         {
@@ -94,36 +81,20 @@ function get_Sony_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field 
                 // This isn't a Sony Makernote, abort
                 return FALSE ;
         }
-
         // Seek to the start of the IFD
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 12 );
-
         // Read the IFD(s) into an array
-
-
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Sony", FALSE, FALSE );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Sony";
         $Makernote_Tag['Makernote Tags'] = "sony";
-
-
         // Return the new tag
         return $Makernote_Tag;
-
-
 }
-
 /******************************************************************************
 * End of Function:     get_Sony_Makernote
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Sony_Text_Value
@@ -143,7 +114,6 @@ function get_Sony_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field 
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Sony_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
         // Check that this tag uses the Sony tags, otherwise it can't be decoded here
@@ -152,19 +122,11 @@ function get_Sony_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                 // No Special Tags yet
                 return FALSE;
         }
-
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Sony_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Sony_Makernote_Html
@@ -183,35 +145,20 @@ function get_Sony_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Sony_Makernote_Html( $Makernote_tag, $filename )
 {
-
         // Check that this tag uses the Sony tags, otherwise it can't be interpreted here
         if ( $Makernote_tag['Makernote Type'] != "Sony" )
         {
                 // Not Sony tags - can't interpret with this function
                 return FALSE;
         }
-
         // Interpret the IFD and return the HTML
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
-
 }
-
 /******************************************************************************
 * End of Function:     get_Sony_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Sony
 *
@@ -219,26 +166,11 @@ function get_Sony_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Sony"] = array(
-
 0xE00 => array( 'Name' => "Print Image Matching Info",
                 'Type' => "PIM" ),
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Sony
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
 ?>

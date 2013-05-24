@@ -31,7 +31,7 @@ get_header(); ?>
 			<div id="content" class="site-content search_page search-results span12" role="main">
             
 			<?php
-			echo '<h1 class="results_for">Results for <em>"' . ucwords(urldecode( get_query_var('image-tags'))) . '"</em></h1>';
+			echo '<h1 class="results_for">Results for "' . ucwords(urldecode( get_query_var('image-tags'))) . '"  '.symbiostock_feed('rss_url','icon', 'image-tags').'</h1>';
 			
 			$local_results->display_results(false);
 				
@@ -40,13 +40,20 @@ get_header(); ?>
 			
 			$network_results->network_search_all_similar();
 			
+			$use_network = get_option('symbiostock_use_network');
+		
+			if($use_network == 'true'){
+				get_template_part('see-directory');
+			}
 			?>
 			</div><!-- #content .site-content -->
 		</section><!-- #primary .content-area -->
 		
 	</div>
+    
+    <div class="clearfix">&nbsp;</div>
 <?php 
-include_once('modal-search.php');
+get_template_part('modal-search');
 ?>   
    
 <?php get_footer();

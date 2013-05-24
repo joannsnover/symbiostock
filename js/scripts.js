@@ -1,8 +1,8 @@
 // JavaScript Document
 //navigation menu
 jQuery(document).ready(function ($) {
- 
- 
+	 
+
     $('.dropdown-toggle ul').css('display', 'block').slideUp(0);
     $('.dropdown-toggle').hover(
     function () {
@@ -37,12 +37,10 @@ jQuery(document).ready(function ($) {
 				$(mobile_nav).remove();
 				$('#main-navigation').show();
 			}
-		});
-	
+		});	
 	}
 	
 	//disable image link, but keep it for SEO
-
 	$('#stock-image-preview').css( 'cursor', 'default' );
 	$('#stock-image-preview').click(function(e) {
     	e.preventDefault();
@@ -75,4 +73,15 @@ jQuery(document).ready(function ($) {
         return false;
         e.preventDefault();
     });
+	
+	$('#aggree_to_EULA').click(function(){
+	
+		if($(this).is(':checked')){
+	
+			$('#symbiostock_pay_now').removeAttr('disabled');
+		}
+		else {
+			$('#symbiostock_pay_now').attr("disabled","true"); 
+		}
+	});
 });

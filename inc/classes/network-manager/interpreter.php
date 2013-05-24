@@ -83,8 +83,8 @@ function symbiostock_list_attr_inputs($count, $image){
 				$size_attr = $size_info['width'] . '×' . $size_info['height'] . 'px';
 				
 				?>                
-                <input type="hidden" id="<?php echo $id_key; ?>" name="<?php echo $id_key; ?>" value="<?php echo $size_attr; ?>" />
-                <?php
+<input type="hidden" id="<?php echo $id_key; ?>" name="<?php echo $id_key; ?>" value="<?php echo $size_attr; ?>" />
+        <?php
 				
 			}
 		}
@@ -100,191 +100,252 @@ function symbiostock_hover_controls($count, $id, $permalink){
         <span>
             <a class="modal_activate" id="<?php echo $id . '_details'; ?>" title="Preview" data-toggle="modal" href="#symbiostock_display_preview" ><i class="icon-zoom-in">&nbsp;</i></a>
             <a id="<?php echo $id . '_goto'; ?>" title="Go to royalty free image." href="<?php echo  $permalink; ?>"><i class="icon-share-alt">&nbsp;</i></a>
-        </span>   
-        <?php
-        //set up for our adminstration commands as well
-				
-       get_currentuserinfo(); 
-	   global $user_level; 
-	   
-	   if ($user_level > 8) {
-        ?> | <span>
-            <a id="<?php echo $id . '_feature'; ?>" title="Feature This" href="#"><i class="icon-star">&nbsp;</i></a>
-            <a id="<?php echo $id . '_block'; ?>" title="Block Result" href="#"><i class="icon-ban-circle">&nbsp;</i></a>
-        </span>  
-    </span> 
-    <?php
+        </span> 
+    </span>     
+	<?php
 }
-	}
 function symbiostock_display_pagination($pagination, $results, $position, $size){
 	
-	?><div class="symbiostock_pagination pagination-<?php echo $position; ?> pagination <?php echo $size; ?>"><div class="pagination">
-    
-    <ul>
-	<?php
-	//display pagination
-	if(!empty($pagination)){
-		
-		foreach($pagination as $page_result){
-			
-			echo '<li>' . $page_result . '</li>';
-			
-			}		
-		
-		}
-	?>
-    <li class="disabled">
-    <span><?php echo 'Results: ' . $results; ?></span>
-    </li>
-    
-    </ul></div></div> <?php
+	?><div class="symbiostock_pagination pagination-<?php echo $position; ?> pagination <?php echo $size; ?>">
+        <div class="pagination">            
+            <ul>
+            <?php
+            //display pagination
+            if(!empty($pagination)){
+                
+                foreach($pagination as $page_result){
+                    
+                    echo '<li>' . $page_result . '</li>';
+                    
+                    }		
+                
+                }
+            ?>
+            <li class="disabled">
+            <span><?php echo 'Results: ' . $results; ?></span>
+            </li>            
+            </ul>
+        </div>
+</div> <?php
 	}
 	
 function symbiostock_build_html_results($results, $network_search, $site_count = 0){
 	//site_count variable is simply the site's position on the page/loop. 
 	//if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
 	//friend's page handle's it properly.
+	
+	if(!isset($results['image'])){
+		if($network_search != true): 
+		?><p>No results found on this site.</p>
+		
+		
+		<div class="hero-unit">
+            <h2>No Results found. Try browsing the categories. Maybe you will find some hidden gems!</h2>
+            <?php
+           
+           //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
+            $taxonomy     = 'image-type';
+            $orderby      = 'name'; 
+            $show_count   = 1;      // 1 for yes, 0 for no
+            $pad_counts   = 1;      // 1 for yes, 0 for no
+            $hierarchical = 1;      // 1 for yes, 0 for no
+            $title        = '<h2 class="muted">Image Categories</h2><hr />';
+            
+            $args = array(
+              'taxonomy'     => $taxonomy,
+              'orderby'      => $orderby,
+              'show_count'   => $show_count,
+              'pad_counts'   => $pad_counts,
+              'hierarchical' => $hierarchical,
+              'title_li'     => $title,
+             
+            );
+            ?>
+            <ul>
+                <?php wp_list_categories( $args ); ?>
+            </ul>
+        </div>
+		
+		<?php
+		endif;
+		
+		return;
+		}
+	
+	
+		
+		
 	if(isset($_POST['symbiostock_site_order'])){
 		
 		$site_count = $_POST['symbiostock_site_order'];
 		
 		}
 	
-	if($network_search == true){ 
+	if($network_search == true): 
 	
 	$network_info = $results['network_info'];
 	
 	//validate incoming network attributes
 	//about page
-	if(isset($network_info['symbiostock_my_about_page']) && !empty($network_info['symbiostock_my_about_page'])){
-		$symbiostock_my_about_page = $network_info['symbiostock_my_about_page'];
-	} else {
-		$symbiostock_my_about_page = $network_info['url'];	
-	}
-	
-	//avatar
-	if(isset($network_info['symbiostock_my_network_avatar']) && !empty($network_info['symbiostock_my_network_avatar'])){
-		$symbiostock_my_network_avatar = $network_info['symbiostock_my_network_avatar'];
-	} else {
-		$symbiostock_my_network_avatar = symbiostock_32_DEFAULT;	
-	}	
-	//logo
-	if(isset($network_info['symbiostock_my_network_logo']) && !empty($network_info['symbiostock_my_network_logo'])){
-		$symbiostock_my_network_logo = $network_info['symbiostock_my_network_logo'];
-	} else {
-		$symbiostock_my_network_logo = symbiostock_128_DEFAULT;	
-	}	
-	
-	//name
-	if(isset($network_info['symbiostock_my_network_name']) && !empty($network_info['symbiostock_my_network_name'])){
-		$symbiostock_my_network_name = $network_info['symbiostock_my_network_name'];
-	} else {
-		$symbiostock_my_network_name =  $network_info['url'];	
-	}
-		
+			
 		
 	?><div id="network_site_<?php echo $site_count; ?>" class="network_results row-fluid">
-    	<div class="span12 well well-small network_results_header"><img class="img-rounded" alt="<?php echo $network_info['symbiostock_my_network_name']; ?>" src="<?php echo $network_info['symbiostock_my_network_avatar']; ?>" />
-        <span class="network_name text-info"><?php echo $network_info['symbiostock_my_network_name']; ?> network results ( <?php echo $network_info['url']; ?> )</span>
+        <div class="span12 well well-small network_results_header">            
+            <?php 
+            echo symbiostock_csv_symbiocard_network_results(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv');
+            ?>            
         </div>
-        <div class="span2">
-        <a target="_blank" title="<?php echo $network_info['symbiostock_my_network_name']; ?>" href="<?php echo $symbiostock_my_about_page; ?>">
-        <img class="img-rounded network_logo" alt="<?php echo $network_info['symbiostock_my_network_name'] . ' Logo'; ?>" src="<?php echo $network_info['symbiostock_my_network_logo']; ?>" />
-        </a>
-        </div>
-        <div class="network_results_container">
-    <?php	
-	}
-	
-	//check and set pagination results	
-	if(is_array($results['pagination']) && array_key_exists('page', $results['pagination']) && !empty($results['pagination']['page'])){
-						
-		$pagination = $results['pagination']['page'];	
-				
-		$paginate = true;
-	} else {
-		
-		$pagination = array();	
-		$paginate = false;
-		}	
-	
-	?><div class="results_info">
-    <?php 
-	if($paginate == true && $network_search == false){
-		symbiostock_display_pagination($pagination, $results['total_results'], 'right', 'pagination-small');
-	} elseif ($network_search == false){
-		
-		echo '<span>Results: ' . $results['total_results'] . '</span>';
-		}
-	?>
-    </div>
-	<?php	
-	
-	
-	$invis_tag = array(	
-	);
-	
-	$total_results =  $results['total_results'];
-	
-	//check and set image results
-	if(is_array($results) && array_key_exists('image', $results) && !empty($results['image'])){
-						
-		$image_results = $results['image'];	
-		
-	} else {
-		
-		return '<p>No results found.</p>';
-		
-		}
-	
-	
-	//if our array was created with only one item, we have to modify it so it can be processed properly	
-	//we see if the array depth is altered from what we usually expect
-	if(!isset($image_results[0])){
-		//if it is, then we shift the array down one level
-		$tmp = array();
-		$tmp[0]=$image_results;
-		
-		$image_results = $tmp;
-		}
-	
-	//check and set network info results
-		
-	foreach($image_results as $image){
-		global $sscount;
-		
-		if(!is_object($sscount)){
-			//if this is an incoming request, we have to set up counts to mirror the results on that page, using incoming vars
-			$sscount = new results_counter();
-			
-			$sscount->count = $_POST['symbiostock_start_count'];
+        <div class="network_results_container"><!--network_results_container-->
+        <?php	
+        endif;
+        
+        //check and set pagination results	
+        if(isset($results['pagination']) && is_array($results['pagination']) && array_key_exists('page', $results['pagination']) && !empty($results['pagination']['page'])){
+							
+			$pagination = $results['pagination']['page'];	
 					
-		} 		
-		
-		?> <input type="hidden" id="network_site_<?php echo $site_count; ?>_start_count" value="<?php echo $sscount->count; ?>" /> <?php	
-			
-		
-		
-		$count = $sscount->plus_1();
-	
-		
-		
-		?>
+			$paginate = true;
+        } else {
         
-        <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
-            <a class="search_result_preview" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
-              <img class="search_minipic" src="<?php echo $image['symbiostock_minipic']  ?>" />
-            </a>
-            <?php symbiostock_list_attr_inputs($count, $image); ?>
-            <?php symbiostock_hover_controls($count, $image['id'], $image['permalink']); ?>
+			$pagination = array();	
+			$paginate = false;
+        }	
+        
+        ?><div class="results_info">
+        <?php 
+        if($paginate == true && $network_search == false){
+            symbiostock_display_pagination($pagination, $results['total_results'], 'right', 'pagination-small');
+        } elseif ($network_search == false){
+        
+            echo '<span>Results: ' . $results['total_results'] . '</span>';
+        }
+        ?>
         </div>
+        <?php	
         
-        <?php
-		
-		}
-	?> </div> <?php
-	if($network_search == true){
-		
+        
+        $invis_tag = array(	);
+        
+        $total_results =  $results['total_results'];
+        
+        //check and set image results
+        if(is_array($results) && array_key_exists('image', $results) && !empty($results['image'])){
+                        
+        	$image_results = $results['image'];	
+        
+        } else {
+        
+        	return '<p>No results found.</p>';
+        
+        }
+        
+        
+        //if our array was created with only one item, we have to modify it so it can be processed properly	
+        //we see if the array depth is altered from what we usually expect
+        if(!isset($image_results[0])){
+			//if it is, then we shift the array down one level
+			$tmp = array();
+			$tmp[0]=$image_results;
+			
+			$image_results = $tmp;
+        }
+        
+        //check and set network info results
+        ?> <input type="hidden" id="network_site_<?php echo $site_count; ?>_start_count" value="<?php echo $sscount->count; ?>" /> <?php		
+        
+        if($network_search == true  && count($image_results) > 6):
+        ?>
+            <div class="row-fluid">
+                <div id="carousel<?php echo $site_count; ?>" class="carousel slide span12">
+                     <!-- Dot Tracker -->
+                     <ol class="carousel-indicators">
+                        <?php
+                        $active_dot = 'class="active"';
+                        $slides = count($image_results);				
+                        $slide_count = 0;
+                        while($slide_count < $slides/6):
+                        
+                        ?><?php 
+                        
+                        $active_dot = '';
+                        $slide_count++;
+                        endwhile;
+                        ?>
+                     </ol>
+                    <!-- Carousel items -->
+                    <div class="carousel-inner"><!--carousel-inner-->      
+                    <?php
+                    $carousel_count = 1;
+                    $active = true;		
+                    endif;
+                    $closed = true;
+                    foreach($image_results as $image){
+                        //carousel
+                        if($network_search == true):
+                            $active == true ? $class = 'active' : '';		
+                            $active == true ? $active = false : $class = '';
+                            $carousel_count == 1 && count($image_results) > 6 ? $open_div = '<div class="'.$class.' item"><!--six-per-div-->' : $open_div = ''; 
+                            echo $open_div;		
+                        endif;
+                        
+                        global $sscount;
+                        
+                        if(!is_object($sscount)){
+                            //if this is an incoming request, we have to set up counts to mirror the results on that page, using incoming vars
+                            $sscount = new results_counter();
+                            
+                            $sscount->count = $_POST['symbiostock_start_count'];
+                                    
+                        } 			
+                        $count = $sscount->plus_1();
+                        
+                        if(isset($results['load_ajax'])):			
+                        ?> 
+                        <img class="" alt="Loading site's results..." src="<?php echo symbiostock_IMGDIR . '/loading-large.gif' ?>" /> 
+                        <input class="site_load_ajax" data-search="<?php echo $results['retry_search']; ?>" type="hidden" value="network_site_<?php echo $site_count; ?>" name="load_ajax" />
+                        <?php
+                        
+                        endif;
+                        
+                        ?>
+                        
+                        <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
+                            <a class="search_result_preview" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
+                              <img alt="image <?php echo $image['id']; ?>" class="search_minipic" src="<?php echo $image['symbiostock_minipic']  ?>" />
+                            </a>
+                            <?php symbiostock_list_attr_inputs($count, $image); ?>
+                            <?php symbiostock_hover_controls($count, $image['id'], $image['permalink']); ?>
+                        </div>
+                        
+                        <?php
+                        //carousel
+                        if($network_search == true):
+                            $carousel_count == 6 ? $close_div = '</div><!--six-per-div-->' : $close_div = '';
+                            $carousel_count == 6 && count($image_results) > 6 ? $closed = true : $closed = false;
+                            echo $close_div;
+                                    
+                            $carousel_count++;
+                            $carousel_count == 7 ? $carousel_count = 1 : ''; 
+                        endif;	
+                    }
+                    if($closed == false && count($image_results) > 6){
+                        echo '</div><!--/six-per-div (if not closed)-->';
+                        }
+                    if($network_search == true && count($image_results) > 6):
+                    ?>
+                    <!-- Carousel nav -->
+                    </div><!--/carousel-inner-->
+                    <a class="carousel-control left" href="#carousel<?php echo $site_count; ?>" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#carousel<?php echo $site_count; ?>" data-slide="next">&rsaquo;</a>
+                </div>
+            </div><!--row-fluid-->
+        <?php	
+        endif;
+        
+        if($network_search == true){
+        ?>
+        </div><!--/network_results_container--> 
+		<?php	
 		$position = 'right';
 		
 		$size = 'small';
@@ -309,15 +370,20 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 		
 		if(isset($link) && !empty($link)){
 			
-		$user_link = explode('?', $link);
-		$user_link = $user_link[0];	
-		
-		//a little confusion going on here. Watch for bugs.
-		//$user_link = $link;		
-		$edited_link = str_replace($link, $user_link, html_entity_decode($href_link));
-		
-		$edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
-											
+			if(strstr($link, 'post_type=image')){
+				
+				$user_link = explode('?', $link);
+				$user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
+				$edited_link = str_replace($link, htmlentities($user_link), $href_link);
+				$edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);
+				} else {
+				
+				$user_link = explode('?', $link);
+				$user_link = $user_link[0];	
+				$edited_link = str_replace($link, htmlentities($user_link), $href_link);
+				$edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
+			}
+				
 		} else { $edited_link = $href_link;}
 		
 		array_push($corrected_pagination, $edited_link);
@@ -338,6 +404,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 		symbiostock_display_pagination($pagination, $results['total_results'], $position, 'pagination-' . $size);
 	}
 	
-	if($network_search == true){ echo '</div>'; }
+	if($network_search == true){ 
+		?> </div> <?php 
+	}
 }
 ?>

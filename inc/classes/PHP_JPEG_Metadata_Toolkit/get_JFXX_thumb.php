@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     get_JFXX_thumb.php
@@ -47,30 +46,19 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
         // Ensure that nothing can write to the standard io, before we get the header out
         ob_start( );
-
-
         include 'JPEG.php';
         include 'JFIF.php';
-
-
         // retrieve the filename from the URL parameters
         
         $filename = $_GET['filename'];
-
         // Retrieve the JPEG header Data
         
         $jpeg_header_data = get_jpeg_header_data( $filename );
-
         // Retrieve any JFXX data in the file
-
         $JFXX_array = get_JFXX( $jpeg_header_data );
-
         // Check if JFXX data was retrieved
-
         if ( $JFXX_array === FALSE )
         {
                 // No JFXX data could be retrieved - abort
@@ -78,7 +66,6 @@
                 echo "<p>JFXX Data could not be retrieved</p>\n";
                 return;
         }
-
         // Check the JFXX extension code which indicates what format
         // the thumbnail is encoded with
         
@@ -105,7 +92,4 @@
                 // Invalid Extension Value - abort
                 return;
         }
-
-
-
 ?>

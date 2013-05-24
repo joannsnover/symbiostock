@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     get_ps_thumb.php
@@ -48,38 +47,25 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
         // Ensure that nothing can write to the standard io, before we get the header out
         ob_start( );
-
-
         // retrieve the filename from the URL parameters
-
         $filename = $_GET['filename'];
-
         // Change: Check for file extension rather than assuming JPEG as of 1.11
         // Retrieve the Filename Extension
         $path_parts = pathinfo( $filename );
-
         // Check if the Extension is JPEG
         if ( ( strcasecmp( $path_parts["extension"], "jpg" ) == 0 ) ||
              ( strcasecmp( $path_parts["extension"], "jpeg" ) == 0 ) )
         {
                 // JPEG Extension
-
                 include 'JPEG.php';
                 include 'Photoshop_IRB.php';
-
                 // Retrieve the JPEG header Data
-
                 $jpeg_header_data = get_jpeg_header_data( $filename );
-
                 // Retrieve any Photoshop IRB data in the file
-
                 $IRB_array = get_Photoshop_IRB( $jpeg_header_data );
-
                 // Check if Photoshop IRB data was retrieved
-
                 if ( $IRB_array === FALSE )
                 {
                         // No Photoshop IRB data could be retrieved - abort
@@ -87,7 +73,6 @@
                         echo "<p>Photoshop IRB could not be retrieved from the JPEG file</p>\n";
                         return;
                 }
-
                 // Cycle through the resources in the Photoshop IRB
                 // Until either a thumbnail resource is found or
                 // there are no more resources
@@ -98,8 +83,6 @@
                 {
                         $i++;
                 }
-
-
                 // Check if a thumbnail was found
                 if ( $i < count( $IRB_array ) )
                 {
@@ -115,21 +98,16 @@
                   ( strcasecmp( $path_parts["extension"], "tiff" ) == 0 ) )
         {
                 // TIFF Extension
-
                 include 'EXIF.php';
-
                 // Retrieve the EXIF info
                 $exif_array = get_EXIF_TIFF( $filename );
-
                 // Retrieve any Photoshop IRB data in the EXIF
                 if ( ( array_key_exists( 0, $exif_array ) ) &&
                      ( array_key_exists( 34377, $exif_array[0] ) ) &&
                      ( array_key_exists( 'Data', $exif_array[0][34377] ) ) )
                 {
                         $IRB_array = $exif_array[0][34377]['Data'];
-
                         // Check if Photoshop IRB data was retrieved
-
                         if ( $IRB_array === FALSE )
                         {
                                 // No Photoshop IRB data could be retrieved - abort
@@ -137,7 +115,6 @@
                                 echo "<p>Photoshop IRB could not be retrieved from the TIFF file</p>\n";
                                 return;
                         }
-
                         // Cycle through the resources in the Photoshop IRB
                         // Until either a thumbnail resource is found or
                         // there are no more resources
@@ -148,8 +125,6 @@
                         {
                                 $i++;
                         }
-
-
                         // Check if a thumbnail was found
                         if ( $i < count( $IRB_array ) )
                         {
@@ -172,6 +147,4 @@
                 ob_end_clean ( );
                 echo "Unknown file Type";
         }
-
-
 ?>

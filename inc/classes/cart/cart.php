@@ -98,7 +98,6 @@ class symbiostock_cart
 		//check our availability and proceed accordingly
 		if(isset($this->product_info['symbiostock_' . 'vector' . '_available'][0]) 
 		&& $this->product_info['symbiostock_' . 'vector' . '_available'][0] == 'no'){ return; }	
-
 		//check our select / no-select status		
 		if(isset($this->product_info['symbiostock_' . 'vector' . '_available'][0]) 
 		&& $this->product_info['symbiostock_'  . 'vector' .  '_available'][0] == 'no_select'){ 
@@ -117,7 +116,6 @@ class symbiostock_cart
     
     private function list_zip( )
     {
-
 		//check our availability and proceed accordingly
 		if(isset($this->product_info['symbiostock_' . 'zip' . '_available'][0]) 
 		&& $this->product_info['symbiostock_' . 'zip' . '_available'][0] == 'no'){ return; }	
@@ -266,7 +264,7 @@ class symbiostock_cart
 		
 		//get cart link and amount
 		$cart_value = '(' . $this->get_cart_value() . ')';			
-		echo symbiostock_customer_area( 'Go to Licenses & Images ' . $cart_value, true);
+		echo symbiostock_customer_area( 'DOWNLOAD ' . $cart_value, true);
 		
 ?></td>
                     </tr>
@@ -400,7 +398,9 @@ class symbiostock_cart
              <tr class="info">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula('End User License Agreement'); ?></em></strong></td>
+                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula('End User License Agreement & Terms'); ?></em></strong>
+                
+                </td>
              </tr>
         
             </tbody>
@@ -411,7 +411,12 @@ class symbiostock_cart
                 </td>
               
                 <td ><span class="total">Total: <?php echo $this->get_cart_value(); ?></span>
-                <button class="btn btn-large" type="submit"><i class="icon-shopping-cart"> Pay Now </i></button></td>
+                <div class="alert alert-info">                
+                <label class="aligncenter checkbox"><input class="" name="aggree_to_EULA" id="aggree_to_EULA" type="checkbox" /> Agree to terms above</label><br />
+                <button disabled id="symbiostock_pay_now" class="aligncenter btn btn-large btn-success" type="submit"><i class="icon-shopping-cart"> Pay Now </i></button>
+                <span class="clearfix"><br /></span>
+                </div>
+                </td>
                 <td>&nbsp;</td>
                 </tr>         
               	

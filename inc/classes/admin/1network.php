@@ -69,46 +69,19 @@ if($symbiostock_use_network == 'true'){
 $ssnet_yes = 'checked="checked"';
 $ssnet_no = '';
 ?>
-
 <div id="symbiostock_network_container">
     <div id="symbiostock_network_header">
         <div class="symbiostock_frame_container">
-            <h3>Symbiostock Network - Associates and Status</h3>
-            <p>Integrate Your Site with the Symbiostock Community. The defining feature of Symbiostock, the ability to network and share search results for mutual growth. This aspect of Symbiostock is still under much development. Please tolerate the testing and bugs.</p>
-            <p><em><a title="Update your site info" href="#your_site_info">Please make sure your info is up to date...</a></em></p>
+            <h3>Symbiostock Network - Associates and Status</h3>           
         </div>
     </div>
     <div id="symbiostock_network_main">
         <div class="symbiostock_frame_container">
-            <table class="widefat form-table symbiostock-settings">
-                <thead>
-                    <tr>
-                        <th colspan="2"> <strong>Connected Sites / Status</strong> - Paste your network site urls into slots below. </th>
-                    </tr>
-                </thead>
-                <?php 
-	$site_count =1;
-while($site_count <= 5){
-	
-	?>
-                <tr>
-                    <th class="symbiostock_network_site_header" scope="row">Site <?php echo $site_count; ?></th>
-                    <td><input class="symbiostock_network_site longfield" type="text" name="<?php echo 'symbiostock_network_site_' . $site_count; ?>"  id="<?php echo 'symbiostock_network_site_' . $site_count; ?>" value="<?php echo get_option('symbiostock_network_site_' . $site_count, 'http://' ); ?>" />
-                        <?php 
-				if(isset($alerts['symbiostock_network_site_' . $site_count])){
-					echo $alerts['symbiostock_network_site_' . $site_count];
-					} ?></td>
-                </tr>
-                <?php
-	$site_count++;
-	}
-	?>
-                <tfoot>
-                    <tr>
-                        <td colspan="2"><a class="savelink" title="save_changes" href="#save_changes"><strong>Save Changes</strong></a></td>
-                    </tr>
-                </tfoot>
-            </table>
+        	
+            <?php
+			include_once(symbiostock_CLASSROOT . 'network-manager/network-list-manager.php');
+			?>        
+            
         </div>
     </div>
     <div id="symbiostock_network_sidebar">
@@ -124,40 +97,46 @@ while($site_count <= 5){
             <table id="your_site_info"  class="widefat form-table symbiostock-settings">
                 <thead>
                     <tr>
-                        <th colspan="2"> <strong>Your Site Info</strong> - How your site appears to others.. </th>
+                        <th colspan="2"> <strong>Your Site Info</strong> - How your site appears to others. </th>
                     </tr>
                 </thead>
+                <tr>
+                    <th scope="row">Author Settings <br /> <?php echo sshelp('author_settings', 'Author Settings'); ?></th>
+                    <td>
+                        <strong><a title="Author Settings" href="<?php echo get_home_url(); ?>/wp-admin/profile.php">&raquo; Author Settings </a></strong>
+                        <span class="description"> &mdash; Basic author settings used by wordpress and Symbiostock.</span> 
+                        <br /> 
+                        <strong><a title="Network Bonus Info" href="<?php echo get_home_url(); ?>/wp-admin/profile.php#extended_network_info">&raquo; Network Bonus Info</a></strong>
+                        <span class="description"> &mdash; Special extended info settings used by Symbiostock on author pages and outside network referring pages.</span>
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row">Site Name</th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_name"  id="symbiostock_my_network_name" value="<?php echo stripcslashes ( get_option('symbiostock_my_network_name', $current_user->user_firstname . ' ' . $current_user->user_lastname . ' (' . $current_user->display_name  . ')')); ?>" /></td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Announcement</th>
+                    <th scope="row">Site Announcement  <br /> <?php echo sshelp('site_announcement', 'Announcement'); ?></th>
                     <td><textarea class="longfield" name="symbiostock_my_network_announcement"  id="symbiostock_my_network_announcement" ><?php echo stripcslashes ( get_option('symbiostock_my_network_announcement', '')) ?></textarea>
-                        <br />
-                        Real-time announcement regarding your site. Running a discount? Offering custom work? </td>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Description</th>
+                    <th scope="row">Site Description  <br /> <?php echo sshelp('site_description', 'Description'); ?></th>
                     <td><textarea class="longfield" name="symbiostock_my_network_description"  id="symbiostock_my_network_description" ><?php echo stripcslashes ( get_option('symbiostock_my_network_description')) ?> </textarea></td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Avatar</th>
+                    <th scope="row">Site Avatar  <br /> <?php echo sshelp('site_avatar', 'Avatar'); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_avatar"  id="symbiostock_my_network_avatar" value="<?php echo stripcslashes ( get_option('symbiostock_my_network_avatar', symbiostock_32_DEFAULT)) ?>" />
-                        <br />
-                        URL to Avatar you upload in <a title="Media Area" href="/wp-admin/upload.php">Media area</a>. <em>Must be <strong>32 × 32 px</strong> or it will not validate.</em></td>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Logo</th>
+                    <th scope="row">Site Logo  <br /> <?php echo sshelp('site_logo', 'Small Logo'); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_logo"  id="symbiostock_my_network_logo" value="<?php echo stripcslashes ( get_option('symbiostock_my_network_logo', symbiostock_128_DEFAULT)) ?>" />
-                        <br />
-                        URL to Logo you upload in <a title="Media Area" href="/wp-admin/upload.php">Media area</a>. <em>Must be <strong>128 × 128 px</strong> or it will not validate.</em></td>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">About Page</th>
+                    <th scope="row">About Page  <br /> <?php echo sshelp('about_page', 'About'); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_about_page"  id="symbiostock_my_network_about_page" value="<?php echo stripcslashes( get_option('symbiostock_my_network_about_page', '')) ?>" />
-                        <br />
-                        Make an awesome about page and post the URL here. </td>
+					</td>
                 </tr>
                 <tfoot>
                     <tr>

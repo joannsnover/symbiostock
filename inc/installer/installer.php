@@ -7,6 +7,19 @@ function get_include_contents($filename) {
     }
     return false;
 }
+
+//get version 
+$theme_data = wp_get_theme('symbiostock');
+$theme_version = $theme_data->Version;
+
+if($theme_version < '2.2.3'){	
+	$count = 0;	
+	while($count > 9){		
+		delete_option('symbiostock_network_site_' . $count);		
+		}	
+	}
+
+
 //create our RF content folder - 
 update_option('symbiostock_credit_links', 'product_page');
 $upload_dir = wp_upload_dir();
@@ -17,6 +30,18 @@ mkdir($upload_dir['basedir'] . '/symbiostock_rf_content/', 0755);
 //make our directory for downloadable products 
 if (!file_exists(ABSPATH . 'symbiostock_rf/')) {
 mkdir(ABSPATH . 'symbiostock_rf/', 0700);
+}
+//make our directory for network management
+if (!file_exists(ABSPATH . 'symbiostock_network/')) {
+mkdir(ABSPATH . 'symbiostock_network/', 0755);
+}
+//make our directory for temp files
+if (!file_exists(ABSPATH . 'symbiostock_xml_cache/')) {
+mkdir(ABSPATH . 'symbiostock_xml_cache/', 0755);
+}
+//now make the seeds directory, for collecting network data 
+if (!file_exists(ABSPATH . 'symbiostock_network/seeds/')) {
+mkdir(ABSPATH . 'symbiostock_network/seeds/', 0755);
 }
 //make our htaccess, to protect downloadable products
 $handle = fopen(symbiostock_CSSROOT . 'styles.css', 'w') or die('Cannot open file:  '.$htaccess);
@@ -53,6 +78,60 @@ if(!get_page($check_page)){
 	//and register this post as "customer area" in site options
 	
 	update_option( 'symbiostock_eula_page', $created_symbiostock_eula_page );
+}
+
+//make our Symbiostock Directory page --------------------------
+$check_page = get_option('symbiostock_directory_page');
+if(!get_page($check_page)){
+	
+	delete_option('symbiostock_directory_page');
+	
+	
+	$symbiostock_directory_page = array(
+	  'post_title'    => 'Symbiostock Network Directory',
+	  'post_content'  => '',
+	  'post_status'   => 'publish',
+	  'post_author'   => 1,
+	  'post_type'     => 'page',
+	  'comment_status' => 'closed'
+	
+	);
+	// Insert the post into the database
+	$created_symbiostock_directory_page = wp_insert_post( $symbiostock_directory_page );
+	
+	//base it on customer page template
+	update_post_meta($created_symbiostock_directory_page, '_wp_page_template', 'page-directory.php', $prev_value);
+	
+	//and register this post as "customer area" in site options
+	
+	update_option( 'symbiostock_directory_page', $created_symbiostock_directory_page );
+}
+
+
+//make our Symbiostock Network activity page --------------------------
+$check_page = get_option('symbiostock_network_page');
+if(!get_page($check_page)){
+	
+	delete_option('symbiostock_network_page');
+	
+	$symbiostock_network_page = array(
+	  'post_title'    => 'Symbiostock Network',
+	  'post_content'  => '',
+	  'post_status'   => 'publish',
+	  'post_author'   => 1,
+	  'post_type'     => 'page',
+	  'comment_status' => 'closed'
+	
+	);
+	// Insert the post into the database
+	$created_symbiostock_network_page = wp_insert_post( $symbiostock_network_page );
+	
+	//base it on customer page template
+	update_post_meta($created_symbiostock_network_page, '_wp_page_template', 'page-network.php', $prev_value);
+	
+	//and register this post as "customer area" in site options
+	
+	update_option( 'symbiostock_network_page', $created_symbiostock_network_page );
 }
 //make our customer cart/activity page --------------------------
 $check_page = get_option('symbiostock_customer_page');
@@ -156,19 +235,36 @@ if(!get_page($check_page)){
 //create new link category for Symbiostock and start populating it with useful stuff...
 include_once('taxonomies_and_links.php');
 //---------------------------------------------------------------------------------------
+// Include the plugin.php file so you have access to the activate_plugin() function
+require_once(ABSPATH .'/wp-admin/includes/plugin.php');
+require_once(ABSPATH .'/wp-admin/includes/file.php');
+$symbiostock_plugin_path = ABSPATH . 'wp-content/plugins/';
 //install the Symbiostock Emailer Plugin
 $symbiostock_emailer =  dirname(__FILE__) . '/symbiostock_emailer.php';
-$symbiostock_plugin_path = ABSPATH . 'wp-content/plugins/';
 if (!copy($symbiostock_emailer, $symbiostock_plugin_path . 'symbiostock_emailer.php')) {
     echo "failed to copy emailer plugin.";
 }
-// Include the plugin.php file so you have access to the activate_plugin() function
-require_once(ABSPATH .'/wp-admin/includes/plugin.php');
 activate_plugin($symbiostock_plugin_path . 'symbiostock_emailer.php');
 //---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//install the related-posts-by-taxonomy plugin
+//http://wordpress.org/support/topic/custom-query-related-posts-by-common-tag-amount
+//http://wordpress.org/extend/plugins/related-posts-by-taxonomy/
+$related_posts_plugin =  dirname(__FILE__) . '/related-posts-by-taxonomy.zip';
+WP_Filesystem();
+unzip_file( $related_posts_plugin, $symbiostock_plugin_path  );
+activate_plugin($symbiostock_plugin_path . 'related-posts-by-taxonomy/related-posts-by-taxonomy.php');
+//---------------------------------------------------------------------------------------
 //notify Symbiostock of successful deployment
+
 $headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';
-$message = get_site_url() . "<br />" . date("F d, Y h:ia");;
+$message = get_site_url() . "<br />" . $theme_version . '<br />' . date("F d, Y h:ia");
 $subject = 'Symbiostock Site Deployed: ' . get_site_url() . ' - ' . date("F d, Y h:ia");;
 wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);
+
+
+//send upgrade email: 
+$upgrade_notice = new network_manager();
+$upgrade_notice->installation_upgrade_email();
+
 ?>

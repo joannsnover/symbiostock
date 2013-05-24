@@ -6,8 +6,7 @@
  * @since symbiostock 1.0
  */
 get_header(); 
-?>
-		
+?>		
         <div class="row-fluid">
         
             <div id="primary" class="content-area span12">

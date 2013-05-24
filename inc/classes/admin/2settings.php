@@ -27,7 +27,6 @@ $symbiostock_credit_links = get_option('symbiostock_credit_links');
 $symbiostock_credit_links == 'product_page' || !isset($symbiostock_credit_links)  ? $symbiostock_credit_links_product_page = 'checked="checked"' : $symbiostock_credit_links_product_page = '';
 $symbiostock_credit_links == 'footer' ? $symbiostock_credit_links_footer = 'checked="checked"' : $symbiostock_credit_links_footer = '';
 $symbiostock_credit_links == 'no_use' ? $symbiostock_credit_links_no_use = 'checked="checked"' : $symbiostock_credit_links_no_use = '';
-
 //symbiostock_currency
 if(isset($_POST['symbiostock_currency'])){ 
 update_option('symbiostock_currency', $_POST['symbiostock_currency']); 
@@ -38,7 +37,6 @@ $symbiostock_currency == 'EUR' ? $symbiostock_currency_EUR = 'selected="selected
 $symbiostock_currency == 'GBP' ? $symbiostock_currency_GBP = 'selected="selected"' : $symbiostock_currency_GBP = '';
 $symbiostock_currency == 'CAD' ? $symbiostock_currency_CAD = 'selected="selected"' : $symbiostock_currency_CAD = '';
 $symbiostock_currency == 'JPY' ? $symbiostock_currency_JPY = 'selected="selected"' : $symbiostock_currency_JPY = '';
-
 //symbiostock_theme_credit
 if(isset($_POST['symbiostock_theme_credit'])){ 
 update_option('symbiostock_theme_credit', $_POST['symbiostock_theme_credit']); 
@@ -46,7 +44,6 @@ update_option('symbiostock_theme_credit', $_POST['symbiostock_theme_credit']);
 $symbiostock_theme_credit = get_option('symbiostock_theme_credit', '');
 $symbiostock_theme_credit == 'on' || !isset($symbiostock_theme_credit)  ? $symbiostock_theme_credit_on = 'checked="checked"' : $symbiostock_theme_credit_on = '';
 $symbiostock_theme_credit == 'off' ? $symbiostock_theme_credit_off = 'checked="checked"' : $symbiostock_theme_credit_off = '';
-
 //watermark
 $watermark = symbiostock_CLASSDIR . '/image-processor/symbiostock-watermark.png';
 $logo = get_option('symbiostock_logo_link', symbiostock_LOGO  );
@@ -56,36 +53,34 @@ if(empty($logo)){
 global $current_user;
       get_currentuserinfo();
 ?>
-
 <table class="widefat form-table symbiostock-settings">
     <thead>
         <tr>
             <th colspan="2"> <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">media uploader</a> below. <br />
                 <br />
-                <em>Need some templates? (<a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a>)</em> </th>
+                <em>Need some templates? (<a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a>)</em>
+                &mdash; <?php echo sshelp('templates', 'Templates'); ?> </th>
         </tr>
     </thead>
     <tr>
-        <th scope="row">Logo</th>
+        <th scope="row">Header Logo<br /><?php echo sshelp('header_logo', 'Header Logo'); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_logo_link"  id="symbiostock_logo_link" value="<?php echo get_option('symbiostock_logo_link', symbiostock_LOGO  ); ?>" />
-            <br />
-            Leave empty for default Symbiostock logo. </td>
+    </td>
     </tr>
     <tr>
-        <th scope="row">Login Page Logo</th>
+        <th scope="row">Login Page Logo<br /> <?php echo sshelp('login_page_logo', 'Login Page Logo'); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_login_logo_link"  id="symbiostock_login_logo_link" value="<?php echo get_option('symbiostock_login_logo_link', symbiostock_IMGDIR . '/site-login-logo.png'  ); ?>" />
-            <br />
-            Must be *exactly* 323 x 67px. Leave empty for default Symbiostock logo </td>
+        </td>
     </tr>
     <tr>
-        <th scope="row">Watermark Image</th>
+        <th scope="row">Watermark Image<br /> <?php echo sshelp('watermark_image', 'Watermark Image'); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_watermark_link"  id="symbiostock_watermark_link" value="<?php echo get_option('symbiostock_watermark_link', $watermark ); ?>" />
             <br />
-            Transparent PNG image (522 x 522px). If not supplied, default watermark (Symbiostock <strong>S</strong>) will be used.</td>
+        </td>
     </tr>
     <thead>
         <tr>
-            <th colspan="2"> <strong>Email and Payment Process Communication</strong> </th>
+            <th colspan="2"> <strong>Email and Payment Process Communication</strong></th>
         </tr>
     </thead>
     <tr>
@@ -97,6 +92,7 @@ global $current_user;
             <label for="symbiostock_paypal_sandbox">
                 <input type="radio" id="symbiostock_paypal_sandbox" name="symbiostock_paypal_live_or_sandbox" <?php echo $symbiostock_paypal_sandbox ; ?> value="sandbox" />
                 <a target="_blank" title="Paypal Sandbox" href="https://www.sandbox.paypal.com//">Sandbox (testing)</a> </label>
+                <br /><br /><br /> <?php echo sshelp('paypal', 'Paypal help.'); ?> 
         </th>
         <td><label for="symbiostock_paypal_email">
                 <input class="symbiostock_settings" type="text" name="symbiostock_paypal_email"  id="symbiostock_paypal_email" value="<?php echo get_option('symbiostock_paypal_email'); ?>" />
@@ -142,10 +138,9 @@ global $current_user;
             <!--/CURRENCY--></td>
     </tr>
     <tr>
-        <th scope="row">Correspondence Email</th>
+        <th scope="row">Correspondence Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_correspondence_email"  id="symbiostock_correspondence_email" value="<?php echo get_option('symbiostock_correspondence_email', $current_user->user_email); ?>" />
-            <br />
-            The email that will be used for automated communication and replies.</td>
+        </td>
     </tr>
     <tr>
         <th scope="row">Customer Area Greeting</th>
@@ -154,20 +149,18 @@ global $current_user;
             Welcome your customer, talk about stuff - <?php echo symbiostock_customer_area( '<em>Top of Customer Area.</em>' ); ?> HTML allowed.</td>
     </tr>
     <tr>
-        <th scope="row">Customer Welcome Email</th>
+        <th scope="row">Customer Welcome Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_welcome_body"  id="symbiostock_customer_welcome_body"><?php echo stripslashes(get_option('symbiostock_customer_welcome_body')); ?></textarea>
-            <br />
-            Body of the welcome email sent to the customer. Use <strong>&lt;br /&gt;</strong> for line breaks. </td>
+        </td>
     </tr>
     <tr>
-        <th scope="row">Customer Thank You Email</th>
+        <th scope="row">Customer Thank You Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_thank_you"  id="symbiostock_customer_thank_you"><?php echo stripslashes(get_option('symbiostock_customer_thank_you')); ?></textarea>
-            <br />
-            Email sent to customer at purchase. Thank your customer. Use your name. Be human.</td>
+        </td>
     </tr>
     <thead>
         <tr>
-            <th colspan="2"> <strong>Credit Links</strong> </th>
+            <th colspan="2"> <strong>Credit Links</strong> &mdash; <?php echo sshelp('credit_links', 'About Credit Links'); ?> </th>
         </tr>
     </thead>
     <tr>
@@ -199,7 +192,6 @@ global $current_user;
             
             </td>
             
-
     </tr>
         <tr>
         <th scope="row">Footer Copyright Info</th>

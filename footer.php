@@ -28,10 +28,10 @@
 		</div><!-- .site-info -->
     
    <div class="footer_info">       
-               <?php symbiostock_website_copyright(); ?>
+               <?php symbiostock_website_copyright(); ?>               
    </div>          
 </footer><!-- #colophon .site-footer -->
-<?php include_once('modal-login.php'); ?>
+<?php get_template_part('modal-login'); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

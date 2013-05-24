@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     get_ps_thumb.php
@@ -46,23 +45,13 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
         // Ensure that nothing can write to the standard io, before we get the header out
         ob_start( );
-
-
         include 'EXIF.php';
-
-
         // retrieve the filename from the URL parameters
-
         $filename = $_GET['filename'];
-
-
         // Retrieve any EXIF data in the file
-
         $Exif_array = get_EXIF_JPEG( $filename );
-
         // Check if any EXIF data was retrieved
         if ( $Exif_array === FALSE )
         {
@@ -71,8 +60,6 @@
                 echo "<p>Error getting EXIF Information</p>\n";
                 return;
         }
-
-
         // Check that there is at least the Zeroth IFD in the array
         if ( count( $Exif_array ) < 1  )
         {
@@ -115,14 +102,12 @@
                                                 print $Exif_array[0][34665]['Data'][0][37500]['Decoded Data'][0][4]['Data'];
                                         }
                                 }
-
                         }
                 }
         }
         else
         {
         }
-
         return;
         
 ?>

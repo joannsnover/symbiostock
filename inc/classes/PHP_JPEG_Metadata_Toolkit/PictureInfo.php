@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     PictureInfo.php
@@ -42,9 +41,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 include_once 'Unicode.php';
-
 /******************************************************************************
 *
 * Function:     get_jpeg_App12_Pic_Info
@@ -62,12 +59,10 @@ include_once 'Unicode.php';
 *               FALSE, FALSE - if an APP 12 Picture Info segment could not be found
 *
 ******************************************************************************/
-
 function get_jpeg_App12_Pic_Info( $jpeg_header_data )
 {
         // Flag that an APP12 segment has not been found yet
         $App12_PI_Location = -1;
-
         //Cycle through the header segments
         for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
         {
@@ -91,15 +86,12 @@ function get_jpeg_App12_Pic_Info( $jpeg_header_data )
                         }
                 }
         }
-
         // Check if a Picture Info Segment was found
         if ( $App12_PI_Location != -1 )
         {
                 // A picture Info Segment was found - Process it
-
                 // Determine the length of the header if there is one
                 $head_length = 0;
-
                 if ( strncmp ( $jpeg_header_data[$App12_PI_Location]['SegData'], "App12 Gevaert   \x00", 16) == 0 )
                 {
                         $head_length = 16;
@@ -128,14 +120,11 @@ function get_jpeg_App12_Pic_Info( $jpeg_header_data )
                 {
                         $head_length = 0;
                 }
-
                 // Extract the header and the Picture Info Text from the APP12 segment
                 $App12_PI_Head = substr( $jpeg_header_data[$App12_PI_Location]['SegData'], 0, $head_length );
                 $App12_PI_Text = substr( $jpeg_header_data[$App12_PI_Location]['SegData'], $head_length );
-
                 
                 // Return the text which was extracted
-
                 if ( ($pos = strpos ( $App12_PI_Text, "[end]" ) ) !== FALSE )
                 {
                         return array( "Header" => $App12_PI_Head, "Picture Info" => substr( $App12_PI_Text, 0, $pos + 5 ) );
@@ -145,19 +134,12 @@ function get_jpeg_App12_Pic_Info( $jpeg_header_data )
                         return array( "Header" => $App12_PI_Head, "Picture Info" => $App12_PI_Text );
                 }
         }
-
         // No Picture Info Segment Found - Return False
         return array( FALSE, FALSE );
 }
-
 /******************************************************************************
 * End of Function:     get_jpeg_header_data
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     put_jpeg_App12_Pic_Info
@@ -176,10 +158,8 @@ function get_jpeg_App12_Pic_Info( $jpeg_header_data )
 *               FALSE - if an error occured
 *
 ******************************************************************************/
-
 function put_jpeg_App12_Pic_Info( $jpeg_header_data, $new_Pic_Info_Text )
 {
-
         //Cycle through the header segments
         for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
         {
@@ -203,15 +183,11 @@ function put_jpeg_App12_Pic_Info( $jpeg_header_data, $new_Pic_Info_Text )
                         }
                 }
         }
-
         // No preexisting Picture Info segment found, insert a new one at the start of the header data.
-
         // Determine highest position of an APP segment at or below APP12, so we can put the
         // new APP12 at this position
         
-
         $highest_APP = -1;
-
         //Cycle through the header segments
         for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
         {
@@ -222,24 +198,16 @@ function put_jpeg_App12_Pic_Info( $jpeg_header_data, $new_Pic_Info_Text )
                         $highest_APP = $i;
                 }
         }
-
         // Insert the new Picture Info segment
         array_splice($jpeg_header_data, $highest_APP + 1 , 0, array( array(     "SegType" => 0xEC,
                                                                                 "SegName" => "APP12",
                                                                                 "SegDesc" => $GLOBALS[ "JPEG_Segment_Descriptions" ][ 0xEC ],
                                                                                 "SegData" => $new_Pic_Info_Text ) ) );
-
         return $jpeg_header_data;
-
-
 }
-
 /******************************************************************************
 * End of Function:     put_jpeg_header_data
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     Interpret_App12_Pic_Info_to_HTML
@@ -253,15 +221,12 @@ function put_jpeg_App12_Pic_Info( $jpeg_header_data, $new_Pic_Info_Text )
 * Returns:      output - the HTML
 *
 ******************************************************************************/
-
 function Interpret_App12_Pic_Info_to_HTML( $jpeg_header_data )
 {
         // Create a string to receive the output
         $output = "";
-
         // read the App12 Picture Info segment
         $PI = get_jpeg_App12_Pic_Info( $jpeg_header_data );
-
         // Check if the Picture Info segment was valid
         if ( $PI !== array(FALSE, FALSE) )
         {
@@ -270,15 +235,10 @@ function Interpret_App12_Pic_Info_to_HTML( $jpeg_header_data )
                 $output .= "<p><span class=\"Picture_Info_Caption_Text\">Header: </span><span class=\"Picture_Info_Value_Text\">" . HTML_UTF8_Escape( $PI['Header'] ) . "</span></p>\n";
                 $output .= "<p class=\"Picture_Info_Caption_Text\">Picture Info Text:</p><pre class=\"Picture_Info_Value_Text\">" . HTML_UTF8_Escape( $PI['Picture Info'] ) . "</pre>\n";
         }
-
         // Return the result
         return $output;
 }
-
 /******************************************************************************
 * End of Function:     Interpret_App12_Pic_Info_to_HTML
 ******************************************************************************/
-
-
-
 ?>

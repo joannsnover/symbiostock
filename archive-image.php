@@ -37,7 +37,7 @@ get_header(); ?>
             } ?> 
             
 			<?php
-			echo '<h1 class="results_for">Royalty Free Images on ' . get_bloginfo('name'). '</em></h1>';
+			echo '<h1 class="results_for">Royalty Free Images on ' . get_bloginfo('name'). '</em> '.symbiostock_feed('rss_url','icon', 'new-images').'</h1>';
 			
 			$local_results->display_results(false);		
 		
@@ -48,7 +48,7 @@ get_header(); ?>
 		
 	</div>
 <?php 
-include_once('modal-search.php');
+get_template_part('modal-search');
 ?>   
    
 <?php get_footer();

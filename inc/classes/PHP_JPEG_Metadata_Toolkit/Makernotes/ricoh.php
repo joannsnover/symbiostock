@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     ricoh.php
@@ -67,18 +66,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Ricoh_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Ricoh_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Ricoh_Makernote_Html";
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Ricoh_Makernote
@@ -106,7 +97,6 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Ric
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Ricoh
@@ -115,8 +105,6 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 // Ricoh not in the Maker field - abort
                 return FALSE;
         }
-
-
         // Check if the Text Makernote header exists at the start of the Makernote
         if ( ( substr( $Makernote_Tag['Data'], 0, 2 ) === "Rv" ) ||
              ( substr( $Makernote_Tag['Data'], 0, 3 ) === "Rev" ) )
@@ -125,10 +113,8 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 $Makernote_Tag['Makernote Type'] = "Ricoh Text";
                 $Makernote_Tag['Makernote Tags'] = "None";
                 $Makernote_Tag['Decoded'] = TRUE;
-
                 // Return the new Makernote tag
                 return $Makernote_Tag;
-
         }
         // Check if the Empty Makernote header exists at the start of the Makernote
         else if ( $Makernote_Tag['Data'] === str_repeat ( "\x00", strlen( $Makernote_Tag['Data'] )) )
@@ -137,65 +123,49 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 $Makernote_Tag['Makernote Type'] = "Ricoh Empty Makernote";
                 $Makernote_Tag['Makernote Tags'] = "None";
                 $Makernote_Tag['Decoded'] = TRUE;
-
                 // Return the new Makernote tag
                 return $Makernote_Tag;
-
         }
         // Check if the IFD Makernote header exists at the start of the Makernote
         else if ( ( substr( $Makernote_Tag['Data'], 0, 5 ) === "RICOH" ) ||
                   ( substr( $Makernote_Tag['Data'], 0, 5 ) === "Ricoh" ) )
         {
                 //This is an IFD Makernote
-
                 // Seek to the start of the IFD
                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 8 );
-
                 // Ricoh Makernote always uses Motorola Byte Alignment
                 $Makernote_Tag['ByteAlign'] = "MM";
-
                 // Read the IFD(s) into an array
                 $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Ricoh" );
-
                 // Save some information into the Tag element to aid interpretation
                 $Makernote_Tag['Decoded'] = TRUE;
                 $Makernote_Tag['Makernote Type'] = "Ricoh";
                 $Makernote_Tag['Makernote Tags'] = "Ricoh";
-
                 // Ricoh Makernotes can have a tag 0x2001 which is a Sub-IFD
                 // Check if the tag exists
                 if  ( ( $Makernote_Tag['Decoded Data'][0] !== FALSE ) &&
                       ( array_key_exists( 0x2001, $Makernote_Tag['Decoded Data'][0] ) ) )
                 {
                         // Ricoh Sub-IFD tag exists - Process it
-
                         // Grab the Sub-IFD tag for easier processing
                         $SubIFD_Tag = &$Makernote_Tag['Decoded Data'][0][0x2001];
-
                         // Check if the Sub-IFD starts with the correct header
                         if ( substr( $SubIFD_Tag['Data'], 0, 19 ) === "[Ricoh Camera Info]" )
                         {
                                 // Correct Header found
-
                                 // Seek to the start of the Sub-IFD
                                 fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $SubIFD_Tag['Offset'] + 20 );
-
                                 // Ricoh Makernote Sub-IFD always uses Motorola Byte Alignment
                                 $SubIFD_Tag['ByteAlign'] = "MM";
-
-
                                 // Read the IFD(s) into an array
                                 $SubIFD_Tag['Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $SubIFD_Tag['ByteAlign'], "RicohSubIFD", False, False );
-
                                 // Save some information into the Tag element to aid interpretation
                                 $SubIFD_Tag['Decoded'] = TRUE;
                                 $SubIFD_Tag['Makernote Type'] = "Ricoh";
                                 $SubIFD_Tag['Makernote Tags'] = "RicohSubIFD";
-
                                 // Change the tag type to a Sub-IFD so it is handled automatically for interpretation
                                 $SubIFD_Tag['Type'] = "SubIFD";
                                 $SubIFD_Tag['Tags Name'] = "RicohSubIFD";
-
                         }
                         else
                         {
@@ -203,9 +173,7 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                                 $SubIFD_Tag['Type'] = "String";
                                 $SubIFD_Tag['Text Value'] = "Corrupted Ricoh Sub IFD";
                         }
-
                 }
-
                 // Return the new makernote tag
                 return $Makernote_Tag;
         }
@@ -214,21 +182,12 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 // Unrecognised header for makernote - abort
                 return FALSE;
         }
-
         // Shouldn't get here
         return False;
 }
-
 /******************************************************************************
 * End of Function:     get_Ricoh_Makernote
 ******************************************************************************/
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Ricoh_Makernote_Html
@@ -247,10 +206,8 @@ function get_Ricoh_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Ricoh_Makernote_Html( $Makernote_tag, $filename )
 {
-
         // Check if this makernote is Ricoh IFD type
         if ( $Makernote_tag['Makernote Type'] == "Ricoh" )
         {
@@ -263,13 +220,10 @@ function get_Ricoh_Makernote_Html( $Makernote_tag, $filename )
                 // This is a Ricoh text makernote
                 //  Construct the start of enclosing html for the text
                 $output_str = "<table  class=\"EXIF_Table\"border=1><tr class=\"EXIF_Table_Row\"><td class=\"EXIF_Value_Cell\">";
-
                 // Replace the semicolon dividers with line break html tags
-                $output_str .= str_replace ( ";", "<BR>\n", $Makernote_tag['Data'] );
-
+                $output_str .= str_replace ( ";", "<br />\n", $Makernote_tag['Data'] );
                 // Close the html
                 $output_str .= "</td></tr></table>";
-
                 // Return the html
                 return  $output_str;
         }
@@ -284,22 +238,12 @@ function get_Ricoh_Makernote_Html( $Makernote_tag, $filename )
                 // Don't recognise the Makernote type - not a Ricoh makernote
                 return FALSE;
         }
-
         // shouldn't get here
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Ricoh_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Ricoh_Text_Value
@@ -319,42 +263,24 @@ function get_Ricoh_Makernote_Html( $Makernote_tag, $filename )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Ricoh_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
-
         // Check that this tag uses the Ricoh tags, otherwise it can't be decoded here
         if ( $Tag_Definitions_Name == "Ricoh" )
         {
-
                 // Process the tag acording to it's tag number, to produce a text value
                 if ( $Exif_Tag['Tag Number'] == 0x0002 ) // Version tag
                 {
                         $tmp = implode ( "\x00", $Exif_Tag['Data']);
                         return "\"" .HTML_UTF8_Escape( $tmp ) . "\" (" . bin2hex( $tmp ) . " hex)";
                 }
-
         }
-
         // Unknown tag or tag definitions
         return FALSE;
-
 }
-
 /******************************************************************************
 * End of Function:     get_Ricoh_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Ricoh
 *
@@ -362,35 +288,19 @@ function get_Ricoh_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Ricoh"] = array(
-
-
 0x0001 => array(        'Name' => "Makernote Data Type",
                         'Type' => "String" ),
-
 0x0002 => array(        'Name' => "Version",
                         'Type' => "Special" ),
-
 0x0e00 => array(        'Name' => "Print Image Matching Info",
                         'Type' => "PIM" ),
-
 0x2001 => array(        'Name' => "Ricoh Camera Info Makernote Sub-IFD",
                         'Type' => "Special" ),
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Ricoh
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, RicohSubIFD
 *
@@ -398,18 +308,9 @@ $GLOBALS[ "IFD_Tag_Definitions" ]["Ricoh"] = array(
 *               Camera Info Sub-IFD Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["RicohSubIFD"] = array(
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, RicohSubIFD
 ******************************************************************************/
-
-
-
-
-
-
 ?>

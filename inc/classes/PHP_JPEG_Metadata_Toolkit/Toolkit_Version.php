@@ -44,7 +44,5 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 $GLOBALS['Toolkit_Version'] = "1.12";
-
 ?>

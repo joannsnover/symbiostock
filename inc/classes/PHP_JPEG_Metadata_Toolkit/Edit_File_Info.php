@@ -1,6 +1,4 @@
 <?php
-
-
 /****************************************************************************
 *
 * Filename:     Edit_File_Info.php
@@ -62,11 +60,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ***************************************************************************/
-
-
-
         include 'Toolkit_Version.php';          // Change: added as of version 1.11
-
         // Check for operation modes 2 or 3
         // i.e. $filename is defined, and $new_ps_file_info_array is not
         if ( ( ! isset( $new_ps_file_info_array ) ) &&
@@ -75,37 +69,27 @@
         {
                 // Hide any unknown EXIF tags
                 $GLOBALS['HIDE_UNKNOWN_TAGS'] = TRUE;
-
                 // Accessing the existing file info for the specified file requires these includes
                 include 'JPEG.php';
                 include 'XMP.php';
                 include 'Photoshop_IRB.php';
                 include 'EXIF.php';
                 include 'Photoshop_File_Info.php';
-
                 // Retrieve the header information from the JPEG file
                 $jpeg_header_data = get_jpeg_header_data( $filename );
-
                 // Retrieve EXIF information from the JPEG file
                 $Exif_array = get_EXIF_JPEG( $filename );
-
                 // Retrieve XMP information from the JPEG file
                 $XMP_array = read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) );
-
                 // Retrieve Photoshop IRB information from the JPEG file
                 $IRB_array = get_Photoshop_IRB( $jpeg_header_data );
-
                 // Retrieve Photoshop File Info from the three previous arrays
                 $new_ps_file_info_array = get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array );
-
-
-
                 // Check if there is an array of defaults available
                 if ( ( isset( $default_ps_file_info_array) ) &&
                      ( is_array( $default_ps_file_info_array) ) )
                 {
                         // There are defaults defined
-
                         // Check if there is a default for the date defined
                         if ( ( ! array_key_exists( 'date', $default_ps_file_info_array ) ) ||
                              ( ( array_key_exists( 'date', $default_ps_file_info_array ) ) &&
@@ -113,7 +97,6 @@
                         {
                                 // No default for the date defined
                                 // figure out a default from the file
-
                                 // Check if there is a EXIF Tag 36867 "Date and Time of Original"
                                 if ( ( $Exif_array != FALSE ) &&
                                      ( array_key_exists( 0, $Exif_array ) ) &&
@@ -152,7 +135,6 @@
                                         $default_ps_file_info_array['date'] = date ("Y-m-d", filectime( $filename ));
                                 }
                         }
-
                         // Cycle through all the elements of the default values array
                         foreach( $default_ps_file_info_array as $def_key =>$default_item )
                         {
@@ -180,7 +162,6 @@
                                         // The existing file info is blank, add the default value
                                         $new_ps_file_info_array[ $def_key ] = $default_item;
                                 }
-
                         }
                 }
         }
@@ -213,27 +194,15 @@
                       "transmissionreference" => "",
                       "urgency" => "" );
         }
-
-
-
 /***************************************************************************
 *
 * Now output the actual HTML form
 *
 ***************************************************************************/
-
 ?>
-
-
-
-
         <form name="EditJPEG" action="Write_File_Info.php" method="post">
-
-
         <?php echo "<input name=\"filename\" type=\"hidden\" value=\"$outputfilename\">"; ?>
-
-                <table>
-
+                <table class="table table-condensed">
                         <tr>
                                 <td>
                                         Title
@@ -244,7 +213,6 @@
                                         ?>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Author
@@ -255,7 +223,6 @@
                                         ?>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Authors Position
@@ -266,7 +233,6 @@
                                         ?>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Description
@@ -275,7 +241,6 @@
                                         <textarea name="caption" rows=3 cols=37 wrap="off"><?php echo $new_ps_file_info_array[ 'caption' ]; ?></textarea>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Description Writer
@@ -286,8 +251,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Keywords
@@ -301,8 +264,6 @@
                                                                                             ?></textarea>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Copyright Status
@@ -319,7 +280,6 @@
                                                         {
                                                                 echo "<option value=\"Unknown\">Unknown</option>\n";
                                                         }
-
                                                         if ( $copystatus == "Copyrighted Work" )
                                                         {
                                                                 echo "<option value=\"Copyrighted Work\" SELECTED >Copyrighted Work</option>\n";
@@ -328,7 +288,6 @@
                                                         {
                                                                 echo "<option value=\"Copyrighted Work\">Copyrighted Work</option>\n";
                                                         }
-
                                                         if ( $copystatus == "Public Domain" )
                                                         {
                                                                 echo "<option value=\"Public Domain\" SELECTED >Public Domain</option>\n";
@@ -341,8 +300,6 @@
                                         </select>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Copyright Notice
@@ -351,8 +308,6 @@
                                         <textarea name="copyrightnotice" rows=3 cols=37 wrap="off"><?php echo $new_ps_file_info_array[ 'copyrightnotice' ]; ?></textarea>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Copyright Info URL
@@ -365,11 +320,8 @@
                                                 echo "<a href=\"". $new_ps_file_info_array[ 'ownerurl' ] ."\" > (". $new_ps_file_info_array[ 'ownerurl' ] .")</a>\n";
                                         }
                                         ?>
-
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Category
@@ -378,10 +330,8 @@
                                         <?php
                                         echo "<input size=49 name=\"category\" type=\"text\" value=\"". $new_ps_file_info_array[ 'category' ] ."\">\n";
                                         ?>
-
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Supplemental Categories
@@ -396,9 +346,6 @@
                                         </textarea>
                                 </td>
                         </tr>
-
-
-
                         <tr>
                                 <td>
                                         Date Created
@@ -410,7 +357,6 @@
                                         (Note date must be YYYY-MM-DD format)
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         City
@@ -421,8 +367,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         State
@@ -433,8 +377,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Country
@@ -445,9 +387,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
-
                         <tr>
                                 <td>
                                         Credit
@@ -458,8 +397,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Source
@@ -470,9 +407,6 @@
                                         ?>
                                 </td>
                         </tr>
-
-
-
                         <tr>
                                 <td>
                                         Headline
@@ -481,9 +415,6 @@
                                         <textarea name="headline" rows=3 cols=37 wrap="off"><?php echo $new_ps_file_info_array[ 'headline' ]; ?></textarea>
                                 </td>
                         </tr>
-
-
-
                         <tr>
                                 <td>
                                         Instructions
@@ -492,8 +423,6 @@
                                         <textarea name="instructions" rows=3 cols=37 wrap="off"><?php echo $new_ps_file_info_array[ 'instructions' ]; ?></textarea>
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td>
                                         Transmission Reference
@@ -502,7 +431,6 @@
                                         <textarea name="transmissionreference" rows=3 cols=37 wrap="off"><?php echo $new_ps_file_info_array[ 'transmissionreference' ]; ?></textarea>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Job Name
@@ -513,7 +441,6 @@
                                         ?>
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>
                                         Urgency
@@ -556,20 +483,18 @@
                                                                 echo "<option value=\"none\" >None</option>";
                                                         }
                                                  ?>
-
                                         </select>
                                 </td>
                         </tr>
-
                 </table>
-                <br>
+                <br />
                 <input type="submit" value="Update!">
-
-
         </form>
-
-        <br>
-        <br>
+        <br />
+        <br />
         <p>Powered by: <a href="http://www.ozhiker.com/electronics/pjmt/" >PHP JPEG Metadata Toolkit version <?php echo $GLOBALS['Toolkit_Version'] ?>, Copyright (C) 2004 Evan Hunter</a></p>     <!-- Change: displayed toolkit version numbers to reference Toolkit_Version.php - as of version 1.11 -->
-        <br>
-        <br>
+        <br />
+        <br />
+        <?php
+		
+		?>

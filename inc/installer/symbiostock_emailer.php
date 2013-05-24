@@ -52,20 +52,15 @@ add_filter ("wp_mail_content_type", "symbiostock_mail_content_type");
 function symbiostock_mail_content_type() {
 	return "text/html";
 }
-
 add_filter('retrieve_password_message', 'symbiostock_reset_password_message', null, 2);
-
 function symbiostock_reset_password_message( $message, $key ) {
-
     if ( strpos($_POST['user_login'], '@') ) {
         $user_data = get_user_by_email(trim($_POST['user_login']));
     } else {
         $login = trim($_POST['user_login']);
         $user_data = get_userdatabylogin($login);
     }
-
     $user_login = $user_data->user_login;
-
     $msg = __('Just wanted to let you know the password for the following account has been requested to be reset:'). "<br /><br />";
     $msg .= network_site_url() . "\r\n\r\n";
     $msg .= sprintf(__('Username: %s'), $user_login) . "<br />";
@@ -75,9 +70,7 @@ function symbiostock_reset_password_message( $message, $key ) {
 	$go_to = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') ;
 	
     $msg .= '<br /><br /><a href="' . $go_to . '">' . $go_to . '</a><br /><br />';
-
     return '<p>' . $msg . '</p>';
-
 }
 	
 add_filter ("wp_mail_from", "symbiostock_mail_from");

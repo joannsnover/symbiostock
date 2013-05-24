@@ -26,9 +26,6 @@ section {
 ol, ul {
 	list-style: none;
 }
-ul {
-	list-style-type: circle;
-	}
 table { /* tables still need 'cellspacing="0"' in the markup */
 	border-collapse: separate;
 	border-spacing: 0;
@@ -570,7 +567,6 @@ a:active.remove_from_cart {}
 SYMBIOSTOCK FEATURED POSTS
 --------------------------------------------------------------*/	
 .widget-featured .inner-featured{
-
 	}
 .front-page-featured{
 	
@@ -634,11 +630,16 @@ SYMBIOSTOCK FEATURED POSTS
 /*--------------------------------------------------------------
 SYMBIOSTOCK SEARCH RESULTS
 --------------------------------------------------------------*/	
+.network_carousel {
+	height: 280px;
+	}
+
 .network_results_container{
 	
-	height: 270px;
+	height: 290px;
 	
 	}
+    
 .search_page {
 	border-right: 0;
 	padding-top: 10px;
@@ -710,7 +711,6 @@ SYMBIOSTOCK SEARCH RESULTS
 	}
 /* =Content
 ----------------------------------------------- */
-
 .symbiostock-image a:link, 
 .symbiostock-image a:visited,
 .symbiostock-image a:hover, 
@@ -723,7 +723,6 @@ SYMBIOSTOCK SEARCH RESULTS
 	margin-top: 0;
 	margin-bottom: 20px;	
 	}
-
 .sticky {
 }
 .hentry {
@@ -876,7 +875,6 @@ padding-left: 10px;
 #searchsubmit {
 	display: none;
 }
-
 #commentform input[type=text],
 #commentform textarea {
 	width: 90%;
@@ -887,3 +885,52 @@ padding-left: 10px;
 .standard-form#signup_form div.submit {
 	float: right;
 }
+.symbiostock_carousel_preview_container{
+	width: 590px;	
+	}
+.symbiostock_carousel_preview_container .item{	
+	height: 590px;
+	}
+	
+.symbiostock_carousel_minipic_container{
+	width: 250px;	
+	}
+.symbiostock_carousel_minipic_container .item{	
+	height: 250px;
+	}	
+.symbiostock_carousel_preview_container img, .symbiostock_carousel_minipic_container img{	
+	display: block;
+	margin-left: auto;
+	margin-right: auto;	
+	}	
+.symbiostock_carousel_preview{
+	
+	}
+.network_results .carousel-indicators {
+	top: -12px;		
+	background-color: #000;
+	-moz-opacity: 0.20;
+	opacity: 0.20;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=20);
+	padding: 2px;
+	border-radius: 7px; 
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
+	border: 1px solid #000000;
+}
+.network_results .network_avatar {
+	padding-right: 10px;
+	margin-right: 10px;
+	border-right: 1px #CCC solid;
+}
+
+.network_directory .author_container{
+	width: 330px;
+	height: 150px;
+	float: left;
+	margin: 30px;
+	}
+.network_directory  .bio-container{
+	height: 100px;
+	overflow: hidden;
+	}

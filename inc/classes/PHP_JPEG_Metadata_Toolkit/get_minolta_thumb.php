@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     get_minolta_thumb.php
@@ -46,24 +45,13 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
         // Ensure that nothing can write to the standard io, before we get the header out
         ob_start( );
-
-
         include 'EXIF.php';
-
-
         // retrieve the filename from the URL parameters
-
         $filename = $_GET['filename'];
-
         // Retrieve any EXIF data in the file
-
         $Exif_array = get_EXIF_JPEG( $filename );
-
-
         // Check if any EXIF data was retrieved
         if ( $Exif_array === FALSE )
         {
@@ -72,8 +60,6 @@
                 echo "<p>Error getting EXIF Information</p>\n";
                 return;
         }
-
-
         // Check that there is at least the Zeroth IFD in the array
         if ( count( $Exif_array ) < 1  )
         {
@@ -83,17 +69,14 @@
         }
         
         
-
         // Check that the EXIF IFD exists
         if ( array_key_exists( 34665, $Exif_array[0] ) )
         {
                 // Found the EXIF IFD,
-
                 // Check that the makernote tag exists
                 if ( array_key_exists( 37500, $Exif_array[0][34665]['Data'][0] ) )
                 {
                         // Makernote Exists
-
                         // Check that the Makernote is Olympus
                         if  ( $Exif_array[0][34665]['Data'][0][37500]['Makernote Tags'] == "Olympus" )
                         {
@@ -115,7 +98,6 @@
                                                         // Minolta thumbnails seem to have the first byte incorrect - this could possibly be a counter in case the thumbnail needs to span more than one tag
                                                         // Restore the first byte of the jpeg thumbnail
                                                         $data{0} = "\xff";
-
                                                         // Display the thumbnail
                                                         ob_end_clean ( );
                                                         header("Content-type: image/jpeg");
@@ -134,7 +116,6 @@
                                                 // Found a Thumbnail
                                                 // Get the data
                                                 $data = $Exif_array[0][34665]['Data'][0][37500]['Decoded Data'][0][0x0081]['Data'];
-
                                                 // Sometimes the Minolta thumbnails are corrupt as there is no data
                                                 // Check that the data is OK
                                                 if ( $data !== FALSE )
@@ -142,7 +123,6 @@
                                                         // Minolta thumbnails seem to have the first byte incorrect - this could possibly be a counter in case the thumbnail needs to span more than one tag
                                                         // Restore the first byte of the jpeg thumbnail
                                                         $data{0} = "\xff";
-
                                                         // Display the thumbnail
                                                         ob_end_clean ( );
                                                         header("Content-type: image/jpeg");
@@ -168,7 +148,6 @@
                                         ob_end_clean ( );
                                         echo "<p>Makernote Doesn't contain IFD 0</p>\n";
                                 }
-
                         }
                         else
                         {
@@ -190,8 +169,6 @@
                 ob_end_clean ( );
                 echo "<p>Couldn't find Exif IFD</p>\n";
         }
-
-
         return;
         
 ?>

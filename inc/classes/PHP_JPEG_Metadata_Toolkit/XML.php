@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     XML.php
@@ -43,10 +42,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 include_once 'Unicode.php';          // Unicode is required as XML is always Unicode encoded
-
-
 /******************************************************************************
 *
 * Function:     read_xml_array_from_text
@@ -64,7 +60,6 @@ include_once 'Unicode.php';          // Unicode is required as XML is always Uni
 *               FALSE - if an error occured
 *
 ******************************************************************************/
-
 function read_xml_array_from_text( $xmltext )
 {
         // Check if there actually is any text to parse
@@ -72,13 +67,9 @@ function read_xml_array_from_text( $xmltext )
         {
                 return FALSE;
         }
-
         // Create an instance of a xml parser to parse the XML text
         $xml_parser = xml_parser_create( "UTF-8" );
-
-
         // Change: Fixed problem that caused the whitespace (especially newlines) to be destroyed when converting xml text to an xml array, as of revision 1.10
-
         // We would like to remove unneccessary white space, but this will also
         // remove things like newlines (&#xA;) in the XML values, so white space
         // will have to be removed later
@@ -88,7 +79,6 @@ function read_xml_array_from_text( $xmltext )
                 xml_parser_free($xml_parser);
                 return FALSE;
         }
-
         // to use XML code correctly we have to turn case folding
         // (uppercasing) off. XML is case sensitive and upper
         // casing is in reality XML standards violation
@@ -98,7 +88,6 @@ function read_xml_array_from_text( $xmltext )
                 xml_parser_free($xml_parser);
                 return FALSE;
         }
-
         // Parse the XML text into a array structure
         if ( xml_parse_into_struct($xml_parser, $xmltext, $vals, $index) == 0 )
         {
@@ -106,18 +95,12 @@ function read_xml_array_from_text( $xmltext )
                 xml_parser_free($xml_parser);
                 return FALSE;
         }
-
         // Destroy the xml parser
         xml_parser_free($xml_parser);
-
-
         // Change: Fixed problem that caused the whitespace (especially newlines) to be destroyed when converting xml text to an xml array, as of revision 1.10
-
         // Since the xml was processed with whitespace enabled, it will have many values which are
         // only whitespace. These need to be removed to make a sensible array.
-
         $newvals = array( );
-
         // Cycle through each of the items
         foreach( $vals as $valno => $val )
         {
@@ -131,25 +114,16 @@ function read_xml_array_from_text( $xmltext )
                 {
                         $newvals[] = $val;
                 }
-
         }
-
         // The xml_parse_into_struct function returns a flat version
         // of the XML data, where each tag has a level number attached.
         // This is very difficult to work with, so it needs to be
         // converted to a tree structure before being returned
         return xml_get_children($newvals, $i=0);
-
 }
-
 /******************************************************************************
 * End of Function:     read_xml_array_from_text
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     write_xml_array_to_text
@@ -170,20 +144,15 @@ function read_xml_array_from_text( $xmltext )
 *               FALSE - if an error occured
 *
 ******************************************************************************/
-
 function write_xml_array_to_text( $xmlarray, $indentlevel )
 {
         // Create a string to receive the XML
         $output_xml_text = "";
-
-
         // Cycle through each xml element at this level
         foreach ($xmlarray as $xml_elem)
         {
-
                 // Add the indent, then the cleaned tag name to the output
                 $output_xml_text .= str_repeat ( " ", $indentlevel ) . "<" . xml_UTF8_clean( $xml_elem['tag'] );
-
                 // Check if there are any attributes for this tag
                 if (array_key_exists('attributes',$xml_elem))
                 {
@@ -195,77 +164,39 @@ function write_xml_array_to_text( $xmlarray, $indentlevel )
                                 $output_xml_text .= " ". xml_UTF8_clean( $xml_attr_name ) ." ='" .  xml_UTF8_clean( $xml_attr_val ) ."'";
                         }
                 }
-
                 // Add the 'greater-than' to close this tag to the output
                 $output_xml_text .= ">";
-
                 // Check if this element has any text inside it.
                 if (array_key_exists('value',$xml_elem) )
                 {
                         // There is text for this element - clean it and add it to the output
                         $output_xml_text .=  xml_UTF8_clean( $xml_elem['value'] );
                 }
-
                 // Check if there are any lower levels contained by this element
                 if (array_key_exists('children',$xml_elem) )
                 {
                         // There are sub-elements for this element
-
                         // Add a newline to the output, so the sub-elements start on a fresh line
                         $output_xml_text .= "\n";
-
                         // Recursively call this function to output the sub-elements, and add the result to the output
                         $output_xml_text .= write_xml_array_to_text( $xml_elem['children'], $indentlevel + 1 );
-
                         // Add an indent to the output for the closing tag, since we are on a new line due to the sub-elements
                         $output_xml_text .= str_repeat ( " ", $indentlevel );
                 }
-
                 // Add the cleaned closing tag to the output
                 $output_xml_text .= "</" .xml_UTF8_clean($xml_elem['tag']) . ">\n";
         }
-
         // Return the XML text
         return $output_xml_text;
 }
-
 /******************************************************************************
 * End of Function:     write_xml_array_to_text
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 *         INTERNAL FUNCTIONS
 *
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Internal Function:     xml_get_children
@@ -285,48 +216,36 @@ function write_xml_array_to_text( $xmlarray, $indentlevel )
 *               FALSE - if an error occured
 *
 ******************************************************************************/
-
 function xml_get_children( &$input_xml_array, &$item_num )
 {
-
         // Make an array to receive the output XML tree structure
         $children = array();
-
-
         // Cycle through all the elements of the input XML array
         while ( $item_num < count( $input_xml_array ) )
         {
                 // Retrieve the current array element
                 $v = &$input_xml_array[ $item_num++ ];
-
                 // Check what type of XML array element this is, and process accordingly
-
                 switch ( $v['type'] )
                 {
                         case 'cdata':     // This is a non parsed Character Data tag
                         case 'complete':  // This is a pair of XML matching tags possibly with text (but no tags) inside
                                 $children[] = xml_get_child( $v );
                                 break;
-
                         case 'open':      // This is a single opening tag
                                 // Recursively get the children for this opening tag
                                 $children[] = xml_get_child( $v, xml_get_children( $input_xml_array, $item_num ) );
                                 break;    // This is a single opening tag
-
                         case 'close':     // This is a single closing tag
                                 break 2;  // leave "while" loop (and the function)
                 }
         }
-
         // Return the results
         return $children;
 }
-
 /******************************************************************************
 * End of Function:     xml_get_children
 ******************************************************************************/
-
-
 /******************************************************************************
 *
 * Internal Function:     xml_get_child
@@ -344,53 +263,34 @@ function xml_get_children( &$input_xml_array, &$item_num )
 *               FALSE - if an error occured
 *
 ******************************************************************************/
-
 function xml_get_child( &$input_xml_item, $children = NULL )
 {
         // Create an array to receive the child structure
         $child = array();
-
         // If the input item has the 'tag' element set, copy it to the child
         if ( isset( $input_xml_item['tag'] ) )
         {
                 $child['tag'] = $input_xml_item['tag'] ;
         }
-
         // If the input item has the 'value' element set, copy it to the child
         if ( isset( $input_xml_item['value'] ) )
         {
                 $child['value'] = $input_xml_item['value'] ;
         }
-
         // If the input item has the 'attributes' element set, copy it to the child
         if ( isset( $input_xml_item['attributes'] ) )
         {
                 $child['attributes'] = $input_xml_item['attributes'];
         }
-
         // If children have been specified, add them to the child
         if ( is_array( $children ) )
         {
                 $child['children'] = $children;
         }
-
         // Return the child structure
         return $child;
 }
-
 /******************************************************************************
 * End of Function:     xml_get_children
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

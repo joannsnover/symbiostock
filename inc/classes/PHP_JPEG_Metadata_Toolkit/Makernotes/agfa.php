@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     agfa.php
@@ -32,22 +31,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // Agfa makernote uses Olympus tags - ensure they are included
-
 include_once 'olympus.php';
-
-
-
 // Add the Parser function to the list of Makernote Parsers. (Interpreter Functions are supplied by the Olympus script)
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Agfa_Makernote";
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Agfa_Makernote
@@ -75,7 +62,6 @@ $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Agfa_Makerno
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Agfa_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Agfa
@@ -84,34 +70,24 @@ function get_Agfa_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field 
                 // The Make Field doesnt contain the word Agfa
                 return FALSE;
         }
-
         // Check if the header exists at the start of the Makernote
         if ( substr( $Makernote_Tag['Data'], 0, 7 ) != "AGFA \x00\x01" )
         {
                 // This isn't a Agfa Makernote, abort
                 return FALSE ;
         }
-
         // Seek to the start of the IFD
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 8 );
-
         // Read the IFD(s) into an array
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Olympus" );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Agfa";
         $Makernote_Tag['Makernote Tags'] = "Olympus";
-
         // Return the new tag
         return $Makernote_Tag;
-
 }
-
 /******************************************************************************
 * End of Function:     get_Agfa_Makernote
 ******************************************************************************/
-
-
-
 ?>

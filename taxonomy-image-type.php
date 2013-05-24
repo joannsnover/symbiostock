@@ -29,7 +29,7 @@ get_header(); ?>
 			$title = $term->name;
 					
 			
-			echo '<h1 class="results_for">Images in category: <strong>"' . ucwords($title)  . '"</strong></h1>';
+			echo '<h1 class="results_for">Images in category: <strong>"' . ucwords($title)  . '"</strong>  '.symbiostock_feed('rss_url','icon', 'image-type').'</h1>';
 			
 			$local_results->display_results(false);
 			
@@ -38,9 +38,10 @@ get_header(); ?>
 		</section><!-- #primary .content-area -->
 	
 	</div>
+    <div class="clearfix">&nbsp;</div>
     
 <?php 
-include_once('modal-search.php');
+get_template_part('modal-search');
 ?>   
     
 <?php get_footer(); ?>

@@ -7,7 +7,7 @@ class nav_walker_description extends Walker_Nav_Menu
       function start_el(&$output, $item, $depth, $args)
       {
            global $wp_query;
-           $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+           $indent = ( $depth ) ? str_repeat( "    ", $depth ) : '';
            $class_names = $value = '';
            $classes = empty( $item->classes ) ? array() : (array) $item->classes;
            $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );

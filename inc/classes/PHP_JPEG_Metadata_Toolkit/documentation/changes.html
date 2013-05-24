@@ -3,19 +3,14 @@
                 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
                 <link rel=StyleSheet href="style.css" type="text/css">
                 <META NAME="keywords" CONTENT="JPEG Metadata Application Segments APP0 APP1 APP2 APP3 APP12 APP13 APP14 EXIF DCF XMP RDF Photoshop IRB IPTC DCMI JFIF">
-
                 <title>The PHP JPEG Metadata Toolkit - Documentation</title>
         </head>
-
         <body>
                 <div class="headerbar">
                         <H1 align="center" style="padding:15">The PHP JPEG Metadata Toolkit - Documentation</H1>
                 </div>
-
                 <a href="index.html">Go to Documentation - Home</a>
-
                 <div class="maintext">
-
                 <h2>Changes List</h2>
                 <table border cellpadding=8 cellspacing=0>
                         <tr>
@@ -43,8 +38,6 @@
                                 <td>XMP.php</td>
                                 <td>Changed <i>put_IPTC</i> to fix a bug preventing the correct insertion of a XMP block where none existed previously</td>
                         </tr>
-
-
                         <tr>
                                 <td rowspan=12 >1.04 -&gt; 1.10</td>
                                 <td>XMP.php</td>
@@ -70,23 +63,23 @@
                                 <td>
                                         Changed <i>get_Photoshop_IRB</i> to fix processing of embedded resource names,
                                         after discovering that Photoshop does not process
-                                        resource names according to the standard :<br>
-                                        <a href="http://www.ozhiker.com/electronics/pjmt/jpeg_info/standards.html#IRB" >"Adobe Photoshop 6.0 File Formats Specification, Version 6.0, Release 2, November 2000"</a><br>
-                                        This is an update to the change 1.00 -> 1.02, which was not fully correct<br><br>
+                                        resource names according to the standard :<br />
+                                        <a href="http://www.ozhiker.com/electronics/pjmt/jpeg_info/standards.html#IRB" >"Adobe Photoshop 6.0 File Formats Specification, Version 6.0, Release 2, November 2000"</a><br />
+                                        This is an update to the change 1.00 -> 1.02, which was not fully correct<br /><br />
                                         Changed <i>put_Photoshop_IRB</i> to fix the writing of embedded resource name,
                                         to avoid creating blank resources, and to fix a problem
-                                        causing the IRB block to be incorrectly positioned if no APP segments existed.<br><br>
+                                        causing the IRB block to be incorrectly positioned if no APP segments existed.<br /><br />
                                         Changed <i>get_Photoshop_IPTC</i> to initialise the output array correctly.
                                 </td>
                         </tr>
                         <tr>
                                 <td>Unicode.php</td>
                                 <td>
-                                        Added the following functions: <br>
-                                        <i>smart_HTML_Entities</i><br>
-                                        <i>smart_htmlspecialchars</i><br>
-                                        <i>HTML_UTF16_UnEscape</i><br>
-                                        <i>HTML_UTF8_UnEscape</i><br><br>
+                                        Added the following functions: <br />
+                                        <i>smart_HTML_Entities</i><br />
+                                        <i>smart_htmlspecialchars</i><br />
+                                        <i>HTML_UTF16_UnEscape</i><br />
+                                        <i>HTML_UTF8_UnEscape</i><br /><br />
                                         Changed <i>HTML_UTF8_Escape</i> and <i>HTML_UTF16_Escape</i> to
                                         use smart_htmlspecialchars, so that characters which
                                         were already escaped would remain intact
@@ -112,7 +105,6 @@
                                         added function get_EXIF_TIFF to allow extracting EXIF from a TIFF file
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>Photoshop_File_Info.php</td>
                                 <td>
@@ -137,14 +129,12 @@
                                         New File - see documentation for more information
                                 </td>
                         </tr>
-
-
                         <tr>
                                 <td rowspan=16 >1.10 -&gt; 1.11</td>
                                 <td>EXIF.php</td>
                                 <td>
-                                        Added functionality to allow decoding of XMP and Photoshop IRB information embedded within the EXIF data<br>
-                                        Added checks for http and ftp wrappers, as these are not supported<br>
+                                        Added functionality to allow decoding of XMP and Photoshop IRB information embedded within the EXIF data<br />
+                                        Added checks for http and ftp wrappers, as these are not supported<br />
                                         Changed <i>interpret_IFD</i> to allow thumbnail links to work when toolkit is portable across directories
                                 </td>
                         </tr>
@@ -152,12 +142,10 @@
                                 <td>Makernotes/casio.php</td>
                                 <td>Changed <i>get_Casio_Makernote_Html</i> to allow thumbnail links to work when toolkit is portable across directories</td>
                         </tr>
-
                         <tr>
                                 <td>Makernotes/olympus.php</td>
                                 <td>Changed <i>get_Olympus_Makernote_Html</i> to allow thumbnail links to work when toolkit is portable across directories</td>
                         </tr>
-
                         <tr>
                                 <td>JFIF.php</td>
                                 <td>Changed <i>Interpret_JFXX_to_HTML</i> to allow thumbnail links to work when toolkit is portable across directories</td>
@@ -165,9 +153,9 @@
                         <tr>
                                 <td>Photoshop_IRB.php</td>
                                 <td>
-                                        Moved code out of <i>get_Photoshop_IRB</i> into new function <i>unpack_Photoshop_IRB_Data</i> to allow reading of IRB blocks embedded within EXIF (for TIFF Files)<br>
-                                        Moved code out of <i>put_Photoshop_IRB</i> into new function <i>pack_Photoshop_IRB_Data</i> to allow writing of IRB blocks embedded within EXIF (for TIFF Files)<br>
-                                        Enabled the usage of $GLOBALS['HIDE_UNKNOWN_TAGS'] to hide unknown resources<br>
+                                        Moved code out of <i>get_Photoshop_IRB</i> into new function <i>unpack_Photoshop_IRB_Data</i> to allow reading of IRB blocks embedded within EXIF (for TIFF Files)<br />
+                                        Moved code out of <i>put_Photoshop_IRB</i> into new function <i>pack_Photoshop_IRB_Data</i> to allow writing of IRB blocks embedded within EXIF (for TIFF Files)<br />
+                                        Enabled the usage of $GLOBALS['HIDE_UNKNOWN_TAGS'] to hide unknown resources<br />
                                         Changed <i>Interpret_IRB_to_HTML</i> to allow thumbnail links to work when toolkit is portable across directories
                                 </td>
                         </tr>
@@ -180,13 +168,12 @@
                         <tr>
                                 <td>EXIF_Tags.php</td>
                                 <td>
-                                        Added TIFF compression types ZIP, LZW and JPEG<br>
-                                        Added embedded XMP tag<br>
-                                        Added embedded Photoshop IRB tag<br>
+                                        Added TIFF compression types ZIP, LZW and JPEG<br />
+                                        Added embedded XMP tag<br />
+                                        Added embedded Photoshop IRB tag<br />
                                         Fixed GPS tags after testing
                                 </td>
                         </tr>
-
                         <tr>
                                 <td>Example.php</td>
                                 <td>
@@ -203,8 +190,8 @@
                         <tr>
                                 <td>Write_File_Info.php</td>
                                 <td>
-                                        Changed displayed toolkit version numbers to reference Toolkit_Version.php<br>
-                                        Changed error reporting to no errors<br>
+                                        Changed displayed toolkit version numbers to reference Toolkit_Version.php<br />
+                                        Changed error reporting to no errors<br />
                                         Removed limitation on file being in current directory
                                 </td>
                         </tr>
@@ -244,14 +231,9 @@
                                         New File - Added file to provide utility functions for the toolkit
                                 </td>
                         </tr>
-
                 </table>
-
-                <br>
-
-                <br>
-
+                <br />
+                <br />
                 </div>
-
         </body>
 </html>

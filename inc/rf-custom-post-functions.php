@@ -42,7 +42,8 @@ function symbiostock_image_manager_register( )
              'title',
             'editor',
             'thumbnail', 
-			'comments' 
+			'comments',
+			'excerpt',  
         ),
         'rewrite' => true,
         
@@ -67,9 +68,9 @@ function symbiostock_image_manager_register( )
     register_taxonomy( 'image-tags', array(
          'image' 
     ), array(
-         'hierarchical' => false,
-		 'rewrite' => true,
-		 'query_var' => true,
+		'public' => true,
+		'rewrite' => true,
+		'query_var' => true,
         'singular_label' => 'Image Keyword',
 		'exclude_from_search' =>false,
 		'hierarchical'            => false,
@@ -146,6 +147,10 @@ function symbiostock_image_manager_meta_options( )
 	$symbiostock_large_available   = $custom[ 'symbiostock_large_available' ][ 0 ];
 	$symbiostock_vector_available  = $custom[ 'symbiostock_vector_available' ][ 0 ];
 	$symbiostock_zip_available     = $custom[ 'symbiostock_zip_available' ][ 0 ];
+	
+	//legal
+	$symbiostock_model_release     = $custom[ 'symbiostock_model_released' ][ 0 ];
+	$symbiostock_property_release  = $custom[ 'symbiostock_property_released' ][ 0 ];
 	
 	//referral links
 	
@@ -243,6 +248,30 @@ function symbiostock_image_manager_meta_options( )
         <option <?php echo $not_live; ?> value="not_live">Not Live</option>
     </select>
 </div>
+<?php
+$symbiostock_model_release == 'Yes' || !isset($symbiostock_model_release)  ? $symbiostock_model_released_yes = 'selected="selected"' : $symbiostock_model_released_yes = '';
+$symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"' : $symbiostock_model_released_no = '';
+$symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected="selected"' : $symbiostock_model_released_na = '';
+$symbiostock_property_release == 'Yes' || !isset($symbiostock_property_release)  ? $symbiostock_property_released_yes = 'selected="selected"' : $symbiostock_property_released_yes = '';
+$symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"' : $symbiostock_property_released_no = '';
+$symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"' : $symbiostock_property_released_na = '';
+?>
+<div><br /><br />
+    <label>Model Released: </label>    
+        <select id="symbiostock_model_released"  name="symbiostock_model_released">
+            <option <?php echo $symbiostock_model_released_yes; ?> value="Yes">Yes</option>
+            <option <?php echo $symbiostock_model_released_no; ?> value="No">No</option>
+            <option <?php echo $symbiostock_model_released_na; ?> value="N/A">N/A</option>
+        </select><br />
+    <label>Property Released: </label>    
+        <select id="symbiostock_property_released"  name="symbiostock_property_released">
+            <option <?php echo $symbiostock_property_released_yes; ?> value="Yes">Yes</option>
+            <option <?php echo $symbiostock_property_released_no; ?> value="No">No</option>
+            <option <?php echo $symbiostock_property_released_na; ?> value="N/A">N/A</option>
+    </select>
+    <br /><br /><br />        
+</div>    
+    
 <?php
 	
 	$locked == 'not_locked' || !isset($locked)  ? $not_locked = 'selected="selected"' : $not_locked = '';
@@ -344,7 +373,11 @@ function symbiostock_image_manager_save_options( )
 		update_post_meta( $post->ID, 'symbiostock_medium_available', $_POST[ 'symbiostock_medium_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_large_available', $_POST[ 'symbiostock_large_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_vector_available', $_POST[ 'symbiostock_vector_available' ] );		
-		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );		
+		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );	
+		//legal 
+		update_post_meta( $post->ID, 'symbiostock_model_released', $_POST[ 'symbiostock_model_released' ] );	
+		update_post_meta( $post->ID, 'symbiostock_property_released', $_POST[ 'symbiostock_property_released' ] );	
+		
 		//referral links
 		update_post_meta( $post->ID, 'symbiostock_referral_label_1', $_POST[ 'symbiostock_referral_label_1' ] );
 		update_post_meta( $post->ID, 'symbiostock_referral_label_2', $_POST[ 'symbiostock_referral_label_2' ] );	
@@ -382,7 +415,6 @@ function symbiostock_image_manager_edit_columns( $columns )
     
     return $columns;
 }
-
 add_action( 'manage_image_posts_custom_column', 'symbiostock_image_manager_custom_columns' );
 function symbiostock_image_manager_custom_columns( $column )
 {
@@ -466,15 +498,6 @@ function symbiostock_image_manager_custom_columns( $column )
             break;
             
     } //$column    
-}
-
-add_action( 'init', 'symbiostock_rewrite' );
-function symbiostock_rewrite( )
-{	
-    global $wp_rewrite;
-    $wp_rewrite->add_permastruct('typename','typename/%year%%postname%/' , true , 1);
-    add_rewrite_rule('typename/([0-9]{4})/(.+)/?$','index.php?typename=$matches[2]', 'top');
-    $wp_rewrite->flush_rules();
 }
 // ---------- upload panel ---------- //
 function uploader( )
@@ -607,11 +630,54 @@ if(isset($_GET[ 'page' ])){
 		
 	} //is_admin() && $_GET[ 'page' ] == 'symbiostock-upload-images'
 }
+function symbiostock_datasheet_init() {
+  $labels = array(
+    'name' => 'Datasheets',
+    'singular_name' => 'Datasheet',
+    'add_new' => 'Add New',
+    'add_new_item' => 'Add New Datasheet',
+    'edit_item' => 'Edit Datasheet',
+    'new_item' => 'New Datasheet',
+    'all_items' => 'All Datasheets',
+    'view_item' => 'View Datasheet',
+    'search_items' => 'Search Datasheets',
+    'not_found' =>  'No datasheets found',
+    'not_found_in_trash' => 'No datasheets found in Trash', 
+    'parent_item_colon' => '',
+    'menu_name' => 'Datasheets'
+  );
+  $args = array(
+    'labels' => $labels,
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'datasheet' ),
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'menu_position' => 999,
+    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' )
+  ); 
+  register_post_type( 'datasheet', $args );
+}
+add_action( 'init', 'symbiostock_datasheet_init' );
 //TEMPORARILY we remove the "new image' functionality until we put it in. For now, new images are created on upload.
 function symbiostock_adjust_the_wp_menu() {
   
   //or for custom post type 'myposttype'.
-  $page = remove_submenu_page( 'edit.php?post_type=image', 'post-new.php?post_type=image' );
+  remove_submenu_page( 'edit.php?post_type=image', 'post-new.php?post_type=image' );
+  remove_submenu_page( 'edit.php?post_type=datasheet', 'post-new.php?post_type=datasheet' );
 }
 add_action( 'admin_menu', 'symbiostock_adjust_the_wp_menu', 999 );
+//add rewrite rules
+add_action( 'init', 'symbiostock_rewrite' );
+function symbiostock_rewrite( )
+{	
+    global $wp_rewrite;
+    $wp_rewrite->add_permastruct('typename','typename/%year%%postname%/' , true , 1);
+    add_rewrite_rule('typename/([0-9]{4})/(.+)/?$','index.php?typename=$matches[2]', 'top');
+    $wp_rewrite->flush_rules();
+}
 ?>

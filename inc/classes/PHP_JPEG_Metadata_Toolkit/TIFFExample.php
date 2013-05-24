@@ -1,5 +1,4 @@
 <html>
-
 <!--***************************************************************************
 *
 * Filename:     TIFFExample.php
@@ -45,34 +44,25 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ***************************************************************************-->
-
         <head>
-
                 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
                 <STYLE TYPE="text/css" MEDIA="screen, print, projection">
                 <!--
-
                         BODY { background-color:#505050; color:#F0F0F0 }
                         a  { color:orange  }
                         .EXIF_Main_Heading { color:red }
                         .EXIF_Secondary_Heading{ color: orange}
                         .EXIF_Table {  border-collapse: collapse ; border: 1px solid #909000}
                         .EXIF_Table tbody td{border-width: 1px; border-style:solid; border-color: #909000;}
-
                 -->
                 </STYLE>
-
-
                 <?php
                         // Turn off Error Reporting
                         error_reporting ( 0 );
-
                         // Hide any unknown EXIF tags
                         $GLOBALS['HIDE_UNKNOWN_TAGS'] = TRUE;
-
                         include 'Toolkit_Version.php';
                         include 'EXIF.php';
-
                         // Retrieve the TIFF image filename from the http url request
                         if ( ( !array_key_exists( 'tiff_fname', $_GET ) ) ||
                              ( $_GET['tiff_fname'] == "" ) )
@@ -88,7 +78,6 @@
                         else
                         {
                                 $filename = $_GET['tiff_fname'];
-
                                 // Sanitize the filename to remove any hack attempts
                                 if ( 0 == preg_match ( '/^\.?\/?([_A-Za-z0-9]+\.tif?f)$/i', $filename ) )
                                 {
@@ -101,34 +90,20 @@
                                     exit( );
                                 }
                         }
-
-
                         // Output the title
                         echo "<title>Metadata details for $filename</title>";
-
-
-
                  ?>
-
         </head>
-
         <body>
-
                 <p >Interpreted using: <a href="http://www.ozhiker.com/electronics/pjmt/">PHP JPEG Metadata Toolkit version <?php echo $GLOBALS['Toolkit_Version'] ?>, Copyright (C) 2004 Evan Hunter</a></p>                <!-- Change: displayed toolkit version numbers to reference Toolkit_Version.php - as of version 1.11 -->
-                <br>
-
+                <br />
                 <h2><B><U>Metadata for &quot;<?php echo $filename; ?>&quot;</U></B></h2>
-
-
                 <!-- Output the EXIF Information -->
                 <?php echo Interpret_EXIF_to_HTML( get_EXIF_TIFF( $filename ), $filename );  ?>
-
-                <BR>
-                <BR>
-                <BR>
+                <br />
+                <br />
+                <br />
                 <p>Interpreted using:</p>
                 <p><a href="http://www.ozhiker.com/electronics/pjmt/" >PHP JPEG Metadata Toolkit version <?php echo $GLOBALS['Toolkit_Version'] ?>, Copyright (C) 2004 Evan Hunter</a></p>              <!-- Change: displayed toolkit version numbers to reference Toolkit_Version.php - as of version 1.11 -->
-
         </body>
-
 </html>

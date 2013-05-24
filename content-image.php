@@ -15,18 +15,24 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
 <article id="post-<?php the_ID(); ?>" <?php post_class("row-fluid"); ?>>
     <div class="symbiostock-image span7">
         <header class="entry-header">
-            <div itemscope itemtype="http://schema.org/ImageObject" class="hmedia">
+            <div itemscope itemtype="http://schema.org/CreativeWork" class="hmedia">
                 <div class="well">
-                    <h1 itemprop="name" class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'symbiostock' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
+                    <h1 itemprop="name" class="entry-title title"><a class="" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'symbiostock' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
                         <?php the_title(); ?>
                         </a></h1>
-                    <div class="item-preview content-box"><a id="stock-image-preview" title="<?php the_title(); ; ?>" rel="enclosure" type="image/jpeg" href="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"> <img itemprop="contentURL image" class="photo" alt="<?php the_title();  ?>" src="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"/> </a></div>
-                    <div itemprop="description" class="entry-content fn item-description">
-                        <?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'symbiostock' ) ); ?>
-                        <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'symbiostock' ), 'after' => '</div>' ) ); ?>
-                        <em>by <span itemprop="author contributor copyrightHolder creator" class="contributor vcard"> <a class="url fn" href="<?php the_author_meta('user_url') ?>">
-                        <?php the_author(); ?>
-                        </a></span></em> (<a class="url" href="<?php echo get_option('symbiostock_my_network_about_page', get_site_url()); ?>">profile</a>) </div>
+                    <div itemscope itemtype="http://schema.org/ImageObject">    
+                        <div class="item-preview content-box"><a id="stock-image-preview" title="<?php the_title(); ; ?>" rel="enclosure" type="image/jpeg" href="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"> <img itemprop="contentURL image" class="photo" alt="<?php the_title();  ?>" src="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"/> </a></div>
+                        <div itemprop="description caption" class="entry-content fn item-description">
+                            <?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'symbiostock' ) ); ?>
+                            <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'symbiostock' ), 'after' => '</div>' ) ); ?>
+                          
+                        </div>
+                    </div>
+                     
+					<?php symbiostock_csv_symbiocard_box($symbiocard_location = '', true, '', true); ?>
+                    <hr />
+                    <span class="date updated muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>
+					<?php echo symbiostock_get_datasheet_link($post->ID); ?>
                     <!-- .entry-content --> 
                 </div>
                 <div id="keywords-listing">
@@ -44,24 +50,14 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
                  
                 </div><?php
                 }
-                ?>
-                    
+                ?>                    
                 </div>
-                
-                <?php
-				
+                                
+                <?php				
 				//get bottom sidebar
-				dynamic_sidebar( 'Image Page Bottom' );
-				
-				?>
-                
+				dynamic_sidebar( 'Image Page Bottom' );				
+				?>                
             </div>
-            <?php if ( 'post' == get_post_type() ) : ?>
-            <div class="entry-meta">
-                <?php symbiostock_posted_on(); ?>
-            </div>
-            <!-- .entry-meta -->
-            <?php endif; ?>
         </header>
         <!-- .entry-header --> 
         
@@ -103,10 +99,7 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
             <?php comments_popup_link( __( 'Leave a comment', 'symbiostock' ), __( '1 Comment', 'symbiostock' ), __( '% Comments', 'symbiostock' ) ); ?>
             </span>
             <?php endif; ?>
-            <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="sep"> | </span><span class="edit-link">', '</span>' ); ?>
-        
-		             
-        
+            <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="sep"> | </span><span class="edit-link">', '</span>' ); ?> 
         </footer>
         <!-- .entry-meta --> 
         

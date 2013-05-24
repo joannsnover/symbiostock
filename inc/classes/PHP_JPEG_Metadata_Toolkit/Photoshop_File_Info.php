@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     Photoshop_File_Info.php
@@ -41,13 +40,8 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 // TODO: XMP sections: XAPMM, TIFF, EXIF
-
-
 include 'Toolkit_Version.php';          // Change: added as of version 1.11
-
-
 /******************************************************************************
 * Global Variable:      Software Name
 *
@@ -55,18 +49,10 @@ include 'Toolkit_Version.php';          // Change: added as of version 1.11
 *               the software editor.
 *
 ******************************************************************************/
-
 $GLOBALS[ "Software Name" ] = "(PHP JPEG Metadata Toolkit v" . $GLOBALS['Toolkit_Version'] . ")";          // Change:  Changed version numbers to reference Toolkit_Version.php - as of version 1.11
-
 /******************************************************************************
 * End of Global Variable:     Software Name
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_photoshop_file_info
@@ -108,10 +94,8 @@ $GLOBALS[ "Software Name" ] = "(PHP JPEG Metadata Toolkit v" . $GLOBALS['Toolkit
 * Returns:      outputarray - an array as above, containing the Photoshop File Info data
 *
 ******************************************************************************/
-
 function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
 {
-
         // Create a blank array to receive the output
         $outputarray = array(
                 "title" => "",
@@ -136,25 +120,17 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                 "instructions" => "",
                 "transmissionreference" => "",
                 "urgency" => "" );
-
-
         /***************************************/
-
         // XMP Processing
-
-
         // Retrieve the dublin core section from the XMP header
-
         // Extract the Dublin Core section from the XMP
         $dublincore_block = find_XMP_block( $XMP_array, "dc" );
-
         // Check that the Dublin Core section exists
         if ( $dublincore_block != FALSE )
         {
                 // Dublin Core Description Field contains caption
                 // Extract Description
                 $Item = find_XMP_item( $dublincore_block, "dc:description" );
-
                 // Check if Description Tag existed
                 if ( $Item != FALSE )
                 {
@@ -166,13 +142,10 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 $outputarray = add_to_field( $outputarray, 'caption' , HTML_UTF8_Escape( $Item['children'][0]['children'][0]['value'] ), "\n" );
                         }
                 }
-
                 /***************************************/
-
                 // Dublin Core Creator Field contains author
                 // Extract Description
                 $Item = find_XMP_item( $dublincore_block, "dc:creator" );
-
                 // Check if Creator Tag existed
                 if ( $Item != FALSE )
                 {
@@ -184,13 +157,10 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 $outputarray = add_to_field( $outputarray, 'author' , HTML_UTF8_Escape( $Item['children'][0]['children'][0]['value'] ), "\n" );
                         }
                 }
-
                 /***************************************/
-
                 // Dublin Core Title Field contains title
                 // Extract Title
                 $Item = find_XMP_item( $dublincore_block, "dc:title" );
-
                 // Check if Title Tag existed
                 if ( $Item != FALSE )
                 {
@@ -199,17 +169,13 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                               ( $Item['children'][0]['tag'] =="rdf:Alt" ) &&
                               ( array_key_exists( 'value', $Item['children'][0]['children'][0] ) ) )
                         {
-
                                 $outputarray = add_to_field( $outputarray, 'title' , HTML_UTF8_Escape( $Item['children'][0]['children'][0]['value'] ), "," );
                         }
                 }
-
                 /***************************************/
-
                 // Dublin Core Rights Field contains copyrightnotice
                 // Extract Rights
                 $Item = find_XMP_item( $dublincore_block, "dc:rights" );
-
                 // Check if Rights Tag existed
                 if ( $Item != FALSE )
                 {
@@ -218,17 +184,13 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                               ( $Item['children'][0]['tag'] =="rdf:Alt" ) &&
                               ( array_key_exists( 'value', $Item['children'][0]['children'][0] ) ) )
                         {
-
                                 $outputarray = add_to_field( $outputarray, 'copyrightnotice' , HTML_UTF8_Escape( $Item['children'][0]['children'][0]['value'] ), "," );
                         }
                 }
-
                 /***************************************/
-
                 // Dublin Core Subject Field contains keywords
                 // Extract Subject
                 $Item = find_XMP_item( $dublincore_block, "dc:subject" );
-
                 // Check if Subject Tag existed
                 if ( $Item != FALSE )
                 {
@@ -248,164 +210,119 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 }
                         }
                 }
-
-
         }
-
         /***************************************/
-
         // Find the Photoshop Information within the XMP block
         $photoshop_block = find_XMP_block( $XMP_array, "photoshop" );
-
         // Check that the Photoshop Information exists
         if ( $photoshop_block != FALSE )
         {
                 // The Photoshop CaptionWriter tag contains captionwriter - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:CaptionWriter" );
-
                 // Check that the CaptionWriter Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'captionwriter' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Headline tag contains headline - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Headline" );
-
                 // Check that the Headline Field exists and save the value
                 if ( ( $Item != FALSE )  && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'headline' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Instructions tag contains instructions - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Instructions" );
-
                 // Check that the Instructions Field exists and save the value
                 if ( ( $Item != FALSE )  && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'instructions' , HTML_UTF8_Escape( $Item['value'] ), "\n" );
                 }
-
                 /***************************************/
-
                 // The Photoshop AuthorsPosition tag contains authorsposition - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:AuthorsPosition" );
-
                 // Check that the AuthorsPosition Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'authorsposition' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Credit tag contains credit - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Credit" );
-
                 // Check that the Credit Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'credit' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Source tag contains source - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Source" );
-
                 // Check that the Credit Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'source' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop City tag contains city - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:City" );
-
                 // Check that the City Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'city' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop State tag contains state - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:State" );
-
                 // Check that the State Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'state' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Country tag contains country - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Country" );
-
                 // Check that the Country Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'country' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop TransmissionReference tag contains transmissionreference - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:TransmissionReference" );
-
                 // Check that the TransmissionReference Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'transmissionreference' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Category tag contains category - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Category" );
-
                 // Check that the TransmissionReference Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'category' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop DateCreated tag contains date - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:DateCreated" );
-
                 // Check that the DateCreated Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'date' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop Urgency tag contains urgency - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:Urgency" );
-
                 // Check that the Urgency Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'urgency' , HTML_UTF8_Escape( $Item['value'] ), "," );
                 }
-
                 /***************************************/
-
                 // The Photoshop SupplementalCategories tag contains supplementalcategories - Find it
                 $Item = find_XMP_item( $photoshop_block, "photoshop:SupplementalCategories" );
-
                 // Check that the SupplementalCategories Field exists
                 if ( $Item != FALSE )
                 {
@@ -426,20 +343,15 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 }
                         }
                 }
-
         }
-
         /***************************************/
-
         // Find the Job Reference Information within the XMP block
         $job_block = find_XMP_block( $XMP_array, "xapBJ" );
-
         // Check that the Job Reference Information exists
         if ( $job_block != FALSE )
         {
                 // The JobRef Field contains jobname - Find it
                 $Item = find_XMP_item( $job_block, "xapBJ:JobRef" );
-
                 // Check that the JobRef Field exists
                 if ( $Item != FALSE )
                 {
@@ -456,30 +368,22 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                         }
                 }
         }
-
-
         /***************************************/
-
         // Find the Rights Information within the XMP block
         $rights_block = find_XMP_block( $XMP_array, "xapRights" );
-
         // Check that the Rights Information exists
         if ( $rights_block != FALSE )
         {
                 // The WebStatement Field contains ownerurl - Find it
                 $Item = find_XMP_item( $rights_block, "xapRights:WebStatement" );
-
                 // Check that the WebStatement Field exists and save the value
                 if ( ( $Item != FALSE )  && ( array_key_exists( 'value', $Item ) ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'ownerurl' , HTML_UTF8_Escape( $Item['value'] ), "\n" );
                 }
-
                 /***************************************/
-
                 // The Marked Field contains copyrightstatus - Find it
                 $Item = find_XMP_item( $rights_block, "xapRights:Marked" );
-
                 // Check that the Marked Field exists and save the value
                 if ( ( $Item != FALSE ) && ( array_key_exists( 'value', $Item ) ) )
                 {
@@ -492,26 +396,16 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 $outputarray = add_to_field( $outputarray, 'copyrightstatus' , "Public Domain", "," );
                         }
                 }
-
         }
-
-
-
-
-
         /***************************************/
-
         // Photoshop IRB Processing
-
         // Check that the Photoshop IRB exists
         if ( $IRB_array != FALSE )
         {
                 // Create a translation table to convert carriage returns to linefeeds
                 $irbtrans = array("\x0d" => "\x0a");
-
                 // The Photoshop IRB Copyright flag (0x040A) contains copyrightstatus - find it
                 $IRB_copyright_flag = find_Photoshop_IRB_Resource( $IRB_array, 0x040A );
-
                 // Check if the Copyright flag Field exists, and save the value
                 if( $IRB_copyright_flag != FALSE )
                 {
@@ -526,195 +420,142 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                 // Do nothing - copyrightstatus will be set to unmarked if still blank at end
                         }
                 }
-
                 /***************************************/
-
                 // The Photoshop IRB URL (0x040B) contains ownerurl - find it
                 $IRB_url = find_Photoshop_IRB_Resource( $IRB_array, 0x040B );
-
                 // Check if the URL Field exists and save the value
                 if( $IRB_url != FALSE )
                 {
                         $outputarray = add_to_field( $outputarray, 'ownerurl' , strtr( $IRB_url['ResData'], $irbtrans ), "\n" );
                 }
-
                 /***************************************/
-
                 // Extract any IPTC block from the Photoshop IRB information
                 $IPTC_array = get_Photoshop_IPTC( $IRB_array );
-
                 // Check if the IPTC block exits
                 if ( ( $IPTC_array != FALSE ) && ( count( $IPTC_array ) != 0 ) )
                 {
                         // The IPTC Caption/Abstract Field contains caption - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:120" );
-
                         // Check if the Caption/Abstract Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'caption' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Caption Writer/Editor Field contains captionwriter - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:122" );
-
                         // Check if the Caption Writer/Editor Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'captionwriter' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Headline Field contains headline - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:105" );
-
                         // Check if the Headline Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'headline' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Special Instructions Field contains instructions - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:40" );
-
                         // Check if the Special Instructions Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'instructions' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC By-Line Field contains author - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:80" );
-
                         // Check if the By-Line Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'author' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC By-Line Title Field contains authorsposition - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:85" );
-
                         // Check if the By-Line Title Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'authorsposition' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Credit Field contains credit - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:110" );
-
                         // Check if the Credit Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'credit' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Source Field contains source - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:115" );
-
                         // Check if the Source Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'source' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Object Name Field contains title - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:05" );
-
                         // Check if the Object Name Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'title' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Date Created Field contains date - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:55" );
-
                         // Check if the Date Created Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $date_array = unpack( "a4Year/a2Month/A2Day", $record['RecData'] );
                                 $tmpdate = $date_array['Year'] . "-" . $date_array['Month'] . "-" . $date_array['Day'];
                                 $outputarray = add_to_field( $outputarray, 'date' , strtr( $tmpdate, $irbtrans ), "," );
-
                         }
-
                         /***************************************/
-
                         // The IPTC City Field contains city - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:90" );
-
                         // Check if the City Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'city' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Province/State Field contains state - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:95" );
-
                         // Check if the Province/State Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'state' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Country/Primary Location Name Field contains country - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:101" );
-
                         // Check if the Country/Primary Location Name Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'country' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Original Transmission Reference Field contains transmissionreference - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:103" );
-
                         // Check if the Original Transmission Reference Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'transmissionreference' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                         /***************************************/
-
                         // The IPTC Category Field contains category - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:15" );
-
                         // Check if the Category Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'category' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
-
                         /***************************************/
-
                         // Cycle through the IPTC records looking for Supplemental Category records
                         foreach ($IPTC_array as $record)
                         {
@@ -728,23 +569,15 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                         }
                                 }
                         }
-
-
                         /***************************************/
-
                         // The IPTC Urgency Field contains urgency - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:10" );
-
                         // Check if the Urgency Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'urgency' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
-
-
                         /***************************************/
-
                         // Cycle through the IPTC records looking for Keywords records
                         foreach ($IPTC_array as $record)
                         {
@@ -758,32 +591,19 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                                         }
                                 }
                         }
-
-
                         /***************************************/
-
                         // The IPTC Copyright Notice Field contains copyrightnotice - find it
                         $record = find_IPTC_Resource( $IPTC_array, "2:116" );
-
                         // Check if the Copyright Field exists and save the value
                         if ( $record != FALSE  )
                         {
                                 $outputarray = add_to_field( $outputarray, 'copyrightnotice' , strtr( $record['RecData'], $irbtrans ), "\n" );
                         }
-
                 }
         }
-
-
-
-
         /***************************************/
-
         // EXIF Processing
-
-
         // Retreive Information from the EXIF data if it exists
-
         if ( ( $Exif_array != FALSE ) || ( count( $Exif_array ) == 0 ) )
         {
                 // Check the Image Description Tag - it can contain the caption
@@ -791,61 +611,40 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
                 {
                         $outputarray = add_to_field( $outputarray, 'caption' , $Exif_array[0][270]['Data'][0], "\n" );
                 }
-
                 /***************************************/
-
                 // Check the Copyright Information Tag - it contains the copyrightnotice
                 if ( array_key_exists( 33432, $Exif_array[0] ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'copyrightnotice' , HTML_UTF8_UnEscape( $Exif_array[0][33432]['Data'][0] ), "\n" );
                 }
-
                 /***************************************/
-
                 // Check the Artist Name Tag - it contains the author
                 if ( array_key_exists( 315, $Exif_array[0] ) )
                 {
                         $outputarray = add_to_field( $outputarray, 'author' , HTML_UTF8_UnEscape( $Exif_array[0][315]['Data'][0] ), "\n" );
                 }
-
         }
-
-
         /***************************/
-
         // FINISHED RETRIEVING INFORMATION
-
         // Perform final processing
-
-
         // Check if any urgency information was found
         if ( $outputarray["urgency"] == "" )
         {
                 // No urgency information was found - set it to default (None)
                 $outputarray["urgency"] = "none";
         }
-
         // Check if any copyrightstatus information was found
         if ( $outputarray["copyrightstatus"] == "" )
         {
                 // No copyrightstatus information was found - set it to default (Unmarked)
                 $outputarray["copyrightstatus"] = "unmarked";
         }
-
         // Return the resulting Photoshop File Info Array
         return $outputarray;
-
 }
-
 /******************************************************************************
 * End of Function:     get_photoshop_file_info
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     put_photoshop_file_info
@@ -897,46 +696,18 @@ function get_photoshop_file_info( $Exif_array, $XMP_array, $IRB_array )
 *                                  be written to a file using put_jpeg_header_data.
 *
 ******************************************************************************/
-
 function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $Old_Exif_array, $Old_XMP_array, $Old_IRB_array )
 {
         /*******************************************/
         // PREPROCESSING
-
         // Check that the date is in the correct format (YYYY-MM-DD)
-
         // Explode the date into pieces using the - symbol
         $date_pieces = explode( "-", $new_ps_file_info_array[ 'date' ] );
-
-        // If there are not 3 pieces to the date, it is invalid
-        if ( count( $date_pieces ) != 3 )
-        {
-                // INVALID DATE
-                echo "Invalid Date - must be YYYY-MM-DD format<br>";
-                return FALSE;
-        }
-
-        // Cycle through each piece of the date
-        foreach( $date_pieces as $piece )
-        {
-                // If the piece is not numeric, then the date is invalid.
-                if ( ! is_numeric( $piece ) )
-                {
-                        // INVALID DATE
-                        echo "Invalid Date - must be YYYY-MM-DD format<br>";
-                        return FALSE;
-                }
-        }
-
+ 
         // Make a unix timestamp at midnight on the date specified
         $date_stamp = mktime( 0,0,0, $date_pieces[1], $date_pieces[2], $date_pieces[0] );
-
-
-
-
         // Create a translation table to remove carriage return characters
         $trans = array( "\x0d" => "" );
-
         // Cycle through each of the File Info elements
         foreach( $new_ps_file_info_array as $valkey => $val )
         {
@@ -959,16 +730,8 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                         }
                 }
         }
-
-
-
-
-
         /*******************************************/
-
         // EXIF Processing
-
-
         // Check if the EXIF array exists
         if( $Old_Exif_array == FALSE )
         {
@@ -983,35 +746,27 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                 // EXIF Array Does Exist - use it
                 $new_Exif_array = $Old_Exif_array;
         }
-
-
-
         // Update the EXIF Image Description Tag with the new value
         $new_Exif_array[0][270] = array (       "Tag Name"   => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 270 ]['Name'],
                                                 "Tag Number" => 270,
                                                 "Data Type"  => 2,
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 270 ]['Type'],
                                                 "Data"       => array( HTML_UTF8_Escape( $new_ps_file_info_array[ 'caption' ]) ));
-
         // Update the EXIF Artist Name Tag with the new value
         $new_Exif_array[0][315] = array (       "Tag Name"   => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 315 ]['Name'],
                                                 "Tag Number" => 315,
                                                 "Data Type"  => 2,
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 315 ]['Type'],
                                                 "Data"       => array( HTML_UTF8_Escape( $new_ps_file_info_array[ 'author' ] ) ) );
-
         // Update the EXIF Copyright Information Tag with the new value
         $new_Exif_array[0][33432] = array (     "Tag Name"   => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 33432 ]['Name'],
                                                 "Tag Number" => 33432,
                                                 "Data Type"  => 2,
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 33432 ]['Type'],
                                                 "Data"       => array( HTML_UTF8_Escape( $new_ps_file_info_array[ 'copyrightnotice' ]) ) );
-
-
         // Photoshop checks if the "Date and Time of Original" and "Date and Time when Digitized" tags exist
         // If they don't exist, it means that the EXIF date may be wiped out if it is changed, so Photoshop
         // copies the EXIF date to these two tags
-
         if ( ( array_key_exists( 306, $new_Exif_array[0] ) )&&
              ( array_key_exists( 34665, $new_Exif_array[0] ) ) &&
              ( array_key_exists( 0, $new_Exif_array[0][34665] ) ) )
@@ -1025,7 +780,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['EXIF'][ 36867 ]['Type'],
                                                 "Data"       => $new_Exif_array[0][306]['Data'] );
                 }
-
                 // Replace "Date and Time when Digitized" if it doesn't exist
                 if ( ! array_key_exists( 36868, $new_Exif_array[0][34665][0] ) )
                 {
@@ -1036,23 +790,16 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                                 "Data"       => $new_Exif_array[0][306]['Data'] );
                 }
         }
-
-
         // Photoshop changes the EXIF date Tag (306) to the current date, not the date that was entered in File Info
         $exif_date = date ( "Y:m:d H:i:s" );
-
         // Update the EXIF Date and Time Tag with the new value
         $new_Exif_array[0][306] = array (       "Tag Name"   => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 306 ]['Name'],
                                                 "Tag Number" => 306,
                                                 "Data Type"  => 2,
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 306 ]['Type'],
                                                 "Data"       => array( $exif_date ) );
-
-
-
         // Photoshop replaces the EXIF Software or Firmware Tag with "Adobe Photoshop ..."
         // This toolkit instead preserves existing value and appends the toolkit name to the end of it
-
         // Check if the EXIF Software or Firmware Tag exists
         if ( array_key_exists( 305, $new_Exif_array[0] ) )
         {
@@ -1074,23 +821,14 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                 // No Software/Firmware string exists - create one
                 $firmware_str = $GLOBALS[ "Software Name" ];
         }
-
         // Update the EXIF Software/Firmware Tag with the new value
         $new_Exif_array[0][305] = array(        "Tag Name"   => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 305 ]['Name'],
                                                 "Tag Number" => 305,
                                                 "Data Type"  => 2,
                                                 "Type"       => $GLOBALS[ "IFD_Tag_Definitions" ]['TIFF'][ 305 ]['Type'],
                                                 "Data"       => array( HTML_UTF8_Escape( $firmware_str ) ) );
-
-
-
-
-
         /*******************************************/
-
         // Photoshop IRB Processing
-
-
         // Check if there is an existing Photoshop IRB array
         if ($Old_IRB_array == FALSE )
         {
@@ -1102,7 +840,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                 // There is an existing Photoshop IRB array - use it
                 $new_IRB_array = $Old_IRB_array;
         }
-
         // Remove any existing Copyright Flag, URL, or IPTC resources - these will be re-written
         foreach( $new_IRB_array as  $resno => $res )
         {
@@ -1113,8 +850,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                         array_splice( $new_IRB_array, $resno, 1 );
                 }
         }
-
-
         // Add a new Copyright Flag resource
         if ( $new_ps_file_info_array[ 'copyrightstatus' ] == "Copyrighted Work" )
         {
@@ -1129,23 +864,15 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                         'ResDesc' => $GLOBALS[ "Photoshop_ID_Descriptions" ][0x040A],
                                         'ResEmbeddedName' => "",
                                         'ResData' => $PS_copyright_flag );
-
-
-
         // Add a new URL resource
         $new_IRB_array[] = array(       'ResID' => 0x040B,
                                         'ResName' => $GLOBALS[ "Photoshop_ID_Names" ][0x040B],
                                         'ResDesc' => $GLOBALS[ "Photoshop_ID_Descriptions" ][0x040B],
                                         'ResEmbeddedName' => "",
                                         'ResData' => $new_ps_file_info_array[ 'ownerurl' ] );
-
-
-
         // Create IPTC resource
-
         // IPTC requires date to be in the following format YYYYMMDD
         $iptc_date = date( "Ymd", $date_stamp );
-
         // Create the new IPTC array
         $new_IPTC_array = array (
                                   0 =>
@@ -1268,7 +995,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                     'RecData' => substr( HTML_UTF8_Escape( $new_ps_file_info_array[ 'copyrightnotice' ] ), 0, 128 ),
                                   ),
                                 );
-
         // Check the value of urgency is valid
         if ( ( $new_ps_file_info_array[ 'urgency' ] > 0 ) && ( $new_ps_file_info_array[ 'urgency' ] < 9 ) )
         {
@@ -1280,7 +1006,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                                 'RecData' => substr( HTML_UTF8_Escape( $new_ps_file_info_array[ 'urgency' ] ), 0, 1 ),
                                           );
         }
-
         // Cycle through the Supplemental Categories,
         foreach( $new_ps_file_info_array[ 'supplementalcategories' ] as $supcat )
         {
@@ -1292,8 +1017,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                             'RecData' => HTML_UTF8_Escape( $supcat ),
                                           );
         }
-
-
         // Cycle through the Keywords,
         foreach( $new_ps_file_info_array[ 'keywords' ] as $keyword )
         {
@@ -1305,12 +1028,8 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                             'RecData' => $keyword,
                                           );
         }
-
-
         /***********************************/
-
         // XMP Processing
-
         // Check if XMP existed previously
         if ($Old_XMP_array == FALSE )
         {
@@ -1326,122 +1045,87 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                         // x:xapmeta found - change it to x:xmpmeta
                         $Old_XMP_array[0]['tag'] = 'x:xmpmeta';
                 }
-
                 // Ensure that the existing XMP has all required fields, and add any that are missing
                 $new_XMP_array = XMP_Check( $GLOBALS[ 'Blank XMP Structure' ], $Old_XMP_array );
         }
-
-
         // Process the XMP Photoshop block
-
         // Find the Photoshop Information within the XMP block
         $photoshop_block = & find_XMP_block( $new_XMP_array, "photoshop" );
-
         // The Photoshop CaptionWriter tag contains captionwriter - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:CaptionWriter" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'captionwriter' ];
-
         // The Photoshop Category tag contains category - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Category" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'category' ];
-
         // The Photoshop DateCreated tag contains date - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:DateCreated" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'date' ];
-
         // The Photoshop City tag contains city - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:City" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'city' ];
-
         // The Photoshop State tag contains state - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:State" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'state' ];
-
         // The Photoshop Country tag contains country - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Country" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'country' ];
-
         // The Photoshop AuthorsPosition tag contains authorsposition - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:AuthorsPosition" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'authorsposition' ];
-
         // The Photoshop Credit tag contains credit - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Credit" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'credit' ];
-
         // The Photoshop Source tag contains source - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Source" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'source' ];
-
         // The Photoshop Headline tag contains headline - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Headline" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'headline' ];
-
         // The Photoshop Instructions tag contains instructions - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Instructions" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'instructions' ];
-
         // The Photoshop TransmissionReference tag contains transmissionreference - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:TransmissionReference" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'transmissionreference' ];
-
         // The Photoshop Urgency tag contains urgency - Find it and Update the value
         $Item = & find_XMP_item( $photoshop_block, "photoshop:Urgency" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'urgency' ];
-
         // The Photoshop SupplementalCategories tag contains supplementalcategories - Find it
         $Item = & find_XMP_item( $photoshop_block, "photoshop:SupplementalCategories" );
-
         // Create an array to receive the XML list items for the Supplemental Categories
         $new_supcat_array = array( );
-
         // Cycle through the Supplemental Categories
         foreach ( $new_ps_file_info_array[ 'supplementalcategories' ] as $sup_category )
         {
                 // Add a new list item for this Supplemental Category
                 $new_supcat_array[] = array( 'tag' => 'rdf:li', 'value' => $sup_category );
         }
-
         // Add the array of Supplemental Category List Items to the Photoshop SupplementalCategories tag
         $Item[ 'children' ][ 0 ][ 'children' ] = $new_supcat_array;
-
-
-
         // Process the XMP XAP block
-
         // Find the XAP Information within the XMP block
         $XAP_block = & find_XMP_block( $new_XMP_array, "xap" );
-
         // The XAP CreateDate tag contains date XMP was first created - Find it and Update the value
         $Item = & find_XMP_item( $XAP_block, "xap:CreateDate" );
-
         // Check if the CreateDate is blank
         if ( $Item[ 'value' ] == "" )
         {
                 // CreateDate is blank - we must have just added it - set it to the current date
-                $Item[ 'value' ] = date( "Y-m-d\TH:i:s" );
+                $Item[ 'value' ] = date( "Y-m-d    H:i:s" );
                 $Item[ 'value' ] .= get_Local_Timezone_Offset( );
         }
-
-
         // The XAP ModifyDate tag contains last resource change date  - Find it and Update the value to the current date
         $Item = & find_XMP_item( $XAP_block, "xap:ModifyDate" );
-        $Item[ 'value' ] = date( "Y-m-d\TH:i:s" );
+        $Item[ 'value' ] = date( "Y-m-d    H:i:s" );
         $Item[ 'value' ] .= get_Local_Timezone_Offset( );
-
         // The XAP ModifyDate tag contains last XMP change date  - Find it and Update the value to the current date
         $Item = & find_XMP_item( $XAP_block, "xap:MetadataDate" );
-        $Item[ 'value' ] = date( "Y-m-d\TH:i:s" );
+        $Item[ 'value' ] = date( "Y-m-d    H:i:s" );
         $Item[ 'value' ] .= get_Local_Timezone_Offset( );
-
-
-
         // The XAP CreatorTool tag contains name of the software editor  - Find it
         $Item = & find_XMP_item( $XAP_block, "xap:CreatorTool" );
-
         // Photoshop replaces the CreatorTool with "Adobe Photoshop ..."
         // This toolkit instead preserves existing value and appends the toolkit name to the end of it
-
         // Check if a CreatorTool already exists
         if ( $Item[ 'value' ] != "" )
         {
@@ -1462,15 +1146,9 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                 // No CreatorTool string exists - create one
                 $Item[ 'value' ] = $GLOBALS[ "Software Name" ];
         }
-
-
-
-
         // Process the XMP Basic Job Information block
-
         // Find the XAP Basic Job Information within the XMP block
         $XAPBJ_block = & find_XMP_block( $new_XMP_array, "xapBJ" );
-
         // The XAP Basic Job JobRef tag contains urgency - Find it and Update the value
         $Item = & find_XMP_item( $XAPBJ_block, "xapBJ:JobRef" );
         $Item[ 'children' ][ 0 ][ 'children' ] =
@@ -1481,21 +1159,11 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                                                       ),
                              ),
                      );
-
-
-
-
         // Process the XMP XAP Rights Information block
-
         // Find the XAP Rights Information within the XMP block
         $XAPRights_block = & find_XMP_block( $new_XMP_array, "xapRights" );
-
-
-
         // The XAP Rights Marked tag should only be present if copyrightstatus is 'Copyrighted Work' or 'Public Domain'
         // If copyrightstatus 'Unmarked' or anything else, the XAP Rights Marked tag should be missing
-
-
         // Remove any existing XAP Rights Marked tags - they will be replaced
         foreach( $XAPRights_block as  $tagno => $tag )
         {
@@ -1504,7 +1172,6 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
                         array_splice( $XAPRights_block, $tagno, 1 );
                 }
         }
-
         // Check the value of the copyrightstatus flag
         if ( $new_ps_file_info_array[ 'copyrightstatus' ] == "Copyrighted Work" )
         {
@@ -1520,52 +1187,35 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
         {
                 // Unmarked or Other - Do nothing - don't add a Marked tag
         }
-
-
         // The XAP Rights WebStatement tag contains ownerurl - Find it and Update the value
         $Item = & find_XMP_item( $XAPRights_block, "xapRights:WebStatement" );
         $Item[ 'value' ] = $new_ps_file_info_array[ 'ownerurl' ];
-
-
-
-
         // Process the XMP Dublin Core block
-
         // Find the Dublin Core Information within the XMP block
         $DC_block = & find_XMP_block( $new_XMP_array, "dc" );
-
-
         // The Dublin Core description tag contains caption - Find it and Update the value
         $Item = & find_XMP_item( $DC_block, "dc:description" );
         $Item[ 'children' ][ 0 ][ 'children' ] = array( array(  'tag'   => "rdf:li",
                                                                 'value' => $new_ps_file_info_array[ 'caption' ],
                                                                 'attributes' => array( 'xml:lang' => "x-default" ) ) );
-
-
         // The Dublin Core title tag contains title - Find it and Update the value
         $Item = & find_XMP_item( $DC_block, "dc:title" );
         $Item[ 'children' ][ 0 ][ 'children' ] = array( array(  'tag'   => "rdf:li",
                                                                 'value' => $new_ps_file_info_array[ 'title' ],
                                                                 'attributes' => array( 'xml:lang' => "x-default" ) ) );
-
-
         // The Dublin Core rights tag contains copyrightnotice - Find it and Update the value
         $Item = & find_XMP_item( $DC_block, "dc:rights" );
         $Item[ 'children' ][ 0 ][ 'children' ] = array( array(  'tag'   => "rdf:li",
                                                                 'value' => $new_ps_file_info_array[ 'copyrightnotice' ],
                                                                 'attributes' => array( 'xml:lang' => "x-default" ) ) );
-
         // The Dublin Core creator tag contains author - Find it and Update the value
         $Item = & find_XMP_item( $DC_block, "dc:creator" );
         $Item[ 'children' ][ 0 ][ 'children' ] = array( array(  'tag'   => "rdf:li",
                                                                 'value' => $new_ps_file_info_array[ 'author' ]) );
-
         // The Dublin Core subject tag contains keywords - Find it
         $Item = & find_XMP_item( $DC_block, "dc:subject" );
-
         // Create an array to receive the Keywords List Items
         $new_keywords_array = array( );
-
         // Cycle through each keyword
         foreach( $new_ps_file_info_array[ 'keywords' ] as $keyword )
         {
@@ -1574,109 +1224,28 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
         }
         // Add the Keywords List Items array to the Dublin Core subject tag
         $Item[ 'children' ][ 0 ][ 'children' ] = $new_keywords_array;
-
-
-
         /***************************************/
-
         // FINISHED UPDATING VALUES
-
         // Insert the new IPTC array into the Photoshop IRB array
         $new_IRB_array = put_Photoshop_IPTC( $new_IRB_array, $new_IPTC_array );
-
         // Write the EXIF array to the JPEG header
         $jpeg_header_data = put_EXIF_JPEG( $new_Exif_array, $jpeg_header_data );
-
         // Convert the XMP array to XMP text
         $xmp_text = write_XMP_array_to_text( $new_XMP_array );
-
         // Write the XMP text to the JPEG Header
         $jpeg_header_data = put_XMP_text( $jpeg_header_data, $xmp_text );
-
         // Write the Photoshop IRB array to the JPEG header
         $jpeg_header_data = put_Photoshop_IRB( $jpeg_header_data, $new_IRB_array );
-
         return $jpeg_header_data;
-
 }
-
 /******************************************************************************
 * End of Function:     put_photoshop_file_info
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 *         INTERNAL FUNCTIONS
 *
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Local_Timezone_Offset
@@ -1689,12 +1258,10 @@ function put_photoshop_file_info( $jpeg_header_data, $new_ps_file_info_array, $O
 * Returns:      $tz_str - a string containing the timezone offset
 *
 ******************************************************************************/
-
 function get_Local_Timezone_Offset( )
 {
         // Retrieve the Timezone offset in seconds
         $tz_seconds = date( "Z" );
-
         // Check if the offset is less than zero
         if ( $tz_seconds < 0 )
         {
@@ -1706,20 +1273,14 @@ function get_Local_Timezone_Offset( )
                 // Offset is greater than or equal to zero - add a Plus sign to the output
                 $tz_str = "+";
         }
-
         // Add the absolute offset to the output, formatted as HH:MM
         $tz_str .= gmdate( "H:i", abs($tz_seconds) );
-
         // Return the result
         return $tz_str;
 }
-
 /******************************************************************************
 * End of Function:     get_Local_Timezone_Offset
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     XMP_Check
@@ -1735,16 +1296,13 @@ function get_Local_Timezone_Offset( )
 * Returns:      output - a string containing the timezone offset
 *
 ******************************************************************************/
-
 function XMP_Check( $reference_array, $check_array)
 {
         // Cycle through each of the elements of the reference XMP array
         foreach( $reference_array as $valkey => $val )
         {
-
                 // Search for the current reference tag within the XMP array to be checked
                 $tagpos = find_XMP_Tag( $check_array,  $val );
-
                 // Check if the tag was found
                 if ( $tagpos === FALSE )
                 {
@@ -1752,19 +1310,16 @@ function XMP_Check( $reference_array, $check_array)
                         $tagpos = count( $check_array );
                         $check_array[ $tagpos ] = $val;
                 }
-
                 // Check if the reference tag has children
                 if ( array_key_exists( 'children', $val ) )
                 {
                         // Reference tag has children - these need to be checked too
-
                         // Determine if the array being checked has children for this tag
                         if ( ! array_key_exists( 'children', $check_array[ $tagpos ] ) )
                         {
                                 // Array being checked has no children - add a blank children array
                                 $check_array[ $tagpos ][ 'children' ] = array( );
                         }
-
                         // Recurse, checking the children tags against the reference children
                         $check_array[ $tagpos ][ 'children' ] = XMP_Check( $val[ 'children' ] , $check_array[ $tagpos ][ 'children' ] );
                 }
@@ -1773,19 +1328,12 @@ function XMP_Check( $reference_array, $check_array)
                         // No children - don't need to check anything else
                 }
         }
-
         // Return the checked XMP array
         return $check_array;
 }
-
-
 /******************************************************************************
 * End of Function:     XMP_Check
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     find_XMP_Tag
@@ -1799,13 +1347,10 @@ function XMP_Check( $reference_array, $check_array)
 * Returns:      output - a string containing the timezone offset
 *
 ******************************************************************************/
-
 function find_XMP_Tag( $XMP_array, $tag )
 {
         $namespacestr = "";
-
         // Some tags have a namespace attribute which defines them (i.e. rdf:Description tags)
-
         // Check if the tag being searched for has attributs
         if ( array_key_exists( 'attributes', $tag ) )
         {
@@ -1820,13 +1365,9 @@ function find_XMP_Tag( $XMP_array, $tag )
                         }
                 }
         }
-
-
-
         // Cycle through the elements of the XMP array to be searched.
         foreach( $XMP_array as $valkey => $val )
         {
-
                 // Check if the current element is a rdf:Description tag
                 if ( strcasecmp ( $tag[ 'tag' ], 'rdf:Description' ) == 0 )
                 {
@@ -1845,18 +1386,12 @@ function find_XMP_Tag( $XMP_array, $tag )
                         return $valkey;
                 }
         }
-
         // Cycled through all tags without finding the correct one - return error value
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     find_XMP_Tag
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     create_GUID
@@ -1870,24 +1405,16 @@ function find_XMP_Tag( $XMP_array, $tag )
 * Returns:      output - a string containing the timezone offset
 *
 ******************************************************************************/
-
 function create_GUID( )
 {
         // Create a md5 sum of a random number - this is a 32 character hex string
         $raw_GUID = md5( uniqid( getmypid() . rand( ) . (double)microtime()*1000000, TRUE ) );
-
         // Format the string into 8-4-4-4-12 (numbers are the number of characters in each block)
         return  substr($raw_GUID,0,8) . "-" . substr($raw_GUID,8,4) . "-" . substr($raw_GUID,12,4) . "-" . substr($raw_GUID,16,4) . "-" . substr($raw_GUID,20,12);
 }
-
 /******************************************************************************
 * End of Function:     create_GUID
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     add_to_field
@@ -1905,7 +1432,6 @@ function create_GUID( )
 * Returns:      output - the Photoshop File Info array with the value added
 *
 ******************************************************************************/
-
 function add_to_field( $field_array, $field, $value, $separator )
 {
         // Check if the value is blank
@@ -1914,7 +1440,6 @@ function add_to_field( $field_array, $field, $value, $separator )
                 // Value is blank - return File Info array unchanged
                 return $field_array;
         }
-
         // Check if the value can be found anywhere within the existing value for this field
         if ( stristr ( $field_array[ $field ], $value ) == FALSE)
         {
@@ -1928,17 +1453,12 @@ function add_to_field( $field_array, $field, $value, $separator )
                 // Append the value to the field
                 $field_array[$field] .= $value;
         }
-
         // Return the File Info Array
         return $field_array;
 }
-
 /******************************************************************************
 * End of Function:     add_to_field
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     find_IPTC_Resource
@@ -1952,7 +1472,6 @@ function add_to_field( $field_array, $field, $value, $separator )
 *               FALSE - otherwise
 *
 ******************************************************************************/
-
 function find_IPTC_Resource( $IPTC_array, $record_type )
 {
         // Cycle through the ITPC records
@@ -1965,18 +1484,12 @@ function find_IPTC_Resource( $IPTC_array, $record_type )
                         return $record;
                 }
         }
-
         // No matching record found - return error code
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     find_IPTC_Resource
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     find_Photoshop_IRB_Resource
@@ -1990,7 +1503,6 @@ function find_IPTC_Resource( $IPTC_array, $record_type )
 *               FALSE - otherwise
 *
 ******************************************************************************/
-
 function find_Photoshop_IRB_Resource( $IRB_array, $resource_ID )
 {
         // Cycle through the IRB resources
@@ -2003,22 +1515,12 @@ function find_Photoshop_IRB_Resource( $IRB_array, $resource_ID )
                         return $IRB_Resource;
                 }
         }
-
         // No matching resource found - return error code
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     find_Photoshop_IRB_Resource
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     find_XMP_item
@@ -2033,7 +1535,6 @@ function find_Photoshop_IRB_Resource( $IRB_array, $resource_ID )
 *               FALSE - otherwise
 *
 ******************************************************************************/
-
 function & find_XMP_item( & $Item_Array, $item_name )
 {
         // Cycle through the top level of the XMP array
@@ -2046,19 +1547,12 @@ function & find_XMP_item( & $Item_Array, $item_name )
                         return $Item_Array[ $Item_Key ];
                 }
         }
-
         // No matching tag found - return error code
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     find_XMP_item
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     find_XMP_block
@@ -2072,7 +1566,6 @@ function & find_XMP_item( & $Item_Array, $item_name )
 *               FALSE - otherwise
 *
 ******************************************************************************/
-
 function & find_XMP_block( & $XMP_array, $block_name )
 {
         // Check that the rdf:RDF section can be found (which contains the rdf:Description tags
@@ -2084,7 +1577,6 @@ function & find_XMP_block( & $XMP_array, $block_name )
                 // Found rdf:RDF
                 // Make it's children easily accessible
                 $RDF_Contents = $XMP_array[0]['children'][0]['children'];
-
                 // Cycle through the children (rdf:Description tags)
                 foreach ($RDF_Contents as $RDF_Key => $RDF_Item)
                 {
@@ -2106,33 +1598,20 @@ function & find_XMP_block( & $XMP_array, $block_name )
                         }
                 }
         }
-
         // No matching rdf:Description block found
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     find_XMP_block
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      Blank XMP Structure
 *
 * Contents:     A template XMP array which can be used to create a new XMP segment
 *
 ******************************************************************************/
-
 // Create a GUID to be used in this template array
 $new_GUID = create_GUID( );
-
 $GLOBALS[ 'Blank XMP Structure' ] =
 array (
   0 =>
@@ -2400,7 +1879,6 @@ array (
               ),
             ),
           ),
-
 /*          0 =>
           array (
             'tag' => 'rdf:Description',
@@ -2411,7 +1889,6 @@ array (
             ),
             'children' =>
             array (
-
 //EXIF DATA GOES HERE - Not Implemented yet
             ),
           ),
@@ -2478,21 +1955,12 @@ array (
             ),
           ),
 */
-
         ),
       ),
     ),
   ),
 );
-
-
-
 /******************************************************************************
 * End of Global Variable:     Blank XMP Structure
 ******************************************************************************/
-
-
-
-
-
 ?>

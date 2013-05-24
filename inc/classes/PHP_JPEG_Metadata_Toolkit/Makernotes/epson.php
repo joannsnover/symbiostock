@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     epson.php
@@ -32,23 +31,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // Epson makernote uses Olympus tags - ensure they are included
-
 include_once 'olympus.php';
-
-
-
-
 // Add the Parser function to the list of Makernote Parsers. (Interpreter Functions are supplied by the Olympus script)
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Epson_Makernote";
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Epson_Makernote
@@ -76,10 +62,8 @@ $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Epson_Makern
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Epson_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
-
         // Check if the Make Field contains the word Epson
         if ( stristr( $Make_Field, "Epson" ) === FALSE )
         {
@@ -92,28 +76,18 @@ function get_Epson_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
                 // This isn't a Epson Makernote, abort
                 return FALSE ;
         }
-
-
         // Seek to the start of the IFD
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 8 );
-
         // Read the IFD(s) into an array
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Olympus" );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Epson";
         $Makernote_Tag['Makernote Tags'] = "Olympus";
-
-
         // Return the new tag
         return $Makernote_Tag;
-
 }
-
 /******************************************************************************
 * End of Function:     get_Epson_Makernote
 ******************************************************************************/
-
-
 ?>

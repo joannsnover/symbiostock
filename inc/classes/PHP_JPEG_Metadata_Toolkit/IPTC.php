@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     IPTC.php
@@ -47,10 +46,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // TODO: Not all of the IPTC fields have been tested properly
-
 /******************************************************************************
 *
 * Function:     get_IPTC
@@ -65,20 +61,16 @@
 *               FALSE - If an error occured in decoding
 *
 ******************************************************************************/
-
 function get_IPTC( $Data_Str )
 {
-
         // Initialise the start position
         $pos = 0;
         // Create the array to receive the data
         $OutputArray = array( );
-
         // Cycle through the IPTC records, decoding and storing them
         while( $pos < strlen($Data_Str) )
         {
                 // TODO - Extended Dataset record not supported
-
                 // Check if there is sufficient data for reading the record
                 if ( strlen( substr($Data_Str,$pos) ) < 5 )
                 {
@@ -86,20 +78,16 @@ function get_IPTC( $Data_Str )
                         // Change: changed to return partial data as of revision 1.01
                         return $OutputArray;
                 }
-
                 // Unpack data from IPTC record:
                 // First byte - IPTC Tag Marker - always 28
                 // Second byte - IPTC Record Number
                 // Third byte - IPTC Dataset Number
                 // Fourth and fifth bytes - two byte size value
                 $iptc_raw = unpack( "CIPTC_Tag_Marker/CIPTC_Record_No/CIPTC_Dataset_No/nIPTC_Size", substr($Data_Str,$pos) );
-
                 // Skip position over the unpacked data
                 $pos += 5;
-
                 // Construct the IPTC type string eg 2:105
                 $iptctype = sprintf( "%01d:%02d", $iptc_raw['IPTC_Record_No'], $iptc_raw['IPTC_Dataset_No']);
-
                 // Check if there is sufficient data for reading the record contents
                 if ( strlen( substr( $Data_Str, $pos, $iptc_raw['IPTC_Size'] ) ) !== $iptc_raw['IPTC_Size'] )
                 {
@@ -107,28 +95,19 @@ function get_IPTC( $Data_Str )
                         // Change: changed to return partial data as of revision 1.01
                         return $OutputArray;
                 }
-
                 // Add the IPTC record to the output array
                 $OutputArray[] = array( "IPTC_Type" => $iptctype ,
                                         "RecName" => $GLOBALS[ "IPTC_Entry_Names" ][ $iptctype ],
                                         "RecDesc" => $GLOBALS[ "IPTC_Entry_Descriptions" ][ $iptctype ],
                                         "RecData" => substr( $Data_Str, $pos, $iptc_raw['IPTC_Size'] ) );
-
                 // Skip over the IPTC record data
                 $pos += $iptc_raw['IPTC_Size'];
         }
         return $OutputArray;
-
 }
-
-
 /******************************************************************************
 * End of Function:     get_IPTC
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     put_IPTC
@@ -142,8 +121,6 @@ function get_IPTC( $Data_Str )
 * Returns:      iptc_packed_data - IPTC-NAA IIM encoded string
 *
 ******************************************************************************/
-
-
 function put_IPTC( $new_IPTC_block )
 {
         // Check if the incoming IPTC block is valid
@@ -154,30 +131,22 @@ function put_IPTC( $new_IPTC_block )
         }
         // Initialise the packed output data string
         $iptc_packed_data = "";
-
         // Cycle through each record in the new IPTC block
         foreach ($new_IPTC_block as $record)
         {
                 // Extract the Record Number and Dataset Number from the IPTC_Type field
                 list($IPTC_Record, $IPTC_Dataset) = sscanf( $record['IPTC_Type'], "%d:%d");
-
                 // Write the IPTC-NAA IIM Tag Marker, Record Number, Dataset Number and Data Size to the packed output data string
                 $iptc_packed_data .= pack( "CCCn", 28, $IPTC_Record, $IPTC_Dataset, strlen($record['RecData']) );
-
                 // Write the IPTC-NAA IIM Data to the packed output data string
                 $iptc_packed_data .= $record['RecData'];
         }
-
         // Return the IPTC-NAA IIM data
         return $iptc_packed_data;
 }
-
 /******************************************************************************
 * End of Function:     put_IPTC
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     Interpret_IPTC_to_HTML
@@ -190,23 +159,17 @@ function put_IPTC( $new_IPTC_block )
 * Returns:      OutputStr - A string containing the HTML
 *
 ******************************************************************************/
-
 function Interpret_IPTC_to_HTML( $IPTC_info )
 {
         // Create a string to receive the HTML
         $output_str ="";
-
         // Check if the IPTC
         if ( $IPTC_info !== FALSE )
         {
-
-
                 // Add Heading to HTML
-                $output_str .= "<h3 class=\"IPTC_Main_Heading\">IPTC-NAA Record</h3>\n";
-
+                $output_str .= "<h4 class=\"IPTC_Main_Heading\">IPTC-NAA Record</h4>\n";
                 // Add Table to HTML
-                $output_str .= "\n<table class=\"IPTC_Table\" border=1>\n";
-
+                $output_str .= "\n<table class=\"IPTC_Table table table-condensed table-bordered\" >\n";
                 // Cycle through each of the IPTC-NAA IIM records
                 foreach( $IPTC_info as $IPTC_Record )
                 {
@@ -220,23 +183,18 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                         else
                         {
                                 // Record is a recognised IPTC field - Process it accordingly
-
                                 switch ( $IPTC_Record['IPTC_Type'] )
                                 {
                                         case "1:00":    // Envelope Record:Model Version
                                         case "1:22":    // Envelope Record:File Format Version
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">" . hexdec( bin2hex( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 break;
-
                                         case "1:90":    // Envelope Record:Coded Character Set
-                                                $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Decoding not yet implemented<br>\n (Hex Data: " . bin2hex( $IPTC_Record['RecData'] )  .")</td></tr>\n";
+                                                $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Decoding not yet implemented<br />\n (Hex Data: " . bin2hex( $IPTC_Record['RecData'] )  .")</td></tr>\n";
                                                 break;
                                                 // TODO: Implement decoding of IPTC record 1:90
-
                                         case "1:20":    // Envelope Record:File Format
-
                                                 $formatno = hexdec( bin2hex( $IPTC_Record['RecData'] ) );
-
                                                 // Lookup file format from lookup-table
                                                 if ( array_key_exists( $formatno, $GLOBALS[ "IPTC_File Formats" ] ) )
                                                 {
@@ -249,14 +207,10 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">File Format</td><td class=\"IPTC_Value_Cell\">Unknown File Format ($formatno)</td></tr>\n";
                                                 }
                                                 break;
-
-
                                         case "2:00":    // Application Record:Record Version
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">IPTC Version</td><td class=\"IPTC_Value_Cell\">" . hexdec( bin2hex( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 break;
-
                                         case "2:42":    // Application Record: Action Advised
-
                                                 // Looup Action
                                                 if ( $IPTC_Record['RecData'] == "01" )
                                                 {
@@ -280,7 +234,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Unknown : " . nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 }
                                                 break;
-
                                         case "2:08":    // Application Record:Editorial Update
                                                 if ( $IPTC_Record['RecData'] == "01" )
                                                 {
@@ -293,7 +246,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Unknown : " . nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 }
                                                 break;
-
                                         case "2:30":    // Application Record:Release Date
                                         case "2:37":    // Application Record:Expiration Date
                                         case "2:47":    // Application Record:Reference Date
@@ -303,7 +255,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                 $date_array = unpack( "a4Year/a2Month/A2Day", $IPTC_Record['RecData'] );
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">" . nl2br( HTML_UTF8_Escape( $date_array['Day'] . "/" . $date_array['Month'] . "/" . $date_array['Year'] ) ) ."</td></tr>\n";
                                                 break;
-
                                         case "2:35":    // Application Record:Release Time
                                         case "2:38":    // Application Record:Expiration Time
                                         case "2:60":    // Application Record:Time Created
@@ -312,7 +263,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                 $time_array = unpack( "a2Hour/a2Minute/A2Second/APlusMinus/A4Timezone", $IPTC_Record['RecData'] );
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">" . nl2br( HTML_UTF8_Escape( $time_array['Hour'] . ":" . $time_array['Minute'] . ":" . $time_array['Second'] . " ". $time_array['PlusMinus'] . $time_array['Timezone'] ) ) ."</td></tr>\n";
                                                 break;
-
                                         case "2:75":    // Application Record:Object Cycle
                                                 // Lookup Value
                                                 if ( $IPTC_Record['RecData'] == "a" )
@@ -333,12 +283,10 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Unknown : " . nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 }
                                                 break;
-
                                         case "2:125":   // Application Record:Rasterised Caption
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">460x128 pixel black and white caption image</td></tr>\n";
                                                 break;
                                                 // TODO: Display Rasterised Caption for IPTC record 2:125
-
                                         case "2:130":   // Application Record:Image Type
                                                 // Lookup Number of Components
                                                 if ( $IPTC_Record['RecData']{0} == "0" )
@@ -353,7 +301,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                 {
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Number of Colour Components : " . nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData']{0} ) );
                                                 }
-
                                                 // Lookup current objectdata colour
                                                 if ( $GLOBALS['ImageType_Names'][ $IPTC_Record['RecData']{1} ] == "" )
                                                 {
@@ -365,7 +312,6 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                 }
                                                 $output_str .= "</td></tr>\n";
                                                 break;
-
                                         case "2:131":   // Application Record:Image Orientation
                                                 // Lookup value
                                                 if ( $IPTC_Record['RecData'] == "L" )
@@ -386,36 +332,27 @@ function Interpret_IPTC_to_HTML( $IPTC_info )
                                                         $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">Unknown : " . nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 }
                                                 break;
-
                                         default:        // All other records
                                                 $output_str .= "<tr class=\"IPTC_Table_Row\"><td class=\"IPTC_Caption_Cell\">$Record_Name</td><td class=\"IPTC_Value_Cell\">" .nl2br( HTML_UTF8_Escape( $IPTC_Record['RecData'] ) ) ."</td></tr>\n";
                                                 break;
                                 }
                         }
                 }
-
                 // Add Table End to HTML
-                $output_str .= "</table><br>\n";
+                $output_str .= "</table><br />\n";
         }
-
         // Return HTML
         return $output_str;
 }
-
-
 /******************************************************************************
 * End of Function:     Interpret_IPTC_to_HTML
 ******************************************************************************/
-
-
-
 /******************************************************************************
 * Global Variable:      IPTC_Entry_Names
 *
 * Contents:     The names of the IPTC-NAA IIM fields
 *
 ******************************************************************************/
-
 $GLOBALS[ "IPTC_Entry_Names" ] = array(
 // Envelope Record
 "1:00" => "Model Version",
@@ -432,7 +369,6 @@ $GLOBALS[ "IPTC_Entry_Names" ] = array(
 "1:100" => "UNO (Unique Name of Object)",
 "1:120" => "ARM Identifier",
 "1:122" => "ARM Version",
-
 // Application Record
 "2:00" => "Record Version",
 "2:03" => "Object Type Reference",
@@ -490,36 +426,25 @@ $GLOBALS[ "IPTC_Entry_Names" ] = array(
 "2:200" => "ObjectData Preview File Format",
 "2:201" => "ObjectData Preview File Format Version",
 "2:202" => "ObjectData Preview Data",
-
 // Pre-ObjectData Descriptor Record
 "7:10"  => "Size Mode",
 "7:20"  => "Max Subfile Size",
 "7:90"  => "ObjectData Size Announced",
 "7:95"  => "Maximum ObjectData Size",
-
 // ObjectData Record
 "8:10"  => "Subfile",
-
 // Post ObjectData Descriptor Record
 "9:10"  => "Confirmed ObjectData Size"
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IPTC_Entry_Names
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IPTC_Entry_Descriptions
 *
 * Contents:     The Descriptions of the IPTC-NAA IIM fields
 *
 ******************************************************************************/
-
 $GLOBALS[ "IPTC_Entry_Descriptions" ] = array(
 // Envelope Record
 "1:00" => "2 byte binary version number",
@@ -536,7 +461,6 @@ $GLOBALS[ "IPTC_Entry_Descriptions" ] = array(
 "1:100" => "UNO (Unique Name of Object) - 14 to 80 characters",
 "1:120" => "ARM Identifier - 2 byte binary number",
 "1:122" => "ARM Version - 2 byte binary number",
-
 // Application Record
 "2:00" => "Record Version - 2 byte binary number",
 "2:03" => "Object Type Reference -  3 plus 0 to 64 Characters",
@@ -594,35 +518,25 @@ $GLOBALS[ "IPTC_Entry_Descriptions" ] = array(
 "2:200" => "ObjectData Preview File Format - 2 byte binary number",
 "2:201" => "ObjectData Preview File Format Version - 2 byte binary number",
 "2:202" => "ObjectData Preview Data - Max 256000 binary bytes",
-
 // Pre-ObjectData Descriptor Record
 "7:10"  => "Size Mode - 1 numeric character",
 "7:20"  => "Max Subfile Size",
 "7:90"  => "ObjectData Size Announced",
 "7:95"  => "Maximum ObjectData Size",
-
 // ObjectData Record
 "8:10"  => "Subfile",
-
 // Post ObjectData Descriptor Record
 "9:10"  => "Confirmed ObjectData Size"
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IPTC_Entry_Descriptions
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 * Global Variable:      IPTC_File Formats
 *
 * Contents:     The names of the IPTC-NAA IIM File Formats for field 1:20
 *
 ******************************************************************************/
-
 $GLOBALS[ "IPTC_File Formats" ] = array(
 00 => "No ObjectData",
 01 => "IPTC-NAA Digital Newsphoto Parameter Record",
@@ -655,19 +569,15 @@ $GLOBALS[ "IPTC_File Formats" ] = array(
 28 => "Ritzaus Bureau NITF version (RBNITF DTD)",
 29 => "Corel Draw [*.CDR]"
 );
-
-
 /******************************************************************************
 * End of Global Variable:     IPTC_File Formats
 ******************************************************************************/
-
 /******************************************************************************
 * Global Variable:      ImageType_Names
 *
 * Contents:     The names of the colour components for IPTC-NAA IIM field 2:130
 *
 ******************************************************************************/
-
 $GLOBALS['ImageType_Names'] = array(    "M" => "Monochrome",
                                         "Y" => "Yellow Component",
                                         "M" => "Magenta Component",
@@ -681,11 +591,7 @@ $GLOBALS['ImageType_Names'] = array(    "M" => "Monochrome",
                                         "L" => "Full colour composite, line sequential",
                                         "P" => "Full colour composite, pixel sequential",
                                         "S" => "Full colour composite, special interleaving" );
-
-
-
 /******************************************************************************
 * End of Global Variable:     ImageType_Names
 ******************************************************************************/
-
 ?>

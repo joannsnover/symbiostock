@@ -1,5 +1,5 @@
 /*!
- * Bootstrap Responsive v2.2.2
+ * Bootstrap Responsive v2.3.2
  *
  * Copyright 2012 Twitter, Inc
  * Licensed under the Apache License v2.0
@@ -7,21 +7,22 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-@-ms-viewport {
-  width: device-width;
-}
+
 .clearfix {
   *zoom: 1;
 }
+
 .clearfix:before,
 .clearfix:after {
   display: table;
   line-height: 0;
   content: "";
 }
+
 .clearfix:after {
   clear: both;
 }
+
 .hide-text {
   font: 0/0 a;
   color: transparent;
@@ -29,6 +30,7 @@
   background-color: transparent;
   border: 0;
 }
+
 .input-block-level {
   display: block;
   width: 100%;
@@ -37,22 +39,32 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+@-ms-viewport {
+  width: device-width;
+}
+
 .hidden {
   display: none;
   visibility: hidden;
 }
+
 .visible-phone {
   display: none !important;
 }
+
 .visible-tablet {
   display: none !important;
 }
+
 .hidden-desktop {
   display: none !important;
 }
+
 .visible-desktop {
   display: inherit !important;
 }
+
 @media (min-width: 768px) and (max-width: 979px) {
   .hidden-desktop {
     display: inherit !important;
@@ -67,6 +79,7 @@
     display: none !important;
   }
 }
+
 @media (max-width: 767px) {
   .hidden-desktop {
     display: inherit !important;
@@ -81,6 +94,20 @@
     display: none !important;
   }
 }
+
+.visible-print {
+  display: none !important;
+}
+
+@media print {
+  .visible-print {
+    display: inherit !important;
+  }
+  .hidden-print {
+    display: none !important;
+  }
+}
+
 @media (min-width: 1200px) {
   .row {
     margin-left: -30px;
@@ -430,6 +457,7 @@
     margin-left: 0;
   }
 }
+
 @media (min-width: 768px) and (max-width: 979px) {
   .row {
     margin-left: -20px;
@@ -770,6 +798,7 @@
     width: 28px;
   }
 }
+
 @media (max-width: 767px) {
   body {
     padding-right: 20px;
@@ -867,6 +896,7 @@
     top: 20px;
   }
 }
+
 @media (max-width: 480px) {
   .nav-collapse {
     -webkit-transform: translate3d(0, 0, 0);
@@ -918,6 +948,7 @@
     position: static;
   }
 }
+
 @media (max-width: 979px) {
   body {
     padding-top: 0;
@@ -985,7 +1016,9 @@
     margin-bottom: 2px;
   }
   .nav-collapse .nav > li > a:hover,
-  .nav-collapse .dropdown-menu a:hover {
+  .nav-collapse .nav > li > a:focus,
+  .nav-collapse .dropdown-menu a:hover,
+  .nav-collapse .dropdown-menu a:focus {
     background-color: #f2f2f2;
   }
   .navbar-inverse .nav-collapse .nav > li > a,
@@ -993,7 +1026,9 @@
     color: #999999;
   }
   .navbar-inverse .nav-collapse .nav > li > a:hover,
-  .navbar-inverse .nav-collapse .dropdown-menu a:hover {
+  .navbar-inverse .nav-collapse .nav > li > a:focus,
+  .navbar-inverse .nav-collapse .dropdown-menu a:hover,
+  .navbar-inverse .nav-collapse .dropdown-menu a:focus {
     background-color: #111111;
   }
   .nav-collapse.in .btn-group {
@@ -1065,6 +1100,7 @@
     padding-left: 10px;
   }
 }
+
 @media (min-width: 980px) {
   .nav-collapse.collapse {
     height: auto !important;

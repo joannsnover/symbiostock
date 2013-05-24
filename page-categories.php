@@ -23,7 +23,6 @@ get_header(); ?>
                    <?php
 				   
 				   //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
-
 					$taxonomy     = 'image-type';
 					$orderby      = 'name'; 
 					$show_count   = 1;      // 1 for yes, 0 for no
@@ -45,7 +44,6 @@ get_header(); ?>
 					<ul>
 					<?php wp_list_categories( $args ); ?>
 					</ul>				   
-
 					</div>               
                         
                     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

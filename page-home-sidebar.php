@@ -19,7 +19,6 @@ get_header(); ?>
                     
                     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                         <header class="entry-header">
-
                         </header><!-- .entry-header -->
                         <div class="entry-content">
                             <?php the_content(); ?>
@@ -27,7 +26,6 @@ get_header(); ?>
                             <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="edit-link">', '</span>' ); ?>
                         </div><!-- .entry-content -->
                     </article><!-- #post-<?php the_ID(); ?> -->
-
     
                         <?php comments_template( '', true ); ?>
     

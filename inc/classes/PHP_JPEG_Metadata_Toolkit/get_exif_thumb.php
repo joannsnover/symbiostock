@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     get_exif_thumb.php
@@ -46,25 +45,17 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
         // Ensure that nothing can write to the standard io, before we get the header out
         ob_start( );
         
         
         include 'JPEG.php';
         include 'EXIF.php';
-
-
         // retrieve the filename from the URL parameters
-
         $filename = $_GET['filename'];
-
         // Retrieve any EXIF data in the file
-
         $Exif_array = get_EXIF_JPEG( $filename );
-
         // Check if EXIF data was retrieved
-
         if ( $Exif_array === FALSE )
         {
                 // No EXIF data could be retrieved - abort
@@ -72,8 +63,6 @@
                 echo "<p>EXIF segment could not be retrieved</p>\n";
                 return;
         }
-
-
         // Check if the First IFD exists ( The First IFD is actually the second, since there is also the zeroth IFD)
         if ( count( $Exif_array ) < 2  )
         {
@@ -81,7 +70,6 @@
                 echo "<p>Couldn't find Thumbnail IFD</p>\n";
                 return;
         }
-
         // Check if the First IFD contains the Thumbnail tag
         if ( array_key_exists( 513, $Exif_array[1] ) )
         {
@@ -96,5 +84,4 @@
                 echo "<p>Couldn't find Thumbnail Tag</p>\n";
                 return;
         }
-
 ?>

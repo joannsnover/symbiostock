@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     canon.php
@@ -31,19 +30,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Canon_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Canon_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Canon_Makernote_Html";
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Canon_Makernote
@@ -71,7 +61,6 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Can
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Canon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
         // Check if the Make Field contains the word Canon
@@ -82,29 +71,20 @@ function get_Canon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
         }
         
         // Seek to the start of the IFD
-
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset']  );
-
         // Read the IFD(s) into an array
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Canon" );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Canon";
         $Makernote_Tag['Makernote Tags'] = "Canon";
-
         
         // Return the new tag
         return $Makernote_Tag;
 }
-
 /******************************************************************************
 * End of Function:     get_Canon_Makernote
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Canon_Makernote_Html
@@ -123,7 +103,6 @@ function get_Canon_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Canon_Makernote_Html( $Makernote_tag, $filename )
 {
         // Check that this makernote uses canon tags
@@ -132,20 +111,12 @@ function get_Canon_Makernote_Html( $Makernote_tag, $filename )
                 // Makernote doesn't use Canon tags - cant Interpret it
                 return FALSE;
         }
-
         // Interpret the IFD to html
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
-
 }
-
 /******************************************************************************
 * End of Function:     get_Canon_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Canon_Text_Value
@@ -165,30 +136,22 @@ function get_Canon_Makernote_Html( $Makernote_tag, $filename )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
-
         // Check that the tag uses Canon Definitions
         if ( $Tag_Definitions_Name != "Canon" )
         {
                 // Tag doesn't use Canon definintions - can't process it
                 return FALSE;
         }
-
-
         $Tag_ID = $Exif_Tag['Tag Number'];
-
-
         // Process the special tag according to the tag number
         switch ( $Tag_ID )
         {
-
                 // CAMERA SETTINGS 1
                 case 1:
                         // Create an output string
                         $output_str = "";
-
                         // Cycle through each of the camera settings Values
                         foreach( $Exif_Tag['Data'] as $offset => $value )
                         {
@@ -245,7 +208,6 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                                 {
                                                         $output_str .= "Flash FP sync enabled\n";
                                                 }
-
                                         }
                                         else if ( array_key_exists( $offset, $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] ) )
                                         {
@@ -270,18 +232,14 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                                 }
                                         }
                                 }
-
                         }
                         // Return the text string
                         return $output_str;
                         break;
-
-
                 // CAMERA SETTINGS 2
                 case 4:
                         // Create an output string
                         $output_str = "";
-
                         // Cycle through each of the camera settings Values
                         foreach( $Exif_Tag['Data'] as $offset => $value )
                         {
@@ -300,7 +258,6 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                         else if ( $offset == 14 )
                                         {
                                                 $output_str .= "Number of Focus Points Available: ". ( ( $value & 0xF000 ) / 0x1000 ) . "\n";
-
                                                 if ( $value & 0x0004 == 0x0004 )
                                                 {
                                                         $output_str .= "Left Focus Point Used\n";
@@ -340,7 +297,6 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                                                 }
                                         }
                                 }
-
                         }
                         // Return the text string
                         return $output_str;
@@ -351,25 +307,20 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                 case 12:
                         $output_str =  sprintf ( "%04X%05d", (($Exif_Tag['Data'][0] & 0xFF00)/256), ($Exif_Tag['Data'][0] & 0x00FF) );
                         break;
-
-
                 // Custom Functions
                 case 15:
                         // Create an output string
                         $output_str = "";
-
                         // The size element is the first of the value array
                         // get rid of it
                         $tmparray = $Exif_Tag['Data'];
                         array_shift ( $tmparray );
-
                         // Cycle through each of the custom functions
                         foreach( $tmparray as $valorder => $value )
                         {
                                 // Figure out the function number and value
                                 $funcno = ( $value & 0xFF00 ) / 256;
                                 $funcval = $value & 0x00FF;
-
                                 // Check if the function exists in the lookup table of custom functions
                                 if ( array_key_exists( $funcno, $GLOBALS[ "Canon_Custom_Functions_Tag_Values" ] ) )
                                 {
@@ -401,33 +352,15 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                         // Return the resulting string
                         return $output_str;
                         break;
-
                 default :
                         return FALSE;
         }
         
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_Canon_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Canon
 *
@@ -435,57 +368,27 @@ function get_Canon_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]['Canon'] = array(
-
 1 => array(     'Name' => "Camera Settings 1",
                 'Type' => "Special" ),
-
 4 => array(     'Name' => "Camera Settings 2",
                 'Type' => "Special" ),
-
 6 => array(     'Name' => "Image Type",
                 'Type' => "String" ),
-
 7 => array(     'Name' => "Firmware Version",
                 'Type' => "String" ),
-
 8 => array(     'Name' => "Image Number",
                 'Type' => "Numeric" ),
-
 9 => array(     'Name' => "Owner Name",
                 'Type' => "String" ),
-
 12 => array(    'Name' => "Camera Serial Number",
                 'Type' => "Special" ),
-
 15 => array(    'Name' => "Custom Functions",
                 'Type' => "Special" )
-
 );
-
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Canon
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      Canon_Camera_Settings_1_Tag_Values
 *
@@ -493,18 +396,14 @@ $GLOBALS[ "IFD_Tag_Definitions" ]['Canon'] = array(
 *               Settings 1 Makernote tag, indexed by their offset.
 *
 ******************************************************************************/
-
 $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
-
 1 => array(     'Name' => "Macro Mode",
                 1 => "Macro",
                 2 => "Normal ( Not Macro )" ),
-
 3 => array(     'Name' => "Quality",
                 2 => "Normal",
                 3 => "Fine",
                 5 => "Superfine" ),
-
 4 => array(     'Name' => "Flash Mode",
                 0 => "Flash Not Fired",
                 1 => "Auto",
@@ -514,11 +413,9 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
                 5 => "Auto + Red Eye Reduction",
                 6 => "On + Red Eye Reduction",
                 16 => "External Flash" ),
-
 5 => array(     'Name' => "Continuous drive mode",
                 0 => "Single Frame or Timer Mode",
                 1 => "Continuous" ),
-
 7 => array(     'Name' => "Focus Mode",
                 0 => "One-Shot",
                 1 => "AI Servo",
@@ -527,12 +424,10 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
                 4 => "Single",
                 5 => "Continuous",
                 6 => "Manual Focus" ),
-
 10 => array(    'Name' => "Image Size",
                 0 => "Large",
                 1 => "Medium",
                 2 => "Small" ),
-
 11 => array(    'Name' => "Easy shooting Mode",
                 0 => "Full Auto",
                 1 => "Manual",
@@ -546,28 +441,22 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
                 9 => "Sports",
                 10 => "Macro / Close-Up",
                 11 => "Pan Focus" ),
-
-
 12 => array(    'Name' => "Digital Zoom",
                 0 => "No Digital Zoom",
                 1 => "2x",
                 2 => "4x" ),
-
 13 => array(    'Name' => "Contrast",
                 0 => "Normal",
                 1 => "High",
                 65535 => "Low" ),
-
 14 => array(    'Name' => "Saturation",
                 0 => "Normal",
                 1 => "High",
                 65535 => "Low" ),
-
 15 => array(    'Name' => "Sharpness",
                 0 => "Normal",
                 1 => "High",
                 65535 => "Low" ),
-
 16 => array(    'Name' => "ISO Speed",
                 0 => "Check ISOSpeedRatings EXIF tag for ISO Speed",
                 15 => "Auto ISO",
@@ -575,25 +464,21 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
                 17 => "ISO 100",
                 18 => "ISO 200",
                 19 => "ISO 400" ),
-
 17 => array(    'Name' => "Metering Mode",
                 3 => "Evaluative",
                 4 => "Partial",
                 5 => "Centre Weighted" ),
-
 18 => array(    'Name' => "Focus Type",
                 0 => "Manual",
                 1 => "Auto",
                 3 => "Close-up (Macro)",
                 8 => "Locked (Pan Mode)" ),
-
 19 => array(    'Name' => "Auto Focus Point Selected",
                 12288 => "None (Manual Focus)",
                 12289 => "Auto Selected",
                 12290 => "Right",
                 12291 => "Centre",
                 12292 => "Left" ),
-
 20 => array(    'Name' => "Exposure Mode",
                 0 => "Easy Shooting (See Easy Shooting Mode)",
                 1 => "Program",
@@ -601,24 +486,16 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
                 3 => "Av-Priority",
                 4 => "Manual",
                 5 => "A-DEP" ),
-
 28 => array(    'Name' => "Flash Activity",
                 0 => "Flash Did Not Fire",
                 1 => "Flash Fired" ),
-
 32 => array(    'Name' => "Focus Mode",
                 0 => "Focus Mode: Single",
                 1 => "Focus Mode: Continuous" )
-
 );
-
 /******************************************************************************
 * End of Global Variable:     Canon_Camera_Settings_1_Tag_Values
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 * Global Variable:      Canon_Camera_Settings_2_Tag_Values
 *
@@ -626,9 +503,7 @@ $GLOBALS[ "Canon_Camera_Settings_1_Tag_Values" ] = array(
 *               Settings 2 Makernote tag, indexed by their offset.
 *
 ******************************************************************************/
-
 $GLOBALS[ "Canon_Camera_Settings_2_Tag_Values" ] = array(
-
 7 => array (    'Name' => "White Balance",
                 0 => "Auto",
                 1 => "Sunny",
@@ -637,7 +512,6 @@ $GLOBALS[ "Canon_Camera_Settings_2_Tag_Values" ] = array(
                 4 => "Flourescent",
                 5 => "Flash",
                 6 => "Custom" ),
-
 15 => array(    'Name' => "Flash Bias",
                 0xffc0 => "-2 EV",
                 0xffcc => "-1.67 EV",
@@ -657,16 +531,9 @@ $GLOBALS[ "Canon_Camera_Settings_2_Tag_Values" ] = array(
                 0x0034 => "1.67 EV",
                 0x0040 => "2 EV" ),
 );
-
 /******************************************************************************
 * End of Global Variable:     Canon_Camera_Settings_2_Tag_Values
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      Canon_Custom_Functions_Tag_Values
 *
@@ -674,75 +541,56 @@ $GLOBALS[ "Canon_Camera_Settings_2_Tag_Values" ] = array(
 *               Functions Makernote tag, indexed by their offset.
 *
 ******************************************************************************/
-
 $GLOBALS[ "Canon_Custom_Functions_Tag_Values" ] = array(
-
 1 => array (    'Name' => "Long Exposure Noise Reduction",
                 0 => "Off",
                 1 => "On" ),
-
 2 => array (    'Name' => "Shutter/Auto Exposure-lock buttons",
                 0 => "AF/AE lock",
                 1 => "AE lock/AF",
                 2 => "AF/AF lock",
                 3 => "AE+release/AE+AF" ),
-
 3 => array (    'Name' => "Mirror lockup",
                 0 => "Disable",
                 1 => "Enable" ),
-
 4 => array (    'Name' => "Tv/Av and exposure level",
                 0 => "1/2 stop",
                 1 => "1/3 stop" ),
-
 5 => array (    'Name' => "AF-assist light",
                 0 => "On (Auto)",
                 1 => "Off" ),
-
 6 => array (    'Name' => "Shutter speed in Av mode",
                 0 => "Automatic",
                 1 => "1/200 (fixed)" ),
-
 7 => array (    'Name' => "Auto-Exposure Bracketting sequence/auto cancellation",
                 0 => "0,-,+ / Enabled",
                 1 => "0,-,+ / Disabled",
                 2 => "-,0,+ / Enabled",
                 3 => "-,0,+ / Disabled" ),
-
 8 => array (    'Name' => "Shutter Curtain Sync",
                 0 => "1st Curtain Sync",
                 1 => "2nd Curtain Sync" ),
-
 9 => array (    'Name' => "Lens Auto-Focus stop button Function Switch",
                 0 => "AF stop",
                 1 => "Operate AF",
                 2 => "Lock AE and start timer" ),
-
 10 => array (   'Name' => "Auto reduction of fill flash",
                 0 => "Enable",
                 1 => "Disable" ),
-
 11 => array (   'Name' => "Menu button return position",
                 0 => "Top",
                 1 => "Previous (volatile)",
                 2 => "Previous" ),
-
 12 => array (   'Name' => "SET button function when shooting",
                 0 => "Not Assigned",
                 1 => "Change Quality",
                 2 => "Change ISO Speed",
                 3 => "Select Parameters" ),
-
 13 => array (   'Name' => "Sensor cleaning",
                 0 => "Disable",
                 1 => "Enable" )
-
-
 );
-
 /******************************************************************************
 * End of Global Variable:     Canon_Custom_Functions_Tag_Values
 ******************************************************************************/
-
-
 ?>

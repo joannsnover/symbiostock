@@ -13,7 +13,7 @@ class nav_walker_mobile extends Walker_Nav_Menu{
 	
 	function end_lvl(&$output, $depth){
 	
-		$indent = str_repeat("\t", $depth); // don't output children closing tag
+		$indent = str_repeat("    ", $depth); // don't output children closing tag
 	
 	}
 	

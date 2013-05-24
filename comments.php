@@ -62,4 +62,6 @@
 		<p class="nocomments"><?php _e( 'Comments are closed.', 'symbiostock' ); ?></p>
 	<?php endif; ?>
 	<?php comment_form(); ?>
-</div><!-- #comments .comments-area -->
+</div>
+<?php
+?>

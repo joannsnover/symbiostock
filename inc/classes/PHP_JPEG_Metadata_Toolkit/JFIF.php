@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     JFIF.php
@@ -46,9 +45,7 @@
 *               purposes, please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
 include_once 'pjmt_utils.php';          // Change: as of version 1.11 - added to allow directory portability
-
 /******************************************************************************
 *
 * Function:     get_JFIF
@@ -64,7 +61,6 @@ include_once 'pjmt_utils.php';          // Change: as of version 1.11 - added to
 *               FALSE - if a JFIF segment could not be found
 *
 ******************************************************************************/
-
 function get_JFIF( $jpeg_header_data )
 {
         //Cycle through the header segments
@@ -77,7 +73,6 @@ function get_JFIF( $jpeg_header_data )
                         if( strncmp ( $jpeg_header_data[$i]['SegData'], "JFIF\x00", 5) == 0 )
                         {
                                 // Found a JPEG File Interchange Format (JFIF) Block
-
                                 // unpack the JFIF data from the incoming string
                                 // First is the JFIF label string
                                 // Then a two byte version number
@@ -87,23 +82,16 @@ function get_JFIF( $jpeg_header_data )
                                 // Then a byte X-Axis JFIF thumbnail size
                                 // Then a byte Y-Axis JFIF thumbnail size
                                 // Then the uncompressed RGB JFIF thumbnail data
-
                                 $JFIF_data = unpack( 'a5JFIF/C2Version/CUnits/nXDensity/nYDensity/CThumbX/CThumbY/a*ThumbData', $jpeg_header_data[$i]['SegData'] );
-
                                 return $JFIF_data;
                         }
                 }
         }
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_JFIF
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     put_JFIF
@@ -122,12 +110,10 @@ function get_JFIF( $jpeg_header_data )
 *                                  JFIF segment added
 *
 ******************************************************************************/
-
 function put_JFIF( $jpeg_header_data, $new_JFIF_array )
 {
         // pack the JFIF data into its proper format for a JPEG file
         $packed_data = pack( 'a5CCCnnCCa*',"JFIF\x00", $new_JFIF_array['Version1'], $new_JFIF_array['Version2'], $new_JFIF_array['Units'], $new_JFIF_array['XDensity'], $new_JFIF_array['YDensity'], $new_JFIF_array['ThumbX'], $new_JFIF_array['ThumbY'], $new_JFIF_array['ThumbData'] );
-
         //Cycle through the header segments
         for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
         {
@@ -143,7 +129,6 @@ function put_JFIF( $jpeg_header_data, $new_JFIF_array )
                         }
                 }
         }
-
         // No preexisting JFIF block found, insert a new one at the start of the header data.
         array_splice($jpeg_header_data, 0 , 0, array( array(   "SegType" => 0xE0,
                                                                 "SegName" => "APP0",
@@ -151,18 +136,9 @@ function put_JFIF( $jpeg_header_data, $new_JFIF_array )
                                                                 "SegData" => $packed_data ) ) );
         return $jpeg_header_data;
 }
-
 /******************************************************************************
 * End of Function:     put_JFIF
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     Interpret_JFIF_to_HTML
@@ -178,14 +154,13 @@ function put_JFIF( $jpeg_header_data, $new_JFIF_array )
 * Returns:      output - the HTML string
 *
 ******************************************************************************/
-
 function Interpret_JFIF_to_HTML( $JFIF_array, $filename )
 {
         $output = "";
         if ( $JFIF_array !== FALSE )
         {
                 $output .= "<H2 class=\"JFIF_Main_Heading\">Contains JPEG File Interchange Format (JFIF) Information</H2>\n";
-                $output .= "\n<table class=\"JFIF_Table\" border=1>\n";
+                $output .= "\n<table class=\"JFIF_Table table table-condensed table-bordered\" >\n";
                 $output .= "<tr class=\"JFIF_Table_Row\"><td class=\"JFIF_Caption_Cell\">JFIF version: </td><td class=\"JFIF_Value_Cell\">". sprintf( "%d.%02d", $JFIF_array['Version1'], $JFIF_array['Version2'] ) . "</td></tr>\n";
                 if ( $JFIF_array['Units'] == 0 )
                 {
@@ -199,7 +174,6 @@ function Interpret_JFIF_to_HTML( $JFIF_array, $filename )
                 {
                         $output .= "<tr class=\"JFIF_Table_Row\"><td class=\"JFIF_Caption_Cell\">Resolution: </td><td class=\"JFIF_Value_Cell\">" . $JFIF_array['XDensity'] ." x " . $JFIF_array['YDensity'] . " pixels per cm</td></tr>\n";
                 }
-
                 $output .= "<tr class=\"JFIF_Table_Row\"><td class=\"JFIF_Caption_Cell\">JFIF (uncompressed) thumbnail: </td><td class=\"JFIF_Value_Cell\">";
                 if ( ( $JFIF_array['ThumbX'] != 0 ) && ( $JFIF_array['ThumbY'] != 0 ) )
                 {
@@ -210,28 +184,13 @@ function Interpret_JFIF_to_HTML( $JFIF_array, $filename )
                 {
                         $output .= "None</td></tr>\n";
                 }
-
-                $output .= "</table><br>\n";
+                $output .= "</table><br />\n";
         }
-
         return $output;
-
 }
-
-
 /******************************************************************************
 * End of Function:     Interpret_JFIF_to_HTML
 ******************************************************************************/
-
-
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_JFXX
@@ -247,7 +206,6 @@ function Interpret_JFIF_to_HTML( $JFIF_array, $filename )
 *               FALSE - if a JFXX segment could not be found
 *
 ******************************************************************************/
-
 function get_JFXX( $jpeg_header_data )
 {
         //Cycle through the header segments
@@ -260,12 +218,10 @@ function get_JFXX( $jpeg_header_data )
                         if( strncmp ( $jpeg_header_data[$i]['SegData'], "JFXX\x00", 5) == 0 )
                         {
                                 // Found a JPEG File Interchange Format Extension (JFXX) Block
-
                                 // unpack the JFXX data from the incoming string
                                 // First is the 5 byte JFXX label string
                                 // Then a 1 byte Extension code, indicating Thumbnail Format
                                 // Then the thumbnail data
-
                                 $JFXX_data = unpack( 'a5JFXX/CExtension_Code/a*ThumbData', $jpeg_header_data[$i]['SegData'] );
                                 return $JFXX_data;
                         }
@@ -273,14 +229,9 @@ function get_JFXX( $jpeg_header_data )
         }
         return FALSE;
 }
-
 /******************************************************************************
 * End of Function:     get_JFXX
 ******************************************************************************/
-
-
-
-
 /******************************************************************************
 *
 * Function:     put_JFXX
@@ -299,14 +250,11 @@ function get_JFXX( $jpeg_header_data )
 *                                  JFXX segment added
 *
 ******************************************************************************/
-
 function put_JFXX( $jpeg_header_data, $new_JFXX_array )
 {
         // pack the JFXX data into its proper format for a JPEG file
         $packed_data = pack( 'a5Ca*',"JFXX\x00", $new_JFXX_array['Extension_Code'], $new_JFXX_array['ThumbData'] );
-
         $JFIF_pos = -1;
-
         //Cycle through the header segments
         for( $i = 0; $i < count( $jpeg_header_data ); $i++ )
         {
@@ -320,7 +268,6 @@ function put_JFXX( $jpeg_header_data, $new_JFXX_array )
                                 $jpeg_header_data[$i]['SegData'] = $packed_data;
                                 return $jpeg_header_data;
                         }
-
                         // if it has the JFIF label,
                         if( strncmp ( $jpeg_header_data[$i][SegData], "JFIF\x00", 5) == 0 )
                         {
@@ -329,10 +276,7 @@ function put_JFXX( $jpeg_header_data, $new_JFXX_array )
                         }
                 }
         }
-
-
         // No preexisting JFXX block found
-
         // Check if a JFIF segment was found,
         if ( $JFIF_pos !== -1 )
         {
@@ -342,39 +286,29 @@ function put_JFXX( $jpeg_header_data, $new_JFXX_array )
                                                                                         "SegName" => "APP0",
                                                                                         "SegDesc" => $GLOBALS[ "JPEG_Segment_Descriptions" ][ 0xE0 ],
                                                                                         "SegData" => $packed_data ) ) );
-
         }
         else
         {
                 // No pre-existing JFIF segment was found,
                 // insert a new JFIF and the new JFXX segment at the start of the array.
-
                 // Insert new JFXX segment
                 array_splice($jpeg_header_data, 0 , 0, array( array(   "SegType" => 0xE0,
                                                                         "SegName" => "APP0",
                                                                         "SegDesc" => $GLOBALS[ "JPEG_Segment_Descriptions" ][ 0xE0 ],
                                                                         "SegData" => $packed_data ) ) );
-
                 // Create a new JFIF to be inserted at the start of
                 // the array, with generic values
                 $packed_data = pack( 'a5CCCnnCCa*',"JFIF\x00", 1, 2, 1, 72, 72, 0, 0, "" );
-
                 array_splice($jpeg_header_data, 0 , 0, array( array(   "SegType" => 0xE0,
                                                                         "SegName" => "APP0",
                                                                         "SegDesc" => $GLOBALS[ "JPEG_Segment_Descriptions" ][ 0xE0 ],
                                                                         "SegData" => $packed_data ) ) );
         }
-
-
         return $jpeg_header_data;
 }
-
 /******************************************************************************
 * End of Function:     put_JFIF
 ******************************************************************************/
-
-
-
 /******************************************************************************
 *
 * Function:     Interpret_JFXX_to_HTML
@@ -390,7 +324,6 @@ function put_JFXX( $jpeg_header_data, $new_JFXX_array )
 * Returns:      output - the Html string
 *
 ******************************************************************************/
-
 function Interpret_JFXX_to_HTML( $JFXX_array, $filename )
 {
         $output = "";
@@ -400,13 +333,11 @@ function Interpret_JFXX_to_HTML( $JFXX_array, $filename )
                 switch ( $JFXX_array['Extension_Code'] )
                 {
                         case 0x10 :     $output .= "<p class=\"JFXX_Text\">JFXX Thumbnail is JPEG Encoded</p>\n";
-
                                         // Change: as of version 1.11 - Changed to make thumbnail link portable across directories
                                         // Build the path of the thumbnail script and its filename parameter to put in a url
                                         $link_str = get_relative_path( dirname(__FILE__) . "/get_JFXX_thumb.php" , getcwd ( ) );
                                         $link_str .= "?filename=";
                                         $link_str .= get_relative_path( $filename, dirname(__FILE__) );
-
                                         // Add thumbnail link to html
                                         $output .= "<a class=\"JFXX_Thumbnail_Link\" href=\"$link_str\"><img  class=\"JFXX_Thumbnail\" src=\"$link_str\"></a>\n";
                                         break;
@@ -418,21 +349,12 @@ function Interpret_JFXX_to_HTML( $JFXX_array, $filename )
                                         break;
                         default :       $output .= "<p class=\"JFXX_Text\">JFXX Thumbnail is Encoded with Unknown format</p>\n";
                                         break;
-
                         // TODO: Implement JFXX one and three bytes per pixel thumbnail decoding
                 }
-
         }
-
         return $output;
-
 }
-
 /******************************************************************************
 * End of Function:     Interpret_JFXX_to_HTML
 ******************************************************************************/
-
-
-
-
 ?>

@@ -1,24 +1,47 @@
 @charset "utf-8";
 /* CSS Document */
-.symbiostock_slider {
+.symbiostock_networkr {
 }
-.symbiostock_slider input[type="text"] {
+.symbiostock_networkr input[type="text"] {
 	
 	width: 75%;
 }
-a#add_row {
-	color: #0C6;
-	font-size: 14px;
-	font-weight: bold;
-	display: block;
+
+.symbiostock_action_arrows{
 	float: right;
-	background-color: #EFEFEF;
-	border-radius: 5px;
-	padding: 3px 6px;;
+	margin-right: 20px;
 	}
-a#add_row:hover {
-	color: #FFF;
-	background-color: #093;
+.symbiostock_action_arrows img, .symbiostock_remove_network img, #add_row img{
+	opacity: 0.2;
+    transition: opacity .20s ease-in-out;
+    -moz-transition: opacity .20s ease-in-out;
+    -webkit-transition: opacity .20s ease-in-out;
+	margin-right: 0;
+	padding-right: 0;
+	display: block;
+	clear: both;
+	float: right;	
+	}
+.symbiostock_action_arrows img:hover, .symbiostock_remove_network img:hover, #add_row img:hover{	
+    opacity: 1.0;
+    transition: opacity .10s ease-in-out;
+    -moz-transition: opacity .10s ease-in-out;
+    -webkit-transition: opacity .10s ease-in-out;
+}
+.symbiostock_remove_network{
+	float: right;
+	}
+.network_member_info {
+	opacity: 0.5;
+    transition: opacity .20s ease-in-out;
+    -moz-transition: opacity .20s ease-in-out;
+    -webkit-transition: opacity .20s ease-in-out;
+	}
+.network_member_info:hover {
+    opacity: 1.0;
+    transition: opacity .10s ease-in-out;
+    -moz-transition: opacity .10s ease-in-out;
+    -webkit-transition: opacity .10s ease-in-out;	
 	}	
 a#remove{
 	color: #FF8080;
@@ -97,6 +120,23 @@ min-width: 400px;
 	display: block;
 	}	
 /*------network page-----*/
+.network_links th{
+	color: #464646;
+	font-size: 18px;
+		
+	}
+.network_links .little_desc, td .little_desc{
+	font-size: 14px;
+	color: #999;
+	font-style: oblique;
+	}	
+.get_csv td{
+	font-size: 14px;	
+	}
+.get_csv img{
+	display: block;
+	float: left;
+	}
 #symbiostock_network_container div{
 	
 	}
@@ -161,3 +201,18 @@ th.symbiostock_network_site_header{
 	color: #666;
 	font-size: 10px;
 	}	
+	
+.symbiostock_help{
+	width: 50%;
+	margin-bottom: 500px;
+	}
+.symbiostock_help .help_topics{
+	
+	padding-left: 30px;
+	
+	
+	}	
+.symbiostock_help .help_topics ul li{
+	
+	border-bottom: 1px solid #CCC;
+	}		

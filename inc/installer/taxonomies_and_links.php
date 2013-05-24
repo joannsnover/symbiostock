@@ -109,8 +109,6 @@ $symbiostock_categories = array(
 	'Industry',
 	'',
 );
-
-
 foreach($symbiostock_categories as $category){
 	$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
 	
@@ -129,15 +127,10 @@ foreach($symbiostock_categories as $category){
 		
 	}
 }
-
 //check for erroneously named term and replace it, update term info so we know featured images category
-
 $wrong_name_term = get_term_by('slug', 'symbiostock-featured-images-images', 'image-type');
-
 wp_delete_term( $wrong_name_term->term_id, 'image-type', $args );
-
 //make correct featured images category and use
-
 	$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
 	
 	if(!$parent_term){		
@@ -153,5 +146,4 @@ wp_delete_term( $wrong_name_term->term_id, 'image-type', $args );
 }
 $featured_images_cat = get_term_by('slug', 'symbiostock-featured-images', 'image-type');
 update_option('symbiostock_featured_images', $featured_images_cat->term_id);
-
 ?>

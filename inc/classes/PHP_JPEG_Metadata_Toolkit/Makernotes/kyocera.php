@@ -1,5 +1,4 @@
 <?php
-
 /******************************************************************************
 *
 * Filename:     kyocera.php
@@ -36,17 +35,10 @@
 *               commercial uses please contact the author: evan@ozhiker.com
 *
 ******************************************************************************/
-
-
 // Add the parser and interpreter functions to the list of Makernote parsers and interpreters.
-
 $GLOBALS['Makernote_Function_Array']['Read_Makernote_Tag'][] = "get_Kyocera_Makernote";
 $GLOBALS['Makernote_Function_Array']['get_Makernote_Text_Value'][] = "get_Kyocera_Text_Value";
 $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Kyocera_Makernote_Html";
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Kyocera_Makernote
@@ -74,10 +66,8 @@ $GLOBALS['Makernote_Function_Array']['Interpret_Makernote_to_HTML'][] = "get_Kyo
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Kyocera_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Field )
 {
-
         // Check if the Make Field contains the word Contax or Kyocera
         if ( ( stristr( $Make_Field, "Contax" ) === FALSE ) &&
              ( stristr( $Make_Field, "Kyocera" ) === FALSE ) )
@@ -85,41 +75,26 @@ function get_Kyocera_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fie
                 // Kyocera or Contax not found in maker field - abort
                 return FALSE;
         }
-
-
         // Check if the header exists at the start of the Makernote
         if ( substr( $Makernote_Tag['Data'], 0, 22 ) != "KYOCERA            \x00\x00\x00" )
         {
                 // This isn't a Kyocera Makernote, abort
                 return FALSE ;
         }
-
-
         // Seek to the start of the IFD
         fseek($filehnd, $Makernote_Tag['Tiff Offset'] + $Makernote_Tag['Offset'] + 22 );
-
         // Read the IFD(s) into an array
         $Makernote_Tag['Decoded Data'] = read_Multiple_IFDs( $filehnd, $Makernote_Tag['Tiff Offset'], $Makernote_Tag['ByteAlign'], "Kyocera", True, False );
-
         // Save some information into the Tag element to aid interpretation
         $Makernote_Tag['Decoded'] = TRUE;
         $Makernote_Tag['Makernote Type'] = "Kyocera";
         $Makernote_Tag['Makernote Tags'] = "Kyocera";
-
-
         // Return the new tag
         return $Makernote_Tag;
 }
-
 /******************************************************************************
 * End of Function:     get_Kyocera_Makernote
 ******************************************************************************/
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Kyocera_Text_Value
@@ -139,7 +114,6 @@ function get_Kyocera_Makernote( $Makernote_Tag, $EXIF_Array, $filehnd, $Make_Fie
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Kyocera_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 {
         // Check that this tag uses Kyocera tags, otherwise it can't be interpreted here
@@ -148,22 +122,11 @@ function get_Kyocera_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
                 // No Special Kyocera tags so far
                 return FALSE;
         }
-
         return FALSE;
-
 }
-
 /******************************************************************************
 * End of Function:     get_Kyocera_Text_Value
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 *
 * Function:     get_Kyocera_Makernote_Html
@@ -182,33 +145,20 @@ function get_Kyocera_Text_Value( $Exif_Tag, $Tag_Definitions_Name )
 *                       an error occured in decoding
 *
 ******************************************************************************/
-
 function get_Kyocera_Makernote_Html( $Makernote_tag, $filename )
 {
-
         // Check that this is a Kyocera Makernote, otherwise it can't be interpreted here
         if ( $Makernote_tag['Makernote Type'] != "Kyocera" )
         {
                 // Not a Kyocera Makernote - cannot interpret it - abort
                 return False;
         }
-
         // Interpret the IFD and return the HTML
         return interpret_IFD( $Makernote_tag['Decoded Data'][0], $filename );
-
 }
-
 /******************************************************************************
 * End of Function:     get_Kyocera_Makernote_Html
 ******************************************************************************/
-
-
-
-
-
-
-
-
 /******************************************************************************
 * Global Variable:      IFD_Tag_Definitions, Kyocera
 *
@@ -216,26 +166,13 @@ function get_Kyocera_Makernote_Html( $Makernote_tag, $filename )
 *               Makernote tags, indexed by their tag number.
 *
 ******************************************************************************/
-
 $GLOBALS[ "IFD_Tag_Definitions" ]["Kyocera"] = array(
-
 1 => array(             'Name' => "Kyocera Proprietory Format Thumbnail",
                         'Type' => "Unknown" ),
-
 0x0E00 => array(        'Name' => "Print Image Matching Info",
                         'Type' => "PIM" ),
-
 );
-
 /******************************************************************************
 * End of Global Variable:     IFD_Tag_Definitions, Kyocera
 ******************************************************************************/
-
-
-
-
-
-
-
-
 ?>

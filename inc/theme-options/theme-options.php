@@ -184,9 +184,9 @@ function symbiostock_settings_field_sample_select_options() {
 			foreach ( symbiostock_sample_select_options() as $option ) {
 				$label = $option['label'];
 				if ( $selected == $option['value'] ) // Make default first in list
-					$p = "\n\t<option style=\"padding-right: 10px;\" selected='selected' value='" . esc_attr( $option['value'] ) . "'>$label</option>";
+					$p = "\n    <option style=\"padding-right: 10px;\" selected='selected' value='" . esc_attr( $option['value'] ) . "'>$label</option>";
 				else
-					$r .= "\n\t<option style=\"padding-right: 10px;\" value='" . esc_attr( $option['value'] ) . "'>$label</option>";
+					$r .= "\n    <option style=\"padding-right: 10px;\" value='" . esc_attr( $option['value'] ) . "'>$label</option>";
 			}
 			echo $p . $r;
 		?>
