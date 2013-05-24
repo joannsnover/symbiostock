@@ -1,4 +1,9 @@
 <?php 
+
+if(isset($_POST['symbiostock_cache_days']) && !empty($_POST['symbiostock_cache_days']) && is_numeric($_POST['symbiostock_cache_days']) ){	
+	update_option('symbiostock_cache_days', trim($_POST['symbiostock_cache_days']));	
+	} 
+	
 $update_symbiostock_networks = new network_manager;
 $update_symbiostock_networks->update_connected_networks();
 if(isset($_FILES[ 'symbiostock_csv_file' ]) && !empty($_FILES[ 'symbiostock_csv_file' ])){
@@ -149,13 +154,27 @@ foreach($symbiocards as $symbiocard){
                 <td><a id="add_row" href="#"><img alt="ADD ROW" src="<?php echo $action_img . 'more.png'; ?>" /></a></td>
             </tr>
             <tr>
-                <td><input type="file" id="symbiostock_csv_file" name="symbiostock_csv_file" />
+                <td colspan="2"><input type="file" id="symbiostock_csv_file" name="symbiostock_csv_file" />
                     <label for="html-upload">
                         <input id="html-upload" class="button" type="submit" value="Upload" name="html-upload" />
-                        <em> - Add by <strong>.csv</strong> file...</em> <?php echo sshelp('csv_file', '.csv files explained.'); ?></label></td>
+                        <em> - Add by <strong>.csv</strong> file...</em> <?php echo sshelp('csv_file', '.csv files explained.'); ?></label>
+                </td>
+            </tr>
+            <tr>
+            <td>
+             <label class="description" for="update_symbiocards"><input id="update_symbiocards" name="update_symbiocards" type="checkbox" /> <strong>Update Symbiocards</strong> <em>Last update: <?php echo $last_symbiocard_update ?></em></label>         
+            </td>
+            <td>
+            
+            <label class="description" for="symbiostock_cache_days">
+            <strong>
+            	<input style="text-align: center;" size="3" type="text" name="symbiostock_cache_days" value="<?php echo get_option('symbiostock_cache_days', 7) ?>" />
+            </strong>
+            <em> days cache network search</em> 
+            </label>                
+            </td>
             </tr>
         </tfoot>
     </table>
-    <br />
-    <label class="description" for="update_symbiocards"><input id="update_symbiocards" name="update_symbiocards" type="checkbox" /> Update Symbiocards <em>Last update: <?php echo $last_symbiocard_update ?></em></label>
+   
 </div>

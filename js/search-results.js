@@ -1,8 +1,6 @@
 
 jQuery(document).ready(function ($) {
-	
-	$(".search-result").bind("load", function () { $(this).fadeIn(); });
-	
+			
     function pageFunctions() {
         var symbiostock_loading_image = symbiostock_large_loader;
         $('#search_selection_symbiostock_preview').attr("src", symbiostock_loading_image);
@@ -81,8 +79,7 @@ jQuery(document).ready(function ($) {
         });
         e.preventDefault();
         return false;
-    });
-	
+    });	
 	$('.site_load_ajax').each(function () {
 		var network_box = ($(this).closest('.network_results').attr('id'));
 		var site_order = network_box.split("_")

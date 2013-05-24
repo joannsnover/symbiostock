@@ -40,7 +40,6 @@ define('symbiostock_TMPROOT', $symbiostock_theme_root . '/tmp/' );
 //setup databases after activation - 
 
 
-
 add_action('after_switch_theme', 'symbiostock_installer');
 function symbiostock_installer(){
 	

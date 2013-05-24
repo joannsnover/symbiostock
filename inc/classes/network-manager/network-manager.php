@@ -156,27 +156,36 @@ class network_manager
     }
     
     //This verifies all files in your directory correspond to your network. If not, they are deleted.
-    public function network_directory_cleanup( )
+    public function network_directory_cleanup( $directory = false )
     {
-        
+		
         $files = array( );
-        
-        $networks = $this->get_connected_networks();				
 		
-		//this list takes precidence over database list
-		$networks_public_file = $this->get_connected_networks_csv( );
-		
-		
-        
-        foreach ( $networks as $network ) {
-            
-            array_push( $files, $network[ 'key' ] . '.csv' );
-            
+		if($directory == false){			
+			
+			$dir = '';
+			
+			$networks = $this->get_connected_networks();				
+			
+			//this list takes precidence over database list
+			$networks_public_file = $this->get_connected_networks_csv( );
+			
+			
+			
+			foreach ( $networks as $network ) {
+				
+				array_push( $files, $network[ 'key' ] . '.csv' );
+           
+		    $files = array_unique(array_merge($files,$networks_public_file)); 
         } //$networks as $network
+		} else {
+			
+			$dir = 'seeds/';
+			
+			}
+        
 		
-        $files = array_unique(array_merge($files,$networks_public_file)); 
-		
-        if ( $handle = opendir( symbiostock_NETDIR ) ) {
+        if ( $handle = opendir( symbiostock_NETDIR . $dir) ) {
             $count = 1;
             /* This is the correct way to loop over the directory. */
             
@@ -191,7 +200,7 @@ class network_manager
                     
                     if ( !in_array( $entry, $files ) ) {
                         
-                        unlink( symbiostock_NETDIR . $entry );
+                        unlink( symbiostock_NETDIR . $dir . $entry );
                         
                     } //!in_array( $entry, $files )
                 } //$entry != "." && $entry != ".."
@@ -212,11 +221,7 @@ class network_manager
         $key = symbiostock_website_to_key( $site );
         
         $newfile = symbiostock_NETDIR . $dir . $key . '.csv';
-        
-        //check file exists first: 
-        if ( !$fp = curl_init( $url ) )
-            return 'Symbiocard not found at this address ('.$url.'). Please upload manually.';
-        
+                
         $ch = curl_init( $url );
 					
         curl_setopt( $ch, CURLOPT_HEADER, 0 );
@@ -334,7 +339,7 @@ class network_manager
         				
         while ( $count++ <= 9 ) {
             
-            if ( isset( $_POST[ 'save_form_info' ] ) && !isset($_POST['symbiostock_network_site_' . $count]) ) {
+            if ( isset( $_POST[ 'save_form_info' ] ) ) {
                 
                 $network_associate = get_option( 'symbiostock_network_site_' . $count, '' );
                 
@@ -406,7 +411,7 @@ class network_manager
 						if($success != false){
                         	$this->process_network_file( symbiostock_NETDIR . symbiostock_website_to_key( $network_info[ 'address' ] ) . '.csv' );
 						} else {
-							echo '<p>Symbiocard not found at this website.</p>';	
+							
 							}
                     } //!file_exists( symbiostock_NETDIR . $key . '.csv' )
                 } //$exists == false
@@ -1137,11 +1142,9 @@ class network_manager
         
         if ( $symbiostock_use_network == 'true' ) {
             
-            $network_limit = 10;
-            $site_count    = 0;
-            
-            
-            
+            $network_limit = 9;
+            $site_count    = 0;            
+                        
             while ( $site_count <= $network_limit ) {
                 
                 $this->network_site_count = $site_count;
@@ -1209,39 +1212,78 @@ class network_manager
         
     }
     
+public function make_cache_key_from_url( $url )
+    {
+      $pos_paged = strpos( $url, 'paged=1' );
+      $pos_s = strpos( $url, '?s=' );
+      $pos_search = strpos( $url, '/search-images/' );
+
+      if ( $pos_s > 0 ) { // first form of url
+        $key = substr( $url, 0, $pos_s );
+        if ( $key[ strlen( $key ) - 1 ] != '/' ) $key .= '/';
+        $key .= substr( $url, $pos_s+3, strpos( $url, '&' ) - $pos_s - 3 );
+        if ( $pos_paged == 0 ) {
+          $pos_page = strpos( $url, 'page=' );
+          while ( $pos_page > 0 && $pos_page < strlen( $url ) && $url[ $pos_page ] != '&' )
+            $key .= $url[ $pos_page++ ];
+          $key = str_replace( 'page=', '/page/', $key );
+        }
+      }
+      else if ($pos_search > 0 ) { // second url
+        $key = substr( $url, 0, $pos_search + 1 );
+        if ( $pos_paged == 0 )
+          $key .= substr( $url, $pos_search+15, strpos( $url, '?symbio' ) - $pos_search - 16 );
+        else {
+          $pos_page = strpos( $url, '/page/' );
+          if ( $pos_page > 0 )
+            $key .= substr( $url, $pos_search+15, strpos( $url, '/page/' ) - $pos_search - 15 );
+          else
+            $key .= substr( $url, $pos_search+15, strpos( $url, '/?symbio' ) - $pos_search - 15 );
+        }
+      }
+      else // unknown url found
+        $key = $url;
+      $key .= '/';
+      $key = str_replace( '/page/1/', '/', $key );
+      return $key;
+    }
+
+
+// default cache period is 7 days
+// set it to 0 to disable cache
+
 public function get_remote_xml( $url, $site = '' )
     {
-      $caching_time = 7 * 24 * 3600;   // days * hours * 3600 seconds
 
-      if ( time() % 1000 == 0 ) { // from time to time remove old files
+      $days = get_option('symbiostock_cache_days', 7);
+
+      $caching_time = $days * 24 * 3600;   // must be number of seconds
+
+      // let's remove old files from time to time
+      if ( time() % 500 == 0 ) {
 
         $files = glob( ABSPATH . 'symbiostock_xml_cache/*' );
         usort( $files, create_function( ' $a, $b ', ' return filemtime($a) - filemtime($b); ' ) );
-        for( $i = 0; i < count( $files ) && filemtime( $files[ $i ] ) < time() - $caching_time; $i++ )
+        for( $i = 0; $i < 100 && $i < count( $files ) && filemtime( $files[ $i ] ) < time() - $caching_time; $i++ )
           unlink( $files[ $i ] );
-
       }
-	      
-      if ( strpos( $url, 'paged=1' ) > 0 ) {
-          $url = preg_replace( '/page=[0-9]+&/', '', $url );
-          $url = preg_replace( '/page\/[0-9]+\//', '', $url );
-      } 
-       
-      $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $url );
+
+
+      $key = $this->make_cache_key_from_url( $url );
+
+      $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
 
       if ( file_exists( $file ) && time() - $caching_time < filemtime( $file ) ) {
 
-         $data = explode( "\n>xml cache<\n", file_get_contents( $file ) );
-         if ( $data[0] == $url )
-           return $data[1];
+         $data = explode( "\n>>----<<\n", file_get_contents( $file ) );
+         if ( $data[0] == $key )
+           return $data[2];
          else {
            unlink ( $file );
            return $this->get_remote_xml( $url, $site );
          }
       }
-
       else {
-
 
         $ch = curl_init();
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
@@ -1263,7 +1305,7 @@ public function get_remote_xml( $url, $site = '' )
         libxml_use_internal_errors( true );
         if ( simplexml_load_string( $data ) ) {
 
-            file_put_contents( $file, $url . "\n>xml cache<\n" . $data );
+            file_put_contents( $file, $key . "\n>>----<<\n" . $url . "\n>>----<<\n" . $data );
 
             //libxml_use_internal_errors( false );
             return $data;
@@ -1272,7 +1314,7 @@ public function get_remote_xml( $url, $site = '' )
         else {
 
             //libxml_use_internal_errors( false );
-            return '<?xml version="1.0"?><noresults></noresults>'; // maybe symbiostock_xml_generic_results($url, $site);
+            return '<?xml version="1.0"?><noresults></noresults>';
         }
 
       }
