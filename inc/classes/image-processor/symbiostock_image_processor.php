@@ -525,52 +525,13 @@ function symbiostock_generate_minipic( $source, $destination, $jpg )
         $image->thumbnailImage( 150, 150, true );
         
         //if user wants reflections on their thumbnail previews
-        $symbiostock_reflections = get_option( 'symbiostock_reflections' );
-        if ( $symbiostock_reflections == 'on' ) {
-            
-            //if we are using reflection previews or not
-            /* Create a border for the image */
-            $image->borderImage( new ImagickPixel( "white" ), 5, 5 );
-            
-            /* Clone the image and flip it */
-            $reflection = $image->clone();
-            $reflection->flipImage();
-            
-            /* Create gradient. It will be overlayed on the reflection */
-            $gradient = new Imagick();
-            
-            /* Gradient needs to be large enough for the image and the borders */
-            $gradient->newPseudoImage( $reflection->getImageWidth() + 10, $reflection->getImageHeight() + 10, "gradient:transparent-white" );
-            
-            /* Composite the gradient on the reflection */
-            $reflection->compositeImage( $gradient, imagick::COMPOSITE_OVER, 0, 0 );
-            
-            /* Add some opacity. Requires ImageMagick 6.2.9 or later */
-            $reflection->setImageOpacity( 0.3 );
-            
-            /* Create an empty canvas */
-            $canvas = new Imagick();
-            
-            /* Canvas needs to be large enough to hold the both images */
-            $width  = $image->getImageWidth() + 40;
-            $height = ( $image->getImageHeight() * 2 ) - 25;
-            $canvas->newImage( $width, $height, new ImagickPixel( "white" ) );
-            $canvas->setImageFormat( "png" );
-            
-            /* Composite the original image and the reflection on the canvas */
-            $canvas->compositeImage( $image, imagick::COMPOSITE_OVER, 20, 10 );
-            $canvas->compositeImage( $reflection, imagick::COMPOSITE_OVER, 20, $image->getImageHeight() + 10 );
-            $minipic = $canvas;
-        } //$symbiostock_reflections == 'on'
-        else {
-            
-            //we have to make the transparency go to white, or it will become an awefull black color in jpeg version        
-            $white = new Imagick();
-            $white->newImage( $image->getImageWidth(), $image->getImageHeight(), "white" );
-            $white->compositeimage( $image, Imagick::COMPOSITE_OVER, 0, 0 );
-            $minipic = $white;
-            
-        }
+         
+		//we have to make the transparency go to white, or it will become an awefull black color in jpeg version        
+		$white = new Imagick();
+		$white->newImage( $image->getImageWidth(), $image->getImageHeight(), "white" );
+		$white->compositeimage( $image, Imagick::COMPOSITE_OVER, 0, 0 );
+		$minipic = $white;
+      
         //save 
         $minipic->writeImage( $destination );
         

@@ -8,8 +8,8 @@ class results_counter
     
     public $count = 0;
     
-	public $messages = '';
-	
+    public $messages = '';
+    
     public $network_site_count = 0;
     
     public $network_info = array( );
@@ -60,30 +60,30 @@ class network_manager
         
         return $current_networks;
     }
-	
-	public function get_connected_networks_csv( )
-		{		
-			
-			$connected_networks = array();
-			
-			if ( file_exists( ABSPATH . 'symbiostock_network.csv' ) ) {
-				$sites = $this->csv_to_array( ABSPATH . 'symbiostock_network.csv', ',' );
-			} //file_exists( ABSPATH . 'symbiostock_network.csv' )
-			
-			if ( isset($sites[0]['symbiostock_network_site_0'] ) && !empty( $sites[0]['symbiostock_network_site_0'] ) ) {
-						
-						foreach ( $sites[ 0 ] as $site ) {				
-															
-						  array_push( $connected_networks, $site );
-							
-						} //$sites[ 0 ] as $site
-					} //isset( $sites[ 0 ] ) && !empty( $sites[ 0 ] )	
-							
-			  return $connected_networks;
-			}	
-				
+    
+    public function get_connected_networks_csv( )
+        {        
+            
+            $connected_networks = array();
+            
+            if ( file_exists( ABSPATH . 'symbiostock_network.csv' ) ) {
+                $sites = $this->csv_to_array( ABSPATH . 'symbiostock_network.csv', ',' );
+            } //file_exists( ABSPATH . 'symbiostock_network.csv' )
+            
+            if ( isset($sites[0]['symbiostock_network_site_0'] ) && !empty( $sites[0]['symbiostock_network_site_0'] ) ) {
+                        
+                        foreach ( $sites[ 0 ] as $site ) {                
+                                                            
+                          array_push( $connected_networks, $site );
+                            
+                        } //$sites[ 0 ] as $site
+                    } //isset( $sites[ 0 ] ) && !empty( $sites[ 0 ] )    
+                            
+              return $connected_networks;
+            }    
+                
     //get current networks your site is connected with by what CSV files you have
-	//if seeds is set to "true" it will loop over the seeds folder
+    //if seeds is set to "true" it will loop over the seeds folder
     public function get_connected_networks_by_symbiocard( $seeds = false )
     {
         $symbiocards = array( );
@@ -91,7 +91,7 @@ class network_manager
         if ( file_exists( ABSPATH . 'symbiostock_network.csv' ) && $seeds == false ) {
             $sites = $this->csv_to_array( ABSPATH . 'symbiostock_network.csv', ',' );
         } //file_exists( ABSPATH . 'symbiostock_network.csv' )
-        				
+                        
         //if user saved sites in any particular order, it would have saved a file to the top level
         //looping through this will maintain the order
         if ( isset($sites[0]['symbiostock_network_site_0'] ) && !empty( $sites[0]['symbiostock_network_site_0'] ) && $seeds == false ) {
@@ -110,8 +110,8 @@ class network_manager
         } //isset( $sites[ 0 ] ) && !empty( $sites[ 0 ] )
         else {
             
-			$seeds == true ? $dir = 'seeds/' : $dir = '';
-			
+            $seeds == true ? $dir = 'seeds/' : $dir = '';
+            
             if ( $handle = opendir( symbiostock_NETDIR . $dir ) ) {
                 $count = 1;
                 /* This is the correct way to loop over the directory. */
@@ -158,33 +158,31 @@ class network_manager
     //This verifies all files in your directory correspond to your network. If not, they are deleted.
     public function network_directory_cleanup( $directory = false )
     {
-		
-        $files = array( );
-		
-		if($directory == false){			
-			
-			$dir = '';
-			
-			$networks = $this->get_connected_networks();				
-			
-			//this list takes precidence over database list
-			$networks_public_file = $this->get_connected_networks_csv( );
-			
-			
-			
-			foreach ( $networks as $network ) {
-				
-				array_push( $files, $network[ 'key' ] . '.csv' );
-           
-		    $files = array_unique(array_merge($files,$networks_public_file)); 
-        } //$networks as $network
-		} else {
-			
-			$dir = 'seeds/';
-			
-			}
         
-		
+        $files = array( );
+        
+        if($directory == false){            
+            
+            $dir = '';
+            
+            $networks = $this->get_connected_networks();                
+            
+            //this list takes precidence over database list
+            $networks_public_file = $this->get_connected_networks_csv( );
+            
+            foreach ( $networks as $network ) {
+                
+                array_push( $files, $network[ 'key' ] . '.csv' );
+           
+            $files = array_unique(array_merge($files,$networks_public_file)); 
+        } //$networks as $network
+        } else {
+            
+            $dir = 'seeds/';
+            
+            }
+        
+        
         if ( $handle = opendir( symbiostock_NETDIR . $dir) ) {
             $count = 1;
             /* This is the correct way to loop over the directory. */
@@ -214,8 +212,8 @@ class network_manager
     public function fetch_symbiocard( $site, $seed = false )
     {
         
-		$seed == true ? $dir = 'seeds/' : '';
-		
+        $seed == true ? $dir = 'seeds/' : '';
+        
         $url = $site . '/symbiocard.csv';
         
         $key = symbiostock_website_to_key( $site );
@@ -223,21 +221,21 @@ class network_manager
         $newfile = symbiostock_NETDIR . $dir . $key . '.csv';
                 
         $ch = curl_init( $url );
-					
+                    
         curl_setopt( $ch, CURLOPT_HEADER, 0 );
-		curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, false);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt( $ch, CURLOPT_BINARYTRANSFER, 1 );
         $raw = curl_exec( $ch );
 
-		$info = curl_getinfo($ch);
-			if ($info['http_code'] == 200) {
-				$this->messages = '&mdash;<strong>Success<br /></strong>';
-			} else {			
-				$this->messages = '&mdash;<strong>' . $info['http_code'] . " @$url</strong> " . ' Aborting site...<br />';
-				return false;
-			}
-					
+        $info = curl_getinfo($ch);
+            if ($info['http_code'] == 200) {
+                $this->messages = '&mdash;<strong>Success<br /></strong>';
+            } else {            
+                $this->messages = '&mdash;<strong>' . $info['http_code'] . " @$url</strong> " . ' Aborting site...<br />';
+                return false;
+            }
+                    
         curl_close( $ch );
         if ( file_exists( $newfile ) ) {
             unlink( $newfile );
@@ -276,39 +274,36 @@ class network_manager
         
         $count = 0;
         $sites = array( );
-		$exists = array( );
+        $exists = array( );
         while ( $count < 9 ) {
             
-		    if ( isset( $_POST[ 'symbiostock_network_site_' . $count ] ) && !empty( $_POST[ 'symbiostock_network_site_' . $count ] ) ) {
+            if ( isset( $_POST[ 'symbiostock_network_site_' . $count ] ) && !empty( $_POST[ 'symbiostock_network_site_' . $count ] ) ) {
                 
                 $site = symbiostock_website_to_key( $_POST[ 'symbiostock_network_site_' . $count ] ) . '.csv';
                 $sites[ 'symbiostock_network_site_' . $count ] = $site;
-				
-				if(!file_exists(symbiostock_NETDIR .$site . '.csv' )){
-				array_push($exists, $site );
-					} else {
-						echo 'file ' . symbiostock_NETDIR .$site . ' missing...<br /><br />';
-					
-				}
-				
+                
+                if(!file_exists(symbiostock_NETDIR .$site . '.csv' )){
+                	array_push($exists, $site );
+                } else {
+                    echo 'file ' . symbiostock_NETDIR .$site . ' missing...<br /><br />';
+                }
             } //isset( $_POST[ 'symbiostock_network_site_' . $count ] )
             $count++;
         } //$count < 9
-		
-		if($uploaded == true){
-			
-			$files = $this->network_directory_file_list();
-			
-			foreach($files as $file){
-			
-			if(!in_array($file, $exists)){
-				
-				$sites[ 'symbiostock_network_site_' . $count ] = $file;
-				
-				}
-			
-			}
-		}
+        
+        if($uploaded == true){
+            
+            $files = $this->network_directory_file_list();
+            
+            foreach($files as $file){
+            
+            if(!in_array($file, $exists)){
+                
+                $sites[ 'symbiostock_network_site_' . $count ] = $file;
+                
+                }
+            }
+        }
         $name = ABSPATH . '/symbiostock_network.csv';
         
         $fp = fopen( $name, 'w' );
@@ -319,15 +314,16 @@ class network_manager
         fclose( $fp );
         
     }  
-	
-	
+    
+    
     public function update_connected_networks( )
-    {
+    {		
         if ( isset( $_POST[ 'save_form_info' ] ) ) {
-            $this->write_network_csv();
-			
-			$networks = $this->get_connected_networks_csv( );
-			
+            
+			$this->write_network_csv();
+            
+            $networks = $this->get_connected_networks_csv( );
+            
         } //isset( $_POST[ 'save_form_info' ] )
         
         $current_entries = $this->get_connected_networks();
@@ -336,7 +332,7 @@ class network_manager
         //start at -1 so count intially increments to 0;
         $count   = -1;
         $skipped = false;
-        				
+   
         while ( $count++ <= 9 ) {
             
             if ( isset( $_POST[ 'save_form_info' ] ) ) {
@@ -345,14 +341,12 @@ class network_manager
                 
                 $key = symbiostock_website_to_key( $network_associate[ 'address' ] );
                 
-				if(!in_array($key, $networks)){
-					
-					delete_option('symbiostock_network_site_' . $count);
-					
-					}	
+                if(!in_array($key, $networks)){
+                   
+                    delete_option('symbiostock_network_site_' . $count);
+                    
+                }                  
                 
-                //note that a value was skipped
-                $skipped = true;
             } //isset( $_POST[ 'save_form_info' ] ) && ( !isset( $_POST[ 'symbiostock_network_site_' . $count ] ) || empty( $_POST[ 'symbiostock_network_site_' . $count ] ) )
             
             if ( isset( $_POST[ 'symbiostock_network_site_' . $count ] ) ) {
@@ -408,11 +402,11 @@ class network_manager
                     $key = symbiostock_website_to_key( $network_info[ 'address' ] );
                     if ( !file_exists( symbiostock_NETDIR . $key . '.csv' ) ) {
                         $success = $this->fetch_symbiocard( $network_info[ 'address' ] );
-						if($success != false){
-                        	$this->process_network_file( symbiostock_NETDIR . symbiostock_website_to_key( $network_info[ 'address' ] ) . '.csv' );
-						} else {
-							
-							}
+                        if($success != false){
+                            $this->process_network_file( symbiostock_NETDIR . symbiostock_website_to_key( $network_info[ 'address' ] ) . '.csv' );
+                        } else {
+                            
+                        }
                     } //!file_exists( symbiostock_NETDIR . $key . '.csv' )
                 } //$exists == false
                 
@@ -479,7 +473,7 @@ class network_manager
         symbiostock_save_network_info();
     }
     
- 	public function network_directory_file_list(  )
+     public function network_directory_file_list(  )
     {
         $files = array();
         if ( $handle = opendir( symbiostock_NETDIR ) ) {
@@ -494,22 +488,22 @@ class network_manager
                         continue;
                     } //$filetype[ 1 ] != 'csv'
                     array_push($files, $file);  
-					                  
+                                      
                     $count++;
                 } //$entry != "." && $entry != ".."
             } //false !== ( $entry = readdir( $handle ) )          
            
         } //$handle = opendir( symbiostock_NETDIR )
-		
-		return $files;        
-    }	
+        
+        return $files;        
+    }    
     public function list_all_networks( $compact = false, $seeds = false )
     {
         $count = 1;       
         $sites = $this->get_connected_networks_csv( );
-		
-		$seeds == true ? $dir = 'seeds/' : '';
-		
+        
+        $seeds == true ? $dir = 'seeds/' : '';
+        
         //if user saved sites in any particular order, it would have saved a file to the top level
         //looping through this will maintain the order
         if ( isset( $sites ) && !empty( $sites ) && $seeds == false) {
@@ -518,43 +512,41 @@ class network_manager
                 
                 $file = symbiostock_NETDIR . $dir . $site;
                 
-        		symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );
-				
-				echo '<hr />';
-				;
-				
-				$count++;
+                symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );
+                
+                echo '<hr />';
+                ;
+                
+                $count++;
             } //$sites[ 0 ] as $site
         } 
         else {
-			if ( $handle = opendir( symbiostock_NETDIR . $dir) ) {
-				
-				/* This is the correct way to loop over the directory. */
-				
-				while ( false !== ( $entry = readdir( $handle ) ) ) {
-					
-					if ( $entry != "." && $entry != ".." ) {
-						
-						$filetype = explode( '.', $entry );
-						if ( $filetype[ 1 ] != 'csv' ) {
-							continue;
-						} //$filetype[ 1 ] != 'csv'
-						
-						
-						
-						echo '<div class="author_container">';	
-											
-						symbiostock_csv_symbiocard_box( symbiostock_NETDIR . $dir . $entry, $compact, 'symbiostock_author_' . $count );
-						
-						echo '</div>';
-						
-						$count++;
-					} //$entry != "." && $entry != ".."
-				} //false !== ( $entry = readdir( $handle ) )
-				
-				closedir( $handle );
-			} //$handle = opendir( symbiostock_NETDIR )
-		}
+            if ( $handle = opendir( symbiostock_NETDIR . $dir) ) {
+                
+                /* This is the correct way to loop over the directory. */
+                
+                while ( false !== ( $entry = readdir( $handle ) ) ) {
+                    
+                    if ( $entry != "." && $entry != ".." ) {
+                        
+                        $filetype = explode( '.', $entry );
+                        if ( $filetype[ 1 ] != 'csv' ) {
+                            continue;
+                        } //$filetype[ 1 ] != 'csv'
+                        
+                        echo '<div class="author_container">';    
+                                            
+                        symbiostock_csv_symbiocard_box( symbiostock_NETDIR . $dir . $entry, $compact, 'symbiostock_author_' . $count );
+                        
+                        echo '</div>';
+                        
+                        $count++;
+                    } //$entry != "." && $entry != ".."
+                } //false !== ( $entry = readdir( $handle ) )
+                
+                closedir( $handle );
+            } //$handle = opendir( symbiostock_NETDIR )
+        }
     }
     
     //sends a notification email to new network member. $path is the path to their symbiocard in network directory.
@@ -578,9 +570,9 @@ class network_manager
         $subject = '[symbiostock_network_addition] ' . $name . ' has added you to their site network.';
         
         $message = '<p>' . $name . ' has added you to their site network.<br /> If you have not yet added them to your site, here is their Symbiocard: <a title="Author Symbiocard" href="' . site_url() . '/symbiocard.csv">' . site_url() . '/symbiocard.csv</a>
-		
-		<br /><br />See their network info at the author page: <a title="Author Page" href="' . $myinfo[ 'symbiostock_author_page' ] . '">' . $myinfo[ 'symbiostock_author_page' ] . '</a><br /><br />
-		<a title="About network emails" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
+        
+        <br /><br />See their network info at the author page: <a title="Author Page" href="' . $myinfo[ 'symbiostock_author_page' ] . '">' . $myinfo[ 'symbiostock_author_page' ] . '</a><br /><br />
+        <a title="About network emails" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
         
         $mailed = wp_mail( $email, $subject, $message, $headers );
         
@@ -591,7 +583,7 @@ class network_manager
             echo ' Notification email not sent. Either their Symbiocard lacks an email address or something went wrong.';
         }
         
-		wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Network friend ('.$theirinfo[ 'symbiostock_display_name' ].') notified.', '<p>Your network friend '.$theirinfo[ 'symbiostock_display_name' ].' was notified that you added them, and recieved this message: <br /></p>'.$message );
+        wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Network friend ('.$theirinfo[ 'symbiostock_display_name' ].') notified.', '<p>Your network friend '.$theirinfo[ 'symbiostock_display_name' ].' was notified that you added them, and recieved this message: <br /></p>'.$message );
     }
     
     public function installation_upgrade_email( )
@@ -608,8 +600,8 @@ class network_manager
             $myinfo = $this->csv_to_array( ABSPATH . '/symbiocard.csv', ',' );
             $myinfo = $myinfo[ 0 ];
             
-			$mailed_to = array();			
-			
+            $mailed_to = array();            
+            
             foreach ( $sites as $site ) {
                 
                 $theirinfo = $this->csv_to_array( symbiostock_NETDIR . $site[ 'key' ] . '.csv', ',' );
@@ -620,13 +612,13 @@ class network_manager
                 $this->messages = '<br /><br />';
                 
                 $email = symbiostock_email_convert( $theirinfo[ 'admin_email' ], 'decode' );
-				array_push($mailed_to, $theirinfo[ 'symbiostock_display_name' ]);
+                array_push($mailed_to, $theirinfo[ 'symbiostock_display_name' ]);
                 
                 $subject = '[symbiostock_upgrade] ' . $myinfo[ 'symbiostock_site' ] . ' (' . $myinfo[ 'symbiostock_display_name' ] . ') has upgraded: ' . $theme_data->Version;
                 
                 $message = '<p>' . $subject . '<br /><br /><a title="About network emails" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
                 
-                wp_mail( $email, $subject, $message, $headers );	
+                wp_mail( $email, $subject, $message, $headers );    
                 
             } //$sites as $site
            
@@ -690,8 +682,8 @@ class network_manager
         } //$path != ABSPATH . 'symbiostock_network/' . $key . '.csv'
         
         $this->setup_network_directory( $key );
-		
-		$this->write_network_csv(true);
+        
+        $this->write_network_csv(true);
         
         $this->network_added_email( symbiostock_NETDIR . $key . '.csv' );
         
@@ -701,13 +693,13 @@ class network_manager
     
     //converts a CSV to an array
     public function csv_to_array( $filename = '', $delimiter = ',' )
-    {	
+    {    
         if ( !file_exists( $filename ) || !is_readable( $filename ) )
             return FALSE;
         
         $header = NULL;
         $data   = array( );        
-		
+        
         if ( ( $handle = fopen( $filename, 'r' ) ) !== FALSE ) {
             while ( ( $row = fgetcsv( $handle, 1000000, $delimiter ) ) !== FALSE ) {
                 if ( !$header )
@@ -730,7 +722,7 @@ class network_manager
             
             $response = file_get_contents( $url );
             
-            $json = json_decode( $response, TRUE ); //generate array object from the response from the web			
+            $json = json_decode( $response, TRUE ); //generate array object from the response from the web            
             
             return serialize( $json );
         } //!empty( $address )
@@ -920,7 +912,7 @@ class network_manager
                 //generate licence type   
                 $image_meta[ 'license_type' ] = 'RF';
                 
-                //generate url of image page   									
+                //generate url of image page                                       
                 $image_meta[ 'url' ] = get_permalink();
                 
                 //generate preview pic location
@@ -946,10 +938,10 @@ class network_manager
                 $image_meta[ 'property_release' ] = $property_released[ 0 ];
                 
                 
-                //generate author name								
+                //generate author name                                
                 $image_meta[ 'photographer_full_name' ] = get_the_author();
                 
-                //generate caption				
+                //generate caption                
                 $image_meta[ 'caption' ] = the_title( '', '', false );
                 
                 //generate description
@@ -1093,7 +1085,7 @@ class network_manager
         else
             $paged = 1;
         
-        //make offset	
+        //make offset    
         
         $offset = ( $paged - 1 ) * $results_per_page;
         
@@ -1172,11 +1164,11 @@ class network_manager
                     $query = str_replace( $sub_level[ 'path' ], '', $query );
                     //echo $query;
                     
-                    $network_results   = $this->get_remote_xml( $network_site[ 'address' ] . $query, $network_site[ 'address' ]);					
+                    $network_results   = $this->get_remote_xml( $network_site[ 'address' ] . $query, $network_site[ 'address' ]);                    
                     $this->xml_results = $network_results;
                     $this->display_results( true );
-					
-					
+                    
+                    
                 } //symbiostock_validate_url( $network_site[ 'address' ] )
                 
                 $site_count++;
@@ -1185,7 +1177,7 @@ class network_manager
         } //$symbiostock_use_network == 'true'
     }
     
-    //Performs a network search, instigates local_search() on remote site.	  
+    //Performs a network search, instigates local_search() on remote site.      
     public function network_search( $site, $query = '' )
     {
         
@@ -1343,113 +1335,113 @@ public function get_remote_xml( $url, $site = '' )
         
     }
     
-	//our much desired and finally available "symbiocard" spider function, for marketing artists automatic symbiostock routines.
-	public function the_spider(){
-		
-		//this will que our addresses to spider symbiocards
-		$collected_addresses = array( );
-		
-		//this tracks where we have been
-		$visited_addresses = array();
-				
-		$symbiocards     = array( );
-		//get our initial networks to start the process...
-		$starting_points = $this->get_connected_networks_csv();
-		
-		//get their networks
-		foreach ( $starting_points as $point ) {
-			
-			$csv = symbiostock_NETDIR . $point;
-			
-			if ( file_exists( $csv ) ) {
-				
-				$symbiocard = $this->csv_to_array( $csv );
-				
-				if ( !isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] ) ) {
-					continue;
-				} //!isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] )
-				
-				$addresses = maybe_unserialize( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] );
-				
-				if ( empty( $addresses ) || !is_array( $addresses ) ) {
-					continue;
-				} //empty( $addresses ) || !is_array( $addresses )
-				
-				foreach ( $addresses as $address ) {
-					
-					if ( !isset( $address[ 'address' ] ) || empty( $address[ 'address' ] ) ) {
-						continue;
-					} //!isset( $address[ 'address' ] ) || empty( $address[ 'address' ] )
-					
-					if ( !in_array( $address[ 'address' ], $collected_addresses ) ) {
-						
-						array_push( $collected_addresses, $address[ 'address' ] );
-						
-					} //!in_array( $address[ 'address' ], $collected_addresses )
-					
-				} //$addresses as $address
-				
-			} //file_exists( $csv )
-			
-		} //$starting_points as $point
-		
-		//PRELIMINARY STUFF DONE - START CRAWLING -------------------------------
-		
-		$collected_addresses = array_unique($collected_addresses);
-			
-		foreach($collected_addresses as $site){
-			
-			echo 'Getting site: ' . $site . '...<br />';
-			
-			$this->fetch_symbiocard( $site, true );
-			echo $this->messages;
-			$this->massages = '';
-			echo '<br />';
-			}
-		
-		//log our travels...
-		$visited_addresses = array_unique($collected_addresses);
-		
-		//reset $collected
-		$collected_addresses = array();
-		
-		
-		//NOTE --- --- Until Symbiostock is a bigger network, we will limit crawling to the network of your network (friends of friends)
-		
-		/*
-		$symbiocards = $this->get_connected_networks_by_symbiocard( true );
-								
-		foreach($symbiocards as $symbiocard){
-		
-		if ( !isset( $symbiocard[ 'symbiostock_networked_sites' ] ) ) {
-					
-					continue;
-				} //!isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] )
-				
-				$addresses = maybe_unserialize( $symbiocard[ 'symbiostock_networked_sites' ] );
-				
-				if ( empty( $addresses ) || !is_array( $addresses ) ) {
-					continue;
-				} //empty( $addresses ) || !is_array( $addresses )
-				
-				foreach ( $addresses as $address ) {
-					var_dump($address); echo '<br /><br />';				
-					if ( !isset( $address[ 'address' ] ) || empty( $address[ 'address' ] ) ) {
-						continue;
-					} //!isset( $address[ 'address' ] ) || empty( $address[ 'address' ] )
-					
-					if ( !in_array( $address[ 'address' ], $visited_addresses ) ) {
-						
-						array_push( $collected_addresses, $address[ 'address' ] );
-						
-					} //!in_array( $address[ 'address' ], $collected_addresses )
-					
-				} //$addresses as $address
-				$count = 1;
-				
-			}*/
-	}
-	
+    //our much desired and finally available "symbiocard" spider function, for marketing artists automatic symbiostock routines.
+    public function the_spider(){
+        
+        //this will que our addresses to spider symbiocards
+        $collected_addresses = array( );
+        
+        //this tracks where we have been
+        $visited_addresses = array();
+                
+        $symbiocards     = array( );
+        //get our initial networks to start the process...
+        $starting_points = $this->get_connected_networks_csv();
+        
+        //get their networks
+        foreach ( $starting_points as $point ) {
+            
+            $csv = symbiostock_NETDIR . $point;
+            
+            if ( file_exists( $csv ) ) {
+                
+                $symbiocard = $this->csv_to_array( $csv );
+                
+                if ( !isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] ) ) {
+                    continue;
+                } //!isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] )
+                
+                $addresses = maybe_unserialize( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] );
+                
+                if ( empty( $addresses ) || !is_array( $addresses ) ) {
+                    continue;
+                } //empty( $addresses ) || !is_array( $addresses )
+                
+                foreach ( $addresses as $address ) {
+                    
+                    if ( !isset( $address[ 'address' ] ) || empty( $address[ 'address' ] ) ) {
+                        continue;
+                    } //!isset( $address[ 'address' ] ) || empty( $address[ 'address' ] )
+                    
+                    if ( !in_array( $address[ 'address' ], $collected_addresses ) ) {
+                        
+                        array_push( $collected_addresses, $address[ 'address' ] );
+                        
+                    } //!in_array( $address[ 'address' ], $collected_addresses )
+                    
+                } //$addresses as $address
+                
+            } //file_exists( $csv )
+            
+        } //$starting_points as $point
+        
+        //PRELIMINARY STUFF DONE - START CRAWLING -------------------------------
+        
+        $collected_addresses = array_unique($collected_addresses);
+            
+        foreach($collected_addresses as $site){
+            
+            echo 'Getting site: ' . $site . '...<br />';
+            
+            $this->fetch_symbiocard( $site, true );
+            echo $this->messages;
+            $this->massages = '';
+            echo '<br />';
+            }
+        
+        //log our travels...
+        $visited_addresses = array_unique($collected_addresses);
+        
+        //reset $collected
+        $collected_addresses = array();
+        
+        
+        //NOTE --- --- Until Symbiostock is a bigger network, we will limit crawling to the network of your network (friends of friends)
+        
+        /*
+        $symbiocards = $this->get_connected_networks_by_symbiocard( true );
+                                
+        foreach($symbiocards as $symbiocard){
+        
+        if ( !isset( $symbiocard[ 'symbiostock_networked_sites' ] ) ) {
+                    
+                    continue;
+                } //!isset( $symbiocard[ 0 ][ 'symbiostock_networked_sites' ] )
+                
+                $addresses = maybe_unserialize( $symbiocard[ 'symbiostock_networked_sites' ] );
+                
+                if ( empty( $addresses ) || !is_array( $addresses ) ) {
+                    continue;
+                } //empty( $addresses ) || !is_array( $addresses )
+                
+                foreach ( $addresses as $address ) {
+                    var_dump($address); echo '<br /><br />';                
+                    if ( !isset( $address[ 'address' ] ) || empty( $address[ 'address' ] ) ) {
+                        continue;
+                    } //!isset( $address[ 'address' ] ) || empty( $address[ 'address' ] )
+                    
+                    if ( !in_array( $address[ 'address' ], $visited_addresses ) ) {
+                        
+                        array_push( $collected_addresses, $address[ 'address' ] );
+                        
+                    } //!in_array( $address[ 'address' ], $collected_addresses )
+                    
+                } //$addresses as $address
+                $count = 1;
+                
+            }*/
+    }
+    
 }
 function symbiostock_save_network_info( )
 {
@@ -1484,7 +1476,7 @@ function symbiocards_activation() {
 }
 
 function update_symbiocards() {
-	 
+     
     $update = new network_manager();
     $sites  = $update->get_connected_networks();
     foreach ( $sites as $site ) {
@@ -1493,8 +1485,8 @@ function update_symbiocards() {
     
     symbiostock_save_network_info();
     
-	update_option('symbiocards_last_update', current_time( 'mysql' ));
-	
+    update_option('symbiocards_last_update', current_time( 'mysql' ));
+    
     //wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Network Symbiocards Updated - ' . current_time( 'mysql' ), 'Network Symbiocards Updated - ' . current_time( 'mysql' ) );
 }
 
@@ -1508,7 +1500,7 @@ function symbiostock_site_data_activation() {
 }
 
 function update_symbiostock_site_data() {
-	 
+     
     $update = new network_manager();
     $sites  = $update->get_connected_networks();
     foreach ( $sites as $site ) {
@@ -1516,12 +1508,12 @@ function update_symbiostock_site_data() {
     } 
        
     symbiostock_save_image_list_info( );
-	
-	$spider_network = new network_manager();
-	$spider_network->the_spider();
-	
-	update_option('symbiostock_site_data_last_update', current_time( 'mysql' ));
-	
+    
+    $spider_network = new network_manager();
+    $spider_network->the_spider();
+    
+    update_option('symbiostock_site_data_last_update', current_time( 'mysql' ));
+    
     wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Site has updated image and network - ' . current_time( 'mysql' ), 'Public image and tag info updated. Network has been scanned and directory updated. - ' . current_time( 'mysql' ) );
 }
 ?>
