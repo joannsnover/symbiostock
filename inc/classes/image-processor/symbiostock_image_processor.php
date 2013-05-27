@@ -632,19 +632,26 @@ class symbiostock_image_processor
     //this holds status reports / errors
     public $report = '';
 
+	//if we are coming back to this class (revisiting) to modify some crucial part of the image's info, we set this to true
+	public $revisit = false;
     
     //current user's email for status updates 
     
     public $user_info = '';
     
 	//our class constructor
-    function __construct( )
-    {        
-        $this->user_info = get_currentuserinfo();
-        
-        $this->upload_dir = get_template_directory() . '/inc/classes/plupload/uploads/';
-        
-        $this->build_file_list();		
+    function __construct( $revisit = false )
+    {   
+		if($revisit == false)  {   
+			$this->user_info = get_currentuserinfo();
+			
+			$this->upload_dir = get_template_directory() . '/inc/classes/plupload/uploads/';
+			
+			$this->build_file_list();
+		} else {
+			
+			$this->revisit = true;
+			}
        
     }
 	
@@ -1735,39 +1742,46 @@ class symbiostock_image_processor
     }
 	
 	
-    function establish_image_sizes( $image_file )
+    function establish_image_sizes( $image_file, $bloggee_size = 250, $small_size = 1000, $medium_size = 2000 )
     {
         //we consider png superior to jpg due to transparency. 
         //if png is included, we will use that as sell-able item.
         
-        $image_file = $this->files[ $image_file ];
-        
-		if(empty($image_file)){ return;}
+		if( $this->revisit == false ){
 		
-        if ( in_array( 'png', $image_file[ 'extensions' ] ) ) {
-            //get png size
-            
-            $width = $image_file[ 'size_png' ][ 0 ];
-            
-            $height = $image_file[ 'size_png' ][ 1 ];
-            
-        } //in_array( 'png', $image_file[ 'extensions' ] )
-        
-        elseif ( in_array( 'jpg', $image_file[ 'extensions' ] ) ) {
-            $width = $image_file[ 'size_jpg' ][ 0 ];
-            
-            $height = $image_file[ 'size_jpg' ][ 1 ];
-            
-            //get jpg size	
-            
-        } //in_array( 'jpg', $image_file[ 'extensions' ] )
-        else {
-            return;
-        }
-        
-        $medium_size = get_option('symbiostock_medium_size', 1000);
-		$small_size = get_option('symbiostock_small_size', 500);
-		$blogge_size = get_option('symbiostock_bloggee_size', 250);
+			$image_file = $this->files[ $image_file ];
+			
+			if(empty($image_file)){ return;}
+			
+			if ( in_array( 'png', $image_file[ 'extensions' ] ) ) {
+				//get png size
+				
+				$width = $image_file[ 'size_png' ][ 0 ];
+				
+				$height = $image_file[ 'size_png' ][ 1 ];
+				
+			} //in_array( 'png', $image_file[ 'extensions' ] )
+			
+			elseif ( in_array( 'jpg', $image_file[ 'extensions' ] ) ) {
+				$width = $image_file[ 'size_jpg' ][ 0 ];
+				
+				$height = $image_file[ 'size_jpg' ][ 1 ];
+				
+				//get jpg size					
+				
+			$medium_size = get_option('symbiostock_medium_size', 1000);
+			$small_size = get_option('symbiostock_small_size', 500);
+			$bloggee_size = get_option('symbiostock_bloggee_size', 250);				
+				
+			} //in_array( 'jpg', $image_file[ 'extensions' ] )
+			else {
+				return;
+			}
+		} else {
+			
+			list($width, $height) = getimagesize($image_file); 
+			
+			}
 		
 		
         $sizes = array(
@@ -1778,7 +1792,7 @@ class symbiostock_image_processor
             
             'small' => $this->create_size_specs( $small_size, $width, $height ),
             
-            'bloggee' => $this->create_size_specs( $blogge_size, $width, $height ),
+            'bloggee' => $this->create_size_specs( $bloggee_size, $width, $height ),
             
             'preview' => $this->create_size_specs( 590, $width, $height, 'preview' ),
             

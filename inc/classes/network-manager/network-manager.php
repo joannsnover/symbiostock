@@ -503,19 +503,20 @@ class network_manager
         $sites = $this->get_connected_networks_csv( );
         
         $seeds == true ? $dir = 'seeds/' : '';
-        
+        $excluded = get_option('symbiostock_exclude_sites', array());
         //if user saved sites in any particular order, it would have saved a file to the top level
         //looping through this will maintain the order
         if ( isset( $sites ) && !empty( $sites ) && $seeds == false) {
             
             foreach ( $sites as $site ) {
                 
+				if(in_array(symbiostock_website_to_key($site), $excluded)){ continue; }
+				
                 $file = symbiostock_NETDIR . $dir . $site;
                 
                 symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );
                 
                 echo '<hr />';
-                ;
                 
                 $count++;
             } //$sites[ 0 ] as $site
@@ -534,6 +535,8 @@ class network_manager
                             continue;
                         } //$filetype[ 1 ] != 'csv'
                         
+						if(in_array($filetype[ 0 ], $excluded)){ continue; }
+						
                         echo '<div class="author_container">';    
                                             
                         symbiostock_csv_symbiocard_box( symbiostock_NETDIR . $dir . $entry, $compact, 'symbiostock_author_' . $count );
@@ -747,6 +750,7 @@ class network_manager
             'symbiostock_copyright_name',
             'symbiostock_currency',
             //network settings
+			'symbiostock_my_promoted_keywords',
             'symbiostock_my_network_name',
             'symbiostock_my_network_description',
             'symbiostock_my_network_avatar',
@@ -793,7 +797,7 @@ class network_manager
         //get address info and apply it
         $home_coords = $this->get_coords( $profile_info[ 'symbiostock_home_location' ] );
         update_option( 'symbiostock_home_location_coords', $home_coords );
-        
+        		
         $temp_1_coords = $this->get_coords( $profile_info[ 'symbiostock_temporary_location_1' ] );
         update_option( 'symbiostock_temporary_location_1_info', $temp_1_coords );
         
@@ -1204,6 +1208,16 @@ class network_manager
         
     }
     
+
+// url passed to function get_remote_xml can be different for the same result
+// 's=search-item' or 'search-images/search-item/', 'page=3' or 'page/3/',
+// 'page/1/' or no page parameter, 'www' or not, and all combinations of them.
+// to avoid fetching network in every case, a key is created from url.
+// site.com/search-item/
+// or
+// site.com/search-item/page/n/ when n is greater than 1
+
+
 public function make_cache_key_from_url( $url )
     {
       $pos_paged = strpos( $url, 'paged=1' );
@@ -1236,9 +1250,51 @@ public function make_cache_key_from_url( $url )
       else // unknown url found
         $key = $url;
       $key .= '/';
-      $key = str_replace( '/page/1/', '/', $key );
+      $key = str_replace( array( '/page/1/', '//www.', 'http://' ), array( '/', '//', '' ), $key );
       return $key;
     }
+
+// Log file contains some messages with datestamp and one character per
+// every call of get_remote_xml:
+// - for cache miss
+// + for cache hit
+// G,m,A,Y,M - first letter of crawler name (see function crawlew_detect below).
+// When crawlers are visiting site, new contents is always fetched from network
+// sites and written to cache file, even if file exists.
+// Log file is used also for access control to cache files by simultaneous
+// processes (flock).
+
+public function cache_log_file_open( )
+    {
+      $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog';
+
+      if ( ! file_exists( $log_file_name ) )
+         file_put_contents( $log_file_name, date('c') . "  cache log created\n" );
+
+      $file = fopen( $log_file_name, "a+" );
+      flock( $file, LOCK_EX );
+      return $file;
+    }
+
+public function cache_log_file_close( $file, $data = '' )
+    {
+      if ($data != '')
+        fwrite( $file, $data );
+      flock( $file, LOCK_UN );
+      fclose( $file );
+    }
+
+public function crawler_detect()
+    {
+      $crawlers_names = "Google|GoogleBot|Googlebot|msnbot|AhrefsBot|YandexBot|MJ12bot";
+      $crawlers = explode( "|", $crawlers_names );
+      foreach( $crawlers as $crawler )
+        if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
+          return $crawler[0];
+
+      return '';
+    }
+
 
 
 // default cache period is 7 days
@@ -1247,40 +1303,59 @@ public function make_cache_key_from_url( $url )
 public function get_remote_xml( $url, $site = '' )
     {
 
-      $days = get_option('symbiostock_cache_days', 7);
+      $days = min( get_option('symbiostock_cache_days', 7), 90 );
+      $max_cache_count = 20000;  // maybe option in future
+      $max_cache_delete = 100;   // and this
 
       $caching_time = $days * 24 * 3600;   // must be number of seconds
 
-      // let's remove old files from time to time
-      if ( time() % 500 == 0 ) {
+      if ( time() % 1000 == 0 ) {  // let's delete old files from time to time
 
-        $files = glob( ABSPATH . 'symbiostock_xml_cache/*' );
+        $log_file = $this->cache_log_file_open(); // open file and lock
+
+        $files = glob( ABSPATH . 'symbiostock_xml_cache/*' ); // it doesn't select .* files, such as .cachelog
         usort( $files, create_function( ' $a, $b ', ' return filemtime($a) - filemtime($b); ' ) );
-        for( $i = 0; $i < 100 && $i < count( $files ) && filemtime( $files[ $i ] ) < time() - $caching_time; $i++ )
+        $cfiles = count( $files );
+        $files_to_delete = max( $cfiles - $max_cache_count, 0 );
+        for( $i = 0; $i < $cfiles && ( $i < $files_to_delete || $i < $max_cache_delete && filemtime( $files[ $i ] ) < time() - $caching_time ) ; $i++ )
           unlink( $files[ $i ] );
+
+        $this->cache_log_file_close( $log_file,
+            "\n" . date('c') . " cache ttl " . $days . " days, cache size " . ($cfiles-$i) . " files, " . $i . " old files deleted\n" );
       }
 
+
+      // bots can wait, so feed them with fresh meat and refresh file in cache
+      $crawler = $this->crawler_detect();
 
       $key = $this->make_cache_key_from_url( $url );
 
       $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
 
-      if ( file_exists( $file ) && time() - $caching_time < filemtime( $file ) ) {
+      $log_file = $this->cache_log_file_open();
+
+      if ( file_exists( $file ) && time() - $caching_time < filemtime( $file ) && $crawler == '' ) {
 
          $data = explode( "\n>>----<<\n", file_get_contents( $file ) );
-         if ( $data[0] == $key )
+         if ( $data[0] == $key ) {
+           $this->cache_log_file_close( $log_file, "+" );
            return $data[2];
+         }
          else {
            unlink ( $file );
+           $this->cache_log_file_close( $log_file,
+              "\n" . date('c') . " file " . md5( $key ) . " with key " . $key . " deleted, unknown file format for url " . $url . "\n" );
            return $this->get_remote_xml( $url, $site );
          }
       }
       else {
 
+        $this->cache_log_file_close( $log_file );
+
         $ch = curl_init();
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         //our first attempt requires a fast response, our next attempt will be via ajax which allows slower
-        if(!isset($_POST['ajax_request'])){ $timeout = 1; } else { $timeout = 10; }
+        if(!isset($_POST['ajax_request']) && $crawler == ''){ $timeout = 1; } else { $timeout = 10; }
 
         curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $timeout );
         curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
@@ -1297,20 +1372,26 @@ public function get_remote_xml( $url, $site = '' )
         libxml_use_internal_errors( true );
         if ( simplexml_load_string( $data ) ) {
 
+            $log_file = $this->cache_log_file_open();
             file_put_contents( $file, $key . "\n>>----<<\n" . $url . "\n>>----<<\n" . $data );
+            if ( $crawler != '' )
+              $this->cache_log_file_close( $log_file, $crawler );
+            else
+              $this->cache_log_file_close( $log_file, "-" );
 
-            //libxml_use_internal_errors( false );
+            libxml_use_internal_errors( false );
             return $data;
 
         } //simplexml_load_string( $data )
         else {
 
-            //libxml_use_internal_errors( false );
+            libxml_use_internal_errors( false );
             return '<?xml version="1.0"?><noresults></noresults>';
         }
 
       }
-    } 
+    }
+
 
     
     public function network_page_query( $url )

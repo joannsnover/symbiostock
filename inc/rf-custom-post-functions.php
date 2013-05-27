@@ -148,6 +148,15 @@ function symbiostock_image_manager_meta_options( )
 	$symbiostock_vector_available  = $custom[ 'symbiostock_vector_available' ][ 0 ];
 	$symbiostock_zip_available     = $custom[ 'symbiostock_zip_available' ][ 0 ];
 	
+	//size info
+	$size_info = get_post_meta($post->ID, 'size_info');
+	$sizes = maybe_unserialize($size_info[0]);
+	
+	$sizes['large']['width'] > $sizes['large']['height'] ? $symbiostock_large_size = $sizes['large']['width'] : $symbiostock_large_size = $sizes['large']['height'];
+	$sizes['medium']['width'] > $sizes['medium']['height'] ? $symbiostock_medium_size = $sizes['medium']['width'] : $symbiostock_medium_size = $sizes['medium']['height'];
+	$sizes['small']['width'] > $sizes['small']['height'] ? $symbiostock_small_size = $sizes['small']['width'] : $symbiostock_small_size = $sizes['small']['height'];
+	$sizes['bloggee']['width'] > $sizes['bloggee']['height'] ? $symbiostock_bloggee_size = $sizes['bloggee']['width'] : $symbiostock_bloggee_size = $sizes['bloggee']['height'];
+	
 	//legal
 	$symbiostock_model_release     = $custom[ 'symbiostock_model_released' ][ 0 ];
 	$symbiostock_property_release  = $custom[ 'symbiostock_property_released' ][ 0 ];
@@ -220,6 +229,26 @@ function symbiostock_image_manager_meta_options( )
     <input type="text" name="discount_percent" value="<?php
     echo $discount_percent;
 ?>" />
+</div>
+
+<br />
+
+<div>
+	
+    <label>Size Bloggee: </label>
+    <input type="text" name="symbiostock_bloggee_size" value="<?php echo $symbiostock_bloggee_size ?>" />
+</div>
+<div>
+    <label>Size Small: </label>
+    <input type="text" name="symbiostock_small_size" value="<?php echo $symbiostock_small_size ?>" />
+</div>
+<div>
+    <label>Size Medium: </label>
+    <input type="text" name="symbiostock_medium_size" value="<?php echo $symbiostock_medium_size ?>" />
+</div>
+<div>
+    <label>Size Large: </label>
+    <input readonly type="text" name="symbiostock_large_size" value="<?php echo $symbiostock_large_size ?>" />
 </div>
 <?php
 	
@@ -357,6 +386,7 @@ function symbiostock_image_manager_save_options( )
 	
 	
     else {
+		
         update_post_meta( $post->ID, 'price_bloggee', $_POST[ 'price_bloggee' ] );        
         update_post_meta( $post->ID, 'price_small', $_POST[ 'price_small' ] );        
         update_post_meta( $post->ID, 'price_medium', $_POST[ 'price_medium' ] );        
@@ -374,6 +404,12 @@ function symbiostock_image_manager_save_options( )
 		update_post_meta( $post->ID, 'symbiostock_large_available', $_POST[ 'symbiostock_large_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_vector_available', $_POST[ 'symbiostock_vector_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );	
+		
+		//size info
+		
+		$size_info = symbiostock_change_image_sizes($post->ID, $_POST['symbiostock_bloggee_size'], $_POST['symbiostock_small_size'], $_POST['symbiostock_medium_size']);
+		update_post_meta($post->ID, 'size_info', $size_info );
+		
 		//legal 
 		update_post_meta( $post->ID, 'symbiostock_model_released', $_POST[ 'symbiostock_model_released' ] );	
 		update_post_meta( $post->ID, 'symbiostock_property_released', $_POST[ 'symbiostock_property_released' ] );	

@@ -21,6 +21,12 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
 	$author = new network_manager;
 	$info = $author->csv_to_array($symbiocard_location, ',');
 	$symbiocard = $info[0];
+	
+	if( empty($symbiocard) || !is_array($symbiocard) ){
+		echo '<em>Symbiocard not available...</em>';
+		return;
+	}
+	
 	foreach ($symbiocard as $key=>$value) {
 		$symbiocard[$key] = stripslashes($value);
 	}
@@ -88,15 +94,17 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
 			if(!empty($symbiostock_map_info) && is_array($symbiostock_map_info)){				
 				$home_area = $symbiostock_map_info['results'][0]['formatted_address'];				
 				} else {$home_area = '';}
+				
+				
 			$symbiostock_temp_location_1_info = maybe_unserialize($symbiocard['symbiostock_temporary_location_1_info']);
 				if(!empty($symbiostock_temp_location_1_info) && is_array($symbiostock_temp_location_1_info)){				
-				$temp_location_1 = $symbiostock_map_info['results'][0]['formatted_address'];				
+				$temp_location_1 = $symbiostock_temp_location_1_info['results'][0]['formatted_address'];				
 				} else {$temp_location_1 = '';}
 			$symbiostock_temp_location_2_info = maybe_unserialize($symbiocard['symbiostock_temporary_location_2_info']);
 				if(!empty($symbiostock_temp_location_2_info) && is_array($symbiostock_temp_location_2_info)){				
-				$temp_location_2 = $symbiostock_map_info['results'][0]['formatted_address'];				
-				} else {$temp_location_2 = '';}		        		
-            
+				$temp_location_2 = $symbiostock_temp_location_2_info['results'][0]['formatted_address'];				
+				} else {$temp_location_2 = '';}		
+		            
 			?>
             <div id="<?php echo $id ?>" class="accordion">            
             	<!--author important links-->  

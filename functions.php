@@ -1027,7 +1027,7 @@ function symbiostock_social_credentials( $user, $get_fields = false ) {
 		'Clients'              => 'Who you\'ve worked for.',
 		'Home Location'        => sshelp('location_info', 'Location'),
 		'Temporary Location 1' => sshelp('temporary_location_info', 'Temp Location'),			
-		'Temporary Location 2' => sshelp('temporary_location_info', 'Temp Location'),							
+		'Temporary Location 2' => '',							
 	);
 	
 	$select_dropdowns = array(
@@ -1073,7 +1073,7 @@ function symbiostock_social_credentials( $user, $get_fields = false ) {
 			$name_id = $prfx . strtolower(str_replace(' ', '_', $key));				
 				
 			!empty($credentials[$name_id]) ? $value = stripslashes(trim($credentials[$name_id])) : $value = '';
-			
+
 				?>                
                 <tr>
                     <th><label for="<?php echo $name_id; ?>"><?php echo $key; ?></label></th>                
@@ -1394,6 +1394,32 @@ function symbiostock_reprocess_image( $post_id, $promo = true, $size = 590) {
 	//delete temp image
 	unlink($tmp . $post_id . $ext);	
 }
+
+if(is_admin()){
+//for changing image sizes	
+function symbiostock_change_image_sizes($image_id, $bloggee_size, $small_size, $medium_size){
+	
+		include_once(symbiostock_CLASSROOT . 'image-processor/symbiostock_image_processor.php');		
+		
+		if(file_exists(symbiostock_STOCKDIR . $image_id . '.jpg')){
+			
+			$image_file = symbiostock_STOCKDIR . $image_id . '.jpg';
+		
+		} elseif(file_exists(symbiostock_STOCKDIR . $image_id . '.png')){
+			
+			$image_file = symbiostock_STOCKDIR . $image_id . '.png';
+			
+		} else {return;}
+		
+		$process = new symbiostock_image_processor( true );
+		
+		$resized = $process->establish_image_sizes($image_file, $bloggee_size, $small_size, $medium_size);
+		
+		return $resized;
+		
+	}	
+	
+}
 //for generating image previews, which are used by promoting agencies (optional feature, not used unless specifically evoked)
 function symbiostock_promo_image($images){
 	//images is an array of post ids which are used to coordate the images
@@ -1411,7 +1437,8 @@ function symbiostock_promo_image($images){
 		
 		}	
 	
-	}
+	}	
+
 //adding custom functionality to the bulk edit screen is not easy with current wordpress. We are using a class developed by FoxRunSoftware
 /*
 Plugin Name: FoxRunSoftware Custom Bulk Action Demo
@@ -1658,6 +1685,11 @@ add_action( 'save_post', 'symbiostock_datasheet' );
 
 function symbiostock_datasheet( $post_id )
 {
+	if(!isset($post_id) || empty($post_id)){
+		global $post;
+		
+		$post_id = $post->ID;
+		}
     
 	$post_type = get_post_type($post_id);
     $symbiostock_datasheets = get_option( 'symbiostock_enable_datasheets', 'No' );

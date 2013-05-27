@@ -68,6 +68,10 @@ function symbiostock_update_all_images( )
 		
 				if($edit == 'not_locked'){
 					
+					$size_info = symbiostock_change_image_sizes($id, $_POST['symbiostock_bloggee_size'], $_POST['symbiostock_small_size'], $_POST['symbiostock_medium_size']);
+					
+					update_post_meta($id, 'size_info', $size_info );
+					
 					foreach($meta_values as $key => $meta_value){
 						
 						$option = get_option($key, '');

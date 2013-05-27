@@ -187,6 +187,12 @@
                 <p>Important settings. Used not only on your site, but on network sites referring back to you. Its very important to good effort into this since your sell-ability increases with every site they are found on.</p>
             </li>
             <li>
+                <h3 id="promoted_keywords"><span class="description">Network  &mdash; </span>Promoted Keywords</h3>
+                <p>For promoting your site far beyond your local network. Promoted keywords end up in your Symbiocard.<br /><br /> In certain circumstances, <strong>a remote (and unrelated site) may show search results from your site</strong> if it knows you specialize in the keywords provided here. Good for "Niche" sites that have specific specialties.
+                <br /><br />This is one of the strongest promoting features of Symbiostock. Promotion of your site is managed in the "marketing" tab.
+                </p>
+            </li>            
+            <li>
                 <h3 id="site_announcement"><span class="description">Network  &mdash; </span>Site Announcement</h3>
                 <p>Real-time announcement regarding your site. Running a discount? Offering custom work?</p>
             </li>
