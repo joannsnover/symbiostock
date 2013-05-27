@@ -32,54 +32,51 @@ if(isset($_POST['symbiostock_scan_network'])){
 
 $network_total_images = 0;
 ?><table class="widefat">
-<input type="hidden" name="symbiostock_exclude_site" />
-<input type="hidden" name="symbiostock_promote_site" />
-<input type="hidden" name="symbiostock_delete_seed" />
+
 <thead>
 <tr><th>#</th><th>Local Site Directory Listing</th><th>#images</th><th>Promote</th><th>Exclude</th><th>Delete</th></tr>
 </thead>
 <?php 
 
 //check our deleted seeds and remove
-if(isset($_POST['symbiostock_delete_seed']) && !empty($_POST['symbiostock_delete_seed'])){
+if(isset($_POST['symbiostock_delete_seed'])){
 	foreach($_POST['symbiostock_delete_seed'] as $delete_site){
-			
 			if(file_exists(symbiostock_NETDIR . 'seeds/' . $delete_site . '.csv')&&!empty($delete_site)){	
 				unlink(symbiostock_NETDIR . 'seeds/' . $delete_site . '.csv');
 			} 
 		}
 }
-
 //set up our promoted sites
 $promoted = array();
 
-if(isset($_POST['symbiostock_promote_site']) && !empty($_POST['symbiostock_delete_seed'])){
+if(isset($_POST['symbiostock_promote_site'])){
 	foreach($_POST['symbiostock_promote_site'] as $promoted_site){	
-		if(!empty($_POST['symbiostock_promote_site'])){	
-			array_push($promoted, $promoted_site);
-		}
-		}	
-	update_option('symbiostock_promoted_sites', $promoted);
+		array_push($promoted, $promoted_site);		
+	}	
+	
 }
+update_option('symbiostock_promoted_sites', $promoted);
 $promoted = get_option('symbiostock_promoted_sites', array());
 
 //set up our exclusions
 $exclusions = array();
 
-if(isset($_POST['symbiostock_exclude_site']) && !empty($_POST['symbiostock_delete_seed'])){
+if(isset($_POST['symbiostock_exclude_site'])){
 	foreach($_POST['symbiostock_exclude_site'] as $exclude_site){
 		if(!empty($_POST['symbiostock_exclude_site'])){			
 			array_push($exclusions, $exclude_site);	
 		}
-		}	
-	update_option('symbiostock_exclude_sites', $exclusions);
+	}	
+	
 }
+update_option('symbiostock_exclude_sites', $exclusions);
+$excluded = get_option('symbiostock_exclude_sites', array());
 
 //list directories
 $directory = new network_manager();
 $list = $directory->get_connected_networks_by_symbiocard( true );
 
-$excluded = get_option('symbiostock_exclude_sites', array());
+
 
 $count = 1;
 foreach($list as $listing){
@@ -115,7 +112,12 @@ foreach($list as $listing){
 ?>
 <tfoot>
 	<tr>
-    	<td>#</td><td>.</td><td><?php echo $network_total_images; ?></td><td>.</td><td>.</td><td>.</td>
+    	<td>#</td>
+        <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
+        <td><?php echo $network_total_images; ?></td>
+        <td>.</td>
+        <td>.</td>
+        <td>.</td>
     </tr>
 </tfoot>
 </table>

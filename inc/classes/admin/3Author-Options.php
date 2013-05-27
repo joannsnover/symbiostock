@@ -288,7 +288,7 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
             Enter "<strong>00</strong>" to reset to 0.</td>
     </tr>
     <tr>
-        <th colspan=2> <strong>&raquo; Default Size Settings</strong> *<strong>Note</strong> - Size settings cannot be changed on image edit page yet. Choose carefully. <em>Large</em> size is original upload size. 
+        <th colspan=2> <strong>&raquo; Default Size Settings</strong>  
         <br /><?php echo sshelp('default_size_settings', 'Default Size Settings'); ?>
         </th>
     </tr>
