@@ -30,7 +30,7 @@ if(isset($_POST['symbiostock_scan_network'])){
 	echo '</div>';
 }
 
-
+$network_total_images = 0;
 ?><table class="widefat">
 <input type="hidden" name="symbiostock_exclude_site" />
 <input type="hidden" name="symbiostock_promote_site" />
@@ -53,7 +53,7 @@ if(isset($_POST['symbiostock_delete_seed']) && !empty($_POST['symbiostock_delete
 //set up our promoted sites
 $promoted = array();
 
-if(isset($_POST['symbiostock_promote_site'])){
+if(isset($_POST['symbiostock_promote_site']) && !empty($_POST['symbiostock_delete_seed'])){
 	foreach($_POST['symbiostock_promote_site'] as $promoted_site){	
 		if(!empty($_POST['symbiostock_promote_site'])){	
 			array_push($promoted, $promoted_site);
@@ -66,7 +66,7 @@ $promoted = get_option('symbiostock_promoted_sites', array());
 //set up our exclusions
 $exclusions = array();
 
-if(isset($_POST['symbiostock_exclude_site'])){
+if(isset($_POST['symbiostock_exclude_site']) && !empty($_POST['symbiostock_delete_seed'])){
 	foreach($_POST['symbiostock_exclude_site'] as $exclude_site){
 		if(!empty($_POST['symbiostock_exclude_site'])){			
 			array_push($exclusions, $exclude_site);	
@@ -93,7 +93,9 @@ foreach($list as $listing){
        		<a title="<?php echo $listing['symbiostock_display_name'] ?>" href="<?php echo $listing['symbiostock_author_page'] ?>"><?php echo $listing['symbiostock_author_page'] ?></a>
         </td> 
         <td>
-        <?php echo $listing['symbiostock_num_images'] ?>
+        <?php echo $listing['symbiostock_num_images'];
+		$network_total_images = $network_total_images+trim($listing['symbiostock_num_images']);
+		?>
         </td>
         <td>
         	<input <?php if(in_array($key, $promoted)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_promote_site[]" value="<?php echo $key ?>" />
@@ -112,6 +114,8 @@ foreach($list as $listing){
 
 ?>
 <tfoot>
-<tr><td colspan="5"></td></tr>
+	<tr>
+    	<td>#</td><td>.</td><td><?php echo $network_total_images; ?></td><td>.</td><td>.</td><td>.</td>
+    </tr>
 </tfoot>
 </table>

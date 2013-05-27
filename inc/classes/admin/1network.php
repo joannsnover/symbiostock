@@ -137,7 +137,7 @@ $ssnet_no = '';
                     <?php
 					if(isset($no_more_keywords )){ echo $no_more_keywords; }
 					?>
-                    <textarea class="longfield" name="symbiostock_my_promoted_keywords"  id="symbiostock_my_promoted_keywords" ><?php echo stripslashes ( get_option('symbiostock_my_promoted_keywords', '')) ?></textarea>
+                    <textarea class="longfield" name="symbiostock_my_promoted_keywords"  id="symbiostock_my_promoted_keywords" ><?php echo trim( stripslashes ( get_option('symbiostock_my_promoted_keywords', '') ) ) ?></textarea>
                     </td>
                 </tr>
 
