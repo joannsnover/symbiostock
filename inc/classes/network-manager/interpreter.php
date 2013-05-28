@@ -15,6 +15,35 @@ function sx_array($obj){
 	
 	return $arr;
 }
+
+function symbiostock_enqueue_seeds($results){
+	
+	if(!isset($results['found_seeds']['seed'])){
+		
+		return;
+		
+		} else {
+
+			$seeds = $results['found_seeds']['seed'];
+			
+			if(is_string($seeds))
+				$seeds = array($seeds);
+			
+						
+			$enqueued_seeds = get_option('symbiostock_enqueued_seeds', array());
+			
+			if(!is_array($enqueued_seeds))
+				$enqueued_seeds = array();
+				
+			$enqueued_seeds = array_unique(array_merge($seeds, $enqueued_seeds));
+							
+			update_option( 'symbiostock_enqueued_seeds', $enqueued_seeds );
+				
+		}
+	
+	}
+
+
 function symbiostock_interpret_results( $symbiostock_xml_results )
 {    
 	//testing, uncomment next lines
@@ -24,6 +53,8 @@ function symbiostock_interpret_results( $symbiostock_xml_results )
     $results = new SimpleXmlElement( $symbiostock_xml_results );
      
 	$results = sx_array($results);
+	
+	symbiostock_enqueue_seeds($results);
 	    
     return $results;
     

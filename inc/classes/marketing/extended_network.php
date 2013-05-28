@@ -135,6 +135,7 @@ foreach($list as $listing){
 	<tr>
     	<td>#</td>
         <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
+        <td>.</td>
         <td><?php echo $network_total_images; ?></td>
         <td>.</td>
         <td>.</td>
@@ -142,3 +143,26 @@ foreach($list as $listing){
     </tr>
 </tfoot>
 </table>
+<?php
+$seeds = get_option('symbiostock_enqueued_seeds', array());
+
+if(!empty($seeds)){
+	
+	?>
+    <br />
+    <div class="postbox">
+        <div class="inside">
+            <p>Enqueued Seeds <span class="description">{Symbiocards discovered through keyword traffic activity, and enqueued for directory. Will be added or updated.}</span></p>
+            <ul>
+            <?php
+            foreach($seeds as $seed){		
+                echo '<li><a title="'.$seed.'" href="'.$seed.'">'.$seed.'</a></li>';
+                }
+            }
+            ?>
+            </ul>
+        </div>
+    </div>
+	<?php
+
+?>

@@ -195,6 +195,28 @@ function symbiostock_xml_results($network_query){
 		  
 			endif;
 		
+		//if there are any "seeds" in our directory containing the searched term, we can list them	
+		$foundSeeds = $root->appendChild( 
+				$symbiostock_xml->createElement( "found_seeds" ) );
+		
+		//get seeds, if any		
+		$find_seeds = new network_manager();
+		$seeds = $find_seeds->get_seeds_by_keyword( );
+		
+		if(is_array($seeds) && !empty($seeds)){
+			
+			foreach ( $seeds as $found_seed ) {
+					foreach ( $found_seed as $seed ) {
+		
+					$foundSeeds->appendChild( 
+						$symbiostock_xml->createElement( "seed", $seed ) );
+					
+					} //$promoted_site as $site
+				} //$promoted_sites as $promoted_site
+		
+			}
+				
+		
 		//make our pagination
 		global $wp_rewrite; 
 		

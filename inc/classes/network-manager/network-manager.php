@@ -144,8 +144,23 @@ class network_manager
 	//this quickly populates a list of keywords with their containing sites
 	public function get_seeds_by_keyword( $keyword = '', $list = false )
 	{
+		if(empty($keyword)){
+			if ( get_query_var( 's' ) ) {
+				$query = get_query_var( 's' );
+			} //get_query_var( 's' )
+			else {
+				$query = get_query_var( 'image-tags' );
+			}
+		}
+		
+		$keyword = strtolower(trim($query));		
+		$keyword = preg_split( '/[+\s_-]/', $keyword );
+		$keyword = array_map('strtolower', $keyword);		
 		
 		$networks = $this->get_connected_networks_by_symbiocard( true );
+		
+		if(empty($networks))
+			return;
 		
 		$keywords = array( );
 		
@@ -154,6 +169,7 @@ class network_manager
 			if ( isset( $network[ 'symbiostock_my_promoted_keywords' ] ) && !empty( $network[ 'symbiostock_my_promoted_keywords' ] ) ) {
 				
 				$promoted_keywords = explode( ',', $network[ 'symbiostock_my_promoted_keywords' ] );
+				$promoted_keywords  = array_map('strtolower', $promoted_keywords );	
 				
 				if ( count( $promoted_keywords ) > 20 ) {
 					continue;
@@ -168,7 +184,7 @@ class network_manager
 						
 						if ( !empty( $keyword ) ) {
 											
-							if ( strtolower( $promoted_keyword ) !=  strtolower( $keyword ) ) {
+							if ( !in_array( $promoted_keyword,  $keyword ) ) {
 								continue;
 							} //strtolower( $promoted_keyword ) != ( $keyword )
 						} //!empty( $keyword )
@@ -178,6 +194,7 @@ class network_manager
 						} //!isset( $keywords[ $promoted_keyword ] )
 						else {
 							array_push( $keywords[ $promoted_keyword ], $network[ 'symbiostock_site' ] );
+							
 						}
 					} //$promoted_keywords as $promoted_keyword
 					
@@ -1192,89 +1209,89 @@ class network_manager
         $this->xml_results = $xml;
     }
     
-    //this function loops through all networks and then runs the network search function
-    //should only be called on the search or custom taxonomy page
-    public function network_search_all_similar( )
-    {
-        $symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
-        
-        if ( $symbiostock_use_network == 'true' ) {
-            
-            $network_limit = 15;
-            $site_count    = 0;            
-            $site_list     = array();
-			$exists        = array();
-			$excluded      = get_option('symbiostock_exclude_sites', array());
+	
+	//this function loops through all networks and then runs the network search function
+	//should only be called on the search or custom taxonomy page
+	public function network_search_all_similar( )
+		{
+			$symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
 			
-			while($site_count <= $network_limit){
+			if ( $symbiostock_use_network == 'true' ) {
 				
-				$network_site = get_option( 'symbiostock_network_site_' . $site_count );
+				$network_limit = 15;
+				$site_count    = 0;
+				$site_list     = array( );
+				$exists        = array( );
+				$excluded      = get_option( 'symbiostock_exclude_sites', array( ) );
 				
-				if(!empty($network_site)){
+				while ( $site_count <= $network_limit ) {
 					
-					array_push($site_list, $network_site);
-					array_push($exists, symbiostock_website_to_key($network_site['address']));
+					$network_site = get_option( 'symbiostock_network_site_' . $site_count );
 					
-					}
-				$site_count++;	
-				}
-			
-			$site_count    = 0; 
-			
-			if(get_query_var('s')){
-				$query = get_query_var('s');
-				} else {
-				$query = get_query_var('image-tags');
-				}
-			
-			$promoted_sites = $this->get_seeds_by_keyword( trim(strtolower($query))  );
-			
-			if(is_array($promoted_sites) && !empty($promoted_sites)){
+					if ( !empty( $network_site ) ) {
+						
+						array_push( $site_list, $network_site[ 'address' ] );
+						array_push( $exists, symbiostock_website_to_key( $network_site[ 'address' ] ) );
+						
+					} //!empty( $network_site )
+					$site_count++;
+				} //$site_count <= $network_limit
 				
-				foreach($promoted_sites[trim(strtolower($query))] as $promoted_site){
-						$site_to_include = symbiostock_website_to_key($promoted_site);
-						if(!in_array($site_to_include, $exists) && !in_array($site_to_include, $excluded))
-							array_push($site_list, array('address' => $promoted_site));					
-				}
-			}
-			
-            foreach ( $site_list as $network_site ) {
-                
-                $this->network_site_count = $site_count;
-                
-                //different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
-                //so we have to disect our url to get it to function properly...see $query below
-                $sub_level = parse_url( get_home_url() );
-                
-                if ( symbiostock_validate_url( $network_site[ 'address' ] ) ) {
-                    
-                    $arr_params = array(
-                         'symbiostock_network_search' => true,
-                        'symbiostock_network_info' => true,
-                        'paged' => 1 
-                        //'symbiostock_number_results' => 5 
-                    );
-                    
-                    $query = add_query_arg( $arr_params );
-                    
-                    //if we don't remove the path from our own url, we will mess up the query going to our friend's site
-                    //hard to explain. If you want to see what happens when you don't do what is shown  here,
-                    //comment out the line below and uncomment the echo statement below that
-                    $query = str_replace( $sub_level[ 'path' ], '', $query );
-                    //echo $query;
-                    
-                    $network_results   = $this->get_remote_xml( $network_site[ 'address' ] . $query, $network_site[ 'address' ]);                    
-                    $this->xml_results = $network_results;
-                    $this->display_results( true );
-                    
-                    
-                } //symbiostock_validate_url( $network_site[ 'address' ] )
-                
-                $site_count++;
-                
-            } //$site_count <= $network_limit
-        } //$symbiostock_use_network == 'true'
-    }
+				$site_count = 0;
+				
+				$promoted_sites = $this->get_seeds_by_keyword(  );
+				
+				if ( is_array( $promoted_sites ) && !empty( $promoted_sites ) ) {
+					
+					foreach ( $promoted_sites as $promoted_site ) {
+						foreach ( $promoted_site as $site ) {
+							
+							$site_to_include = symbiostock_website_to_key( $site );
+							if ( !in_array( $site_to_include, $exists ) && !in_array( $site_to_include, $excluded ) )
+								array_push( $site_list, $site );
+						} //$promoted_site as $site
+					} //$promoted_sites as $promoted_site
+				} //is_array( $promoted_sites ) && !empty( $promoted_sites )
+				
+				
+				foreach ( $site_list as $network_site ) {
+					
+					$this->network_site_count = $site_count;
+					
+					//different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
+					//so we have to disect our url to get it to function properly...see $query below
+					$sub_level = parse_url( get_home_url() );
+					
+					if ( symbiostock_validate_url( $network_site ) ) {
+						
+						$arr_params = array(
+							 'symbiostock_network_search' => true,
+							'symbiostock_network_info' => true,
+							'paged' => 1 
+							//'symbiostock_number_results' => 5 
+						);
+						
+						$query = add_query_arg( $arr_params );
+						
+						//if we don't remove the path from our own url, we will mess up the query going to our friend's site
+						//hard to explain. If you want to see what happens when you don't do what is shown  here,
+						//comment out the line below and uncomment the echo statement below that
+						$query = str_replace( $sub_level[ 'path' ], '', $query );
+						
+						$network_results = $this->get_remote_xml( $network_site . $query, $network_site );
+						
+						$this->xml_results = $network_results;
+						$this->display_results( true );
+						
+						
+					} //symbiostock_validate_url( $network_site[ 'address' ] )
+					
+					$site_count++;
+					
+				} //$site_count <= $network_limit
+			} //$symbiostock_use_network == 'true'
+		}
+
     
     //Performs a network search, instigates local_search() on remote site.      
     public function network_search( $site, $query = '' )
@@ -1524,6 +1541,21 @@ public function get_remote_xml( $url, $site = '' )
         //get our initial networks to start the process...
         $starting_points = $this->get_connected_networks_csv();
         
+		//first, see if our site has enqueued any sites from search activity
+		$enqueued_seeds = get_option('symbiostock_enqueued_seeds', array());
+		
+		if(!empty($enqueued_seeds)){
+			
+			foreach($enqueued_seeds as $seed){
+				
+				array_push($collected_addresses, $seed);
+				
+				}
+			
+			update_option('symbiostock_enqueued_seeds', array());
+			
+			}
+		
         //get their networks
         foreach ( $starting_points as $point ) {
             
