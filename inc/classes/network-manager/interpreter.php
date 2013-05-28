@@ -192,7 +192,12 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 	?><div id="network_site_<?php echo $site_count; ?>" class="network_results row-fluid">
         <div class="span12 well well-small network_results_header">            
             <?php 
-            echo symbiostock_csv_symbiocard_network_results(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv');
+			if(file_exists(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv')){
+				$card_path = symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv';
+				} else {
+				$card_path = symbiostock_NETDIR . 'seeds/' . symbiostock_website_to_key($network_info['url']) . '.csv';	
+					}			
+            echo symbiostock_csv_symbiocard_network_results($card_path);
             ?>            
         </div>
         <div class="network_results_container"><!--network_results_container-->
@@ -366,22 +371,32 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 						
 		$a = new SimpleXMLElement( $href_link );
 		$link = $a['href'];
-					
+		$pattern = "/(href=(\"|'))[^\"']+(?=(\"|'))/";			
 		
 		if(isset($link) && !empty($link)){
 			
 			if(strstr($link, 'post_type=image')){
+				//http://tulip.kerioak.com?s=animal&submit=Search&post_type=image&symbiostock_network_search=1&symbiostock_network_info=1&page=2
 				
 				$user_link = explode('?', $link);
 				$user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
 				$edited_link = str_replace($link, htmlentities($user_link), $href_link);
-				$edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);
+				$edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);				
+							
+				$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";					
+				$edited_link = preg_replace($pattern,$crawler_link,$edited_link);
+				
+				
+				
 				} else {
 				
 				$user_link = explode('?', $link);
 				$user_link = $user_link[0];	
 				$edited_link = str_replace($link, htmlentities($user_link), $href_link);
 				$edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
+				
+				$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";					
+				$edited_link = preg_replace($pattern,$crawler_link,$edited_link);
 			}
 				
 		} else { $edited_link = $href_link;}

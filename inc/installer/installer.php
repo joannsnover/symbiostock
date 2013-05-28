@@ -265,10 +265,10 @@ $headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';
 $message = get_site_url() . "<br />" . $theme_version . '<br />' . date("F d, Y h:ia");
 
 $message .= '<br /><br />
-To ensure best network performand and SEO, fill out all info: 
-<br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '?>/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
+To ensure best network performance and SEO, fill out all info: 
+<br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
 
-$message .= '<br />Network info: <a title="Network profile info" href="' . get_home_url() . '?>/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
+$message .= '<br />Network info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
 
 $subject = 'Symbiostock Site Deployed: ' . get_site_url() . ' - ' . date("F d, Y h:ia");;
 wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);

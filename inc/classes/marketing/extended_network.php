@@ -34,7 +34,7 @@ $network_total_images = 0;
 ?><table class="widefat">
 
 <thead>
-<tr><th>#</th><th>Local Site Directory Listing</th><th>#images</th><th>Promote</th><th>Exclude</th><th>Delete</th></tr>
+<tr><th>#</th><th>Local Site Directory Listing</th><th>Promoted Keywords</th><th>#images</th><th>Promote</th><th>Exclude</th><th>Delete</th></tr>
 </thead>
 <?php 
 
@@ -46,36 +46,47 @@ if(isset($_POST['symbiostock_delete_seed'])){
 			} 
 		}
 }
+
+
+
+	
 //set up our promoted sites
-$promoted = array();
 
-if(isset($_POST['symbiostock_promote_site'])){
-	foreach($_POST['symbiostock_promote_site'] as $promoted_site){	
-		array_push($promoted, $promoted_site);		
-	}	
+if(isset($_POST['save_form_info'])){
 	
-}
-update_option('symbiostock_promoted_sites', $promoted);
-$promoted = get_option('symbiostock_promoted_sites', array());
-
-//set up our exclusions
-$exclusions = array();
-
-if(isset($_POST['symbiostock_exclude_site'])){
-	foreach($_POST['symbiostock_exclude_site'] as $exclude_site){
-		if(!empty($_POST['symbiostock_exclude_site'])){			
-			array_push($exclusions, $exclude_site);	
+	if(isset($_POST['symbiostock_promote_site'])){
+		
+		$promoted = array();
+		foreach($_POST['symbiostock_promote_site'] as $promoted_site){	
+			array_push($promoted, $promoted_site);		
+		}	
+		update_option('symbiostock_promoted_sites', $promoted);	
+	} else {
+		update_option('symbiostock_promoted_sites', array());	
 		}
-	}	
 	
+	//set up our exclusions
+		
+	if(isset($_POST['symbiostock_exclude_site'])){
+		
+		$exclusions = array();
+		foreach($_POST['symbiostock_exclude_site'] as $exclude_site){
+			if(!empty($_POST['symbiostock_exclude_site'])){			
+				array_push($exclusions, $exclude_site);	
+			}
+		}	
+		update_option('symbiostock_exclude_sites', $exclusions);	
+	} else {
+		update_option('symbiostock_exclude_sites', array());
+		}
 }
-update_option('symbiostock_exclude_sites', $exclusions);
+$promoted = get_option('symbiostock_promoted_sites', array());
 $excluded = get_option('symbiostock_exclude_sites', array());
 
 //list directories
 $directory = new network_manager();
 $list = $directory->get_connected_networks_by_symbiocard( true );
-
+$directory->get_seeds_by_keyword();
 
 
 $count = 1;
@@ -88,6 +99,16 @@ foreach($list as $listing){
        
         <td>        	
        		<a title="<?php echo $listing['symbiostock_display_name'] ?>" href="<?php echo $listing['symbiostock_author_page'] ?>"><?php echo $listing['symbiostock_author_page'] ?></a>
+        </td>
+        <td>
+        <?php
+		if(isset($listing['symbiostock_my_promoted_keywords']) && !empty($listing['symbiostock_my_promoted_keywords'])){
+			
+			echo $listing['symbiostock_my_promoted_keywords'];
+			
+			}
+		
+		?>
         </td> 
         <td>
         <?php echo $listing['symbiostock_num_images'];

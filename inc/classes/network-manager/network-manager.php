@@ -140,6 +140,68 @@ class network_manager
         return $symbiocards;
     }
     
+	
+	//this quickly populates a list of keywords with their containing sites
+	public function get_seeds_by_keyword( $keyword = '', $list = false )
+	{
+		
+		$networks = $this->get_connected_networks_by_symbiocard( true );
+		
+		$keywords = array( );
+		
+		foreach ( $networks as $network ) {
+			
+			if ( isset( $network[ 'symbiostock_my_promoted_keywords' ] ) && !empty( $network[ 'symbiostock_my_promoted_keywords' ] ) ) {
+				
+				$promoted_keywords = explode( ',', $network[ 'symbiostock_my_promoted_keywords' ] );
+				
+				if ( count( $promoted_keywords ) > 20 ) {
+					continue;
+					
+				} //count( $promoted_keywords ) > 20
+				
+				else {
+					
+					foreach ( $promoted_keywords as $promoted_keyword ) {
+						
+						$promoted_keyword = trim($promoted_keyword);
+						
+						if ( !empty( $keyword ) ) {
+											
+							if ( strtolower( $promoted_keyword ) !=  strtolower( $keyword ) ) {
+								continue;
+							} //strtolower( $promoted_keyword ) != ( $keyword )
+						} //!empty( $keyword )
+						
+						if ( !isset( $keywords[ $promoted_keyword ] ) ) {
+							$keywords[ $promoted_keyword ] = array( $network[ 'symbiostock_site' ] );
+						} //!isset( $keywords[ $promoted_keyword ] )
+						else {
+							array_push( $keywords[ $promoted_keyword ], $network[ 'symbiostock_site' ] );
+						}
+					} //$promoted_keywords as $promoted_keyword
+					
+				}
+				
+			} //isset( $network[ 'symbiostock_my_promoted_keywords' ] ) && !empty( $network[ 'symbiostock_my_promoted_keywords' ] )
+			
+		} //$networks as $network
+		
+		if($list != true)
+			return $keywords;
+			
+			
+		
+	}
+
+	
+		public function deliver_seeds_list(){
+		
+		$networks = $this->get_connected_networks_by_symbiocard( true );
+		
+		
+		}
+		
     public function delete_symbiocard( $key )
     {
         $file = symbiostock_NETDIR . $key . '.csv';
@@ -497,6 +559,7 @@ class network_manager
         
         return $files;        
     }    
+	
     public function list_all_networks( $compact = false, $seeds = false )
     {
         $count = 1;       
@@ -1133,19 +1196,51 @@ class network_manager
     //should only be called on the search or custom taxonomy page
     public function network_search_all_similar( )
     {
-        
         $symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
         
         if ( $symbiostock_use_network == 'true' ) {
             
-            $network_limit = 9;
+            $network_limit = 15;
             $site_count    = 0;            
-                        
-            while ( $site_count <= $network_limit ) {
+            $site_list     = array();
+			$exists        = array();
+			$excluded      = get_option('symbiostock_exclude_sites', array());
+			
+			while($site_count <= $network_limit){
+				
+				$network_site = get_option( 'symbiostock_network_site_' . $site_count );
+				
+				if(!empty($network_site)){
+					
+					array_push($site_list, $network_site);
+					array_push($exists, symbiostock_website_to_key($network_site['address']));
+					
+					}
+				$site_count++;	
+				}
+			
+			$site_count    = 0; 
+			
+			if(get_query_var('s')){
+				$query = get_query_var('s');
+				} else {
+				$query = get_query_var('image-tags');
+				}
+			
+			$promoted_sites = $this->get_seeds_by_keyword( trim(strtolower($query))  );
+			
+			if(is_array($promoted_sites) && !empty($promoted_sites)){
+				
+				foreach($promoted_sites[trim(strtolower($query))] as $promoted_site){
+						$site_to_include = symbiostock_website_to_key($promoted_site);
+						if(!in_array($site_to_include, $exists) && !in_array($site_to_include, $excluded))
+							array_push($site_list, array('address' => $promoted_site));					
+				}
+			}
+			
+            foreach ( $site_list as $network_site ) {
                 
                 $this->network_site_count = $site_count;
-                
-                $network_site = get_option( 'symbiostock_network_site_' . $site_count );
                 
                 //different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
                 //so we have to disect our url to get it to function properly...see $query below
