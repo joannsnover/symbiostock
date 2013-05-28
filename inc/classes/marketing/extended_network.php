@@ -1,13 +1,16 @@
 <h2>Symbiostock Network Scanner</h2>
-
 <br />
-<label for="symbiostock_scan_network"><input id="symbiostock_scan_network" type="checkbox" name="symbiostock_scan_network" /> Scan network and update directory.</label> 
-<br /><br />
-<label for="symbiostock_reset_extended_network"><input id="symbiostock_reset_extended_network" type="checkbox" name="symbiostock_reset_extended_network" /> Reset extended network (deletes all listings).</label> 
-
-<p class="Description">This scans your network friends and adds their networks to your directory. 
-<br />In the near future it will follow more leads than that, but this is where we start while the network is still small.
-<br />This could take a while...be patient and grab a soda or something.</p>
+<label for="symbiostock_scan_network">
+    <input id="symbiostock_scan_network" type="checkbox" name="symbiostock_scan_network" />
+    Scan network and update directory.</label>
+<br />
+<br />
+<label for="symbiostock_reset_extended_network">
+    <input id="symbiostock_reset_extended_network" type="checkbox" name="symbiostock_reset_extended_network" />
+    Reset extended network (deletes all listings).</label>
+<p class="Description">This scans your network friends and adds their networks to your directory. <br />
+    In the near future it will follow more leads than that, but this is where we start while the network is still small. <br />
+    This could take a while...be patient and grab a soda or something.</p>
 <?php
 
 if(isset($_POST['symbiostock_reset_extended_network'])){
@@ -31,12 +34,20 @@ if(isset($_POST['symbiostock_scan_network'])){
 }
 
 $network_total_images = 0;
-?><table class="widefat">
-
-<thead>
-<tr><th>#</th><th>Local Site Directory Listing</th><th>Promoted Keywords</th><th>#images</th><th>Promote</th><th>Exclude</th><th>Delete</th></tr>
-</thead>
-<?php 
+?>
+<table class="widefat">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Local Site Directory Listing</th>
+            <th>Promoted Keywords</th>
+            <th>#images</th>
+            <th>Promote</th>
+            <th>Exclude</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <?php 
 
 //check our deleted seeds and remove
 if(isset($_POST['symbiostock_delete_seed'])){
@@ -95,74 +106,55 @@ foreach($list as $listing){
 
 	?>
     <tr>
-    	<td><?php echo $count; ?></td>
-       
-        <td>        	
-       		<a title="<?php echo $listing['symbiostock_display_name'] ?>" href="<?php echo $listing['symbiostock_author_page'] ?>"><?php echo $listing['symbiostock_author_page'] ?></a>
-        </td>
-        <td>
-        <?php
+        <td><?php echo $count; ?></td>
+        <td><a title="<?php echo $listing['symbiostock_display_name'] ?>" href="<?php echo $listing['symbiostock_author_page'] ?>"><?php echo $listing['symbiostock_author_page'] ?></a></td>
+        <td><?php
 		if(isset($listing['symbiostock_my_promoted_keywords']) && !empty($listing['symbiostock_my_promoted_keywords'])){
 			
 			echo $listing['symbiostock_my_promoted_keywords'];
 			
 			}
 		
-		?>
-        </td> 
-        <td>
-        <?php echo $listing['symbiostock_num_images'];
+		?></td>
+        <td><?php echo $listing['symbiostock_num_images'];
 		$network_total_images = $network_total_images+trim($listing['symbiostock_num_images']);
-		?>
-        </td>
-        <td>
-        	<input <?php if(in_array($key, $promoted)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_promote_site[]" value="<?php echo $key ?>" />
-        	
-        </td>              
-        <td>
-        	<input <?php if(in_array($key, $excluded)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_exclude_site[]" value="<?php echo $key ?>" />
-        </td>
-        <td>
-        	<input type="checkbox" name="symbiostock_delete_seed[]" value="<?php echo $key ?>" />
-        </td>
+		?></td>
+        <td><input <?php if(in_array($key, $promoted)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_promote_site[]" value="<?php echo $key ?>" /></td>
+        <td><input <?php if(in_array($key, $excluded)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_exclude_site[]" value="<?php echo $key ?>" /></td>
+        <td><input type="checkbox" name="symbiostock_delete_seed[]" value="<?php echo $key ?>" /></td>
     </tr>
     <?php	
 	$count++;
 }
 
 ?>
-<tfoot>
-	<tr>
-    	<td>#</td>
-        <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
-        <td>.</td>
-        <td><?php echo $network_total_images; ?></td>
-        <td>.</td>
-        <td>.</td>
-        <td>.</td>
-    </tr>
-</tfoot>
+    <tfoot>
+        <tr>
+            <td>#</td>
+            <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
+            <td>.</td>
+            <td><?php echo $network_total_images; ?></td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+        </tr>
+    </tfoot>
 </table>
 <?php
 $seeds = get_option('symbiostock_enqueued_seeds', array());
 
 if(!empty($seeds)){
-	
 	?>
-    <br />
-    <div class="postbox">
-        <div class="inside">
-            <p>Enqueued Seeds <span class="description">{Symbiocards discovered through keyword traffic activity, and enqueued for directory. Will be added or updated.}</span></p>
-            <ul>
-            <?php
-            foreach($seeds as $seed){		
-                echo '<li><a title="'.$seed.'" href="'.$seed.'">'.$seed.'</a></li>';
-                }
-            }
-            ?>
-            </ul>
-        </div>
-    </div>
-	<?php
 
-?>
+    <ul>
+    <li><p>Enqueued Seeds <span class="description">Symbiocards discovered through keyword traffic activity, and enqueued for directory. Will be added or updated.</span></p></li>
+    
+        <?php
+        foreach($seeds as $seed){		
+            echo '<li><a title="'.$seed.'" href="'.$seed.'">'.$seed.'</a></li>';
+            }
+       
+        }
+        ?>
+    </ul>
+  
