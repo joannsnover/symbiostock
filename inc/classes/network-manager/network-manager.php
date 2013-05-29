@@ -900,7 +900,7 @@ class network_manager
             'feed' => 'rss' 
         ) );
         
-        $network_info[ 'symbiostock_author_categories' ] = serialize( $categories );
+        $network_info[ 'symbiostock_author_categories' ] = serialize( htmlspecialchars( $categories ) );
         
         //show networks 
         $network_info[ 'symbiostock_networked_sites' ] = serialize( $this->get_connected_networks() );
@@ -920,6 +920,8 @@ class network_manager
             } //$profile_info as $key => $profile_entry
         } //$profile_info != false && !empty( $profile_info )
         
+		$network_info = array_map('strip_tags', $network_info);
+		
         $this->network_info = $network_info;
         
     }
@@ -1084,6 +1086,39 @@ class network_manager
         
     }
     
+	public function write_keyword_list(){
+		
+		$args = array(
+			'orderby'       => 'count', 
+			'order'         => 'DESC',
+		); 
+		$terms = get_terms( 'image-tags', $args );
+		
+		$term_list = array();
+		
+		foreach ($terms as $term){			
+			array_push($term_list, array(
+				'Name'  => $term->name, 
+				'Slug'  =>$term->slug, 
+				'Count' =>$term->count
+			));								
+		}
+				
+				
+		$name = ABSPATH . '/symbiostock_keyword_info.csv';
+        $fp   = fopen( $name, 'w' );
+        
+        fputcsv( $fp, array_keys( $term_list[0] ) );
+        
+        foreach ( $term_list as $vals ) {
+            
+            fputcsv( $fp, $vals );
+            
+        } //$this->images_meta as $vals
+        
+        fclose( $fp );
+		
+		}
     //local search, responsible for generating local search results, returns xml.
     public function local_search( )
     {
@@ -1396,9 +1431,10 @@ public function cache_log_file_close( $file, $data = '' )
       fclose( $file );
     }
 
+
 public function crawler_detect()
     {
-      $crawlers_names = "Google|GoogleBot|Googlebot|msnbot|AhrefsBot|YandexBot|MJ12bot";
+      $crawlers_names = "Google|GoogleBot|Googlebot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider";
       $crawlers = explode( "|", $crawlers_names );
       foreach( $crawlers as $crawler )
         if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
@@ -1408,22 +1444,24 @@ public function crawler_detect()
     }
 
 
-
-// default cache period is 7 days
-// set it to 0 to disable cache
+// default cache period is 14 days
+// set it to 0 to disable cache (files will be stored all the time, but their contents will not
+// be used, until you set something > 0
 
 public function get_remote_xml( $url, $site = '' )
     {
 
-      $days = min( get_option('symbiostock_cache_days', 7), 90 );
-      $max_cache_count = 20000;  // maybe option in future
+      $days = min( get_option('symbiostock_cache_days', 14), 90 );
+      $max_cache_count = 50000;  // maybe option in future
       $max_cache_delete = 100;   // and this
 
       $caching_time = $days * 24 * 3600;   // must be number of seconds
 
-      if ( time() % 1000 == 0 ) {  // let's delete old files from time to time
+      $crawler = $this->crawler_detect();
 
-        $log_file = $this->cache_log_file_open(); // open file and lock
+      $log_file = $this->cache_log_file_open(); // open file and lock
+
+      if ( $crawler != '' && time() > ( $cache_time=get_option( 'symbiostock_cache_update_time', 0 ) ) ) {  // let's delete old files once a day
 
         $files = glob( ABSPATH . 'symbiostock_xml_cache/*' ); // it doesn't select .* files, such as .cachelog
         usort( $files, create_function( ' $a, $b ', ' return filemtime($a) - filemtime($b); ' ) );
@@ -1432,19 +1470,17 @@ public function get_remote_xml( $url, $site = '' )
         for( $i = 0; $i < $cfiles && ( $i < $files_to_delete || $i < $max_cache_delete && filemtime( $files[ $i ] ) < time() - $caching_time ) ; $i++ )
           unlink( $files[ $i ] );
 
+        if ( $cache_time == 0 ) $cache_time = time();
+        update_option( 'symbiostock_cache_update_time', $cache_time + 24*3600 );
         $this->cache_log_file_close( $log_file,
             "\n" . date('c') . " cache ttl " . $days . " days, cache size " . ($cfiles-$i) . " files, " . $i . " old files deleted\n" );
+
+        $log_file = $this->cache_log_file_open();
       }
-
-
-      // bots can wait, so feed them with fresh meat and refresh file in cache
-      $crawler = $this->crawler_detect();
 
       $key = $this->make_cache_key_from_url( $url );
 
       $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
-
-      $log_file = $this->cache_log_file_open();
 
       if ( file_exists( $file ) && time() - $caching_time < filemtime( $file ) && $crawler == '' ) {
 
@@ -1503,8 +1539,6 @@ public function get_remote_xml( $url, $site = '' )
 
       }
     }
-
-
     
     public function network_page_query( $url )
     {
@@ -1669,6 +1703,8 @@ function symbiostock_save_image_list_info( )
     $network_info->generate_image_list_info();
     
     $network_info->write_image_list_info();
+	
+	$network_info->write_keyword_list();
     
 }
 

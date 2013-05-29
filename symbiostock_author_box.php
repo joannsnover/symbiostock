@@ -20,7 +20,11 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
 	
 	$author = new network_manager;
 	$info = $author->csv_to_array($symbiocard_location, ',');
-	$symbiocard = $info[0];
+	
+	
+	$symbiocard = $info[0];	
+	
+	$symbiocard = array_map('strip_tags', $symbiocard);
 	
 	if( empty($symbiocard) || !is_array($symbiocard) ){
 		echo '<em>Symbiocard not available...</em>';
@@ -166,7 +170,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                     <div id="collapseTwo_<?php echo $id ?>" class="accordion-body collapse">
                     	<div class="accordion-inner">
                         	<ul class="">                        
-                        	<?php echo maybe_unserialize($symbiocard['symbiostock_author_categories']); ?> 
+                        	<?php echo $symbiostock_categories; ?> 
                             </ul>                      		
                         </div>
                     </div>                   

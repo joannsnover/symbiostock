@@ -27,7 +27,7 @@
             <div><b>symbiotic</b>&nbsp; <i>less commonly</i>, <b>symbiotical</b> <i>adj.</i></div>
         </div>
     </div>
-    <p>The growth of the Symbiostock network will take us through all sorts of adventures - imaging, code writing, analytics, and expanding the network. While each Symbiostock site has the ability to be independent, it will thrive most when it is joined with the network it was made for.</p>
+    <p>The growth of the Symbiostock network will take us through all sorts of adventures - imaging, code writing, analytics, and expanding the network. While each Symbiostock site has the ability to be independent, it will thrive most when it is joined with the network it was made for. See this post on <a href="http://www.symbiostock.com/how-does-symbiostock-promote-you/" title="How does symbiostock promote you?" target="_blank">"How Does Symbiostock Promote You?"</a></p>
     <p>While Symbiostock was developed primarily with the individual in mind, it can also benefit agencies as well. As tradition with most open source software goes - you have plenty of flexibility to make it work the way you want it to.</p>
     <h2>How to Succeed Selling Images Direct</h2>
     <p>Maintaining a website and making it succeed is a fairly ongoing job. It can be as much or as little as you want it to be. But there are some things you should take into consideration in promoting your images:</p>
@@ -171,6 +171,7 @@
             </li>
             <li>
                 <h3 id="csv_file"><span class="description">Network  &mdash; </span>.csv and symbiocard Files Explained</h3>
+                See also: <a href="http://www.symbiostock.com/how-does-symbiostock-promote-you/" title="How does symbiostock promote you?" target="_blank">"How Does Symbiostock Promote You?"</a>
                 <p>Introducing the <strong>symbiocard!</strong> Its actually symbiocard.csv to be exact. The symbiocard can be likened to a "seed", such as a <a title="burdock" href="http://en.wikipedia.org/wiki/Arctium">burdock seed</a> or a <a href="http://en.wikipedia.org/wiki/Taraxacum">dandelion seed.</a><br />
                     <br />
                     The symbiocard actually "travels" the network based on user activity and promotes your site where relevant. Much like a burdock seed, it relies on human traffic to find its way around. Or much like a dendelion seed, it simply kites its way from one point to another. The little "symbiocard" an essential component in Symbiostock mutual promotion, since it viturally takes on a life course of its own in spreading your website's presence.</p>

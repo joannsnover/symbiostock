@@ -444,6 +444,13 @@ class symbiostock_gd_watermark
 //this function applies a watermark to image
 function symbiostock_watermark_image( $source_path, $destination, $watermark_path )
 {
+	
+	if(!file_exists($watermark_path)){
+		
+		$watermark_path = symbiostock_CLASSROOT . 'image-processor/symbiostock-watermark.png';
+		
+		echo '<p>Cannot find watermark at location: <strong>' . $watermark_path . '< ... Please check that you entered it correctly in your Settings Area. Default watermark used.';
+		}
     //if we have imagemagick, definitely use that!	
     if ( extension_loaded( 'imagick' ) ) {
         
@@ -590,7 +597,7 @@ function symbiostock_get_watermark_path(){
 			if (file_exists($_SERVER[ 'DOCUMENT_ROOT' ] . trim( $url_vars[ 'path' ] ))) {
 				//first we try to get it on server
 				$watermark_path = $_SERVER[ 'DOCUMENT_ROOT' ] . trim( $url_vars[ 'path' ] );
-			
+				
 			} else {
 				//if not, we try to get it direct from url
 				$watermark_path = $watermark_path_url;

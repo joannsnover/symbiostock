@@ -183,7 +183,7 @@ $symbiostock_reflections == 'off' ? $symbiostock_reflections_off = 'selected="se
 if(isset($_POST['symbiostock_model_released'])){ 
 	update_option( 'symbiostock_model_released', $_POST[ 'symbiostock_model_released' ] );
 }
-$symbiostock_model_release = get_option('symbiostock_model_released');
+$symbiostock_model_release = get_option('symbiostock_model_released', 'N/A');
 $symbiostock_model_release == 'Yes' || !isset($symbiostock_model_release)  ? $symbiostock_model_released_yes = 'selected="selected"' : $symbiostock_model_released_yes = '';
 $symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"' : $symbiostock_model_released_no = '';
 $symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected="selected"' : $symbiostock_model_released_na = '';
@@ -191,7 +191,7 @@ $symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected
 if(isset($_POST['symbiostock_property_released'])){ 
 	update_option( 'symbiostock_property_released', $_POST[ 'symbiostock_property_released' ] );
 }
-$symbiostock_property_release = get_option('symbiostock_property_released');
+$symbiostock_property_release = get_option('symbiostock_property_released', 'N/A');
 $symbiostock_property_release == 'Yes' || !isset($symbiostock_property_released_yes)  ? $symbiostock_property_released_yes = 'selected="selected"' : $symbiostock_property_released_yes = '';
 $symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"' : $symbiostock_property_released_no = '';
 $symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"' : $symbiostock_property_released_na = '';

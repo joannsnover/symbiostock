@@ -168,7 +168,7 @@ foreach($symbiocards as $symbiocard){
             
             <label class="description" for="symbiostock_cache_days">
             <strong>
-            	<input style="text-align: center;" size="3" type="text" name="symbiostock_cache_days" value="<?php echo get_option('symbiostock_cache_days', 7) ?>" />
+            	<input style="text-align: center;" size="3" type="text" name="symbiostock_cache_days" value="<?php echo get_option('symbiostock_cache_days', 14) ?>" />
             </strong>
             <em> days cache network search</em> 
             </label>                

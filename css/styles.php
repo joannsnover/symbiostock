@@ -156,7 +156,7 @@ h2, h3, h4, h5, h6 {
 	
 	}
 footer.site-footer {
-	background-color: #F4F4F4;
+	background-color: #111;
 	background-image: url(<?php echo CSSBG; ?>/type.png);
 	border-top: 7px solid #333;
 	padding: 20px 20px;
@@ -714,7 +714,7 @@ SYMBIOSTOCK SEARCH RESULTS
 .symbiostock-image a:link, 
 .symbiostock-image a:visited,
 .symbiostock-image a:hover, 
-.symbiostock-image :active{	
+.symbiostock-image a:active{	
 	text-decoration: none;
 	color: #666;
 	}
