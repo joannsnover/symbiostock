@@ -24,6 +24,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
 	
 	$symbiocard = $info[0];	
 	
+	$symbiostock_categories = maybe_unserialize( $symbiocard['symbiostock_author_categories'] );
+	
 	$symbiocard = array_map('strip_tags', $symbiocard);
 	
 	if( empty($symbiocard) || !is_array($symbiocard) ){
