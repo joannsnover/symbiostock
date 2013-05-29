@@ -1253,6 +1253,8 @@ class network_manager
 			
 			if ( $symbiostock_use_network == 'true' ) {
 				
+				$my_site = get_bloginfo('url');
+												
 				$network_limit = 15;
 				$site_count    = 0;
 				$site_list     = array( );
@@ -1282,7 +1284,10 @@ class network_manager
 						foreach ( $promoted_site as $site ) {
 							
 							$site_to_include = symbiostock_website_to_key( $site );
-							if ( !in_array( $site_to_include, $exists ) && !in_array( $site_to_include, $excluded ) )
+							
+							
+							if ( !in_array( $site_to_include, $exists ) && !in_array( $site_to_include, $excluded ) && $my_site != $site)
+													
 								array_push( $site_list, $site );
 						} //$promoted_site as $site
 					} //$promoted_sites as $promoted_site
