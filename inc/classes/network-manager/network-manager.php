@@ -354,7 +354,7 @@ class network_manager
         $count = 0;
         $sites = array( );
         $exists = array( );
-        while ( $count < 9 ) {
+        while ( $count <= 9 ) {
             
             if ( isset( $_POST[ 'symbiostock_network_site_' . $count ] ) && !empty( $_POST[ 'symbiostock_network_site_' . $count ] ) ) {
                 

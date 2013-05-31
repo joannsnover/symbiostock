@@ -32,6 +32,11 @@ while ( $site_count <= 5 ) {
     $site_count++;
 }
 //personal network settings
+
+if(isset($_POST['symbiostock_site_author'])){
+	update_option('symbiostock_site_author', $_POST['symbiostock_site_author']);	
+	}
+
 if(isset($_POST['symbiostock_my_network_name'])){ 
 	update_option('symbiostock_my_network_name', $_POST['symbiostock_my_network_name']); 
 }
@@ -124,6 +129,7 @@ $ssnet_no = '';
                         <br /> 
                         <strong><a title="Network Bonus Info" href="<?php echo get_home_url(); ?>/wp-admin/profile.php#extended_network_info">&raquo; Network Bonus Info</a></strong>
                         <span class="description"> &mdash; Special extended info settings used by Symbiostock on author pages and outside network referring pages.</span>
+                    	<br /><label for="symbiostock_site_author"><?php symbiostock_list_admins(); ?> Symbiocard Author</label>
                     </td>
                 </tr>
                 <tr>

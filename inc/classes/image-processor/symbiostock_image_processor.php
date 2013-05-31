@@ -1579,7 +1579,7 @@ class symbiostock_image_processor
 		###
         extract(symbiostock_get_meta($file));
         !empty($caption) ? $content = $caption : $content = $headline;
-		!empty($caption) ? $excerpt =  $title : $excerpt =  $headline;	
+		!empty($caption) ? $excerpt =  $caption : $excerpt =  $title;	
 
         $post = array(
              'comment_status' => get_option('symbiostock_comments', 'open'), // 'closed' means no comments.

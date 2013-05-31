@@ -16,7 +16,7 @@ $purged = get_option('symbiostock_network_purged');
 
 if($purged != '2.2.4'){	
 	$count = 0;	
-	while($count > 9){		
+	while($count >= 9){		
 		delete_option('symbiostock_network_site_' . $count);
 		$count++;		
 		}	

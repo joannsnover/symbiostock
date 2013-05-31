@@ -1007,13 +1007,33 @@ function symbiostock_list_admins(){
 
 	}
 
+//checks if current logged in user is the Symbiostock site author
+function is_symbiostock_author(){
+	$main_author = get_option('symbiostock_site_author');
+	
+	
+	$current_user = wp_get_current_user();
+	
+	if($main_author != $current_user->ID){
+			return false;		
+		} else {			
+			return true;	
+		}
+	
+	}
+
 //SYMBIOSTOCK SOCIAL STUFF
 add_action( 'show_user_profile', 'symbiostock_social_credentials');
 add_action( 'edit_user_profile', 'symbiostock_social_credentials');
 function symbiostock_social_credentials( $user, $get_fields = false ) { 
 	$symbiostock_social_credentials = get_option('symbiostock_social_credentials'); 
 	if ( !current_user_can( 'manage_options', $user-ID ) )
-	return false;
+		return false;
+		
+	if(!is_symbiostock_author())		
+		return;
+		
+		
 	
 	$prfx =  'symbiostock_';
 	
@@ -1065,7 +1085,7 @@ function symbiostock_social_credentials( $user, $get_fields = false ) {
 	?>
 	<h2 id="extended_network_info">Symbiostock Profile and Extended Network Info</h2><?php echo  sshelp('symbiostock_profile', 'Your profile and network symbiocard'); ?>
 	<table class="form-table">		
-        <tr><th><label for="symbiostock_site_author">Symbiostock Symbiocard Author</label></th><td><?php symbiostock_list_admins(); ?></td></tr>		
+        	
 		<?php	
 			
 		foreach($text_fields as $key => $text){			
@@ -1129,6 +1149,13 @@ add_action( 'personal_options_update', 'symbiostock_update_social_credentials' )
 add_action( 'edit_user_profile_update', 'symbiostock_update_social_credentials' );
 function symbiostock_update_social_credentials($user){
 	
+	if ( !current_user_can( 'manage_options', $user-ID ) )
+		return false;
+	
+	if(!is_symbiostock_author())		
+		return;
+	
+	
 	$options = symbiostock_social_credentials( $user, true );
 	
 	$symbiostock_social_credentials = array();
@@ -1147,7 +1174,7 @@ function symbiostock_update_social_credentials($user){
 	isset($_POST['url']) && !empty($_POST['url'])?$symbiostock_social_credentials['symbiostock_alternate_url'] = trim($_POST['url']):$symbiostock_social_credentials['symbiostock_alternate_url'] = '';
 	isset($_POST['description']) && !empty($_POST['description'])?$symbiostock_social_credentials['symbiostock_author_bio'] = trim($_POST['description']):$symbiostock_social_credentials['symbiostock_author_bio'] = '';
 	
-	update_option('symbiostock_site_author', $_POST['symbiostock_site_author']);				
+		
 	update_option('symbiostock_social_credentials', $symbiostock_social_credentials);
 	symbiostock_save_network_info();	
 }
