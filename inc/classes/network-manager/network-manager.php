@@ -899,9 +899,7 @@ class network_manager
             'title_li' => '',
             'feed' => 'rss' 
         ) );
-        
-        $network_info[ 'symbiostock_author_categories' ] = serialize( htmlspecialchars( $categories ) );
-        
+                        
         //show networks 
         $network_info[ 'symbiostock_networked_sites' ] = serialize( $this->get_connected_networks() );
         
@@ -921,6 +919,7 @@ class network_manager
         } //$profile_info != false && !empty( $profile_info )
         
 		$network_info = array_map('strip_tags', $network_info);
+		
 		
         $this->network_info = $network_info;
         
@@ -1247,303 +1246,446 @@ class network_manager
 	
 	//this function loops through all networks and then runs the network search function
 	//should only be called on the search or custom taxonomy page
-	public function network_search_all_similar( )
-		{
-			$symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
-			
-			if ( $symbiostock_use_network == 'true' ) {
-				
-				$my_site = get_bloginfo('url');
-												
-				$network_limit = 15;
-				$site_count    = 0;
-				$site_list     = array( );
-				$exists        = array( );
-				$excluded      = get_option( 'symbiostock_exclude_sites', array( ) );
-				
-				while ( $site_count <= $network_limit ) {
-					
-					$network_site = get_option( 'symbiostock_network_site_' . $site_count );
-					
-					if ( !empty( $network_site ) ) {
-						
-						array_push( $site_list, $network_site[ 'address' ] );
-						array_push( $exists, symbiostock_website_to_key( $network_site[ 'address' ] ) );
-						
-					} //!empty( $network_site )
-					$site_count++;
-				} //$site_count <= $network_limit
-				
-				$site_count = 0;
-				
-				$promoted_sites = $this->get_seeds_by_keyword(  );
-				
-				if ( is_array( $promoted_sites ) && !empty( $promoted_sites ) ) {
-					
-					foreach ( $promoted_sites as $promoted_site ) {
-						foreach ( $promoted_site as $site ) {
-							
-							$site_to_include = symbiostock_website_to_key( $site );
-							
-							
-							if ( !in_array( $site_to_include, $exists ) && !in_array( $site_to_include, $excluded ) && $my_site != $site)
-													
-								array_push( $site_list, $site );
-						} //$promoted_site as $site
-					} //$promoted_sites as $promoted_site
-				} //is_array( $promoted_sites ) && !empty( $promoted_sites )
-				
-				
-				foreach ( $site_list as $network_site ) {
-					
-					$this->network_site_count = $site_count;
-					
-					//different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
-					//so we have to disect our url to get it to function properly...see $query below
-					$sub_level = parse_url( get_home_url() );
-					
-					if ( symbiostock_validate_url( $network_site ) ) {
-						
-						$arr_params = array(
-							 'symbiostock_network_search' => true,
-							'symbiostock_network_info' => true,
-							'paged' => 1 
-							//'symbiostock_number_results' => 5 
-						);
-						
-						$query = add_query_arg( $arr_params );
-						
-						//if we don't remove the path from our own url, we will mess up the query going to our friend's site
-						//hard to explain. If you want to see what happens when you don't do what is shown  here,
-						//comment out the line below and uncomment the echo statement below that
-						$query = str_replace( $sub_level[ 'path' ], '', $query );
-						
-						$network_results = $this->get_remote_xml( $network_site . $query, $network_site );
-						
-						$this->xml_results = $network_results;
-						$this->display_results( true );
-						
-						
-					} //symbiostock_validate_url( $network_site[ 'address' ] )
-					
-					$site_count++;
-					
-				} //$site_count <= $network_limit
-			} //$symbiostock_use_network == 'true'
-		}
 
-    
-    //Performs a network search, instigates local_search() on remote site.      
+    //this function loops through all networks and then runs the network search function
+    //should only be called on the search or custom taxonomy page
+    public function network_search_all_similar( )
+        {
+            $symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
+
+            if ( $symbiostock_use_network == 'true' ) {
+
+                $my_site = get_bloginfo('url');
+
+                $network_limit = 15;
+                $site_count    = 0;
+                $site_list     = array( );
+                $query_list    = array( );
+                $result_list   = array( );
+                $exists        = array( );
+                $excluded      = get_option( 'symbiostock_exclude_sites', array( ) );
+
+                while ( $site_count <= $network_limit ) {
+
+                    $network_site = get_option( 'symbiostock_network_site_' . $site_count );
+
+                    if ( !empty( $network_site ) ) {
+
+                        array_push( $site_list, $network_site[ 'address' ] );
+                        array_push( $exists, symbiostock_website_to_key( $network_site[ 'address' ] ) );
+
+                    } //!empty( $network_site )
+                    $site_count++;
+                } //$site_count <= $network_limit
+
+                $promoted_sites = $this->get_seeds_by_keyword(  );
+
+                if ( is_array( $promoted_sites ) && !empty( $promoted_sites ) ) {
+
+                    foreach ( $promoted_sites as $promoted_site ) {
+                        foreach ( $promoted_site as $site ) {
+
+                            $site_to_include = symbiostock_website_to_key( $site );
+
+
+                            if ( !in_array( $site_to_include, $exists ) && !in_array( $site_to_include, $excluded ) && $my_site != $site)
+
+                                array_push( $site_list, $site );
+                        } //$promoted_site as $site
+                    } //$promoted_sites as $promoted_site
+                } //is_array( $promoted_sites ) && !empty( $promoted_sites )
+
+                $site_count = 0;
+
+                foreach ( $site_list as $network_site ) {
+
+                    //different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
+                    //so we have to disect our url to get it to function properly...see $query below
+                    $sub_level = parse_url( get_home_url() );
+
+                    if ( symbiostock_validate_url( $network_site ) ) {
+
+                        $arr_params = array(
+                             'symbiostock_network_search' => true,
+                            'symbiostock_network_info' => true,
+                            'paged' => 1
+                        );
+
+                        $query = add_query_arg( $arr_params );
+
+                        //if we don't remove the path from our own url, we will mess up the query going to our friend's site
+                        //hard to explain. If you want to see what happens when you don't do what is shown  here,
+                        //comment out the line below and uncomment the echo statement below that
+                        $query = str_replace( $sub_level[ 'path' ], '', $query );
+
+                                                array_push( $query_list, $network_site . $query );
+
+                            $site_count++;
+
+                    } //symbiostock_validate_url( $network_site[ 'address' ] )
+
+                }
+
+                                // if enabled, contents from cache will be up and results from network will be
+                                // shown in order they arrive (sites with result<4 images will be moved down)
+                                // if disabled, results will be in network list order, but sometimes much slower
+                                $random_enabled = get_option( 'symbiostock_fast_network_display', 1 );
+
+                                $cache_enabled = get_option( 'symbiostock_cache_enabled', 1 );
+
+                                $days = min( get_option('symbiostock_cache_days', 14), 90 );
+                                $caching_time = $days * 24 * 3600;   // must be number of seconds
+                                $max_cache_count = 50000;  // maybe option in future
+                                $max_cache_delete = 100;   // and this
+                                $crawler = $this->crawler_detect();
+
+                                // let's delete old files once a day
+                                $log_file = $this->cache_log_file_open(); // open file and lock
+                                if ( $crawler != '' && time() > ( $cache_time=get_option( 'symbiostock_cache_update_time', 0 ) ) ) {
+                                  if ( $cache_time == 0 ) $cache_time = time();
+                                  update_option( 'symbiostock_cache_update_time', $cache_time + 24*3600 );
+                                  $files = glob( ABSPATH . 'symbiostock_xml_cache/*' ); // it doesn't select .* files, such as .cachelog
+                                  usort( $files, create_function( ' $a, $b ', ' return filemtime($a) - filemtime($b); ' ) );
+                                  $cfiles = count( $files );
+                                  $files_to_delete = max( $cfiles - $max_cache_count, 0 );
+                                  for( $i = 0; $i < $cfiles && ( $i < $files_to_delete || $i < $max_cache_delete && filemtime( $files[ $i ] ) < time() - $caching_time ) ; $i++ )
+                                    unlink( $files[ $i ] );
+
+                                  $this->cache_log_file_close( $log_file,
+                                       "\n" . date('c') . " cache ttl " . $days . " days, cache size " . ($cfiles-$i) . " files, " . $i . " old files deleted\n" );
+                                }
+                                else
+                                  $this->cache_log_file_close( $log_file );
+
+                                $call_curl = false;
+                                $ch = array( );
+                                $keys = array( );
+                                $mh = curl_multi_init();
+                                $next_to_show = 0;
+                for ( $count = 0; $count < $site_count; $count++ ) {
+                                  array_push( $result_list, '' );
+                                  $url = $query_list[$count];
+                                  $key = $this->make_cache_key_from_url( $url );
+                                  array_push( $keys, $key );
+                                  $log_file = $this->cache_log_file_open();
+                                  if ( $crawler == '' && $count == 0 )
+                                     $this->write_cache_search_item( $url, $key );
+                                  $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
+                                  if ( $cache_enabled && file_exists( $file ) && time() - $caching_time < filemtime( $file ) ) {
+                                     $data = explode( "\n>>----<<\n", file_get_contents( $file ) );
+                                     if ( $data[0] == $key )
+                                        $result_list[$count] = $data[2];
+                                     else
+                                        unlink ( $file );
+                                    $this->cache_log_file_close( $log_file, $crawler . "+", $key );
+                                  }
+                                  else
+                                    $this->cache_log_file_close( $log_file );
+                                  if ( $result_list[$count] == '' ) {
+                                     array_push( $ch, curl_init() );
+                                     curl_setopt( $ch[$count], CURLOPT_RETURNTRANSFER, true );
+                                     if ($random_enabled )
+                                       $timeout = 7;
+                                     else
+                                       $timeout = 5;
+                                     curl_setopt( $ch[$count], CURLOPT_CONNECTTIMEOUT, $timeout );
+                                     curl_setopt( $ch[$count], CURLOPT_TIMEOUT, $timeout );
+                                     curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, true );
+                                     curl_setopt( $ch[$count], CURLOPT_URL, $query_list[$count] );
+                                     curl_multi_add_handle( $mh, $ch[$count] );
+                                     $call_curl = true;
+                                  }
+                                  else {
+                                     array_push( $ch, 0 );
+                                     if ( $next_to_show == $count || $random_enabled && strlen( $result_list[$count] ) > 15000 ) {
+                                        $next_to_show++;
+                                        $this->display_network_results( $count, $result_list[$count] );
+                                        $result_list[$count] = '';
+                                     }
+                                  }
+                                } // for ($count = 0;
+
+                                if ( $call_curl ) {
+                                  libxml_use_internal_errors( true );
+                                  $still_running = false;
+                                  $this->full_curl_multi_exec($mh, $still_running); // start requests
+                                  do {
+                                    curl_multi_select($mh); // non-busy (!) wait for state change
+                                    $this->full_curl_multi_exec($mh, $still_running); // get new state
+                                    while ($info = curl_multi_info_read($mh)) {
+
+                                       for ( $count = 0; $count < $site_count; $count++ )
+                                         if ( $ch[$count] == $info['handle'] ) break;
+                                       $data = curl_multi_getcontent( $info['handle'] );
+                                       if(curl_errno( $info['handle'] ) )
+                                          $result_list[$count] = symbiostock_xml_generic_results( $query_list[$count], $site_list[$count] );
+                                       else
+                                         if ( simplexml_load_string( $data ) ) {
+                                            if ( $cache_enabled ) {
+                                              $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $keys[$count] );
+                                              $log_file = $this->cache_log_file_open();
+                                              file_put_contents( $file, $keys[$count] . "\n>>----<<\n" . $query_list[$count] . "\n>>----<<\n" . $data );
+                                              $this->cache_log_file_close( $log_file, $crawler . "-", $keys[$count] );
+                                            }
+
+                                            if ( $random_enabled && strlen( $data ) > 15000 )
+                                              $this->display_network_results( $count, $data );
+                                            else
+                                               $result_list[$count] = $data;
+                                         }
+                                         else
+                                            $result_list[$count] = symbiostock_xml_generic_results( $query_list[$count], $site_list[$count] );
+                                    }
+                                  } while ($still_running);
+
+                                  libxml_use_internal_errors( false );
+                                } // if ( $call_curl )
+
+                for ( $count = 0; $count < $site_count; $count++ ) {
+                                  if ( $ch[$count] != 0 ) {
+                                    curl_multi_remove_handle( $mh, $ch[$count] );
+                                    curl_close( $ch[$count] );
+                                  }
+                                  if ( $result_list[$count] != '' )
+                                    $this->display_network_results( $count, $result_list[$count] );
+                                }
+                                curl_multi_close($mh);
+
+            } //$symbiostock_use_network == 'true'
+        }
+
+    public function display_network_results( $count, $data )
+    {
+       $this->network_site_count = $count;
+       $this->xml_results = $data;
+       $this->display_results( true );
+    }
+
+    public function full_curl_multi_exec($mh, &$still_running)
+    {
+      do {
+        $rv = curl_multi_exec($mh, $still_running);
+      } while ($rv == CURLM_CALL_MULTI_PERFORM);
+      return $rv;
+    }
+
+    //Performs a network search, instigates local_search() on remote site.
     public function network_search( $site, $query = '' )
     {
-        
+
         $site = rtrim( $string, '/' );
-        
+
         $xml = $this->xml_results;
-        
+
     }
-    
+
     public function display_results( $network_search )
     {
-        
+
         // $network_search set to true if a network search, false if local.
-        
+
         $xml = $this->xml_results;
-        
+
         $results = symbiostock_interpret_results( $xml );
-        
+
         if ( !isset( $this->network_site_count ) ) {
             $this->network_site_count = '';
         } //!isset( $this->network_site_count )
-        
+
         symbiostock_build_html_results( $results, $network_search, $this->network_site_count );
-        
+
     }
-    
+	
+	
+	// url passed to function get_remote_xml can be different for the same result
+	// 's=search-item' or 'search-images/search-item/', 'page=3' or 'page/3/',
+	// 'page/1/' or no page parameter, 'www' or not, and all combinations of them.
+	// to avoid fetching network in every case, a key is created from url.
+	// site.com/search-item/
+	// or
+	// site.com/search-item/page/n/ when n is greater than 1
+	
+	
+	public function make_cache_key_from_url( $url )
+		{
+		  $pos_paged = strpos( $url, 'paged=1' );
+		  $pos_s = strpos( $url, '?s=' );
+		  $pos_search = strpos( $url, '/search-images/' );
+	
+		  if ( $pos_s > 0 ) { // first form of url
+			$key = substr( $url, 0, $pos_s );
+			if ( $key[ strlen( $key ) - 1 ] != '/' ) $key .= '/';
+			$key .= substr( $url, $pos_s+3, strpos( $url, '&' ) - $pos_s - 3 );
+			if ( $pos_paged == 0 ) {
+			  $pos_page = strpos( $url, 'page=' );
+			  while ( $pos_page > 0 && $pos_page < strlen( $url ) && $url[ $pos_page ] != '&' )
+				$key .= $url[ $pos_page++ ];
+			  $key = str_replace( 'page=', '/page/', $key );
+			}
+		  }
+		  else if ($pos_search > 0 ) { // second url
+			$key = substr( $url, 0, $pos_search + 1 );
+			if ( $pos_paged == 0 )
+			  $key .= substr( $url, $pos_search+15, strpos( $url, '?symbio' ) - $pos_search - 16 );
+			else {
+			  $pos_page = strpos( $url, '/page/' );
+			  if ( $pos_page > 0 )
+				$key .= substr( $url, $pos_search+15, strpos( $url, '/page/' ) - $pos_search - 15 );
+			  else
+				$key .= substr( $url, $pos_search+15, strpos( $url, '/?symbio' ) - $pos_search - 15 );
+			}
+		  }
+		  else // unknown url found
+			$key = $url;
+		  $key .= '/';
+		  $key = str_replace( array( '/page/1/', '//www.', 'http://' ), array( '/', '//', '' ), $key );
+		  return $key;
+		}
+	
+	// Log file contains some messages with datestamp and one character per
+	// every call of get_remote_xml:
+	// - for cache miss
+	// + for cache hit
+	// G,m,A,Y,M - first letter of crawler name (see function crawlew_detect below).
+	// When crawlers are visiting site, new contents is always fetched from network
+	// sites and written to cache file, even if file exists.
+	// Log file is used also for access control to cache files by simultaneous
+	// processes (flock).
+	
+	public function cache_log_file_open( )
+		{
+		  $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog';
+	
+		  if ( ! file_exists( $log_file_name ) )
+			 file_put_contents( $log_file_name, date('c') . "  cache log created\n" );
+	
+		  $file = fopen( $log_file_name, "a+" );
+		  flock( $file, LOCK_EX );
+		  return $file;
+		}
+	
+	public function cache_log_file_close( $file, $data = '', $key = '' )
+		{
+		  $log_keys = false;
+		  if ($data != '') {
+			fwrite( $file, $data );
+			if ( $log_keys && $key != '' )
+			  fwrite( $file, $key . "\n" );
+		  }
+		  flock( $file, LOCK_UN );
+		  fclose( $file );
+		}
+	
+	
+	// adds search item to file, only when it was entered into searchbox, and is
+	// different than previous one
+	
+	public function write_cache_search_item( $url, $key )
+		{
+		  $log_search_items = true;
+	
+		  if ( !$log_search_items )
+			return;
+		  $pos_s = strpos( $url, '?s=' );
+		  if ( $pos_s > 0 ) {
+			$search_item = substr( $url, $pos_s+3, strpos( $url, '&' ) - $pos_s - 3 );
+			$last_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelast';
+			if ( ! file_exists( $last_file_name ) )
+			  $last_item = '';
+			else
+			  $last_item = file_get_contents( $last_file_name );
+			if ( $last_item != $search_item ) {
+			   $file_items = fopen( ABSPATH . 'symbiostock_xml_cache/.cachesearchlog', "a+" );
+			   fwrite( $file_items, $search_item . "\n" );
+			   fclose( $file_items );
+			}
+			file_put_contents( $last_file_name, $search_item );
+		  }
+		}
+	
+	public function crawler_detect()
+		{
+		  $crawlers_names = "Google|GoogleBot|Googlebot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider|Ezooms";
+		  $crawlers = explode( "|", $crawlers_names );
+		  foreach( $crawlers as $crawler )
+			if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
+			  return $crawler[0];
+	
+		  return '';
+		}
+	
+	
+	// now this function is only for ajax and previous/next in network results
+	
+	public function get_remote_xml( $url, $site = '' )
+		{
+	
+		  $days = min( get_option('symbiostock_cache_days', 14), 90 );
+		  $caching_time = $days * 24 * 3600;   // must be number of seconds
+	
+		  $crawler = $this->crawler_detect();
+	
+	
+		  $key = $this->make_cache_key_from_url( $url );
+	
+		  $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
+	
+		  $cache_enabled = get_option( 'symbiostock_cache_enabled', 1 );
+	
+		  $log_file = $this->cache_log_file_open(); // open file and lock
+	
+		  if ( $cache_enabled && file_exists( $file ) && time() - $caching_time < filemtime( $file )  ) {
+	
+			 $data = explode( "\n>>----<<\n", file_get_contents( $file ) );
+			 if ( $data[0] == $key ) {
+			   $this->cache_log_file_close( $log_file, $crawler . "x+", $key );
+			   return $data[2];
+			 }
+			 else {
+			   unlink ( $file );
+			   $this->cache_log_file_close( $log_file );
+			   return $this->get_remote_xml( $url, $site );
+			 }
+		  }
+		  else {
+	
+			$this->cache_log_file_close( $log_file );
+	
+			$ch = curl_init();
+			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+			$timeout = 15;  // timeout only for ajax
+			curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $timeout );
+			curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
+	
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+			curl_setopt( $ch, CURLOPT_URL, $url ); // get the url contents
+	
+			$data = curl_exec( $ch ); // execute curl request
+			$info = curl_getinfo($ch);
+			if(curl_errno($ch)) return symbiostock_xml_generic_results($url, $site); //if this happens, its probably a time-out
+	
+			curl_close( $ch );
+	
+			libxml_use_internal_errors( true );
+			if ( simplexml_load_string( $data ) ) {
+	
+				$log_file = $this->cache_log_file_open();
+				file_put_contents( $file, $key . "\n>>----<<\n" . $url . "\n>>----<<\n" . $data );
+				$this->cache_log_file_close( $log_file, $crawler . "x-", $key );
+	
+				libxml_use_internal_errors( false );
+				return $data;
+	
+			} //simplexml_load_string( $data )
+			else {
+	
+				libxml_use_internal_errors( false );
+				return  symbiostock_xml_generic_results($url, $site);
+			}
+	
+		  }
+		}
 
-// url passed to function get_remote_xml can be different for the same result
-// 's=search-item' or 'search-images/search-item/', 'page=3' or 'page/3/',
-// 'page/1/' or no page parameter, 'www' or not, and all combinations of them.
-// to avoid fetching network in every case, a key is created from url.
-// site.com/search-item/
-// or
-// site.com/search-item/page/n/ when n is greater than 1
-
-
-public function make_cache_key_from_url( $url )
-    {
-      $pos_paged = strpos( $url, 'paged=1' );
-      $pos_s = strpos( $url, '?s=' );
-      $pos_search = strpos( $url, '/search-images/' );
-
-      if ( $pos_s > 0 ) { // first form of url
-        $key = substr( $url, 0, $pos_s );
-        if ( $key[ strlen( $key ) - 1 ] != '/' ) $key .= '/';
-        $key .= substr( $url, $pos_s+3, strpos( $url, '&' ) - $pos_s - 3 );
-        if ( $pos_paged == 0 ) {
-          $pos_page = strpos( $url, 'page=' );
-          while ( $pos_page > 0 && $pos_page < strlen( $url ) && $url[ $pos_page ] != '&' )
-            $key .= $url[ $pos_page++ ];
-          $key = str_replace( 'page=', '/page/', $key );
-        }
-      }
-      else if ($pos_search > 0 ) { // second url
-        $key = substr( $url, 0, $pos_search + 1 );
-        if ( $pos_paged == 0 )
-          $key .= substr( $url, $pos_search+15, strpos( $url, '?symbio' ) - $pos_search - 16 );
-        else {
-          $pos_page = strpos( $url, '/page/' );
-          if ( $pos_page > 0 )
-            $key .= substr( $url, $pos_search+15, strpos( $url, '/page/' ) - $pos_search - 15 );
-          else
-            $key .= substr( $url, $pos_search+15, strpos( $url, '/?symbio' ) - $pos_search - 15 );
-        }
-      }
-      else // unknown url found
-        $key = $url;
-      $key .= '/';
-      $key = str_replace( array( '/page/1/', '//www.', 'http://' ), array( '/', '//', '' ), $key );
-      return $key;
-    }
-
-// Log file contains some messages with datestamp and one character per
-// every call of get_remote_xml:
-// - for cache miss
-// + for cache hit
-// G,m,A,Y,M - first letter of crawler name (see function crawlew_detect below).
-// When crawlers are visiting site, new contents is always fetched from network
-// sites and written to cache file, even if file exists.
-// Log file is used also for access control to cache files by simultaneous
-// processes (flock).
-
-public function cache_log_file_open( )
-    {
-      $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog';
-
-      if ( ! file_exists( $log_file_name ) )
-         file_put_contents( $log_file_name, date('c') . "  cache log created\n" );
-
-      $file = fopen( $log_file_name, "a+" );
-      flock( $file, LOCK_EX );
-      return $file;
-    }
-
-public function cache_log_file_close( $file, $data = '' )
-    {
-      if ($data != '')
-        fwrite( $file, $data );
-      flock( $file, LOCK_UN );
-      fclose( $file );
-    }
-
-
-public function crawler_detect()
-    {
-      $crawlers_names = "Google|GoogleBot|Googlebot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider";
-      $crawlers = explode( "|", $crawlers_names );
-      foreach( $crawlers as $crawler )
-        if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
-          return $crawler[0];
-
-      return '';
-    }
-
-
-// default cache period is 14 days
-// set it to 0 to disable cache (files will be stored all the time, but their contents will not
-// be used, until you set something > 0
-
-public function get_remote_xml( $url, $site = '' )
-    {
-
-      $days = min( get_option('symbiostock_cache_days', 14), 90 );
-      $max_cache_count = 50000;  // maybe option in future
-      $max_cache_delete = 100;   // and this
-
-      $caching_time = $days * 24 * 3600;   // must be number of seconds
-
-      $crawler = $this->crawler_detect();
-
-      $log_file = $this->cache_log_file_open(); // open file and lock
-
-      if ( $crawler != '' && time() > ( $cache_time=get_option( 'symbiostock_cache_update_time', 0 ) ) ) {  // let's delete old files once a day
-
-        $files = glob( ABSPATH . 'symbiostock_xml_cache/*' ); // it doesn't select .* files, such as .cachelog
-        usort( $files, create_function( ' $a, $b ', ' return filemtime($a) - filemtime($b); ' ) );
-        $cfiles = count( $files );
-        $files_to_delete = max( $cfiles - $max_cache_count, 0 );
-        for( $i = 0; $i < $cfiles && ( $i < $files_to_delete || $i < $max_cache_delete && filemtime( $files[ $i ] ) < time() - $caching_time ) ; $i++ )
-          unlink( $files[ $i ] );
-
-        if ( $cache_time == 0 ) $cache_time = time();
-        update_option( 'symbiostock_cache_update_time', $cache_time + 24*3600 );
-        $this->cache_log_file_close( $log_file,
-            "\n" . date('c') . " cache ttl " . $days . " days, cache size " . ($cfiles-$i) . " files, " . $i . " old files deleted\n" );
-
-        $log_file = $this->cache_log_file_open();
-      }
-
-      $key = $this->make_cache_key_from_url( $url );
-
-      $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
-
-      if ( file_exists( $file ) && time() - $caching_time < filemtime( $file ) && $crawler == '' ) {
-
-         $data = explode( "\n>>----<<\n", file_get_contents( $file ) );
-         if ( $data[0] == $key ) {
-           $this->cache_log_file_close( $log_file, "+" );
-           return $data[2];
-         }
-         else {
-           unlink ( $file );
-           $this->cache_log_file_close( $log_file,
-              "\n" . date('c') . " file " . md5( $key ) . " with key " . $key . " deleted, unknown file format for url " . $url . "\n" );
-           return $this->get_remote_xml( $url, $site );
-         }
-      }
-      else {
-
-        $this->cache_log_file_close( $log_file );
-
-        $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-        //our first attempt requires a fast response, our next attempt will be via ajax which allows slower
-        if(!isset($_POST['ajax_request']) && $crawler == ''){ $timeout = 1; } else { $timeout = 10; }
-
-        curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $timeout );
-        curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
-
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-        curl_setopt( $ch, CURLOPT_URL, $url ); // get the url contents
-
-        $data = curl_exec( $ch ); // execute curl request
-        $info = curl_getinfo($ch);
-        if(curl_errno($ch)) return symbiostock_xml_generic_results($url, $site); //if this happens, its probably a time-out, and will be fetched ajax instead
-
-        curl_close( $ch );
-
-        libxml_use_internal_errors( true );
-        if ( simplexml_load_string( $data ) ) {
-
-            $log_file = $this->cache_log_file_open();
-            file_put_contents( $file, $key . "\n>>----<<\n" . $url . "\n>>----<<\n" . $data );
-            if ( $crawler != '' )
-              $this->cache_log_file_close( $log_file, $crawler );
-            else
-              $this->cache_log_file_close( $log_file, "-" );
-
-            libxml_use_internal_errors( false );
-            return $data;
-
-        } //simplexml_load_string( $data )
-        else {
-
-            libxml_use_internal_errors( false );
-            return '<?xml version="1.0"?><noresults></noresults>';
-        }
-
-      }
-    }
     
     public function network_page_query( $url )
     {

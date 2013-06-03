@@ -12,6 +12,12 @@ Template Name: Network - Directory
  */
 get_header(); ?>
 
+<?php
+	//add support for YOAST SEO
+	if ( function_exists('yoast_breadcrumb') ) {
+	yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span><hr />');
+} ?>
+
 <div id="primary" class="content-area row-fluid">
     <div class="span6">
         <?php while ( have_posts() ) : the_post(); ?>
@@ -44,12 +50,7 @@ get_header(); ?>
     <hr />
     <div id="content" class="row-fluid site-content network_directory">
         
-            <?php
-                //add support for YOAST SEO
-                if ( function_exists('yoast_breadcrumb') ) {
-                yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span><hr />');
-                } ?>
-            <?php
+             <?php
 				$networks = new network_manager();
 				$networks->list_all_networks(true, true);
 				
