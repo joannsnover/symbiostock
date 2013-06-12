@@ -32,6 +32,7 @@ define('symbiostock_128_DEFAULT', symbiostock_IMGDIR . '/128_default.jpg');
 $symbiostock_theme_root = get_theme_root() . '/symbiostock';
 define('symbiostock_STOCKDIR', ABSPATH . 'symbiostock_rf/' );
 define('symbiostock_NETDIR', ABSPATH . 'symbiostock_network/');
+define('symbiostock_MARKETROOT', $symbiostock_theme_root . '/inc/classes/marketing/');
 define('symbiostock_CLASSROOT', $symbiostock_theme_root . '/inc/classes/' );
 define('symbiostock_INCLUDESROOT', $symbiostock_theme_root . '/inc/' );
 define('symbiostock_NETWORK_MANAGER', $symbiostock_theme_root . '/inc/classes/network-manager/' );
@@ -129,7 +130,7 @@ function symbiostock_widgets_init() {
 	) );
 	
 	//Home page, above content area (typically for a slide show)
-		register_sidebar( array(
+	register_sidebar( array(
 		'name' => __( 'Home Page (Above Content)', 'symbiostock' ),
 		'id' => 'home-page-above-content',
 		'before_widget' => '<div class="home-above-content"><aside id="%1$s" class="widget %2$s">',
@@ -478,12 +479,19 @@ function symbiostock_product_delete($post_id){
 		foreach($extensions as $type){
 			
 			$file = symbiostock_STOCKDIR . $post_id . '.' . $type;
+			$file_promo = symbiostock_STOCKDIR . $post_id . '_promo.jpg';
 			
 			if(file_exists($file)){
 				
 				unlink($file);
 									
-				}
+			}
+			
+			if(file_exists($file_promo)){
+			
+				unlink($file_promo);
+								
+			}	
 			
 			}
 		}
@@ -749,6 +757,14 @@ function symbiostock_wp_query_vars( $qvars ){
 	$qvars[] = 'paypal_return_message'; //if returning from paypal, we show a message in user area
 	$qvars[] = 'page';
 	$qvars[] = 'paged';
+	
+	//marketing
+	$qvars[] = 'ss-' . get_option('marketer_user_number', '88888888');
+	$qvars[] = 'type';
+	$qvars[] = 'date';
+	$qvars[] = 'time';
+	$qvars[] = 'image_number';
+	
 		
 	return $qvars;
 	}
@@ -1346,7 +1362,7 @@ function symbiostock_feed($type = 'rss_url', $format = 'link', $fetchwhat = 'new
 //include the author-box function. Its so big it gets its own file!	
 require_once('symbiostock_author_box.php');
 //misc image processing functions 
-function symbiostock_reprocess_image( $post_id, $promo = true, $size = 590) {
+function symbiostock_reprocess_image( $post_id, $promo = false, $size = 590) {
 	global $post;
 	global $typenow;
 	$post_type_bulk = $typenow;
@@ -1375,20 +1391,25 @@ function symbiostock_reprocess_image( $post_id, $promo = true, $size = 590) {
 		$meta = true;
 		$ext = '.jpg';
 	} else if(file_exists($stockdir . $post_id . '.png')){
+		
+		//if this is a promo image, we must abort because png files don't do IPTC
+		if($promo == true)
+			return;
+		
 		$file = $stockdir . $post_id . '.png';
 		$meta = false;	
 		$ext = '.png';	
 	} else {
-		return;		
-		}
+		return;
+	}
 	
 	//first generate a new preview, then save it to tmp
-	$image = wp_get_image_editor(  $file );            
+	$image = wp_get_image_editor( $file );            
 	$image->resize(  $size,  $size );			
 	$image->set_quality( 100 );            
 	$image->save( $tmp . $post_id . '.jpg' );
 	
-	if($watermark != true){	
+	if($promo == false){	
 		//watermark the image
 		symbiostock_watermark_image( 
 			$tmp . $post_id . '.jpg', 
@@ -1406,7 +1427,7 @@ function symbiostock_reprocess_image( $post_id, $promo = true, $size = 590) {
 	);	
 	//copy it
 	
-	if($promo != true){
+	if($promo == true){
 		//if promo it sits in our protected directory as an assumed promo image (passed through protected URL)
 		if ( !copy($tmp . $post_id . '.jpg', $stockdir . $post_id . '_promo.jpg' )){
     		echo "failed to copy $file...\n";
@@ -1419,7 +1440,11 @@ function symbiostock_reprocess_image( $post_id, $promo = true, $size = 590) {
 	}
 	
 	//delete temp image
-	unlink($tmp . $post_id . $ext);	
+	if(file_exists($tmp . $post_id . '.jpg')){
+		unlink($tmp . $post_id . '.jpg');	
+	} elseif (file_exists($tmp . $post_id . '.png')){
+		unlink($tmp . $post_id . '.jpg');
+		}
 }
 
 if(is_admin()){
@@ -1506,6 +1531,8 @@ if(is_admin){
 							jQuery(document).ready(function() {
 								jQuery('<option>').val('reprocess').text('<?php _e('Reprocess')?>').appendTo("select[name='action']");
 								jQuery('<option>').val('reprocess').text('<?php _e('Reprocess')?>').appendTo("select[name='action2']");
+								jQuery('<option>').val('makepromo').text('<?php _e('Make Promo Preview')?>').appendTo("select[name='action']");
+								jQuery('<option>').val('makepromo').text('<?php _e('Make Promo Preview')?>').appendTo("select[name='action2']");								
 							});
 						</script>
 					<?php
@@ -1528,7 +1555,7 @@ if(is_admin){
 					$wp_list_table = _get_list_table('WP_Posts_List_Table');  // depending on your resource type this could be WP_Users_List_Table, WP_Comments_List_Table, etc
 					$action = $wp_list_table->current_action();
 					
-					$allowed_actions = array("reprocess");
+					$allowed_actions = array("reprocess", "makepromo");
 					if(!in_array($action, $allowed_actions)) return;
 					
 					// security check
@@ -1550,6 +1577,7 @@ if(is_admin){
 					$sendback = add_query_arg( 'paged', $pagenum, $sendback );
 					
 					switch($action) {
+												
 						case 'reprocess':
 							ini_set( "memory_limit", "1024M" );
 							set_time_limit( 0 );
@@ -1567,6 +1595,24 @@ if(is_admin){
 							
 							$sendback = add_query_arg( array('reprocessed' => $reprocessed, 'ids' => join(',', $post_ids) ), $sendback );
 						break;
+
+						case 'makepromo':
+							ini_set( "memory_limit", "1024M" );
+							set_time_limit( 0 );
+							// if we set up user permissions/capabilities, the code might look like:
+							//if ( !current_user_can($post_type_object->cap->reprocess_post, $post_id) )
+							//	wp_die( __('You are not allowed to reprocess this post.') );
+							
+							$reprocessed = 0;
+							foreach( $post_ids as $post_id ) {
+								
+								symbiostock_reprocess_image( $post_id, true, 600 );
+				
+								$reprocessed++;
+							}
+							
+							$sendback = add_query_arg( array('reprocessed' => $reprocessed, 'ids' => join(',', $post_ids) ), $sendback );
+						break;
 						
 						default: return;
 					}
@@ -1574,6 +1620,7 @@ if(is_admin){
 					$sendback = remove_query_arg( array('action', 'action2', 'tags_input', 'post_author', 'comment_status', 'ping_status', '_status',  'post', 'bulk_edit', 'post_view'), $sendback );
 					
 					wp_redirect($sendback);
+					
 					exit();
 				}
 			}
@@ -1821,3 +1868,6 @@ function symbiostock_get_datasheet_link($post_id){
 //set up the theme auto-updater
 require_once('theme-updater.php');
 new WPUpdatesThemeUpdater( 'http://wp-updates.com/api/1/theme', 285, basename(get_template_directory()) );
+
+//get marketing functions
+require_once(symbiostock_MARKETROOT . 'marketer_functions.php');

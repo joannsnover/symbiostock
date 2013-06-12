@@ -109,24 +109,33 @@ $symbiostock_categories = array(
 	'Industry',
 	'',
 );
-foreach($symbiostock_categories as $category){
-	$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
-	
-	if(!$parent_term){
+
+$categories_installed = get_option('categories_installed', false);
+
+if($categories_installed == false){
+
+	foreach($symbiostock_categories as $category){
+		$parent_term = term_exists( $category, 'image-type' ); // array is returned if taxonomy is given
 		
-		$parent_term_id = $parent_term['term_id']; // get numeric term id
-		wp_insert_term(
-		  $category, // the term 
-		  'image-type', // the taxonomy
-		  array(
-			'description'=> 'Category for "' . $category . '" related images.',
-			'slug' => $category . '-images',
-			'parent'=> $parent_term_id
-		  )
-		);
-		
+		if(!$parent_term){
+			
+			$parent_term_id = $parent_term['term_id']; // get numeric term id
+			wp_insert_term(
+			  $category, // the term 
+			  'image-type', // the taxonomy
+			  array(
+				'description'=> 'Category for "' . $category . '" related images.',
+				'slug' => $category . '-images',
+				'parent'=> $parent_term_id
+			  )
+			);
+			
+		}
 	}
 }
+
+update_option('categories_installed', true);
+
 //check for erroneously named term and replace it, update term info so we know featured images category
 $wrong_name_term = get_term_by('slug', 'symbiostock-featured-images-images', 'image-type');
 wp_delete_term( $wrong_name_term->term_id, 'image-type', $args );

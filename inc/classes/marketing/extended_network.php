@@ -42,6 +42,7 @@ $network_total_images = 0;
             <th>Local Site Directory Listing</th>
             <th>Promoted Keywords</th>
             <th>#images</th>
+            <th>Marketing Option</th>
             <th>Promote</th>
             <th>Exclude</th>
             <th>Delete</th>
@@ -119,6 +120,17 @@ foreach($list as $listing){
         <td><?php echo $listing['symbiostock_num_images'];
 		$network_total_images = $network_total_images+trim($listing['symbiostock_num_images']);
 		?></td>
+        
+        <td>
+        <?php
+		if(!isset($listing['use_symbiostock_marketer']) || $listing['use_symbiostock_marketer'] == 0 || empty($listing['use_symbiostock_marketer']) ){			
+			echo 'off';			
+			} elseif ($listing['use_symbiostock_marketer'] == 1){
+			echo 'on';	
+				}
+		?>
+        </td>
+        
         <td><input <?php if(in_array($key, $promoted)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_promote_site[]" value="<?php echo $key ?>" /></td>
         <td><input <?php if(in_array($key, $excluded)){echo 'checked="checked"';} ?> type="checkbox" name="symbiostock_exclude_site[]" value="<?php echo $key ?>" /></td>
         <td><input type="checkbox" name="symbiostock_delete_seed[]" value="<?php echo $key ?>" /></td>
@@ -134,6 +146,7 @@ foreach($list as $listing){
             <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
             <td>.</td>
             <td><?php echo $network_total_images; ?></td>
+            <td>.</td>
             <td>.</td>
             <td>.</td>
             <td>.</td>

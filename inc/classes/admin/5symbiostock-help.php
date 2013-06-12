@@ -315,6 +315,27 @@
                 <h3 id="open_for_assignment"><span class="description">Author Options (profile area)  &mdash; </span>Open for Assignment Jobs</h3>
                 <p>If you are available for photography / assignments in your area or in your travels.</p>
             </li>
+            
+            <li>
+                <h3 id="marketing_services"><span class="description">Marketing &mdash; </span>Marketing Services</h3>
+                <p><strong>For outside marketing services</strong> &mdash; provides info via XML regarding your images, as well as <em> protected access</em> to unwatermarked previews (600px)</p>
+           
+           		<p>This is an experimental feature. Outside marketers may wish to promote you under paid or free agreements. In both cases, <strong>use this feature with caution</strong>, because you provide them with access to 600px w/h previews <strong>unwatermarked</strong>. They in turn will use these and apply their own watermarkes/resize, and extract other uses from the image.<br /><br />
+                Please note that you must <strong>use this feature at your own discretion.</strong></p>
+                
+                <p>Generally any marketing site desiring to interface with your Symbiostock site <em>should already be prepared</em> to use Symbiostock's Marketing Services options from prior preparation.</p>               
+                <h4><em>How it works...</em></h4>
+                
+                <ol>
+                <li>Marketing services must be turned on. (If off, its specialized requests will not be recognized &mdash; a security feature.)</li>
+                <li>Generate your <em>Marketer user number</em>. This is a randomly generated number that acts as both a user name and passcode, which only you and your marketer know. It can be changed at any time.</li>
+                <li>Go to <a title="Edit images..." href="<?php echo get_bloginfo('url') . '/wp-admin/edit.php?post_type=image'; ?>"><?php echo get_bloginfo('url') . '/wp-admin/edit.php?post_type=image'; ?></a> and select images you wish to market. Then select "<strong>Make Promo Preview</strong>" from dropdown, and push "<strong>Apply</strong>"</li>
+                <li>Give your marketing service the <em>Marketer user number</em>. They should in turn be able to fetch required info from your site.</li>
+                </ol>
+                
+            </li>
+            
+            
             <li>
                 <h3 id="image_processing"><span class="description">Image Processing  &mdash; </span>ImageMagic or GD Library</h3>
                 <p>Some notes on your server's image processing methods &mdash; there are a few things that influence your server's ability to process large images, and large amounts of images.</p>

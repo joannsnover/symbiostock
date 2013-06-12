@@ -7,6 +7,14 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
+ 
+$is_marketer_request = symbiostock_marketer();
+
+if($is_marketer_request == true){	
+	exit;	
+	}
+
+ 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>

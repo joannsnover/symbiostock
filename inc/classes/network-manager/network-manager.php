@@ -838,6 +838,7 @@ class network_manager
             'symbiostock_my_network_about_page',
             'symbiostock_my_network_announcement',
             'symbiostock_use_network',
+			'use_symbiostock_marketer',
             //default image prices
             'price_bloggee',
             'price_small',
@@ -863,7 +864,7 @@ class network_manager
         
         $network_info[ 'symbiostock_network_page' ] = symbiostock_network( $text, true );
         
-        $network_info[ 'symbiostock_author_page' ] = get_author_posts_url( $site_author );
+        $network_info[ 'symbiostock_author_page' ] = get_author_posts_url( $site_author, $user_info->user_nicename );
         
         $network_info[ 'symbiostock_display_name' ] = $user_info->display_name;
         
@@ -945,6 +946,12 @@ class network_manager
     public function generate_image_list_info( )
     {
         
+		add_action( 'pre_get_posts', 'symbiostock_image_list_results_per_page' );
+		//set the results per page depending on if we are doing image search
+		function symbiostock_image_list_results_per_page( $query ) {					
+			$query->set('posts_per_page', -1);					
+		}
+		
         ini_set( "memory_limit", "1024M" );
         set_time_limit( 0 );
         
