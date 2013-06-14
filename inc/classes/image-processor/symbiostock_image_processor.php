@@ -15,6 +15,7 @@ require_once $Toolkit_Dir . 'Photoshop_IRB.php';
 require_once $Toolkit_Dir . 'EXIF.php';
 require_once $Toolkit_Dir . 'Photoshop_File_Info.php';
 
+
 function symbiostock_get_meta($file){
 	// Retrieve the header information
 		$jpeg_header_data = get_jpeg_header_data( $file );
@@ -571,7 +572,8 @@ function symbiostock_generate_minipic( $source, $destination, $jpg )
 			$image->save( $destination, 'jpg' );
 			unset($image);
 		} else {
-			
+				$this->error = true;
+				echo '<br />';
 				$error = $image->get_error_message();
 				echo $error;
 				die();
@@ -645,6 +647,8 @@ class symbiostock_image_processor
     //current user's email for status updates 
     
     public $user_info = '';
+	
+	public $error = false;
     
 	//our class constructor
     function __construct( $revisit = false )
@@ -700,7 +704,15 @@ class symbiostock_image_processor
         if ( in_array( 'png', $extensions ) ) {
 		
             //make our typical preview, the transparent reference file used in watermark basic preview, and transparency preview            
-            $image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );            
+            $image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );
+			
+			if(  is_wp_error( $image ) ) {
+				echo $image->get_error_message();
+				$this->error = true;
+				echo '<br />';
+				return;
+				}
+			            
             $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
 			$image->set_quality( 100 );            
 			$image->save( $this->upload_dir . 'tmp/' . $posted_id . '_tmp.png' );
@@ -717,6 +729,13 @@ class symbiostock_image_processor
 			
             //make our mini-pic
 			$image = wp_get_image_editor(  $this->upload_dir . $image_file . '.png' );
+			
+				if(  is_wp_error( $image ) ) {
+				echo $image->get_error_message();
+				$this->error = true;
+				echo '<br />';
+				return;
+				}
             $image->resize( $thumb_size[ 'width' ], $thumb_size[ 'height' ] );
 			$image->set_quality( 95 );
             $image->save( $this->upload_dir . 'tmp/' . $posted_id . '_minipic.jpg', 'jpg' );
@@ -751,7 +770,16 @@ class symbiostock_image_processor
         if ( in_array( 'jpg', $extensions ) ) {			
 		    //make our typical preview            
 			$image = wp_get_image_editor(  $this->upload_dir . $image_file . '.jpg' );            
-            $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );			
+          	if(  is_wp_error( $image ) ) {
+				echo $image->get_error_message();
+				$this->error = true;
+				echo '<br />';
+				return;
+			}	
+		  
+		    $image->resize( $preview_size[ 'width' ], $preview_size[ 'height' ] );
+			
+		
 			$image->set_quality( 100 );            
 			$image->save( $this->upload_dir . 'tmp/' . $posted_id . '_tmp.jpg' );
 			       
@@ -1086,6 +1114,15 @@ class symbiostock_image_processor
         $info = $this->files[ $file_name ];
         
         if ( in_array( 'jpg', $info[ 'extensions' ] ) ) {
+			
+			if(!file_exists($dir . $file_name . '.jpg') ){				
+				$this->error = true;
+				echo '<br />';
+				$error = $image->get_error_message();
+				echo 'There was a problem with the file...';
+				return;				
+			}
+			
             $size = getimagesize( $dir . $file_name . '.jpg', $info );
             
             $iptc = iptcparse( $info[ "APP13" ] );
@@ -1242,7 +1279,7 @@ class symbiostock_image_processor
         if ( !in_array( 'jpg', $available_extensions ) && !in_array( 'png', $available_extensions ) ) {
             $reports .= '<li>' . $bad_icon . '<span class="negative">No matching image files found. You may have named them incorrectly. Fix problem and re-upload. <strong>This file has been removed</strong>. </span><strong>Example:</strong> "<em><strong>my_stock_art</strong>.eps</em>" or "<em><strong>my_stock_art</strong>.zip</em>" must have accompanying ""<em><strong>my_stock_art</strong>.jpg</em>" to be considered a valid set/file.</li>';
             
-            $this->delete_image( $file_name );
+            //$this->delete_image( $file_name );
             
         } //!in_array( 'jpg', $available_extensions ) && !in_array( 'png', $available_extensions )
 		
@@ -1964,6 +2001,15 @@ class symbiostock_image_processor
             
             $created_page = $this->create_image_page( $image_meta_array, $image_file );
             
+			if($this->error == true){
+				
+				wp_trash_post( $created_page );						
+				unset( $this->files[ $this->current_file ] );
+				continue;
+			
+				}
+				
+			
 			$processed = $this->transfer_original($created_page, $image_file, $image_meta_array );
 			
 			//create teh datasheet

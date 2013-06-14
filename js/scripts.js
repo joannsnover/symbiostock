@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
     });
 	
-	$('#aggree_to_EULA').click(function(){
+	$('#aggree_to_EULA').live('click', function(){
 	
 		if($(this).is(':checked')){
 	
