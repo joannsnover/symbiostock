@@ -77,17 +77,17 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
             <div class="bio-container">                        
                 <p <?php echo $bio; ?>><?php
                 
-                if(isset($symbiocard['symbiostock_author_bio']) && !empty($symbiocard['symbiostock_author_bio'])){							
-                    if($compact == true && strlen($symbiocard['symbiostock_author_bio']) > 74){							
+                 if(isset($symbiocard['symbiostock_author_bio']) && !empty($symbiocard['symbiostock_author_bio'])){
+                    if($compact == true && strlen($symbiocard['symbiostock_author_bio']) > 74){
                         $pos=strpos(stripslashes($symbiocard['symbiostock_author_bio']), ' ', 75);
-                        $bio_text = substr($symbiocard['symbiostock_author_bio'], 0,$pos ) . '...<small><a title="See full author bio..." href="'.$symbiocard['symbiostock_author_page'].'"> [more]</a></small>';			
-                        
-                    } else {	
-                        if(!empty($symbiocard['symbiostock_author_bio'])):			
-                        $bio_text =	stripslashes($symbiocard['symbiostock_author_bio']);
+                        $bio_text = substr($symbiocard['symbiostock_author_bio'], 0, min(max($pos,75),90) ) . '...<small><a title="See full author bio..." href="'.$symbiocard['symbiostock_author_page'].'"> [more]</a></small>';
+
+                    } else {
+                        if(!empty($symbiocard['symbiostock_author_bio'])):
+                        $bio_text =    stripslashes($symbiocard['symbiostock_author_bio']);
                         endif;
-                    }			
-                    echo $bio_text;	
+                    }
+                    echo $bio_text;
                 }
                 ?></p>
             </div>   

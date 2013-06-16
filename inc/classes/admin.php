@@ -56,7 +56,7 @@ class symbiostock_render_admin_panel
         <br />
         
         <label for="save_network_values" ><input id="save_network_values" type="checkbox" name="save_network_values" value="" /> <em>Update public network info.</em></label>
-        <label for="save_image_info" ><input id="save_image_info" type="checkbox" name="save_image_info" value="" /> <em>Update image info CSV.</em></label>
+        <label for="save_image_info" ><input id="save_image_info" type="checkbox" name="save_image_info" value="" /> <em>Update public image info.</em></label>
 		<input type="hidden" name="save_form_info" value="1" />
 		<?php
 		

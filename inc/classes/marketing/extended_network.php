@@ -102,6 +102,9 @@ $directory->get_seeds_by_keyword();
 
 
 $count = 1;
+
+ksort($list);
+
 foreach($list as $listing){
 	$key = symbiostock_website_to_key($listing['symbiostock_site']);	
 

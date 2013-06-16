@@ -398,7 +398,7 @@ class symbiostock_cart
              <tr class="info">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula('End User License Agreement & Terms'); ?></em></strong>
+                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula('License Agreement & Terms'); ?></em></strong>
                 
                 </td>
              </tr>

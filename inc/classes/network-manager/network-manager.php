@@ -848,9 +848,7 @@ class network_manager
             'price_zip' 
         );
         
-        
-        
-        $profile_info = get_option( 'symbiostock_social_credentials' );
+        $profile_info = get_option( 'symbiostock_social_credentials', ' ' );
         
         $network_info[ 'symbiostock_site' ] = site_url();
         
@@ -869,9 +867,9 @@ class network_manager
         $network_info[ 'symbiostock_display_name' ] = $user_info->display_name;
         
         //we encrypt our emails to avoid them getting harvested by internet spammers. 
-        $network_info[ 'admin_email' ]                      = symbiostock_email_convert( get_option( 'admin_email', '' ) );
-        $network_info[ 'symbiostock_correspondence_email' ] = symbiostock_email_convert( get_option( 'symbiostock_correspondence_email', '' ) );
-        $network_info[ 'symbiostock_paypal_email' ]         = symbiostock_email_convert( get_option( 'symbiostock_paypal_email', '' ) );
+        $network_info[ 'admin_email' ]                      = symbiostock_email_convert( get_option( 'admin_email', ' ' ) );
+        $network_info[ 'symbiostock_correspondence_email' ] = symbiostock_email_convert( get_option( 'symbiostock_correspondence_email', ' ' ) );
+        $network_info[ 'symbiostock_paypal_email' ]         = symbiostock_email_convert( get_option( 'symbiostock_paypal_email', ' ' ) );
         $network_info[ 'symbiostock_portfolio' ]            = get_post_type_archive_link( 'image' );
         $network_info[ 'symbiostock_rss' ]                  = symbiostock_feed();
         
@@ -908,7 +906,7 @@ class network_manager
         
         foreach ( $network_options as $option ) {
             
-            $network_info[ $option ] = get_option( $option, '' );
+            $network_info[ $option ] = get_option( $option, ' ' );
             
         } //$network_options as $option
         
@@ -927,6 +925,37 @@ class network_manager
         
     }
     
+	public function write_network_info_xml( ){
+		
+		$network_info = $this->network_info;		
+		
+		//create the xml document				
+		$xml = new DOMDocument();	
+		$root = $xml->appendChild( $xml->createElement( "symbiocard" ) );
+		
+		//we use CDATA feature because its possible users may enter XML incompatible data in any field. This allows all data to be used.
+		
+		foreach($network_info as $key => $value){			
+			
+			$root->appendChild( 
+			$cdata = $xml->createElement( $key ) );
+						
+			$cdata->appendChild(
+			$xml->createCDATASection( $value ) );				
+		
+		}
+				
+		$xml->formatOutput = true;		
+		$results = $xml->saveXML();
+		
+		$symbiocard = ABSPATH . '/symbiocard.xml';
+		$fh = fopen($symbiocard, 'w') or die("can't open file");
+		$stringData = $results;
+		fwrite($fh, $stringData);
+		fclose($fh);
+		
+	}
+	
     public function write_network_info( )
     {
         
@@ -1001,6 +1030,9 @@ class network_manager
                 
                 //generate image id   
                 $image_meta[ 'image_id' ] = $id;
+				
+				 //generate image date  
+                $image_meta[ 'date' ] = get_the_date('Y-m-d');
                 
                 //generate licence type   
                 $image_meta[ 'license_type' ] = 'RF';
@@ -1078,6 +1110,46 @@ class network_manager
         } //$all_images->have_posts()
         $this->images_meta = $images_meta;
     }
+	
+	public function write_image_list_info_xml( ){
+				
+		$image_info = $this->images_meta;		
+		
+		//create the xml document				
+		$xml = new DOMDocument();	
+
+		$root = $xml->appendChild( $xml->createElement( "images" ) );
+		
+		//we use CDATA feature because its possible users may enter XML incompatible data in any field. This allows all data to be used.
+		
+		foreach($image_info as $image){			
+			
+			$imageTag = $root->appendChild( 
+				$xml->createElement( "image" ) );
+				
+			foreach($image as $key => $value){	
+			
+				$imageTag->appendChild( 
+				$cdata = $xml->createElement( $key ) );
+							
+				$cdata->appendChild(
+				$xml->createCDATASection( $value ) );
+			
+			}
+		
+		}
+				
+		$xml->formatOutput = true;		
+		$results = $xml->saveXML();
+		
+		$symbiocard = ABSPATH . '/symbiostock_image_info.xml';
+		$fh = fopen($symbiocard, 'w') or die("can't open file");
+		$stringData = $results;
+		fwrite($fh, $stringData);
+		fclose($fh);
+		
+		}
+	
     public function write_image_list_info( )
     {
         
@@ -1109,8 +1181,8 @@ class network_manager
 		foreach ($terms as $term){			
 			array_push($term_list, array(
 				'Name'  => $term->name, 
-				'Slug'  =>$term->slug, 
-				'Count' =>$term->count
+				'Slug'  => $term->slug, 
+				'Count' => $term->count
 			));								
 		}
 				
@@ -1127,8 +1199,40 @@ class network_manager
         } //$this->images_meta as $vals
         
         fclose( $fp );
+				
+		//create the xml document				
+		$xml = new DOMDocument();	
+		$root = $xml->appendChild( $xml->createElement( "keywords" ) );
+		
+		//we use CDATA feature because its possible users may enter XML incompatible data in any field. This allows all data to be used.
+		
+		foreach( $term_list as $vals ){
+								
+			$keyword = $root->appendChild( 
+				$xml->createElement( "keyword" ) );
+		
+			foreach($vals as $key => $value){			
+				
+				$keyword->appendChild( 
+				$cdata = $xml->createElement( $key ) );
+							
+				$cdata->appendChild(
+				$xml->createCDATASection( $value ) );			
+			
+			}
 		
 		}
+		$xml->formatOutput = true;		
+		$results = $xml->saveXML();
+		
+		$keywords = ABSPATH . '/symbiostock_keyword_info.xml';
+		$fh = fopen($keywords, 'w') or die("can't open file");
+		$stringData = $results;
+		fwrite($fh, $stringData);
+		fclose($fh);
+		
+		
+	}
     //local search, responsible for generating local search results, returns xml.
     public function local_search( )
     {
@@ -1410,7 +1514,7 @@ class network_manager
 
     //our much desired and finally available "symbiocard" spider function, for marketing artists automatic symbiostock routines.
     public function the_spider(){
-
+		set_time_limit( 0 );
         //this will que our addresses to spider symbiocards
         $collected_addresses = array( );
 
@@ -1919,6 +2023,8 @@ function symbiostock_save_network_info( )
     $network_info->generate_network_info();
 
     $network_info->write_network_info();
+	
+	$network_info->write_network_info_xml();
 
 }
 function symbiostock_save_image_list_info( )
@@ -1929,6 +2035,8 @@ function symbiostock_save_image_list_info( )
     $network_info->generate_image_list_info();
 
     $network_info->write_image_list_info();
+	
+	$network_info->write_image_list_info_xml();	
 
     $network_info->write_keyword_list();
 
