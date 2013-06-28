@@ -100,7 +100,7 @@ global $current_user;
             <br />
             <br />
             <label for="symbiostock_ipn"><strong>
-                <input onClick="this.select();" id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>" />
+                <input onClick="this.select();" id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_bloginfo('url') . '/symbiostock_ipn/paypal_ipn.php'; ?>" />
                 </strong> Paypal IPN</label>
             <br />
             <br />

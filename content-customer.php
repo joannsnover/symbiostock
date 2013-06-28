@@ -40,7 +40,7 @@
 			global $current_user;
      		get_currentuserinfo();			
 			
-			$file_download_script = symbiostock_CLASSDIR . '/image-processor/symbiostock_file_download.php';
+			$file_download_script = WP_CONTENT_URL . '/symbiostock_file_download.php';
 			?> <hr /><h2><i class="icon-download"> Your Licensed Images/Files</i></h2>
 			<form class="" action="<?php echo $file_download_script; ?>" method="post">
             <input type="hidden" name="symbiostock_current" value="<?php echo $current_user->ID; ?>" />
@@ -64,7 +64,8 @@
 				
 				$size_name = $info['size_name'];
 				
-				echo '<br class="clearfix" /><strong><hr /><button class="btn" name="download_file" value="'.$product.'_'.$info['size_name'].'" type="submit"><i class="icon-download"> </i> ' . $info['type'] . ', ' . ucwords($info['size_name']) . '</button></strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] . '<br class="clearfix" /></div>' ;
+				echo '<br class="clearfix" />
+				<strong><hr /><button class="btn" name="download_file" value="'.$product.'_'.$info['size_name'].'" type="submit"><i class="icon-download"> </i> ' . $info['type'] . ', ' . ucwords($info['size_name']) . '</button></strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] . '<br class="clearfix" /></div>' ;
 				
 				//make the row										
 				
