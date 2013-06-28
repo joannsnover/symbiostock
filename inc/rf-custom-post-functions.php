@@ -381,7 +381,7 @@ function symbiostock_image_manager_save_options( )
 	global $post_type;
 	
 	if($post_type != 'image')
-		continue;
+		return;
 		
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
         return $post_id;

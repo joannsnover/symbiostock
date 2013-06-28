@@ -1672,9 +1672,11 @@ function symbiostock_dublin_core($head = true){
 		
 		$image_terms = get_the_terms($image_id, 'image-tags');
 		
+		if(!empty($image_terms) || $image_terms != false){
 		foreach($image_terms as $term){			
 			$terms .= $term->name . ', ';			
 			}
+		}
 			
 		$args = array(
 				'post_types'     => 'image', // string or array with multiple post type names
