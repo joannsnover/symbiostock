@@ -57,13 +57,14 @@ function symbiostock_xml_results($network_query){
 		
 		if(isset($symbiostock_init_search)){
 		
-		if($wp_query->have_posts()) :
-		
-					//create a image element
+		if($wp_query->have_posts()) :		
+			
 			$totalResults = $root->appendChild( 
 				$symbiostock_xml->createElement( "total_results", $wp_query->found_posts ) );
-			
-		
+
+			$totalResults = $root->appendChild( 
+				$symbiostock_xml->createElement( "pages", $wp_query->max_num_pages ) );
+					
 			while($wp_query->have_posts()) : $wp_query->the_post();
 				
 				$meta = get_post_custom();

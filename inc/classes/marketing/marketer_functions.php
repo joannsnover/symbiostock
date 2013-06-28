@@ -3,13 +3,12 @@ function use_symbiostock_marketer(){
 	
 	$use = get_option('use_symbiostock_marketer', false);
 	
-	if($use == true)
-		return true;
-		
-	return false;		
-	}	
-
-
+	if($use == true){
+		return true;		
+	} else {		
+		return false;	
+	}
+}	
 
 function symbiostock_marketer(){
 	
@@ -20,20 +19,13 @@ function symbiostock_marketer(){
 	if(!use_symbiostock_marketer())
 		return false;
 	
+	
 	//add_rewrite_tag('%ss-'.$image_number.'%','([^&]+)');
 		
 	if(isset($marketer_key) && $marketer_key != false && $marketer_key != 'ss-88888888'){
 		ini_set( "memory_limit", "1024M" );
 		set_time_limit( 300 );	
-	
-		function marketer_results_no_pagination( $query ) {
-		
-			$network_search = get_query_var('symbiostock_network_search');
-			$query->set('posts_per_page', -1);
-			return;
-		}		
-		add_action( 'pre_get_posts', 'marketer_results_no_pagination' );
-			
+				
 		//first, see if we are requesting an image
 		$image_number = get_query_var( 'image_number' );
 
@@ -54,19 +46,19 @@ function symbiostock_marketer(){
 		$time = get_query_var( 'time' );
 		
 		//START THE QUERY
+		$page = get_query_var( 'page' ) ? get_query_var( 'page' ) : 1;
 		
 		$args = array(
              'post_type' => 'image',
             'post_status' => 'publish',
+			'paged' => $page
         );
 		
+		//at first we wanted to dump all info, but this might not be smart for people with rediculously large portfolios
 		switch($type){
 			
 			case 'all';
-				
-				$args['posts_per_page'] = -1;
-				$args['caller_get_posts'] = 1;
-			
+							
 			break;					
 			
 		}
@@ -87,13 +79,18 @@ function symbiostock_marketer(){
 			add_filter( 'posts_where', 'ss_filter_where' );
 		}
 		
-		$images_meta = array();		
+		$images_meta = array();	
+		$results_info = array();	
 		$count = 1;
 		
 		$marketing_query = null;
 		$marketing_query= new WP_query($args);
 		
 		if($marketing_query->have_posts()) :
+			
+			$results_info['found_posts'] = $marketing_query->found_posts;
+			$results_info['max_num_pages'] = $marketing_query->max_num_pages;			
+			$results_info['post_count'] = $marketing_query->post_count;
 			
 			while($marketing_query->have_posts()) : $marketing_query->the_post();
 			
@@ -138,8 +135,7 @@ function symbiostock_marketer(){
                 if ( empty( $property_released ) || $property_released == false ) {
                     $property_released[ 0 ] = 'N/A';
                 } //empty( $property_released ) || $property_released == false
-                $image_meta[ 'property_release' ] = $property_released[ 0 ];
-                
+                $image_meta[ 'property_release' ] = $property_released[ 0 ];                
                 
                 //generate author name                                
                 $image_meta[ 'photographer_full_name' ] = get_the_author();
@@ -194,6 +190,15 @@ function symbiostock_marketer(){
 			$xml = new DOMDocument();	
 	
 			$root = $xml->appendChild( $xml->createElement( "results" ) );
+			
+			$root->appendChild( 
+					$xml->createElement( "pages", $results_info['max_num_pages'] ) );
+			
+			$root->appendChild( 
+				$xml->createElement( "results", $results_info['found_posts'] ) );	
+				
+			$root->appendChild( 
+				$xml->createElement( "per_page", $results_info['post_count'] ) );					
 			
 			foreach($images_meta as $image_meta){
 			

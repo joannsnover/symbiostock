@@ -17,6 +17,9 @@ require_once $Toolkit_Dir . 'Photoshop_File_Info.php';
 
 
 function symbiostock_get_meta($file){
+		
+		//Metadata toolkit throws annoying errors that may not be necessary to see...so turn off errors for this function
+		error_reporting ( 0 );
 	// Retrieve the header information
 		$jpeg_header_data = get_jpeg_header_data( $file );
 		
@@ -79,6 +82,9 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
 {
 	if ( file_exists( $original ) && file_exists( $destination ) && file_exists( $source ) ) {
 	   	
+		//Metadata toolkit throws annoying errors that may not be necessary to see...so turn off errors for this function
+		error_reporting ( 0 );
+		
 		//we get certain information from original file, but we cannot just transfer it blindly because bad things happen :D
 		
 		// Retrieve the header information
@@ -2011,10 +2017,7 @@ class symbiostock_image_processor
 				
 			
 			$processed = $this->transfer_original($created_page, $image_file, $image_meta_array );
-			
-			//create teh datasheet
-			symbiostock_datasheet( $created_page );
-			
+					
 			$this->cleanup($processed);
 			
 			unset( $this->files[ $this->current_file ] );

@@ -844,10 +844,13 @@ function symbiostock_image_results_per_page( $query ) {
 		$network_search = get_query_var('symbiostock_network_search');
 		
 		if($network_search != true && !is_admin()){
+			$marketer_user_key = get_option('marketer_user_number');	
+			$marketer_key = get_query_var( 'ss-' . $marketer_user_key );
 			
-			$query->set('posts_per_page', 24);
+			isset($marketer_key ) && !empty($marketer_key) ? $per_page = 100 : $per_page = 24;
+			$query->set('posts_per_page', $per_page);
 			return;
-			}
+		}
 }
 add_action( 'pre_get_posts', 'symbiostock_image_results_per_page' );
 
@@ -1651,12 +1654,7 @@ function symbiostock_dublin_core($head = true){
 	$symbiostock_post_type = get_post_type();
 	
 	//get our post meta
-	if ($symbiostock_post_type == 'datasheet'){		
-		$image_id = get_post_meta($postid, 'symbiostock_image_page');
-		$meta_array = symbiostock_post_meta($image_id[0]);
-		$image_id = $image_id[0];	
-		
-	}elseif ($symbiostock_post_type == 'image'){
+	if ($symbiostock_post_type == 'image'){
 		$image_id = $postid;
 		$meta_array = symbiostock_post_meta($postid);			
 	}else {
@@ -1754,117 +1752,6 @@ function symbiostock_dublin_core($head = true){
 	
 	}
 
-//creates or updates a datasheet when its corresponding image page is created or updated
-add_action( 'save_post', 'symbiostock_datasheet' );
-
-function symbiostock_datasheet( $post_id )
-{
-	if(!isset($post_id) || empty($post_id)){
-		global $post;
-		
-		$post_id = $post->ID;
-		}
-    
-	$post_type = get_post_type($post_id);
-    $symbiostock_datasheets = get_option( 'symbiostock_enable_datasheets', 'No' );
-    if ( $symbiostock_datasheets == 'Yes' && $post_type == 'image' ) {
-        
-        // Turn off Error Reporting
-        //error_reporting( 0 );        
-        ini_set( "memory_limit", "128M" );
-        // Hide any unknown EXIF tags
-        
-        
-        $Toolkit_Dir = symbiostock_CLASSROOT . 'PHP_JPEG_Metadata_Toolkit/';
-        
-        require_once $Toolkit_Dir . 'Toolkit_Version.php'; // Change: added as of version 1.11
-        require_once $Toolkit_Dir . 'JPEG.php'; // Change: Allow this example file to be easily relocatable - as of version 1.11
-        require_once $Toolkit_Dir . 'JFIF.php';
-        require_once $Toolkit_Dir . 'PictureInfo.php';
-        require_once $Toolkit_Dir . 'XMP.php';
-        require_once $Toolkit_Dir . 'Photoshop_IRB.php';
-        require_once $Toolkit_Dir . 'EXIF.php';
-        
-		$stockdir = symbiostock_STOCKDIR;
-        
-        $tmp = symbiostock_TMPROOT;
-        
-        if ( file_exists( $stockdir . $post_id . '.jpg' ) ) {
-            $filename = $stockdir . $post_id . '.jpg';
-            
-        } else {
-            return;
-        }
-		
-        $GLOBALS[ 'HIDE_UNKNOWN_TAGS' ] = TRUE;
-		
-        // Retrieve the header information
-        $jpeg_header_data = get_jpeg_header_data( $filename );
-        
-        $datasheet = '';
-	       
-        $datasheet .= Generate_JPEG_APP_Segment_HTML( $jpeg_header_data ) . '<br /><br />';
-        
-        $datasheet .= Interpret_intrinsic_values_to_HTML( get_jpeg_intrinsic_values( $jpeg_header_data ) ) . '<br /><br />';
-        
-        $datasheet .= Interpret_Comment_to_HTML( $jpeg_header_data );
-        
-        $datasheet .= Interpret_JFIF_to_HTML( get_JFIF( $jpeg_header_data ), $filename ) . '<br /><br />';
-        
-        $datasheet .= Interpret_JFXX_to_HTML( get_JFXX( $jpeg_header_data ), $filename ) . '<br /><br />';
-        
-        $datasheet .= Interpret_App12_Pic_Info_to_HTML( $jpeg_header_data ) . '<br /><br />';
-        
-        $datasheet .= Interpret_EXIF_to_HTML( get_EXIF_JPEG( $filename ), $filename ) . '<br /><br />';
-       
-	   	//$datasheet .= Interpret_XMP_to_HTML( read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) ) ) . '<br /><br />';
-      		
-        $datasheet .= Interpret_IRB_to_HTML( get_Photoshop_IRB( $jpeg_header_data ), $filename ) . '<br /><br />';
-        
-        $datasheet .= Interpret_EXIF_to_HTML( get_Meta_JPEG( $filename ), $filename ) . '<br /><br />';
-               
-        
-        $datasheet .= '<p>Interpreted using:</p>			
-			<p><a href="http://www.ozhiker.com/electronics/pjmt/" >PHP JPEG Metadata Toolkit version ' . $GLOBALS[ 'Toolkit_Version' ] . ', Copyright (C) 2004 Evan Hunter</a></p>   <!-- Change: displayed toolkit version numbers to reference Toolkit_Version.php - as of version 1.11 -->';
-        
-		$datasheet = str_replace('\n', '', utf8_encode ( $datasheet ));
-		
-		$datasheet_id = get_post_meta($post_id, 'symbiostock_datasheet');
-		
-		$exists = get_post($datasheet_id[0]);
-																		
-		// Create post object
-		$datasheet_post = array(		  	  
-		  'post_title'    => 'File # ' . $post_id . ' Metadata Sheet',
-		  'post_content'  => $datasheet,
-		  'post_status'   => 'publish',
-		  'post_author'   => get_current_user_id( ),
-		  'post_type'     => 'datasheet',
-		  'comment_status' => 'closed',			  
-		);
-		
-		if($exists){$datasheet_post['ID'] = $datasheet_id[0];}
-		
-		// Insert the post into the database
-		$datasheet_id = wp_insert_post( $datasheet_post );
-				
-		update_post_meta($datasheet_id, 'symbiostock_image_page', $post_id);
-		update_post_meta($post_id, 'symbiostock_datasheet', $datasheet_id);		
-		
-    }    
-}
-function symbiostock_get_datasheet_link($post_id){
-	
-	$datasheet = get_post_meta($post_id, 'symbiostock_datasheet');	
-    $symbiostock_datasheets = get_option( 'symbiostock_enable_datasheets', 'No' );
-		
-		if ( $symbiostock_datasheets == 'Yes' && $datasheet != false ) {	
-		
-		$permalink = get_permalink($datasheet[0]);
-		
-		return '<em> <a title="#'.$post_id.' Datasheet" href="'.$permalink.'"><small>[datasheet]</small></a></em>';
-	}
-}	
 //set up the theme auto-updater
 require_once('theme-updater.php');
 new WPUpdatesThemeUpdater( 'http://wp-updates.com/api/1/theme', 285, basename(get_template_directory()) );

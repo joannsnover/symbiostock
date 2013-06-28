@@ -6,8 +6,9 @@
 // also creates product tables/purchasing interface
 // we strive to keep this class as absolutely simple as possible
 class symbiostock_cart
+
 {
-    private $user = array( );
+    public $user = array( );
     	
     public $product_info = array( );
     
@@ -59,7 +60,7 @@ class symbiostock_cart
         //var_dump($this->product_info);								
     }
     
-    private function list_raster_sizes( $size_info, $extension )
+    public function list_raster_sizes( $size_info, $extension )
     {
         $sizes = array(
              'bloggee',
@@ -93,7 +94,7 @@ class symbiostock_cart
     }
     
     
-    private function list_eps( )
+    public function list_eps( )
     {
 		//check our availability and proceed accordingly
 		if(isset($this->product_info['symbiostock_' . 'vector' . '_available'][0]) 
@@ -114,7 +115,7 @@ class symbiostock_cart
         
     }
     
-    private function list_zip( )
+    public function list_zip( )
     {
 		//check our availability and proceed accordingly
 		if(isset($this->product_info['symbiostock_' . 'zip' . '_available'][0]) 
@@ -136,7 +137,7 @@ class symbiostock_cart
     }
     
     //we create a function for the option buttons due to the fact that there maybe other related output like invisible form elements
-    private function product_option( $extension, $name )
+    public function product_option( $extension, $name )
     {
         $product_id = $this->product_info[ 'id' ];
         
@@ -178,8 +179,18 @@ class symbiostock_cart
 		//if product is not for sale, abort 
 		if($this->product_info['live'][0] == 'not_live'){return;}
 		$curr = $this->currency();
-?>
-        <form id="symbiostock_product_form" class="symbiostock_product" action="" method="post">
+		?>
+        <form id="symbiostock_product_form" class="symbiostock_product" action="" method="post">        
+            
+		<?php if($this->product_info['exclusive'][0] == 'exclusive'): ?>
+        <div class="alert alert-success text-center">
+            <strong>
+            <i class="icon-star"> </i> 
+            <?php echo 'EXCLUSIVE IMAGE'; ?> <i class="icon-star"> </i> <br /><small>Found only on <strong><?php bloginfo('url'); ?></strong></small>
+            </strong>
+        </div>
+        <?php endif; ?>        
+        
         <table id="symbiostock_product_table" class="table table-striped table-hover">
         <thead>
             <tr>
@@ -343,7 +354,7 @@ class symbiostock_cart
             <input type="hidden" value="<?php echo $paypal_vars; ?>" name="custom" />
             <input type="hidden" value="<?php echo get_option('symbiostock_paypal_email', ''); ?>" name="business" />
             <input type="hidden" name="currency_code" value="<?php echo $curr[2]; ?>" />
-            <input type="hidden" name="notify_url" value="<?php echo get_template_directory_uri() . '/ipn/paypal_ipn.php'; ?>"  />
+            <input type="hidden" name="notify_url" value="<?php echo get_bloginfo('url') . '/symbiostock_ipn/paypal_ipn.php'; ?>"  />
             <input type="hidden" name="return"  value="<?php echo symbiostock_customer_area_link() . '?paypal_return_message=1'; ?>" />           
             <table class="table cart">
         <thead>
@@ -607,13 +618,14 @@ class symbiostock_cart
 		}
 	
     //creates the cart array, which can be manipulated. Beautiful alternative to database based cart system
-    private function cart_template( )
+    public function cart_template( )
     {
         $this->cart = array(
             
              'site' => get_site_url(),
             'cart_email' => $this->user->user_email,
-            'products' => array( ) 
+            'products' => array( ),
+			'' => current_time( 'mysql' )
             
             
         );

@@ -378,7 +378,11 @@ add_action( 'save_post', 'symbiostock_image_manager_save_options' );
 function symbiostock_image_manager_save_options( )
 {
     global $post;
-    
+	global $post_type;
+	
+	if($post_type != 'image')
+		continue;
+		
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
         return $post_id;
         
@@ -666,45 +670,12 @@ if(isset($_GET[ 'page' ])){
 		
 	} //is_admin() && $_GET[ 'page' ] == 'symbiostock-upload-images'
 }
-function symbiostock_datasheet_init() {
-  $labels = array(
-    'name' => 'Datasheets',
-    'singular_name' => 'Datasheet',
-    'add_new' => 'Add New',
-    'add_new_item' => 'Add New Datasheet',
-    'edit_item' => 'Edit Datasheet',
-    'new_item' => 'New Datasheet',
-    'all_items' => 'All Datasheets',
-    'view_item' => 'View Datasheet',
-    'search_items' => 'Search Datasheets',
-    'not_found' =>  'No datasheets found',
-    'not_found_in_trash' => 'No datasheets found in Trash', 
-    'parent_item_colon' => '',
-    'menu_name' => 'Datasheets'
-  );
-  $args = array(
-    'labels' => $labels,
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true, 
-    'show_in_menu' => true, 
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'datasheet' ),
-    'capability_type' => 'post',
-    'has_archive' => true, 
-    'hierarchical' => false,
-    'menu_position' => 999,
-    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' )
-  ); 
-  register_post_type( 'datasheet', $args );
-}
-add_action( 'init', 'symbiostock_datasheet_init' );
+
 //TEMPORARILY we remove the "new image' functionality until we put it in. For now, new images are created on upload.
 function symbiostock_adjust_the_wp_menu() {
   
   //or for custom post type 'myposttype'.
-  remove_submenu_page( 'edit.php?post_type=image', 'post-new.php?post_type=image' );
-  remove_submenu_page( 'edit.php?post_type=datasheet', 'post-new.php?post_type=datasheet' );
+  remove_submenu_page( 'edit.php?post_type=image', 'post-new.php?post_type=image' );  
 }
 add_action( 'admin_menu', 'symbiostock_adjust_the_wp_menu', 999 );
 //add rewrite rules

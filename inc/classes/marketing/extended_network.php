@@ -18,7 +18,6 @@ if(isset($_POST['symbiostock_reset_extended_network'])){
 	$reset = new network_manager();
 	$reset->network_directory_cleanup( true );
 
-
 }
 
 if(isset($_POST['symbiostock_scan_network'])){
@@ -103,7 +102,7 @@ $directory->get_seeds_by_keyword();
 
 $count = 1;
 
-ksort($list);
+ksort($list, SORT_REGULAR);
 
 foreach($list as $listing){
 	$key = symbiostock_website_to_key($listing['symbiostock_site']);	

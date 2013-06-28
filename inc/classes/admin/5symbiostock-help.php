@@ -153,9 +153,7 @@
                 Upload Images  This is one of the methods you can use for uploading your image</p>
             <p>Process Images.  This is where your images go when they are first uploaded, from here you Process them either to drafts so you can add keywords, SEO, categories etc or direct to Publish<br>
             </p>
-            <h3>DATA SHEETS</h3>
-            <p>These are a little bonus feature added to Symbiostock. See the help item "datasheets" to find out more. This feature is experimental and still being developed.
-            </p>
+           
         </div>
     </div>
     <div id="help_topics" class="help_topics">
@@ -276,12 +274,6 @@
             <li>
                 <h3 id="default_size_settings"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Default Size Settings</strong></h3>
                 <p>Size settings that will be applied to images on upload. These cannot (yet) be changed after uploading, so be sure to choose something that fits your portfolio's average image size, or change these settings before uploading an image batch.</p>
-            </li>
-            <li>
-                <h3 id="datasheets"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Datasheets (IPTC and Meta Records from Image)</strong></h3>
-                <p>"Datasheets" are pages that are created or updated automatically when you create or update an image page. <strong>This feature is optional, and pertains mostly to photographers</strong>, although illustrators may use it too.</p>
-                <p>Symbiostock attempts to put as much attribution and credibility to the image creator as possible. This is especially important during this time when image laws and IPTC standards are evolving. When an image page is saved, it will check if "Enable Datasheets" is set. If active, it will collect all IPTC data from the image and create a whole page on it. The page will reference your image, and the image page will reference the datasheet.</p>
-                <p>The datasheet will show much relevant info, from data you personally entered, to other aspects regarding the image's creation. This could be relevant in many situations, but mostly it adds another layer of credibility to your website's content and you, the photographer/illustrator.</p>
             </li>
             <li>
                 <h3 id="symbiostock_profile"><span class="description">Author Options (profile area)  &mdash; </span> Your profile and network symbiocard</h3>

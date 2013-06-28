@@ -31,8 +31,7 @@ $symbiostock_post_meta = symbiostock_post_meta($postid);
                      
 					<?php symbiostock_csv_symbiocard_box($symbiocard_location = '', true, '', true); ?>
                     <hr />
-                    <span class="date updated muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>
-					<?php echo symbiostock_get_datasheet_link($post->ID); ?>
+                    <span class="date updated muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>					
                     <!-- .entry-content --> 
                 </div>
                 <div id="keywords-listing">

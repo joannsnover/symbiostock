@@ -39,6 +39,15 @@ mkdir(ABSPATH . 'symbiostock_rf/', 0700);
 if (!file_exists(ABSPATH . 'symbiostock_network/')) {
 mkdir(ABSPATH . 'symbiostock_network/', 0755);
 }
+//make our directory for paypal IPN
+if (!file_exists(ABSPATH . 'symbiostock_ipn/')) {
+mkdir(ABSPATH . 'symbiostock_ipn/', 0755);
+}
+
+if(file_exists(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php')){
+	copy(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php', ABSPATH . 'symbiostock_ipn/paypal_ipn.php');
+	}
+
 //make our directory for temp files
 if (!file_exists(ABSPATH . 'symbiostock_xml_cache/')) {
 mkdir(ABSPATH . 'symbiostock_xml_cache/', 0755);
