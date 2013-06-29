@@ -1006,7 +1006,8 @@ class network_manager
             'collection',
             'color',
             'width', //included
-            'height' //included
+            'height', //included
+			'exclusive',
         );
         
         $args = array(
@@ -1047,6 +1048,11 @@ class network_manager
                 //generate thumbnail pic location
                 $image_minipic                 = get_post_meta( $id, 'symbiostock_minipic' );
                 $image_meta[ 'thumbnail_url' ] = $image_minipic[ 0 ];
+				
+                //is image exclusive?
+                $image_exclusive               = get_post_meta( $id, 'exclusive' );                
+				$image_exclusive[ 0 ] == 'exclusive'?$exclusive = 1 : $exclusive = 0;	
+				$image_meta[ 'exclusive' ] = $exclusive;				
                 
                 //generate model released
                 $model_released = get_post_meta( $id, 'symbiostock_model_released' );

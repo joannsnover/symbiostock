@@ -346,7 +346,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         ?>
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
-                            <a class="search_result_preview" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
+                            <a <?php echo SSREF; ?> class="search_result_preview" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
                               <img alt="image <?php echo $image['id']; ?>" class="search_minipic" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>

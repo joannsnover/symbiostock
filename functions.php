@@ -40,6 +40,8 @@ define('symbiostock_CSSROOT', $symbiostock_theme_root . '/css/' );
 define('symbiostock_TMPROOT', $symbiostock_theme_root . '/tmp/' );
 //setup databases after activation - 
 
+define('SSREF', 'data-query="?r='. home_url() . '"');
+
 
 add_action('after_switch_theme', 'symbiostock_installer');
 function symbiostock_installer(){
@@ -995,6 +997,7 @@ function symbiostock_website_to_key($website){
 	
 	return $key;
 	}
+	
 //Symbiostock shares email addresses, and sometimes they could be harvested if .csv files are searched. This converts them to a string unrecognizeable outside our program.
 //http://stackoverflow.com/questions/16314678/php-encode-an-email-address-hide-from-spammers-decode-easily-without-flaws
 function symbiostock_email_convert($email, $action = 'encode'){

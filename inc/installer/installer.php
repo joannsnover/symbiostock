@@ -44,9 +44,15 @@ if (!file_exists(ABSPATH . 'symbiostock_ipn/')) {
 mkdir(ABSPATH . 'symbiostock_ipn/', 0755);
 }
 
+//set up ipn
+if(file_exists(get_theme_root() . '/symbiostock/ipn/index-draft.php')){
+	copy(get_theme_root() . '/symbiostock/ipn/index-draft.php', ABSPATH . 'symbiostock_ipn/index.php');
+	}
+//set up index file for possible use	
 if(file_exists(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php')){
 	copy(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php', ABSPATH . 'symbiostock_ipn/paypal_ipn.php');
 	}
+		
 	//we have to move our download script to the content directory because sometimes its blocked in themes area 
 	copy(symbiostock_CLASSROOT . 'image-processor/symbiostock_file_download.php', WP_CONTENT_DIR . '/symbiostock_file_download.php');
 //make our directory for temp files

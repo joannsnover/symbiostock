@@ -198,12 +198,11 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
 			'Thank you for your purchase at ' . get_bloginfo('name') ,         
 			//*|LOGO|*
 			$this->site_info['symbiostock_logo_link'],            
-			//*|BODY|*
-			$purchased_items_to_display . '<br />' .
-	
-			'Customer Area: <strong>
-			' . symbiostock_customer_area('Licensing and Downloads') . '
+			//*|BODY|*			
+			'<br /><strong>' . symbiostock_customer_area('Get your images here...') . '
 			</strong><br /><br />' .
+						
+			$purchased_items_to_display . '<br />' .
 			
 			$this->site_info['symbiostock_customer_thank_you'],
 			

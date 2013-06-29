@@ -39,7 +39,7 @@
         <em>Go to image page for more details...</em>
     </div>
     <div class="modal-footer">
-    	<a data-toggle="tooltip" class="modal_control" id="search_selection_permalink" title="Go to image page..." href="#"><i class="icon-share-alt"> &nbsp;</i></a>
+    	<a <?php echo SSREF; ?> data-toggle="tooltip" class="modal_control" id="search_selection_permalink" title="Go to image page..." href="#"><i class="icon-share-alt"> &nbsp;</i></a>
         <a class="modal_control" aria-hidden="true" data-dismiss="modal" title="Close window" href="#"><i class="icon-remove"> &nbsp;</i></a>
     </div>
 </div>
