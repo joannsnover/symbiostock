@@ -107,7 +107,7 @@ $rating == '3' ? $rating_3 = 'selected="selected"' : $rating_3 = '';
 if(isset($_POST['symbiostock_allow_unrated'])){ 
 	update_option( 'symbiostock_allow_unrated', $_POST[ 'symbiostock_allow_unrated' ] );
 }
-$allow_unrated = get_option('symbiostock_allow_unrated');
+$allow_unrated = get_option('symbiostock_allow_unrated', '1');
 $allow_unrated == '0' ? $allow_unrated_1 = 'checked' : $allow_unrated_1 = '';
 $allow_unrated == '1' || !isset($allow_unrated) ? $allow_unrated_2 = 'checked' : $allow_unrated_2 = '';
 

@@ -1411,7 +1411,7 @@ class network_manager
 	//returns true if filtered keywords are found, allowing us to skip fetching network results	
    public function filtered_keywords(){
 			//first check keyword filter
-			$filtered = get_option('symbiostock_my_filtered_keywords', '');
+			$filtered = get_option('symbiostock_my_filtered_keywords', '-');
 			$filtered_list = explode(',', $filtered);					
 			$filtered_list = array_map('trim', $filtered_list);
 			$filtered_list = array_map('strtolower', $filtered_list);			

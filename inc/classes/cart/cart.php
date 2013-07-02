@@ -519,6 +519,8 @@ class symbiostock_cart
 		$price = get_post_meta($selection[ 0 ], 'price_' . strtolower($selection[ 3 ]));
 		$discount = get_post_meta($selection[ 0 ], 'discount_percent');	
 		
+		$this->cart['date'] = current_time( 'mysql' );
+		
 		//add item by product id
         $this->cart[ 'products' ][ $selection[ 0 ] ] = array(
             
@@ -625,7 +627,7 @@ class symbiostock_cart
              'site' => get_site_url(),
             'cart_email' => $this->user->user_email,
             'products' => array( ),
-			'' => current_time( 'mysql' )
+			'date' => current_time( 'mysql' )
             
             
         );
