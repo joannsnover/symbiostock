@@ -40,7 +40,17 @@ define('symbiostock_CSSROOT', $symbiostock_theme_root . '/css/' );
 define('symbiostock_TMPROOT', $symbiostock_theme_root . '/tmp/' );
 //setup databases after activation - 
 
-define('SSREF', 'data-query="?r='. home_url() . '"');
+//this function sets simplifies our URL to remove http and www
+if(!function_exists('ss_url_key')){
+function ss_url_key($site){		
+		$urlParts = parse_url($site);	
+		$domain = preg_replace('/^www\./', '', $urlParts['host']);		
+		return $domain . $urlParts['path'];
+	}
+}
+
+//This variable is our simplified domain location used in referrals
+define('SSREF', '?r='.  home_url( ) );
 
 
 add_action('after_switch_theme', 'symbiostock_installer');
@@ -318,6 +328,16 @@ function symbiostock_scripts() {
 			?>
 			<script type="text/javascript">
 			var symbiostock_large_loader = "<?php echo symbiostock_IMGDIR . '/loading-large.gif' ?>";
+			
+			//tracking 
+			jQuery(document).ready(function ($) {
+				var _host = "<?php echo SSREF ?>";				
+				$('a.ssref').on('click', function () {					
+					var _ref_url = $(this).attr('href') + _host;
+					$(this).attr( 'href', _ref_url );
+				});
+			});		
+					
 			</script>
 			<?php
 		}
@@ -528,6 +548,10 @@ function symbiostock_post_meta($postid){
 		'price_vector', 
 		'price_zip', 
 		'locked', 
+		
+		'symbiostock_rating',
+		'symbiostock_rank',
+		
 		'discount_percent', 
 		'exclusive', 
 		'symbiostock_minipic', 
@@ -882,7 +906,7 @@ function symbiostock_credit_links( $position )
     $symbiostock_credit_links = get_option( 'symbiostock_credit_links' );
     
     $links = array(
-         'ClipArtIllustration.com - Illustrations by Leo Blanchette, and home of the Orange Man' => 'http://www.clipartillustration.com',
+         'ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man' => 'http://www.clipartillustration.com',
         'Microstockgroup.com - A meeting place for microstock professionals.' => 'http://www.microstockgroup.com',
         'ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art' => 'http://www.clipartof.com/',
         'Symbiostock.com - Sell your images and network with fellow microstock professionals.' => 'http://www.symbiostock.com/' 
@@ -966,12 +990,7 @@ function symbiostock_website_copyright(){
 	if(empty($theme_credit) || $theme_credit == 'on' ){
 		?>
 		<div class="muted">
-			<small>
-			<?php do_action( 'symbiostock_credits' ); ?>
-			<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'symbiostock' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'symbiostock' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( __( 'Theme: %1$s by %2$s.', 'symbiostock' ), 'SYMBIOSTOCK', '<a href="http://www.clipartillustration.com/" rel="designer">Leo Blanchette</a>' ); ?>
-			</small>
+			<strong>Stock image</strong> and <strong>networking</strong> platform <a href="http://www.symbiostock.com/">SYMBIOSTOCK</a>, by the maker of <a href="http://www.clipartillustration.com/">ClipArtIllustration.com</a>
 		</div>    
 		<?php
 		}

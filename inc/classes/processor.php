@@ -11,11 +11,21 @@ isset($_POST['action']) && $_POST['action'] == 'delete' ? $symbiostock_images->d
 isset($_POST['action']) && $_POST['action'] == 'delete_all' ? $symbiostock_images->delete_all_files( 'uploads' ) : '';
 isset($_POST['action']) && $_POST['action'] == 'process_publish' || isset($_POST['action']) &&  $_POST['action'] == 'process_drafts' ? $symbiostock_images->process() : '';
 $symbiostock_images->list_images();
-?>
+?>						
             <div class="tablenav bottom">
-            
+                        
                 <div class="alignleft actions">
+                   
                 
+                   <select name="symbiostock_rating">
+                    
+                        <option selected="selected" value="1">GREEN</option>
+                        
+                        <option value="2">YELLOW</option>
+                        
+                        <option value="3">RED</option>  
+                        
+                    </select>
                     <select name="action">
                     
                         <option selected="selected" value="process_drafts">Process to Drafts</option>
@@ -27,9 +37,12 @@ $symbiostock_images->list_images();
                         <option value="delete_all">Delete ALL Files</option>
                         
                     </select>
-                    
+                                 
                      <input type="submit" value="Process Images" class="button action" id="doaction" name="">
-                     <p>* NOTE: Images without IPTC data (at least <strong>title</strong> and <strong>keywords</strong>) are always saved as drafts.</p>
+                     
+                     <p>
+                     <?php echo sshelp('rating', 'Rating Filter'); ?><br />
+                     * NOTE: Images without IPTC data (at least <strong>title</strong> and <strong>keywords</strong>) are always saved as drafts.</p>
                      
                 </div>
                 

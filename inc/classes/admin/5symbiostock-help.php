@@ -190,7 +190,16 @@
                 <p>For promoting your site far beyond your local network. Promoted keywords end up in your Symbiocard.<br /><br /> In certain circumstances, <strong>a remote (and unrelated site) may show search results from your site</strong> if it knows you specialize in the keywords provided here. Good for "Niche" sites that have specific specialties.
                 <br /><br />This is one of the strongest promoting features of Symbiostock. Promotion of your site is managed in the "marketing" tab.
                 </p>
-            </li>            
+            </li>
+            
+            <li>
+                <h3 id="filtered_keywords"><span class="description">Network  &mdash; </span>Filtered Keywords</h3>
+                <p>
+                This is a simple filter for the keywords you DO NOT want showing up in your network results. Mainly this is for those who wish filter out keywords directly relating to nudity.<br />
+                The filter can also be used to exclude network results of other subjects to, for any reason you may wish.
+                </p>
+            </li>  
+                        
             <li>
                 <h3 id="site_announcement"><span class="description">Network  &mdash; </span>Site Announcement</h3>
                 <p>Real-time announcement regarding your site. Running a discount? Offering custom work?</p>
@@ -261,6 +270,48 @@
                 <h3 id="live"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Live</strong></h3>
                 <p>If you choose to make an image "not live" its pricing table will disappear. Handy if you are only using symbiostock as a referral system, or wish to take down an image temporarily while considering selling the rights. Or any other issue.</p>
             </li>
+            
+            <li>
+                <h3 id="rank"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Rank</strong></h3>
+                <p><strong>rank</strong> is a 3-level system where you can put your best work at the front, your typical work in the middle, and everything else last.<br />
+                <strong>Use</strong> As a base, the majority of your work should be 2nd rating. You set "1st" for those images you wish to be at the front of search results. And "3rd" for images you know should not take up valuable space in search results.
+                </p>                
+                	<br />
+                	<strong>1st:</strong> Search results will always place your relevant best images first.<br /><br />
+                    <strong>2nd:</strong> Your typical work. Should make up the majority of your portfolio.<br /><br />
+                    <strong>3rd:</strong> Images included in your portfolio as an option for purchase, but may take up valuable selling space from more valuable and likely to sell images.<br /><br />
+                
+                <p>This system is simply to give you control over your sales potential, putting your best work first, last work last.</p>
+            </li>
+
+            <li>
+                <h3 id="rating"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Rating</strong></h3>
+                <p>
+                	This is a content rating system created to <strong>filter nudity</strong>.
+                    <br /><br />
+                    On your network tab you may choose the content level rating for included search results.
+                    <br /><br />
+                    <table>
+                        <tr>
+                            <td style="background-color: #333; color: #6F9; font-size: 14px; padding: 20px;"><strong>GREEN:</strong></td><td style="border-bottom: dashed #CCC thin; padding: 20px; padding-bottom: 20px;" class="description"> Viewable by all audiences.</td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #333;  color: yellow; font-size: 14px; padding: 20px;"><strong>YELLOW:</strong></td><td style="border-bottom: dashed #CCC thin; padding: 20px; padding-bottom: 20px;"  class="description"> Content rated YELLOW may contain individuals who are minimally clothed (e.g., low cut tops, underwear or revealing bathing suits). Content rated YELLOW should not contain nudity, including exposed buttocks, genitalia, or areola.</td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #333;  color: red; font-size: 14px; padding: 20px;"><strong>RED:</strong></td><td style="border-bottom: dashed #CCC thin; padding: 20px;"  class="description"> Shows exposed areas including exposed buttocks, genitalia, or areola.</td>
+                        </tr>
+                    </table>
+                    <br />
+                    The Symbiostock Network is made up of many sorts of artists and photographers with varying values and audiences. The rating system is a way to show consideration to the network, so other websites can filter nudity.
+                    <br /><br />
+                    Simply stated, a website which features cartoons, characters, and 3d models which attracts a younger audience (this is the internet) will definitely not want nude images popping up in their search results, visible to the eyes of youngsters.
+                    <br /><br />
+                    To avoid letting "mature" search results leak into your network friend's results, please show consideration and rate your photos accordingly. If all of your images are of one rating, you can simply assign that rating in the AUTHOR AREA and upload without setting any more values.                               
+                </p>
+            </li>            
+            
+            
             <li>
                 <h3 id="update_related_images"><span class="description">Author Options (Symbiostock  admin area)  &mdash; </span>Update Related Images</strong></h3>
                 <p>This runs a script that gauges similarity of images by how many occurances of keywords they share. When this script runs, every image is compared to every other image in your portfolio. The more images you have, the longer it will take to run. It will email you with progress occassionally.<br />

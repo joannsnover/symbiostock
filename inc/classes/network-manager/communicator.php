@@ -22,7 +22,9 @@ function symbiostock_xml_results($network_query){
 		'symbiostock_preview',
 		'symbiostock_transparency',
 		'size_eps',
-		'size_zip' 
+		'size_zip',
+		'symbiostock_rating',
+		'symbiostock_rank' 
 	);
 	
 	$meta_values_serialized = array(

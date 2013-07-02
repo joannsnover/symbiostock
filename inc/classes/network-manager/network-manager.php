@@ -1,4 +1,5 @@
 <?php
+
 //this class is responsible for performing network functions, getting network search results, and so forth.
 include_once( 'communicator.php' );
 include_once( 'interpreter.php' );
@@ -975,6 +976,8 @@ class network_manager
     public function generate_image_list_info( )
     {
         
+		$image_rank_update = get_option('image_rank_update');	
+		
 		add_action( 'pre_get_posts', 'symbiostock_image_list_results_per_page' );
 		//set the results per page depending on if we are doing image search
 		function symbiostock_image_list_results_per_page( $query ) {					
@@ -1011,10 +1014,11 @@ class network_manager
         );
         
         $args = array(
-             'post_type' => 'image',
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'caller_get_posts' => 1 
+			 'post_type' => 'image',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'caller_get_posts' => 1,
+			'fields' => 'ids'
         );
         
         $all_images = null;
@@ -1025,62 +1029,85 @@ class network_manager
             $image_meta = array( );
             
             while ( $all_images->have_posts() ):
-                $all_images->the_post();
-                
+                $all_images->the_post();                
+							
                 $id = get_the_ID();
                 
+				if($image_rank_update != true){
+					update_post_meta($id, 'symbiostock_rank', 2);
+				}
+				
+				
+				$image = get_post($id, ARRAY_A);
+				
                 //generate image id   
                 $image_meta[ 'image_id' ] = $id;
 				
-				 //generate image date  
-                $image_meta[ 'date' ] = get_the_date('Y-m-d');
+				 //generate image date 
+				 
+				$date = new DateTime($image['post_date']);					
+				  
+                $image_meta[ 'date' ] = $date->format('Y-m-d');
                 
                 //generate licence type   
-                $image_meta[ 'license_type' ] = 'RF';
+                //$image_meta[ 'license_type' ] = 'RF';
                 
                 //generate url of image page                                       
-                $image_meta[ 'url' ] = get_permalink();
+                $image_meta[ 'url' ] = get_permalink($id);
                 
-                //generate preview pic location
-                $preview                       = get_post_meta( $id, 'symbiostock_preview' );
-                $image_meta[ 'fullimage_url' ] = $preview[ 0 ];
+				//------ POST CUSTOM get_post_custom($id) is used to avoid making multiple queries to database
+				$post_custom = get_post_custom($id);
+				
+				//rating and quality
+				if(isset($post_custom['symbiostock_rating'])){					
+						$image_meta[ 'rating' ] = $post_custom['symbiostock_rating'][0];						
+					} else {						
+						$image_meta[ 'rating' ] = 0;						
+				}
+
+				if(isset($post_custom['symbiostock_quality'])){					
+						$image_meta[ 'rank' ] = $post_custom['symbiostock_rank'][0];						
+					} else {						
+						$image_meta[ 'rank' ] = 2;						
+				}				
+				
+	                //generate preview pic location
+                $image_meta[ 'fullimage_url' ]  = $post_custom['symbiostock_preview'][0];               
                 
                 //generate thumbnail pic location
-                $image_minipic                 = get_post_meta( $id, 'symbiostock_minipic' );
-                $image_meta[ 'thumbnail_url' ] = $image_minipic[ 0 ];
+				$image_meta[ 'thumbnail_url' ] = $post_custom['symbiostock_minipic'][0];            
 				
                 //is image exclusive?
-                $image_exclusive               = get_post_meta( $id, 'exclusive' );                
-				$image_exclusive[ 0 ] == 'exclusive'?$exclusive = 1 : $exclusive = 0;	
+                $image_exclusive               = $post_custom['exclusive'][0];                
+				$image_exclusive == 'exclusive'?$exclusive = 1 : $exclusive = 0;	
 				$image_meta[ 'exclusive' ] = $exclusive;				
                 
                 //generate model released
-                $model_released = get_post_meta( $id, 'symbiostock_model_released' );
+                $model_released = $post_custom['symbiostock_model_released'][0];
                 if ( empty( $model_released ) || $model_released == false ) {
-                    $model_released[ 0 ] = 'N/A';
+                    $model_released = 'N/A';
                 } //empty( $model_released ) || $model_released == false
-                $image_meta[ 'model_release' ] = $model_released[ 0 ];
+                $image_meta[ 'model_release' ] = $model_released;
                 
                 //generate property released
-                $property_released = get_post_meta( $id, 'symbiostock_property_released' );
+                $property_released = $post_custom['symbiostock_property_released'][0];
                 if ( empty( $property_released ) || $property_released == false ) {
-                    $property_released[ 0 ] = 'N/A';
+                    $property_released = 'N/A';
                 } //empty( $property_released ) || $property_released == false
-                $image_meta[ 'property_release' ] = $property_released[ 0 ];
-                
+                $image_meta[ 'property_release' ] = $property_released;                
                 
                 //generate author name                                
-                $image_meta[ 'photographer_full_name' ] = get_the_author();
+                $image_meta[ 'photographer_full_name' ] = get_the_author_meta( 'display_name', $image['post_author'] );;
                 
                 //generate caption                
-                $image_meta[ 'caption' ] = the_title( '', '', false );
+                $image_meta[ 'caption' ] = $image['post_title'];
                 
                 //generate description
-                $image_meta[ 'description' ] = get_the_content();
+                $image_meta[ 'description' ] = $image['post_content'];
                 
                 //generate size info
-                $size_info              = get_post_meta( $id, 'size_info' );
-                $size_info              = unserialize( $size_info[ 0 ] );
+                $size_info              = $post_custom['size_info'][0];				
+                $size_info              = unserialize(unserialize( $size_info));
                 $image_meta[ 'width' ]  = $size_info[ 'large' ][ 'width' ];
                 $image_meta[ 'height' ] = $size_info[ 'large' ][ 'height' ];
                 
@@ -1099,22 +1126,23 @@ class network_manager
                     $collected_keywords = join( ", ", $keywords );
                 endif;
                 
-                if ( isset( $collected_keywords ) ) {
-                    
-                    $image_meta[ 'keyword' ] = $collected_keywords;
-                    
+                if ( isset( $collected_keywords ) ) {                    
+                    $image_meta[ 'keyword' ] = $collected_keywords;                    
                 } //isset( $collected_keywords )
-                else {
-                    
-                    $image_meta[ 'keyword' ] = '';
-                    
+                else {                    
+                    $image_meta[ 'keyword' ] = '';                    
                 }
                 
                 array_push( $images_meta, $image_meta );
-            endwhile;
+            	
+				unset($image);
+				unset($post_custom);
+				
+			endwhile;
             
         } //$all_images->have_posts()
         $this->images_meta = $images_meta;
+		update_option('image_rank_update', true);
     }
 	
 	public function write_image_list_info_xml( ){
@@ -1236,8 +1264,7 @@ class network_manager
 		$stringData = $results;
 		fwrite($fh, $stringData);
 		fclose($fh);
-		
-		
+				
 	}
     //local search, responsible for generating local search results, returns xml.
     public function local_search( )
@@ -1306,7 +1333,8 @@ class network_manager
                 $term_array = array(
                      'taxonomy' => 'image-tags',
                     'field' => 'name',
-                    'terms' => trim( $search_term ) 
+                    'terms' => trim( $search_term )
+					 
                 );
                 
                 array_push( $tax_query, $term_array );
@@ -1344,8 +1372,10 @@ class network_manager
                 'post_status' => 'publish',
                 'tax_query' => $tax_query,
                 'paged' => $paged,
-                'posts_per_page' => 24 
-            );
+                'posts_per_page' => 24 ,
+				'order'     => 'ASC',
+            );		
+
             
         } //is_search()		
 		
@@ -1358,7 +1388,14 @@ class network_manager
             );
                         
         }
-        
+		
+		//temporary function until everyone has toggled their theme	and is equal to or above 2.4.9		
+		$image_rank_update = get_option('image_rank_update');	
+		if(	$image_rank_update == true ){
+			$local_query['meta_key'] =  'symbiostock_rank';
+			$local_query['orderby'] =  'meta_value_num';
+		}
+		
 		$get_all = get_query_var( 'type' );
 		
 		if($get_all == 'all'){
@@ -1371,6 +1408,35 @@ class network_manager
         $this->xml_results = $xml;
     }
     
+	//returns true if filtered keywords are found, allowing us to skip fetching network results	
+   public function filtered_keywords(){
+			//first check keyword filter
+			$filtered = get_option('symbiostock_my_filtered_keywords', '');
+			$filtered_list = explode(',', $filtered);					
+			$filtered_list = array_map('trim', $filtered_list);
+			$filtered_list = array_map('strtolower', $filtered_list);			
+			
+			if(is_search()){
+					$s = 's';
+				} else {
+					$s = 'image-tags';	
+				}
+						
+			$query = get_query_var( $s );
+			
+			$keyword = strtolower(trim($query));		
+			$keyword = preg_split( '/[+\s_-]/', $keyword );
+			$keyword = array_map('strtolower', $keyword);	
+			
+			$alert = array_intersect($keyword, $filtered_list);
+
+			if (count($alert) > 0) {				
+				return true;
+			} else {							
+				return false;
+				}	
+					
+	   }
 	
 	//this function loops through all networks and then runs the network search function
 	//should only be called on the search or custom taxonomy page
@@ -1380,7 +1446,12 @@ class network_manager
    public function network_search_all_similar( )
     {
             $symbiostock_use_network = get_option( 'symbiostock_use_network', 'false' );
-
+			
+			//if this search contains filtered keywords, we abort
+			if($this->filtered_keywords() == true){
+				return;
+			}
+			
             if ( $symbiostock_use_network == 'true' ) {
 
                 $my_site = get_bloginfo('url');
@@ -1428,9 +1499,12 @@ class network_manager
                 } //is_array( $promoted_sites ) && !empty( $promoted_sites )
 
                 $site_count = 0;
-
+				
+			
                 foreach ( $site_list as $network_site ) {
-
+					
+				
+		
                     //different sites might have wordpress installed at different levels like www.mystockphotosite.com/wordpress/
                     //so we have to disect our url to get it to function properly...see $query below
                     $sub_level = parse_url( get_home_url() );
@@ -1648,7 +1722,7 @@ class network_manager
     }
 
 }
-###
+### - - - - - - - - - - - - - - - - AJT - - - - - - - - - - - - - - - -
 if ( ! function_exists( 'ajt_network_search_all' ) ) {
 	function ajt_network_search_all( $query_list, network_manager & $nm ) {
 
@@ -1659,7 +1733,7 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 		// if disabled, results will be in network list order, but sometimes much slower
 		$random_enabled = get_option( 'symbiostock_fast_network_display', 1 );
 		$cache_enabled = get_option( 'symbiostock_cache_enabled', 1 );
-		$days = min( get_option('symbiostock_cache_days', 14), 90 );
+		$days = min( get_option('symbiostock_cache_days', 21), 60 );
 		$max_cache_count = get_option('symbiostock_cache_max_files', 50000);
 		$max_cache_delete = get_option('symbiostock_cache_max_delete', 100);
 
@@ -1668,7 +1742,7 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 
 		// let's delete old files once a day
 		$log_file = ajt_cache_log_file_open(); // open file and lock
-			if ( $crawler != '' && time() > ( $cache_time=get_option( 'symbiostock_cache_update_time', 0 ) ) ) {
+		if ( $crawler != '' && time() > ( $cache_time=get_option( 'symbiostock_cache_update_time', 0 ) ) ) {
 				  if ( $cache_time == 0 ) $cache_time = time();
 				  update_option( 'symbiostock_cache_update_time', $cache_time + 24*3600 );
 				  $files = glob( ABSPATH . 'symbiostock_xml_cache/*' ); // it doesn't select .* files, such as .cachelog
@@ -1680,23 +1754,27 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 
 				  ajt_cache_log_file_close( $log_file,
 					   "\n" . date('c') . " cache ttl " . $days . " days, cache size " . ($cfiles-$i) . " files, " . $i . " old files deleted\n" );
-			}
-			else
-				ajt_cache_log_file_close( $log_file );
+		}
+		else
+			ajt_cache_log_file_close( $log_file );
 
-			$call_curl = false;
-			$ch = array( );
-			$keys = array( );
-			$mh = curl_multi_init();
-			$next_to_show = 0;
-			$site_count = count( $query_list );
-			for ( $count = 0; $count < $site_count; $count++ ) {
+		$call_curl = false;
+		$ch = array( );
+		$keys = array( );
+		$mh = curl_multi_init();
+		$next_to_show = 0;
+		$site_count = count( $query_list );
+		if ( file_exists( ABSPATH . 'symbiostock_xml_cache/.cachelog' ) )
+			$last_log_time = filemtime( ABSPATH . 'symbiostock_xml_cache/.cachelog' );
+		else
+			$last_log_time = 0;
+		for ( $count = 0; $count < $site_count; $count++ ) {
 				  array_push( $result_list, '' );
 				  $search_site = ajt_search_url ( $query_list[$count] );
 				  $key = ajt_make_cache_key_from_url( $query_list[$count] );
 				  array_push( $keys, $key );
 				  $log_file = ajt_cache_log_file_open();
-				  if ( $crawler == '' && $count == 0 )
+				  if ( $count == 0 && $crawler == '' )
 					 ajt_write_cache_search_item( $query_list[$count], $key );
 				  $file = ABSPATH . 'symbiostock_xml_cache/' . md5( $key );
 				  if ( $cache_enabled && file_exists( $file ) && time() - $caching_time < filemtime( $file ) ) {
@@ -1709,8 +1787,10 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 				  }
 				   else
 					 ajt_cache_log_file_close( $log_file );
-				   if ( $search_site && $crawler != '')
-						$result_list[$count] = ajt_xml_no_results_found();
+					 
+				   if ( $crawler != '' && $result_list[$count] == '' && ( $search_site && get_option( 'symbiostock_cached_results', 0 ) > 0 || $last_log_time + 1 > time() ) ) 
+						$result_list[$count] = ajt_xml_no_results_found();	
+						
 				   if ( $result_list[$count] == '' ) {
 						 array_push( $ch, curl_init() );
 						 curl_setopt( $ch[$count], CURLOPT_RETURNTRANSFER, true );
@@ -1722,7 +1802,6 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 						 curl_setopt( $ch[$count], CURLOPT_TIMEOUT, $timeout );
 						 curl_setopt( $ch[$count], CURLOPT_REFERER, get_home_url() );
 						 curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, true );
-						 curl_setopt( $ch[$count], CURLOPT_MAXCONNECTS, min( $site_count, 15 ) );
 						 curl_setopt( $ch[$count], CURLOPT_URL, $query_list[$count] );
 						 curl_multi_add_handle( $mh, $ch[$count] );
 						 $call_curl = true;
@@ -1735,9 +1814,9 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 							$result_list[$count] = '';
 						 }
 				   }
-			} // for ($count = 0;
+		} // for ($count = 0;
 
-			if ( $call_curl ) {
+		if ( $call_curl ) {
 					  libxml_use_internal_errors( true );
 					  $still_running = false;
 					  ajt_full_curl_multi_exec($mh, $still_running); // start requests
@@ -1759,6 +1838,8 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 								  file_put_contents( $file, $keys[$count] . "\n>>----<<\n" . $query_list[$count] . "\n>>----<<\n" . $data );
 								  ajt_cache_log_file_close( $log_file, $crawler[0] . "-", $keys[$count], $query_list[$count] );
 								}
+								if ( ajt_search_url ( $query_list[$count] ) && ( $pos = strpos( $data, "_cached_results#" ) ) > 0 ) 
+									update_option( 'symbiostock_cached_results', $data[$pos - 1] );
 
 								if ( $random_enabled && !$search_site && strlen( $data ) > 15000 )
 
@@ -1772,17 +1853,17 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 					  } while ($still_running);
 
 					  libxml_use_internal_errors( false );
-			} // if ( $call_curl )
+		} // if ( $call_curl )
 
-			for ( $count = 0; $count < $site_count; $count++ ) {
+		for ( $count = 0; $count < $site_count; $count++ ) {
 				  if ( $ch[$count] != 0 ) {
 					curl_multi_remove_handle( $mh, $ch[$count] );
 					curl_close( $ch[$count] );
 				  }
 				  if ( $result_list[$count] != '' )
 					$nm->display_network_results( $count, $result_list[$count] );
-			}
-			curl_multi_close($mh);
+		}
+		curl_multi_close($mh);
 
 	}
 }
@@ -1794,7 +1875,6 @@ function ajt_full_curl_multi_exec($mh, &$still_running)
   } while ($rv == CURLM_CALL_MULTI_PERFORM);
   return $rv;
 }
-
 
 if ( ! function_exists( 'ajt_get_remote_xml' ) ) {
 	function ajt_get_remote_xml( $url, $site = '' )
@@ -1884,9 +1964,7 @@ if ( ! function_exists( 'ajt_xml_no_results_found' ) ) {
 // - for cache miss
 // + for cache hit
 // G,m,A,Y,M - first letter of crawler name (see function crawlew_detect below).
-// When crawlers are visiting site, new contents is always fetched from network
-// sites and written to cache file, even if file exists.
-// Log file is used also for access control to cache files by simultaneous
+// Log file is used also for access control to cache and other files by simultaneous
 // processes (flock).
 
 if ( ! function_exists( 'ajt_cache_log_file_open' ) ) {
@@ -1904,6 +1982,7 @@ if ( ! function_exists( 'ajt_cache_log_file_open' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'ajt_cache_log_file_close' ) ) {
 	function ajt_cache_log_file_close( $file, $data = '', $key = '', $url = '' )
 	{
@@ -1914,11 +1993,12 @@ if ( ! function_exists( 'ajt_cache_log_file_close' ) ) {
 	}
 }
 
+
 // adds search item to file, only when it was entered into searchbox, and is
 // different than previous one
 
 if ( ! function_exists( 'ajt_write_cache_search_item' ) ) {
-	function ajt_write_cache_search_item( $url, $key )
+	function ajt_write_cache_search_item( & $url, & $key )
 	{
 	  $log_search_items = true;
 
@@ -1942,15 +2022,17 @@ if ( ! function_exists( 'ajt_write_cache_search_item' ) ) {
 	}
 }
 
+
 // to avoid crawlers visits
 
 if ( ! function_exists( 'ajt_search_url' ) ) {
-	function ajt_search_url( $url ) {
+	function ajt_search_url( & $url ) {
 
 		return stripos( $url, "://symbiostock.info/" ) > 0;
 
 	}
 }
+
 
 if ( ! function_exists( 'ajt_crawler_detect' ) ) {
 	function ajt_crawler_detect()
@@ -2017,6 +2099,7 @@ if ( ! function_exists( 'ajt_make_cache_key_from_url' ) ) {
 
 	  if ( ajt_search_url( $urls ) ) $url = $urls;
 	  $cr = ajt_crawler_detect();
+	  if ( $cr == '' ) $cr = $_SERVER['REMOTE_ADDR'];
 	  if ( $cr != '' && strpos( $url, "&cr=" ) === FALSE ) $url .= "&cr=$cr";
 	  $key .= '/';
 	  $key = str_replace( array( '/page/1/', '//www.', 'http://' ), array( '/', '//', '' ), $key );
@@ -2024,9 +2107,7 @@ if ( ! function_exists( 'ajt_make_cache_key_from_url' ) ) {
 	  return $key;
 	}
 }
-
-
-###
+### - - - - - - - - - - - - - - - - AJT - - - - - - - - - - - - - - - -
 
 
 function symbiostock_save_network_info( )

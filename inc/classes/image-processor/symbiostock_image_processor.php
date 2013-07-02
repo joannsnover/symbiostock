@@ -1867,7 +1867,11 @@ class symbiostock_image_processor
         global $current_user;
         
         get_currentuserinfo();
-        
+        $default_rank = get_option('symbiostock_rank', 2);
+		$default_rating = get_option('symbiostock_rating', 1);
+		
+		isset($_POST['symbiostock_rating']) ? $rating = $_POST['symbiostock_rating'] : $rating = $default_rating;
+		
         $image_meta = array(
             
              'title' => $data[ $image_file ][ 'title' ],
@@ -1919,6 +1923,10 @@ class symbiostock_image_processor
 			'size_zip' => $this->get_file_size($data, 'zip'),
 			
             'locked' => 'not_locked',
+			
+			'symbiostock_rank' => $default_rank,
+						
+			'symbiostock_rating' => $rating,
             
             'discount_percent' => 0,
             

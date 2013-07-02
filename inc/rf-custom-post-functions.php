@@ -148,6 +148,10 @@ function symbiostock_image_manager_meta_options( )
 	$symbiostock_vector_available  = $custom[ 'symbiostock_vector_available' ][ 0 ];
 	$symbiostock_zip_available     = $custom[ 'symbiostock_zip_available' ][ 0 ];
 	
+	//rank and rating
+	$symbiostock_rating     = $custom[ 'symbiostock_rating' ][ 0 ];
+	$symbiostock_rank     = $custom[ 'symbiostock_rank' ][ 0 ];	
+	
 	//size info
 	$size_info = get_post_meta($post->ID, 'size_info');
 	$sizes = maybe_unserialize($size_info[0]);
@@ -177,6 +181,45 @@ function symbiostock_image_manager_meta_options( )
     
 ?>
 <div class="image_manager">
+
+<br />
+
+<?php
+//Rating
+$symbiostock_rating == '1' || !isset($symbiostock_rating)  ? $symbiostock_rating_1 = 'selected="selected"' : $symbiostock_rating_1 = '';
+$symbiostock_rating == '2' ? $symbiostock_rating_2 = 'selected="selected"' : $symbiostock_rating_2 = '';
+$symbiostock_rating == '3' ? $symbiostock_rating_3 = 'selected="selected"' : $symbiostock_rating_3 = '';
+?>
+<div>
+<label>Rating: </label>
+<select id="symbiostock_rating"  name="symbiostock_rating">
+    <option <?php echo $symbiostock_rating_1; ?> value="1">GREEN</option>
+    <option <?php echo $symbiostock_rating_2; ?> value="2">YELLOW</option>
+    <option <?php echo $symbiostock_rating_3; ?> value="3">RED</option>                              
+</select>
+<?php echo sshelp('rating', 'Rating'); ?>
+</div>
+
+
+<?php
+//rank
+$symbiostock_rank == '1' ? $symbiostock_rank_1 = 'selected="selected"' : $symbiostock_rank_1 = '';
+$symbiostock_rank == '2' || !isset($symbiostock_rank) ? $symbiostock_rank_2 = 'selected="selected"' : $symbiostock_rank_2 = '';
+$symbiostock_rank == '3' ? $symbiostock_rank_3 = 'selected="selected"' : $symbiostock_rank_3 = '';
+?>
+
+<div>
+<label>rank: </label>
+<select id="symbiostock_rank"  name="symbiostock_rank">
+    <option <?php echo $symbiostock_rank_1; ?> value="1">1st</option>
+    <option <?php echo $symbiostock_rank_2; ?> value="2">2nd</option>
+    <option <?php echo $symbiostock_rank_3; ?> value="3">3rd</option>                
+</select>
+<?php echo sshelp('rank', 'Rank'); ?>
+</div>
+
+<br />
+
 <?php
 	$locked == 'locked' ? $checked = 'checked="checked"' : $checked = '';
 	 
@@ -233,6 +276,7 @@ function symbiostock_image_manager_meta_options( )
 
 <br />
 
+
 <div>
 	
     <label>Size Bloggee: </label>
@@ -277,6 +321,7 @@ function symbiostock_image_manager_meta_options( )
         <option <?php echo $not_live; ?> value="not_live">Not Live</option>
     </select>
 </div>
+
 <?php
 $symbiostock_model_release == 'Yes' || !isset($symbiostock_model_release)  ? $symbiostock_model_released_yes = 'selected="selected"' : $symbiostock_model_released_yes = '';
 $symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"' : $symbiostock_model_released_no = '';
@@ -369,8 +414,10 @@ $symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'se
     <input size="50" type="text" name="symbiostock_referral_label_5" value="<?php
     echo $symbiostock_referral_label_5;
 ?>" /><br /><br />
-</div>
 <br class="clear" />
+</div>
+</div>
+
 <?php
     
 }
@@ -401,6 +448,7 @@ function symbiostock_image_manager_save_options( )
         update_post_meta( $post->ID, 'exclusive', $_POST[ 'exclusive' ] );		
 		update_post_meta( $post->ID, 'locked', $_POST[ 'locked' ] );		
 		update_post_meta( $post->ID, 'live', $_POST[ 'live' ] );		
+		
 		//availability options symbiostock_  $size _available		
 		update_post_meta( $post->ID, 'symbiostock_bloggee_available', $_POST[ 'symbiostock_bloggee_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_small_available', $_POST[ 'symbiostock_small_available' ] );		
@@ -408,6 +456,10 @@ function symbiostock_image_manager_save_options( )
 		update_post_meta( $post->ID, 'symbiostock_large_available', $_POST[ 'symbiostock_large_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_vector_available', $_POST[ 'symbiostock_vector_available' ] );		
 		update_post_meta( $post->ID, 'symbiostock_zip_available', $_POST[ 'symbiostock_zip_available' ] );	
+		
+		//rank and rating
+		update_post_meta( $post->ID, 'symbiostock_rank', $_POST[ 'symbiostock_rank' ] );	
+		update_post_meta( $post->ID, 'symbiostock_rating', $_POST[ 'symbiostock_rating' ] );	
 		
 		//size info
 		

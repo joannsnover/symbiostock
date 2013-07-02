@@ -40,9 +40,9 @@ jQuery(document).ready(function ($) {
             e.preventDefault();
         });
         $(".search-result").hover(function () {
-            $(this).children(".sscntrl").fadeIn();
+            $(this).children(".sscntrl").stop(true, true).fadeIn();
         }, function () {
-            $(this).children(".sscntrl").fadeOut();
+            $(this).children(".sscntrl").stop(true, true).fadeOut();
         });
     }
     pageFunctions()

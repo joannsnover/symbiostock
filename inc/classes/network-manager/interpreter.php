@@ -202,8 +202,6 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 		
 		return;
 		}
-	
-	
 		
 		
 	if(isset($_POST['symbiostock_site_order'])){
@@ -316,6 +314,22 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                     endif;
                     $closed = true;
                     foreach($image_results as $image){
+						
+						//filter images by rating (nudity)										
+						//if($network_search == true):
+							if(!isset($image['symbiostock_rating']) || empty($image['symbiostock_rating']) || $image['symbiostock_rating'] < 1){
+								$allow_unrated = get_option('symbiostock_allow_unrated');	
+								if($allow_unrated == 0)
+									continue;							
+								}
+								
+							$rating = $image['symbiostock_rating'];													
+							$max_rating = get_option('symbiostock_filter_level');
+							
+							if($rating > $max_rating)
+								continue;
+						//endif;						
+						
                         //carousel
                         if($network_search == true):
                             $active == true ? $class = 'active' : '';		
@@ -346,7 +360,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         ?>
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
-                            <a <?php echo SSREF; ?> class="search_result_preview" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
+                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
                               <img alt="image <?php echo $image['id']; ?>" class="search_minipic" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>

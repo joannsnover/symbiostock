@@ -2,12 +2,6 @@
 //navigation menu
 jQuery(document).ready(function ($) {
 		
-	$('a').click(function () {
-		if ($(this).attr('data-query'))
-			$(this).attr('href',$(this).attr('href') + $(this).attr('data-query'));
-		$(this).attr('data-query','');
-	});		 
-
     $('.dropdown-toggle ul').css('display', 'block').slideUp(0);
     $('.dropdown-toggle').hover(
     function () {

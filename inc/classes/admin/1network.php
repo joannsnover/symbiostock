@@ -67,7 +67,7 @@ if(isset($_POST['symbiostock_my_network_about_page'])){
 if(isset($_POST['symbiostock_my_promoted_keywords'])){ 
 	$total = explode(',', $_POST['symbiostock_my_promoted_keywords']);
 	if(count($total) > 20){
-		$no_more_keywords =  '<p>Plese choose no more than 20 promoted keywords. Promoted keywords not saved.</p>';
+		$no_more_keywords =  '<p>Please choose no more than 20 promoted keywords. Promoted keywords not saved.</p>';
 		
 		} else {
 		$keywords = array();	
@@ -78,6 +78,39 @@ if(isset($_POST['symbiostock_my_promoted_keywords'])){
 		update_option('symbiostock_my_promoted_keywords', implode(', ', $keywords)); 
 		}
 }
+
+if(isset($_POST['symbiostock_my_filtered_keywords'])){ 
+	$total = explode(',', $_POST['symbiostock_my_filtered_keywords']);
+	if(count($total) > 40){
+		$no_more_f_keywords =  '<p>Please choose no more than 40 promoted keywords. Promoted keywords not saved.</p>';
+		
+		} else {
+		$keywords = array();	
+		foreach($total as $keyword){
+			array_push($keywords, trim($keyword));
+			}
+				
+		update_option('symbiostock_my_filtered_keywords', implode(', ', $keywords)); 
+		}
+}
+
+//Rating
+if(isset($_POST['symbiostock_filter_level'])){ 
+	update_option( 'symbiostock_filter_level', $_POST[ 'symbiostock_filter_level' ] );
+}
+$rating = get_option('symbiostock_filter_level');
+$rating == '1' || !isset($rating)  ? $rating_1 = 'selected="selected"' : $rating_1 = '';
+$rating == '2' ? $rating_2 = 'selected="selected"' : $rating_2 = '';
+$rating == '3' ? $rating_3 = 'selected="selected"' : $rating_3 = '';
+
+//Allow unrated content
+if(isset($_POST['symbiostock_allow_unrated'])){ 
+	update_option( 'symbiostock_allow_unrated', $_POST[ 'symbiostock_allow_unrated' ] );
+}
+$allow_unrated = get_option('symbiostock_allow_unrated');
+$allow_unrated == '0' ? $allow_unrated_1 = 'checked' : $allow_unrated_1 = '';
+$allow_unrated == '1' || !isset($allow_unrated) ? $allow_unrated_2 = 'checked' : $allow_unrated_2 = '';
+
 
 if(isset($_POST['symbiostock_my_network_announcement'])){ 
 	update_option('symbiostock_my_network_announcement', $_POST['symbiostock_my_network_announcement']); 
@@ -147,6 +180,32 @@ $ssnet_no = '';
                     </td>
                 </tr>
 
+                <tr>
+                    <th scope="row">                    
+                    Content Filtering <?php echo sshelp('rating', 'Rating'); ?> <br />
+                        <select id="symbiostock_filter_level" name="symbiostock_filter_level">
+                            <option <?php echo $rating_1; ?> value="1">Content Filter: GREEN</option>
+                            <option <?php echo $rating_2; ?> value="2">Content Filter: YELLOW</option>
+                            <option <?php echo $rating_3; ?> value="3">Content Filter: RED</option>
+                        </select>
+                        <br />                       
+                        Allow unrated content?<br />
+                        <label for="symbiostock_allow_unrated_no">
+                        <input <?php echo $allow_unrated_1; ?> id="symbiostock_allow_unrated_no" type="radio" name="symbiostock_allow_unrated" value="0" />
+                        No</label>
+                        <label for="symbiostock_allow_unrated_yes">
+                        <input <?php echo $allow_unrated_2; ?> id="symbiostock_allow_unrated_yes" type="radio" name="symbiostock_allow_unrated" value="1" />
+                        Yes</label>  
+                    </th>
+                    
+                    <td>
+                    <?php
+					if(isset($no_more_f_keywords )){ echo $no_more_f_keywords; }
+					?>
+                    <strong>Keyword Filtering</strong> <?php echo sshelp('filtered_keywords', 'Filtered Keywords'); ?><br />
+                    <textarea class="longfield" name="symbiostock_my_filtered_keywords"  id="symbiostock_my_filtered_keywords" ><?php echo trim( stripslashes ( get_option('symbiostock_my_filtered_keywords', '') ) ) ?></textarea>
+                    </td>
+                </tr>    
                 
                 <tr>
                     <th scope="row">Site Announcement  <br /> <?php echo sshelp('site_announcement', 'Announcement'); ?></th>

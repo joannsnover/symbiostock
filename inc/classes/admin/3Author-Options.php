@@ -165,6 +165,26 @@ if(isset($_POST['symbiostock_medium_size'])){
 if(isset($_POST['symbiostock_title_seo_text'])){ 
 	update_option( 'symbiostock_title_seo_text', $_POST[ 'symbiostock_title_seo_text' ] );
 }
+
+//Rank
+if(isset($_POST['symbiostock_rank'])){ 
+	update_option( 'symbiostock_rank', $_POST[ 'symbiostock_rank' ] );
+}
+$rank = get_option('symbiostock_rank');
+$rank == '1' ? $rank_1 = 'selected="selected"' : $rank_1 = '';
+$rank == '2' || !isset($rank) ? $rank_2 = 'selected="selected"' : $rank_2 = '';
+$rank == '3' ? $rank_3 = 'selected="selected"' : $rank_3 = '';
+
+//Rating
+if(isset($_POST['symbiostock_rating'])){ 
+	update_option( 'symbiostock_rating', $_POST[ 'symbiostock_rating' ] );
+}
+$rating = get_option('symbiostock_rating');
+$rating == '1' || !isset($rating)  ? $rating_1 = 'selected="selected"' : $rating_1 = '';
+$rating == '2' ? $rating_2 = 'selected="selected"' : $rating_2 = '';
+$rating == '3' ? $rating_3 = 'selected="selected"' : $rating_3 = '';
+
+
 //comments on or off on images
 if(isset($_POST['symbiostock_comments'])){ 
 	update_option( 'symbiostock_comments', $_POST[ 'symbiostock_comments' ] );
@@ -223,10 +243,8 @@ $referral_count++;
 }
 if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_generate_related_images'])){
 	
-	symbiostock_update_all_images();
-	
-	$symbiostock_edited_all_images = '<p><em>Site images updated.</em></p>';
-	
+	symbiostock_update_all_images();	
+	$symbiostock_edited_all_images = '<p><em>Site images updated.</em></p>';	
 	}
 ?>
 <h1>Author Default Settings and Pricing</h1>
@@ -241,13 +259,42 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
                 <option <?php echo $exclusive; ?> value="exclusive">Exclusive</option>
             </select></td>
     </tr>
-    
+    <tr>
         <th scope="row">Live<br /><?php echo sshelp('live', 'Live'); ?></th>
         <td><select id="symbiostock_live"  name="symbiostock_live">
                 <option <?php echo $live; ?> value="live">Live</option>
                 <option <?php echo $not_live; ?> value="not_live">Not Live</option>
             </select></td>
     </tr>
+    
+    <!--rank rating-->
+    
+    <tr>
+        <th scope="row">Rank<br /><?php echo sshelp('rank', 'Rank'); ?></th>
+        <td>        	
+        	<select id="symbiostock_rank"  name="symbiostock_rank">
+                <option <?php echo $rank_1; ?> value="1">1st</option>
+                <option <?php echo $rank_2; ?> value="2">2nd</option>
+                <option <?php echo $rank_3; ?> value="3">3rd</option>                
+            </select>
+            <br />
+            <p class="description">Relative ranking system, putting premium at front of search results, second in the middle, third last.</p>
+        </td>
+    </tr>
+    
+    <tr>
+        <th scope="row">Rating<br /><?php echo sshelp('rating', 'Rating'); ?></th>
+        <td>
+        	<select id="symbiostock_rating"  name="symbiostock_rating">
+                <option <?php echo $rating_1; ?> value="1">GREEN</option>
+                <option <?php echo $rating_2; ?> value="2">YELLOW</option>
+                <option <?php echo $rating_3; ?> value="3">RED</option>                              
+            </select>
+            <p class="description">Nudity filter. See info link for definitions.</p></td>
+    </tr>
+        
+    
+  
     <tr>
         <th colspan=2> <strong>&raquo; Pricing and Options <?php echo sshelp('default_pricing', 'Default Pricing'); ?></strong><br />
             *See <strong>Settings</strong> to change type. </th>
