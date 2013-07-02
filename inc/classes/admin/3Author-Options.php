@@ -170,9 +170,9 @@ if(isset($_POST['symbiostock_title_seo_text'])){
 if(isset($_POST['symbiostock_rank'])){ 
 	update_option( 'symbiostock_rank', $_POST[ 'symbiostock_rank' ] );
 }
-$rank = get_option('symbiostock_rank');
+$rank = get_option('symbiostock_rank', '2');
 $rank == '1' ? $rank_1 = 'selected="selected"' : $rank_1 = '';
-$rank == '2' || !isset($rank) ? $rank_2 = 'selected="selected"' : $rank_2 = '';
+$rank == '2' ? $rank_2 = 'selected="selected"' : $rank_2 = '';
 $rank == '3' ? $rank_3 = 'selected="selected"' : $rank_3 = '';
 
 //Rating
