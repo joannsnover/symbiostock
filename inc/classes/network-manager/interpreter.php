@@ -328,7 +328,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 							} else {
 								$rating = 0;
 								}
-							$max_rating = get_option('symbiostock_filter_level', '0');
+							$max_rating = get_option('symbiostock_filter_level', '3');
 							
 							if($rating > $max_rating)
 								continue;

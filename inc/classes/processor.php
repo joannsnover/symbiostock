@@ -18,8 +18,10 @@ $symbiostock_images->list_images();
                    
                 
                    <select name="symbiostock_rating">
-                    
-                        <option selected="selected" value="1">GREEN</option>
+                    	
+                        <option selected="selected" value="0"> - </option>
+                        
+                        <option value="1">GREEN</option>
                         
                         <option value="2">YELLOW</option>
                         

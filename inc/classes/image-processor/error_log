@@ -1,1 +1,0 @@
-[01-Apr-2013 05:04:40] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 25236 bytes) in /home/xyz/public_html/wp-content/themes/symbiostock/inc/classes/image-processor/wideimage/lib/TrueColorImage.php on line 53

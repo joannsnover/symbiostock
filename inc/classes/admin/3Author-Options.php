@@ -179,8 +179,9 @@ $rank == '3' ? $rank_3 = 'selected="selected"' : $rank_3 = '';
 if(isset($_POST['symbiostock_rating'])){ 
 	update_option( 'symbiostock_rating', $_POST[ 'symbiostock_rating' ] );
 }
-$rating = get_option('symbiostock_rating');
-$rating == '1' || !isset($rating)  ? $rating_1 = 'selected="selected"' : $rating_1 = '';
+$rating = get_option('symbiostock_rating', '0');
+$rating == '0' ? $rating_0 = 'selected="selected"' : $rating_0 = '';
+$rating == '1' ? $rating_1 = 'selected="selected"' : $rating_1 = '';
 $rating == '2' ? $rating_2 = 'selected="selected"' : $rating_2 = '';
 $rating == '3' ? $rating_3 = 'selected="selected"' : $rating_3 = '';
 
@@ -286,6 +287,7 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
         <th scope="row">Rating<br /><?php echo sshelp('rating', 'Rating'); ?></th>
         <td>
         	<select id="symbiostock_rating"  name="symbiostock_rating">
+            	<option <?php echo $rating_0; ?> value="0"> - </option>
                 <option <?php echo $rating_1; ?> value="1">GREEN</option>
                 <option <?php echo $rating_2; ?> value="2">YELLOW</option>
                 <option <?php echo $rating_3; ?> value="3">RED</option>                              

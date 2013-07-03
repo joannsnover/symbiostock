@@ -98,8 +98,9 @@ if(isset($_POST['symbiostock_my_filtered_keywords'])){
 if(isset($_POST['symbiostock_filter_level'])){ 
 	update_option( 'symbiostock_filter_level', $_POST[ 'symbiostock_filter_level' ] );
 }
-$rating = get_option('symbiostock_filter_level');
-$rating == '1' || !isset($rating)  ? $rating_1 = 'selected="selected"' : $rating_1 = '';
+$rating = get_option('symbiostock_filter_level', '0');
+$rating == '0' ? $rating_0 = 'selected="selected"' : $rating_0 = '';
+$rating == '1' ? $rating_1 = 'selected="selected"' : $rating_1 = '';
 $rating == '2' ? $rating_2 = 'selected="selected"' : $rating_2 = '';
 $rating == '3' ? $rating_3 = 'selected="selected"' : $rating_3 = '';
 
@@ -184,6 +185,7 @@ $ssnet_no = '';
                     <th scope="row">                    
                     Content Filtering <?php echo sshelp('rating', 'Rating'); ?> <br />
                         <select id="symbiostock_filter_level" name="symbiostock_filter_level">
+                       		<option <?php echo $rating_0; ?> value="0"> - </option>
                             <option <?php echo $rating_1; ?> value="1">Content Filter: GREEN</option>
                             <option <?php echo $rating_2; ?> value="2">Content Filter: YELLOW</option>
                             <option <?php echo $rating_3; ?> value="3">Content Filter: RED</option>

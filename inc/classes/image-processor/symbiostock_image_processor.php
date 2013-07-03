@@ -1868,7 +1868,7 @@ class symbiostock_image_processor
         
         get_currentuserinfo();
         $default_rank = get_option('symbiostock_rank', 2);
-		$default_rating = get_option('symbiostock_rating', 1);
+		$default_rating = get_option('symbiostock_rating', 0);
 		
 		isset($_POST['symbiostock_rating']) ? $rating = $_POST['symbiostock_rating'] : $rating = $default_rating;
 		
