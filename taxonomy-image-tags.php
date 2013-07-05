@@ -41,7 +41,7 @@ get_header(); ?>
 			$network_results->network_search_all_similar();
 			
 			$use_network = get_option('symbiostock_use_network');
-		
+			?><div class="clearfix"><br /></div><?php 
 			if($use_network == 'true'){
 				get_template_part('see-directory');
 			}

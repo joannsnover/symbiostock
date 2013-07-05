@@ -317,7 +317,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 						
 						//filter images by rating (nudity)										
 						//if($network_search == true):
-							if(!isset($image['symbiostock_rating']) || empty($image['symbiostock_rating']) || $image['symbiostock_rating'] < 1){
+							
+							if(!isset($image['symbiostock_rating']) || empty($image['symbiostock_rating']) || $image['symbiostock_rating'] == 0){
 								$allow_unrated = get_option('symbiostock_allow_unrated', '1');	
 								if($allow_unrated == 0)
 									continue;							
@@ -330,8 +331,9 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 								}
 							$max_rating = get_option('symbiostock_filter_level', '3');
 							
-							if($rating > $max_rating)
+							if($rating > $max_rating && $max_rating != 0)
 								continue;
+								
 						//endif;						
 						
                         //carousel

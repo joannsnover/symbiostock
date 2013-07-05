@@ -812,6 +812,71 @@ class network_manager
         } //!empty( $address )
     }
     
+	public function count_images($meta_key, $meta_value){		
+		global $wpdb;
+		$querystr = "SELECT COUNT(*) 
+			FROM $wpdb->postmeta
+			WHERE
+				(meta_key = '".$meta_key."' AND meta_value = '".$meta_value."');
+		";
+		$count = $wpdb->get_var($wpdb->prepare($querystr));
+		if(isset($count) && !empty($count)){
+			return $count;
+			} else {				
+			return '0';	
+			}
+			
+		}
+	
+	public function get_alexa_traffic_rank(){	
+		
+			$alexa = "http://data.alexa.com/data?cli=10&dat=snbamz&url=%s";
+			$request_url =  sprintf($alexa, urlencode(home_url()));
+		
+			$xml = simplexml_load_file($request_url);
+			if (!$xml) {
+				return FALSE;
+			}
+
+			if(!isset($xml->SD[1]) || !isset($xml->SD[0])){
+				return false;
+				}
+
+			if($xml->SD[1]->POPULARITY->attributes()){			
+				$nodeAttributes = $xml->SD[1]->POPULARITY->attributes();
+				$popularity = (string) $nodeAttributes['TEXT'];
+			}
+			
+			if($xml->SD[1]->REACH->attributes()){
+				$nodeAttributes = $xml->SD[1]->REACH->attributes();
+				$reach = (string) $nodeAttributes['RANK'];	
+			}
+			
+			if($xml->SD[1]->RANK->attributes()){
+				$nodeAttributes = $xml->SD[1]->RANK->attributes();
+				$rank = (string) $nodeAttributes['DELTA'];	
+			}
+		
+			if($xml->SD[0]->LINKSIN->attributes()){
+				$nodeAttributes = $xml->SD[0]->LINKSIN->attributes();
+				$links_in = (string) $nodeAttributes['NUM'];
+			}
+			
+			if($nodeAttributes = $xml->SD[0]->SPEED->attributes()){
+				$nodeAttributes = $xml->SD[0]->SPEED->attributes();
+				$speed = (string) $nodeAttributes['TEXT'];	
+			}
+		
+			return array(
+				'popularity' => isset($popularity)?$popularity:0,
+				'reach' => isset($reach)?$reach:0,
+				'rank' => isset($rank)?$rank:0,
+				'links_in' => isset($links_in)?$links_in:0,
+				'speed' => isset($speed)?$speed:0,		
+			);
+				
+		}
+	
     public function generate_network_info( )
     {
         
@@ -855,7 +920,39 @@ class network_manager
         
         $network_info[ 'symbiostock_csv_generated_time' ] = current_time( 'mysql' );
         
+		//total images
         $network_info[ 'symbiostock_num_images' ] = wp_count_posts( 'image' )->publish;
+		
+		//exclusive images 	
+		$network_info[ 'exclusive_images' ] = $this->count_images('exclusive', 'exclusive');
+		
+		//rank 	1
+		$network_info[ 'rank_1_images' ] = $this->count_images('symbiostock_rank', '1');
+		//rank 	2
+		$network_info[ 'rank_2_images' ] = $this->count_images('symbiostock_rank', '2');
+		//rank 	3
+		$network_info[ 'rank_3_images' ] = $this->count_images('symbiostock_rank', '3');
+
+		//rating 	0
+		$network_info[ 'rating_0_images' ] = $this->count_images('symbiostock_rating', '0');		
+		//rating 	1
+		$network_info[ 'rating_1_images' ] = $this->count_images('symbiostock_rating', '1');
+		//rating 	2
+		$network_info[ 'rating_2_images' ] = $this->count_images('symbiostock_rating', '2');
+		//rating 	3
+		$network_info[ 'rating_3_images' ] = $this->count_images('symbiostock_rating', '3');
+		
+		//how many keywords
+		$network_info[ 'keywords' ] = wp_count_terms( 'image-tags' );
+		
+		//how many categories
+		$network_info[ 'categories' ] = wp_count_terms( 'image-type' );
+		
+		//filtration level
+		$network_info[ 'filter_level' ] = get_option( 'symbiostock_filter_level', 0 );
+		
+		//allow unrated?
+		$network_info[ 'allow_unrated' ] = get_option( 'symbiostock_allow_unrated', 1 );
         
         $network_info[ 'symbiostock_version' ] = $theme_data->Version;
         
@@ -905,6 +1002,21 @@ class network_manager
         //show networks 
         $network_info[ 'symbiostock_networked_sites' ] = serialize( $this->get_connected_networks() );
         
+		$alexa_rank = $this->get_alexa_traffic_rank();	
+		if($alexa_rank != false){
+			$network_info[ 'alexa_popularity' ] = $alexa_rank['popularity'];
+			$network_info[ 'alexa_rank' ] = $alexa_rank['rank'];
+			$network_info[ 'alexa_reach' ] = $alexa_rank['reach'];
+			$network_info[ 'alexa_links_in' ] = $alexa_rank['links_in'];
+			$network_info[ 'alexa_speed' ] = $alexa_rank['speed'];
+		} else {
+			$network_info[ 'alexa_popularity' ] = 0;
+			$network_info[ 'alexa_rank' ] = 0;
+			$network_info[ 'alexa_reach' ] = 0;
+			$network_info[ 'alexa_links_in' ] = 0;
+			$network_info[ 'alexa_speed' ] = 0;
+		}
+		
         foreach ( $network_options as $option ) {
             
             $network_info[ $option ] = get_option( $option, ' ' );
@@ -1292,15 +1404,38 @@ class network_manager
         }
         //case by case, we change our search query
         if ( is_tax( 'image-tags' ) ) {
-            
-            $tax_query = array(
-                 array(
-                     'taxonomy' => 'image-tags',
-                    'field' => 'slug',
-                    'terms' => preg_split( '/[+\s_-]/', $image_tags ),
-                    'operator' => 'AND' 
-                ) 
-            );
+			
+			if (strpos($image_tags,'-') !== false) {				
+				$tax_query = array(
+					array(
+						 'taxonomy' => 'image-tags',
+						'field' => 'slug',
+						'terms' => $image_tags					            
+					)				
+				);	
+				
+				} else {
+							
+				$tax_query = array(
+					'relation' => 'OR',
+					 array(
+						 'taxonomy' => 'image-tags',
+						'field' => 'name',
+						'terms' => preg_split( '/[+\s_-]/', $image_tags ),
+						'operator' => 'AND' 
+					),
+					array(
+						 'taxonomy' => 'image-tags',
+						'field' => 'name',
+						'terms' => preg_replace('/[+\s_-]/', ' ', $image_tags)					            
+					),
+					array(
+						 'taxonomy' => 'image-tags',
+						'field' => 'slug',
+						'terms' => $image_tags					            
+					)				
+				);
+			}
         } //is_tax( 'image-tags' )
         
         if ( is_tax( 'image-type' ) ) {
@@ -1315,14 +1450,14 @@ class network_manager
                  array(
                      'taxonomy' => 'image-type',
                     'field' => 'id',
-                    'terms' => $children 
-                    
+                    'terms' => $children,					                 
                 ) 
             );
         } //is_tax( 'image-type' )
         if ( is_search() ) {
             $search_terms = preg_split( '/[+\s_-]/', $image_tags );
-            
+           // array_push($search_terms, $image_tags);
+			//array_push($search_terms, preg_replace('/[+\s_-]/', ' ', $image_tags));
             $tax_query = array(
                  'relation' => 'AND' 
                 
@@ -1365,8 +1500,7 @@ class network_manager
             );
             
         } //!is_post_type_archive( 'image' )
-        elseif ( is_search() ) {
-            
+        elseif ( is_search() ) {            
             $local_query = array(
                  'post_type' => 'image',
                 'post_status' => 'publish',
@@ -1374,9 +1508,7 @@ class network_manager
                 'paged' => $paged,
                 'posts_per_page' => 24 ,
 				'order'     => 'ASC',
-            );		
-
-            
+            );
         } //is_search()		
 		
         else {
@@ -1385,15 +1517,14 @@ class network_manager
                 'post_status' => 'publish',
                 'caller_get_posts' => 1,
                 'paged' => $paged 
-            );
-                        
+            );                        
         }
 		
 		//temporary function until everyone has toggled their theme	and is equal to or above 2.4.9		
 		$image_rank_update = get_option('image_rank_update');	
-		if(	$image_rank_update == true ){
+		if(	$image_rank_update == true ){			
 			$local_query['meta_key'] =  'symbiostock_rank';
-			$local_query['orderby'] =  'meta_value_num';
+			$local_query['orderby'] =  'meta_value_num';		
 		}
 		
 		$get_all = get_query_var( 'type' );

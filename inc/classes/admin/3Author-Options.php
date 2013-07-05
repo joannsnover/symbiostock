@@ -16,6 +16,8 @@ function symbiostock_update_all_images( )
         'price_vector' => 'price_vector',
         'price_zip' => 'price_zip',
         'symbiostock_discount' => 'discount_percent',
+		'symbiostock_rank' => 'symbiostock_rank',
+		'symbiostock_rating' => 'symbiostock_rating',
         
         'symbiostock_bloggee_available' => 'symbiostock_bloggee_available',
         'symbiostock_small_available' => 'symbiostock_small_available',
@@ -179,6 +181,7 @@ $rank == '3' ? $rank_3 = 'selected="selected"' : $rank_3 = '';
 if(isset($_POST['symbiostock_rating'])){ 
 	update_option( 'symbiostock_rating', $_POST[ 'symbiostock_rating' ] );
 }
+
 $rating = get_option('symbiostock_rating', '0');
 $rating == '0' ? $rating_0 = 'selected="selected"' : $rating_0 = '';
 $rating == '1' ? $rating_1 = 'selected="selected"' : $rating_1 = '';
