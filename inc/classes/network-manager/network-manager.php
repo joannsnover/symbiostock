@@ -842,27 +842,27 @@ class network_manager
 				return false;
 				}
 
-			if($xml->SD[1]->POPULARITY->attributes()){			
+			if(isset($xml->SD[1]->POPULARITY)){
 				$nodeAttributes = $xml->SD[1]->POPULARITY->attributes();
 				$popularity = (string) $nodeAttributes['TEXT'];
 			}
 			
-			if($xml->SD[1]->REACH->attributes()){
+			if(isset($xml->SD[1]->REACH)){
 				$nodeAttributes = $xml->SD[1]->REACH->attributes();
 				$reach = (string) $nodeAttributes['RANK'];	
 			}
 			
-			if($xml->SD[1]->RANK->attributes()){
+			if(isset($xml->SD[1]->RANK)){
 				$nodeAttributes = $xml->SD[1]->RANK->attributes();
 				$rank = (string) $nodeAttributes['DELTA'];	
 			}
 		
-			if($xml->SD[0]->LINKSIN->attributes()){
+			if(isset($xml->SD[0]->LINKSIN)){
 				$nodeAttributes = $xml->SD[0]->LINKSIN->attributes();
 				$links_in = (string) $nodeAttributes['NUM'];
 			}
 			
-			if($nodeAttributes = $xml->SD[0]->SPEED->attributes()){
+			if(isset($xml->SD[0]->SPEED)){
 				$nodeAttributes = $xml->SD[0]->SPEED->attributes();
 				$speed = (string) $nodeAttributes['TEXT'];	
 			}

@@ -1778,7 +1778,7 @@ function symbiostock_dublin_core($head = true){
 
 //set up the theme auto-updater
 require_once('theme-updater.php');
-new WPUpdatesThemeUpdater( 'http://wp-updates.com/api/1/theme', 285, basename(get_template_directory()) );
+new WPUpdatesThemeUpdater( 'http://wp-updates.com/api/1/theme', 334, basename(get_template_directory()) );
 
 //get marketing functions
 require_once(symbiostock_MARKETROOT . 'marketer_functions.php');
