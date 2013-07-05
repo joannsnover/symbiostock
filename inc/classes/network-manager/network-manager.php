@@ -1408,7 +1408,7 @@ class network_manager
 			if (strpos($image_tags,'-') !== false) {				
 				$tax_query = array(
 					array(
-						 'taxonomy' => 'image-tags',
+						 'taxonomy' => 'image-tags',						 
 						'field' => 'slug',
 						'terms' => $image_tags					            
 					)				
@@ -1494,9 +1494,11 @@ class network_manager
         //Write query to display results or archive accordingly
         if ( !is_post_type_archive( 'image' ) ) {
             $local_query = array(
+			
                  'post-type' => 'image',
                 'paged' => $paged,
-                'tax_query' => $tax_query 
+                'tax_query' => $tax_query, 
+				'order' => 'ASC',
             );
             
         } //!is_post_type_archive( 'image' )
@@ -1516,7 +1518,8 @@ class network_manager
                  'post_type' => 'image',
                 'post_status' => 'publish',
                 'caller_get_posts' => 1,
-                'paged' => $paged 
+                'paged' => $paged,
+				'order' => 'ASC',
             );                        
         }
 		
