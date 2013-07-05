@@ -1455,7 +1455,7 @@ class network_manager
             );
         } //is_tax( 'image-type' )
         if ( is_search() ) {
-            $search_terms = preg_split( '/[+\s_-]/', $image_tags );
+            $search_terms = preg_split( '/[+\s_-]/', trim($image_tags) );
            // array_push($search_terms, $image_tags);
 			//array_push($search_terms, preg_replace('/[+\s_-]/', ' ', $image_tags));
             $tax_query = array(
