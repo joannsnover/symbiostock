@@ -18,6 +18,8 @@ function symbiostock_update_all_images( )
         'symbiostock_discount' => 'discount_percent',
 		'symbiostock_rank' => 'symbiostock_rank',
 		'symbiostock_rating' => 'symbiostock_rating',
+		'symbiostock_model_released' => 'symbiostock_model_released',
+		'symbiostock_property_released' => 'symbiostock_property_released',
         
         'symbiostock_bloggee_available' => 'symbiostock_bloggee_available',
         'symbiostock_small_available' => 'symbiostock_small_available',
