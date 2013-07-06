@@ -104,6 +104,7 @@ function symbiostock_update_all_images( )
 			
 			}	
         //update post
+		wp_cache_flush();
         endwhile;
 		
 		$complete = 'Operation complete!' . $total_count . ' images updated.';

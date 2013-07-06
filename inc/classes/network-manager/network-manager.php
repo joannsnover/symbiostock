@@ -1249,6 +1249,7 @@ class network_manager
             	
 				unset($image);
 				unset($post_custom);
+				wp_cache_flush();
 				
 			endwhile;
             
