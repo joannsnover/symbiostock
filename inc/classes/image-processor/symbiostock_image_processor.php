@@ -1917,6 +1917,10 @@ class symbiostock_image_processor
 			'symbiostock_vector_available'  => get_option( 'symbiostock_vector_available', 'yes'),
 			
 			'symbiostock_zip_available'     => get_option( 'symbiostock_zip_available', 'yes'),
+			
+			'symbiostock_model_released'     => get_option('symbiostock_model_released', 'N/A'),
+			
+			'symbiostock_property_released'     => get_option('symbiostock_property_released', 'N/A'),
             
 			'size_eps' => $this->get_file_size($data, 'eps'),
 			
