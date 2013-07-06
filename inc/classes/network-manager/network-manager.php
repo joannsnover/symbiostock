@@ -1381,8 +1381,7 @@ class network_manager
 	}
     //local search, responsible for generating local search results, returns xml.
     public function local_search( )
-    {
-        
+    {        
         //determine number of results to show -
         
         $results_per_page = 5;
@@ -1404,25 +1403,12 @@ class network_manager
             $category = NULL;
         }
         //case by case, we change our search query
-        if ( is_tax( 'image-tags' ) ) {
-			
+        if ( is_tax( 'image-tags' ) ) {			
 			$tax_query = array(
-				'relation' => 'OR',
-				 array(
-					 'taxonomy' => 'image-tags',
-					'field' => 'name',
-					'terms' => preg_split( '/[+\s_-]/', $image_tags ),
-					'operator' => 'AND' 
-				),
-				array(
-					 'taxonomy' => 'image-tags',
-					'field' => 'name',
-					'terms' => preg_replace('/[+\s_-]/', ' ', $image_tags)					            
-				),
 				array(
 					 'taxonomy' => 'image-tags',
 					'field' => 'slug',
-					'terms' => $image_tags				            
+					'terms' => $image_tags			            
 				)				
 			);
 	
