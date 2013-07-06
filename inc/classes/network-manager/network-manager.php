@@ -1406,37 +1406,26 @@ class network_manager
         //case by case, we change our search query
         if ( is_tax( 'image-tags' ) ) {
 			
-			if (strpos($image_tags,'-') !== false) {				
-				$tax_query = array(
-					array(
-						 'taxonomy' => 'image-tags',						 
-						'field' => 'slug',
-						'terms' => $image_tags					            
-					)				
-				);	
-				
-				} else {
-							
-				$tax_query = array(
-					'relation' => 'OR',
-					 array(
-						 'taxonomy' => 'image-tags',
-						'field' => 'name',
-						'terms' => preg_split( '/[+\s_-]/', $image_tags ),
-						'operator' => 'AND' 
-					),
-					array(
-						 'taxonomy' => 'image-tags',
-						'field' => 'name',
-						'terms' => preg_replace('/[+\s_-]/', ' ', $image_tags)					            
-					),
-					array(
-						 'taxonomy' => 'image-tags',
-						'field' => 'slug',
-						'terms' => $image_tags					            
-					)				
-				);
-			}
+			$tax_query = array(
+				'relation' => 'OR',
+				 array(
+					 'taxonomy' => 'image-tags',
+					'field' => 'name',
+					'terms' => preg_split( '/[+\s_-]/', $image_tags ),
+					'operator' => 'AND' 
+				),
+				array(
+					 'taxonomy' => 'image-tags',
+					'field' => 'name',
+					'terms' => preg_replace('/[+\s_-]/', ' ', $image_tags)					            
+				),
+				array(
+					 'taxonomy' => 'image-tags',
+					'field' => 'slug',
+					'terms' => $image_tags				            
+				)				
+			);
+	
         } //is_tax( 'image-tags' )
         
         if ( is_tax( 'image-type' ) ) {

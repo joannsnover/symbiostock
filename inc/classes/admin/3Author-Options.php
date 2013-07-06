@@ -220,13 +220,7 @@ $symbiostock_property_release = get_option('symbiostock_property_released', 'N/A
 $symbiostock_property_release == 'Yes' || !isset($symbiostock_property_released_yes)  ? $symbiostock_property_released_yes = 'selected="selected"' : $symbiostock_property_released_yes = '';
 $symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"' : $symbiostock_property_released_no = '';
 $symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"' : $symbiostock_property_released_na = '';
-//datasheets Yes / No / 
-if(isset($_POST['symbiostock_enable_datasheets'])){ 
-	update_option( 'symbiostock_enable_datasheets', $_POST[ 'symbiostock_enable_datasheets' ] );
-}
-$symbiostock_datasheets = get_option('symbiostock_enable_datasheets');
-$symbiostock_datasheets == 'Yes' || !isset($symbiostock_datasheets)  ? $symbiostock_datasheets_yes = 'selected="selected"' : $symbiostock_datasheets_yes = '';
-$symbiostock_datasheets == 'No' ? $symbiostock_datasheets_no = 'selected="selected"' : $symbiostock_datasheets_no = '';
+
 $symbiostock_bloggee_available = get_option( 'symbiostock_bloggee_available', 'yes');
 $symbiostock_small_available   = get_option( 'symbiostock_small_available', 'yes');
 $symbiostock_medium_available  = get_option( 'symbiostock_medium_available', 'yes');
@@ -402,14 +396,7 @@ if(isset($_POST['symbiostock_update_images']) || isset($_POST['symbiostock_gener
                 <option <?php echo  $symbiostock_property_released_na; ?> value="N/A">N/A</option>
             </select></td>
     </tr> 
-    <tr>    
-        <th scope="row"><strong>Enable Datasheets?</strong> <br /></th>
-        <td><select id="symbiostock_enable_datasheets"  name="symbiostock_enable_datasheets">
-                <option <?php echo $symbiostock_datasheets_yes; ?> value="Yes">Yes</option>
-                <option <?php echo $symbiostock_datasheets_no; ?> value="No">No</option>
-            </select><?php echo sshelp('datasheets', 'About Datasheets'); ?></td>
-    </tr>         
-   
+     
     <tr>
         <th colspan=2> <strong>&raquo; Referral Links</strong> </th>
     </tr>
