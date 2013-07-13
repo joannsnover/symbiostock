@@ -1,0 +1,1 @@
+These are the branding files which you can use for your own Symbiostock projects such as supporting websites, themes, plugins, and so forth. 
