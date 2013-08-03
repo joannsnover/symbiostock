@@ -2147,7 +2147,7 @@ if ( ! function_exists( 'ajt_search_url' ) ) {
 if ( ! function_exists( 'ajt_crawler_detect' ) ) {
 	function ajt_crawler_detect()
 	{
-	  $crawlers_names = "Googlebot|GoogleBot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider|Ezooms|SiteExplorer|bingbot";
+	  $crawlers_names = "Googlebot|GoogleBot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider|Ezooms|SiteExplorer|bingbot|BLEXBot|ScreenerBot|Crawler";
 	  $crawlers = explode( "|", $crawlers_names );
 	  foreach( $crawlers as $crawler )
 		if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
