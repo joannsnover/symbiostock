@@ -410,7 +410,7 @@ class network_manager
                 
 							unlink( $files[$i] );
 							echo 'Invalid Symbiocard. Missing: <strong>' . $must_have . '</strong>. Deleted!<br />';
-                
+                					break;
 						} //!isset( $must_have ) || empty( $must_have )
             
 					} //$required_fields as $must_have
