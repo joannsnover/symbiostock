@@ -349,6 +349,87 @@ class network_manager
         } //$required_fields as $must_have
     }
     
+    
+    public function fetch_symbiocards( $sites, $seed = false )
+    {			
+		$seed == true ? $dir = 'seeds/' : '';
+		$urls = array ();
+		$files = array ();
+		foreach ( $sites as $site ) {
+			array_push($urls, $site . '/symbiocard.csv' );
+			$key = symbiostock_website_to_key( $site );
+			array_push( $files, symbiostock_NETDIR . $dir . $key . '.csv' );
+		}
+			
+		$ch = array( );
+		$mh = curl_multi_init();
+		for ( $i = 0; $i < count( $urls ); $i++ ) {
+			array_push( $ch, curl_init() );
+			curl_setopt( $ch[$i], CURLOPT_HEADER, 0 );
+			curl_setopt( $ch[$i], CURLOPT_BINARYTRANSFER, true );
+			curl_setopt( $ch[$i], CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $ch[$i], CURLOPT_FOLLOWLOCATION, false );
+			curl_setopt( $ch[$i], CURLOPT_URL, $urls[$i] );
+			curl_multi_add_handle( $mh, $ch[$i] );
+		}
+		$still_running = false;
+		ajt_full_curl_multi_exec($mh, $still_running); // start requests
+		do {
+			curl_multi_select($mh); // non-busy (!) wait for state change
+			ajt_full_curl_multi_exec($mh, $still_running); // get new state
+			while ($info = curl_multi_info_read($mh)) {
+				for ( $i = 0; $i < count( $urls ); $i++ )
+					if ( $ch[$i] == $info['handle'] ) break;
+				$raw = curl_multi_getcontent( $info['handle'] );
+				echo 'Getting site: ' . $sites[$i] . '...<br />';
+				if( ! curl_errno( $info['handle'] ) ) {
+					echo '&mdash;<strong>Success<br /></strong>';
+
+					if ( file_exists( $files[$i] ) ) {
+						unlink( $files[$i] );
+					}
+					$fp = fopen( $files[$i], 'x' );
+					fwrite( $fp, $raw );
+					fclose( $fp );
+        
+					$required_fields = array(
+						'symbiostock_site',
+						'admin_email',
+						'symbiostock_version' 
+					);
+        
+					//convert our info
+					$converted = $this->csv_to_array( $files[$i], ',' );
+					$network_associate_info = $converted[ 0 ];
+        
+					//validate
+        
+					foreach ( $required_fields as $must_have ) {
+            
+						if ( !isset( $converted[0][$must_have] ) || empty( $converted[0][$must_have] ) ) {
+                
+							unlink( $files[$i] );
+							echo 'Invalid Symbiocard. Missing: <strong>' . $must_have . '</strong>. Deleted!<br />';
+                					break;
+						} //!isset( $must_have ) || empty( $must_have )
+            
+					} //$required_fields as $must_have
+
+				}	
+				else {
+					echo '&mdash;<strong>' . $info['http_code'] . " @$urls[$i]</strong> " . ' Aborting site...<br />';
+				}
+				echo '<br />';
+			}
+		} while ($still_running);
+	
+		for ( $i = 0; $i < count( $urls ); $i++ ) {
+			curl_multi_remove_handle( $mh, $ch[$i] );
+			curl_close( $ch[$i] );
+		}
+		curl_multi_close($mh);
+    }			
+ 
     public function write_network_csv( $uploaded = false )
     {
         
@@ -1778,15 +1859,7 @@ class network_manager
 
         $collected_addresses = array_unique($collected_addresses);
 
-        foreach($collected_addresses as $site){
-
-            echo 'Getting site: ' . $site . '...<br />';
-
-            $this->fetch_symbiocard( $site, true );
-            echo $this->messages;
-            $this->massages = '';
-            echo '<br />';
-            }
+	$this->fetch_symbiocards( $collected_addresses, true );
 
         //log our travels...
         $visited_addresses = array_unique($collected_addresses);
