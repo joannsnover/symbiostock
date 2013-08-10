@@ -660,8 +660,8 @@ if(isset($_GET[ 'page' ])){
 	?>
 <script type="text/javascript">
 	// Convert divs to queue widgets when the DOM is ready
-	$(function() {
-		$("#uploader").pluploadQueue({
+	jQuery(function() {
+		jQuery("#uploader").pluploadQueue({
 			// General settings
 			runtimes : 'gears,flash,silverlight,browserplus,html5',
 			url : '<?php
@@ -687,15 +687,15 @@ if(isset($_GET[ 'page' ])){
 		});
 	
 		// Client side form validation
-		$('form').submit(function(e) {
-			var uploader = $('#uploader').pluploadQueue();
+		jQuery('form').submit(function(e) {
+			var uploader = jQuery('#uploader').pluploadQueue();
 	
 			// Files in queue upload them first
 			if (uploader.files.length > 0) {
 				// When all files are uploaded submit form
 				uploader.bind('StateChanged', function() {
 					if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
-						$('form')[0].submit();
+						jQuery('form')[0].submit();
 					}
 				});
 					

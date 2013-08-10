@@ -1,5 +1,6 @@
-<div id="symbiostock_uploader_container">
-    <h1>Symbiostock Image Uploader</h1>
+<div class="wrap"><br />
+<?php screen_icon("upload"); ?>
+<div id="symbiostock_uploader_container"><h2>Symbiostock Image Uploader</h2>
     <form>
         <div id="uploader">
             <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
@@ -26,4 +27,5 @@
     <p>...proceed to <strong><a title="Process files" href="<?php echo get_home_url(); ?>/wp-admin/edit.php?post_type=image&page=symbiostock-process-images">Process Images</a></strong> to process them.</p>
 	
     </div>
+</div>
 </div>
