@@ -62,7 +62,7 @@ class symbiostock_mail{
     public function send_registration_email($new_pass, $user_data){
                 
         $this->to = $user_data->user_email;
-        $this->subject = 'To' . $user_data->user_login . ': Thank you for signing up at ' . get_bloginfo('wpurl') ;
+        $this->subject = 'To' . $user_data->user_login . ': Thank you for signing up at ' . home_url();
         
         $this->login_pass = $new_pass;
         $this->login_name = $user_data->user_login;
@@ -96,7 +96,7 @@ class symbiostock_mail{
             date("Y"),                                      
             
             //*|WEBSITE|*
-            get_bloginfo('wpurl'),                          
+            home_url(),                          
             
             //*|ABOUT_PAGE|*
             $this->site_info['symbiostock_my_network_about_page'],

@@ -46,6 +46,7 @@ function symbiostock_enqueue_seeds($results){
 
 function symbiostock_interpret_results( $symbiostock_xml_results )
 {    
+        
     //testing, uncomment next lines
     //header( "Content-Type: text/plain" ); 
     //echo $symbiostock_xml_results;
@@ -53,7 +54,7 @@ function symbiostock_interpret_results( $symbiostock_xml_results )
     $results = new SimpleXmlElement( $symbiostock_xml_results );
      
     $results = sx_array($results);
-    
+        
     symbiostock_enqueue_seeds($results);
         
     return $results;

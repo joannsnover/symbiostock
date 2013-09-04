@@ -43,7 +43,7 @@ if ( !function_exists('wp_new_user_notification') ) {
         $message  = $symbiostock_greeting->send_registration_email($user_login, $plaintext_pass);
         wp_mail(
             $user_email,
-            $user_login . ' - Your username and password for ' . get_bloginfo('wpurl'),
+            $user_login . ' - Your username and password for ' . home_url(),
             $message
         );
     }
@@ -143,7 +143,7 @@ class symbiostock_mail{
         );
         $replace = array(
             //*|URL|*
-            get_bloginfo('wpurl'),
+            home_url(),
             
              //*|TITLE|*
             'Welcome to ' . get_bloginfo('name') ,         
@@ -193,7 +193,7 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
         );
         $replace = array(
             //*|URL|*
-            get_bloginfo('wpurl'),
+            home_url(),
              //*|TITLE|*
             'Thank you for your purchase at ' . get_bloginfo('name') ,         
             //*|LOGO|*
@@ -227,7 +227,7 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
         
         wp_mail(
             $payer_email,
-            $first_name . ' - Thank you for your purchase at ' . get_bloginfo('wpurl'),
+            $first_name . ' - Thank you for your purchase at ' . home_url(),
             $this->message, 
             
             $headers

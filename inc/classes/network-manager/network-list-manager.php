@@ -147,7 +147,7 @@ foreach($symbiocards as $symbiocard){
                 
                 ?>
                     <label for="symbiostock_my_network_site">
-                        <input onClick="this.select();" class="longfield" id="symbiostock_my_network_site" type="text" value="<?php bloginfo( 'wpurl' );  ?>" readonly="readonly" />
+                        <input onClick="this.select();" class="longfield" id="symbiostock_my_network_site" type="text" value="<?php home_url();  ?>" readonly="readonly" />
                         <em> - My Site</em></label>
                     &nbsp;
                     <input type="hidden" name="edit_values" value="" /></td>

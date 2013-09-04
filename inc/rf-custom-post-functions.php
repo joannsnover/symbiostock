@@ -35,9 +35,7 @@ function symbiostock_image_manager_register( )
         'public' => true,
         //'publicly_queryable' => true,
         //'show_ui' => true,
-        'capability_type' => 'post',
-        // ----------------------------- > note - uncommenting next line seems to make issues of memory consumption.
-        //'hierarchical' => true,
+        'capability_type' => 'post',      
         'has_archive' => true,
         'exclude_from_search' => false,
         'query_var' => true,

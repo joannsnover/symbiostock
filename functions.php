@@ -889,7 +889,8 @@ function symbiostock_image_results_per_page( $query ) {
             $marketer_key = get_query_var( 'ss-' . $marketer_user_key );
                         
             isset($marketer_key ) && !empty($marketer_key) ? $per_page = 100 : $per_page = 24;
-                        
+
+            
             $per_page = apply_filters('symbiostock_posts_per_page', $per_page);
             
             $query->set('posts_per_page', $per_page);
@@ -1026,7 +1027,7 @@ function symbiostock_website_copyright(){
 function sshelp($destination_id, $subject){
     //get_home_url(); /wp-admin/profile.php#extended_network_info"
     return '<span class="description"> &bull; info: 
-    <a title="See help page: '.$subject.'" href="'.get_home_url().'/wp-admin/admin.php?page=symbiostock-control-options&tab=5symbiostock-help#'.$destination_id.'">'.$subject.'</a>
+    <a title="See help page: '.$subject.'" href="'.get_bloginfo('wpurl').'/wp-admin/admin.php?page=symbiostock-control-options&tab=5symbiostock-help#'.$destination_id.'">'.$subject.'</a>
     </span>';
     
     }
@@ -1908,7 +1909,7 @@ function symbiostock_update_all_images( )
         if($count == 100){
             
             $subject = 'Image Process Update: ' . $total_count . ' Completed.';
-            $message = 'Image process update: ' . $total_count . ' image pages updated on ' . get_bloginfo('wpurl');
+            $message = 'Image process update: ' . $total_count . ' image pages updated on ' . home_url();
             
             wp_mail(get_option('admin_email'), $subject, $message);
             

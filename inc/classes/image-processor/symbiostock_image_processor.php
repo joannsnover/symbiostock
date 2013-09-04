@@ -1090,7 +1090,7 @@ class symbiostock_image_processor
             //AUTHOR
             '2#080' => $info[ '2#080' ][ 0 ],
             //COPYRIGHT
-            '2#116' => $info[ '2#116' ][ 0 ] . ' ' . get_bloginfo( 'wpurl' ),
+            '2#116' => $info[ '2#116' ][ 0 ] . ' ' . home_url(),
             //DATE
             '2#116' => $info[ '2#055' ][ 0 ],
             //KEYWORDS

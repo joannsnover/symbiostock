@@ -1034,7 +1034,7 @@ class network_manager
             
         } //$network_options as $option
         
-        if ( $profile_info != false && !empty( $profile_info ) ) {
+        if ( is_array($profile_info) && $profile_info != false && !empty( $profile_info ) ) {
             
             foreach ( $profile_info as $key => $profile_entry ) {
                 
@@ -1043,10 +1043,14 @@ class network_manager
             } //$profile_info as $key => $profile_entry
         } //$profile_info != false && !empty( $profile_info )
         
-        $network_info = array_map('strip_tags', $network_info);
-        $network_info = array_map('symbiostock_strip_quotes', $network_info);
-
+        //allow 3rd party plugins to add stuff to symbiocard before finalizing
+        //note thefilters "stip tags" and "strip quotes" are applied after this.
         $network_info = apply_filters('ss_symbiocard_update', $network_info);
+
+        $network_info = array_map('strip_tags', $network_info);
+        //$network_info = array_map('symbiostock_strip_quotes', $network_info);
+
+        
         
         $this->network_info = $network_info;
         
@@ -1093,6 +1097,8 @@ class network_manager
         fputcsv( $fp, array_keys( $this->network_info ) );
         
         fputcsv( $fp, $this->network_info );
+        
+        
         
         fclose( $fp );
         
