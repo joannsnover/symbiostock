@@ -9,14 +9,14 @@
  */
 
 get_header(); ?>
-    <div class="row-fluid">
+    <div class=row>
         <section id="primary" class="content-area">
-            <div id="content" class="site-content span12" role="main">
+            <div id="content" class="site-content col-md-12" role="main">
             
             <?php
             //add support for YOAST SEO
              if ( function_exists('yoast_breadcrumb') ) {
-            yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span>');
+            yoast_breadcrumb('<colspan class="text-info" id="breadcrumbs">','</colspan>');
             } ?>
     
             

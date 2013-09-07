@@ -12,7 +12,10 @@
  */
 
 ini_set('display_errors',1);
- 
+
+//trash the admin bar...
+add_filter('show_admin_bar', '__return_false');
+
 //define some paths for easy working
 //remove code editing ability
 //define('DISALLOW_FILE_EDIT', TRUE);
@@ -156,7 +159,7 @@ function symbiostock_widgets_init() {
         'id' => 'home-page-above-content',
         'before_widget' => '<div class="home-above-content"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
-        'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+        'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
         'after_title' => '</h3></div>',
     ) );
     //home page beside content area, such as for a sidebar type content, or CTA
@@ -165,7 +168,7 @@ function symbiostock_widgets_init() {
         'id' => 'home-page-beside-content',
         'before_widget' => '<div class="home-beside-content"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
-        'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+        'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
         'after_title' => '</h3></div>',
     ) );
     
@@ -173,9 +176,9 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Home Page (Below Content)', 'symbiostock' ),
         'id' => 'home-page-below-content',
-        'before_widget' => '<div class="row-fluid home-below-content"><aside id="%1$s" class="widget %2$s">',
-        'after_widget' => '</aside></div>',
-        'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+        'before_widget' => '<div class="col-md-12 home-below-content"><aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside><br class="clearfix" /></div>',
+        'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
         'after_title' => '</h3></div>',
     ) );
     
@@ -183,7 +186,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Home Page Bottom Row 1/3', 'symbiostock' ),
         'id' => 'cta-1',
-        'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="symbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -191,7 +194,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Home Page Bottom Row 2/3', 'symbiostock' ),
         'id' => 'cta-2',
-        'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class=" ymbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -199,7 +202,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Home Page Bottom Row 3/3', 'symbiostock' ),
         'id' => 'cta-3',
-        'before_widget' => '<div class="symbiostock-cta span4"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="symbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -211,17 +214,17 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Author Page (Below Content)', 'symbiostock' ),
         'id' => 'author-page-below-content',
-        'before_widget' => '<div class="row-fluid author-below-content"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="col-md- author-below-content"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
-        'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+        'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
         'after_title' => '</h3></div>',
     ) );
             register_sidebar( array(
         'name' => __( 'Author Page (Sidebar)', 'symbiostock' ),
         'id' => 'author-page-sidebar',
-        'before_widget' => '<div class="row-fluid author-sidebar"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="col-md- author-sidebar"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
-        'before_title' => '<div class="row-fluid"><h3 class="featured-posts span12">',
+        'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
         'after_title' => '</h3></div>',
     ) );                    
         
@@ -230,7 +233,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Image Page Side', 'symbiostock' ),
         'id' => 'image-page-side',
-        'before_widget' => '<div class="well image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class=" image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -239,7 +242,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Image Page Bottom', 'symbiostock' ),
         'id' => 'image-page-bottom',
-        'before_widget' => '<div class="well image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class=" image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -248,7 +251,7 @@ function symbiostock_widgets_init() {
         register_sidebar( array(
         'name' => __( 'Image Page Bottom Fullwidth', 'symbiostock' ),
         'id' => 'image-page-bottom-fullwidth',
-        'before_widget' => '<div class="row-fluid image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="col-md- image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3>',
         'after_title' => '</h3>',
@@ -258,7 +261,7 @@ function symbiostock_widgets_init() {
         register_sidebar(array(
         'name'=>'Footer 1/3',
         
-        'before_widget' => '<div class="footer_section span4">',
+        'before_widget' => '<div class="footer_section col-md-4">',
             
         'after_widget' => "</div>\n",
         
@@ -271,7 +274,7 @@ function symbiostock_widgets_init() {
         register_sidebar(array(
         'name'=>'Footer 2/3',
         
-        'before_widget' => '<div class="footer_section span4">',
+        'before_widget' => '<div class="footer_section col-md-4">',
             
         'after_widget' => "</div>\n",
         
@@ -284,7 +287,7 @@ function symbiostock_widgets_init() {
         register_sidebar(array(
         'name'=>'Footer 3/3',
         
-        'before_widget' => '<div class="footer_section span4">',
+        'before_widget' => '<div class="footer_section col-md-4">',
         
         'after_widget' => "</div>\n",
         
@@ -1284,7 +1287,7 @@ function symbiostock_image_slider( $id = 'sscarousel', $size='preview', $action 
 
     ?>
 <div class="symbiostock_carousel_<?php echo $size; ?>_container">    
-    <div id="<?php echo $id ?>" class="symbiostock_carousel_<?php echo $size; ?> carousel slide span12">
+    <div id="<?php echo $id ?>" class="symbiostock_carousel_<?php echo $size; ?> carousel slide col-md-12">
         <ol class="carousel-indicators">
             <li data-target="#<?php echo $id ?>" data-slide-to="0" class="active"></li>
             <li data-target="#<?php echo $id ?>" data-slide-to="1"></li>
@@ -2073,7 +2076,7 @@ function symbiostock_settings_and_pricing(){
     <table class="symbiostock-author-settings widefat wp-list-table">        
         <thead>
             <tr>
-                <th colspan=2> <strong>&raquo; Image Status</strong> </th>
+                <th colspan-=2> <strong>&raquo; Image Status</strong> </th>
             </tr>
         </thead>        
         <tr>
@@ -2121,7 +2124,7 @@ function symbiostock_settings_and_pricing(){
         <!--pricing and options-->        
         <thead>
             <tr>
-                <th colspan=2>  <strong>&raquo; Pricing and Options <?php echo sshelp('default_pricing', 'Default Pricing'); ?></strong><br />
+                <th colspan-=2>  <strong>&raquo; Pricing and Options <?php echo sshelp('default_pricing', 'Default Pricing'); ?></strong><br />
                     *See <strong>Settings</strong> to change type.
                 </th>
             </tr>
@@ -2170,7 +2173,7 @@ function symbiostock_settings_and_pricing(){
         </tr>
         <thead>
             <tr>
-                <th colspan=2>  <strong>&raquo; Default Size Settings</strong>  
+                <th colspan-=2>  <strong>&raquo; Default Size Settings</strong>  
                 <br /><?php echo sshelp('default_size_settings', 'Default Size Settings'); ?>
                 </th>
             </tr>
@@ -2189,7 +2192,7 @@ function symbiostock_settings_and_pricing(){
         </tr>
         <thead>
             <tr>
-                <th colspan=2>  <strong>&raquo; Image SEO</strong> *Entering "<strong><em>-Royalty Free Image</em></strong>" will append that phrase to all image titles. </th>
+                <th colspan-=2>  <strong>&raquo; Image SEO</strong> *Entering "<strong><em>-Royalty Free Image</em></strong>" will append that phrase to all image titles. </th>
             </tr>
         </thead>
         <tr>
@@ -2207,7 +2210,7 @@ function symbiostock_settings_and_pricing(){
         </tr>
         <thead>
             <tr>
-                <th colspan=2>  <strong>&raquo; Legal</strong> </th>
+                <th colspan-=2>  <strong>&raquo; Legal</strong> </th>
             </tr>
         </thead>         
         <tr>    
@@ -2230,7 +2233,7 @@ function symbiostock_settings_and_pricing(){
         </tr>
         <thead>         
             <tr>
-                <th colspan=2>  <strong>&raquo; Referral Links</strong> </th>
+                <th colspan="2">  <strong>&raquo; Referral Links</strong> </th>
             </tr>
         </thead>
         <tr>            

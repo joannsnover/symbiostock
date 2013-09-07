@@ -11,7 +11,7 @@
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="row-fluid">
+        <div class="row">
     
             <div id="primary" class="content-area span7">
                 <div id="content" class="site-content" role="main">
@@ -30,7 +30,7 @@ get_header(); ?>
             </div><!-- #primary .content-area -->
         
         
-            <div class="span5">
+            <div class="col-md-5">
             <?php dynamic_sidebar( 'Author Page (Sidebar)' ) ?>
             </div>
         </div>        

@@ -64,10 +64,6 @@ if (!file_exists(ABSPATH . 'symbiostock_network/seeds/')) {
 mkdir(ABSPATH . 'symbiostock_network/seeds/', 0755);
 }
 //make our htaccess, to protect downloadable products
-$handle = fopen(symbiostock_CSSROOT . 'styles.css', 'w') or die('Cannot open file:  '.$htaccess);
-$data = get_include_contents(symbiostock_CSSROOT . 'styles.php');
-fwrite($handle, $data);
-fclose($handle);
 //protect files
 $htaccess = ABSPATH . 'symbiostock_rf/.htaccess';
 $handle = fopen($htaccess, 'w') or die('Cannot open file:  '.$htaccess);

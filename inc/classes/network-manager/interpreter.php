@@ -219,8 +219,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
     //about page
             
         
-    ?><div id="network_site_<?php echo $site_count; ?>" class="network_results row-fluid">
-        <div class="span12 well well-small network_results_header">            
+    ?><div id="network_site_<?php echo $site_count; ?>" class="network_results row">
+        <div class="col-md-12 well well-small network_results_header">            
             <?php 
             if(file_exists(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv')){
                 $card_path = symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv';
@@ -290,8 +290,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         
         if($network_search == true  && count($image_results) > 6):
         ?>
-            <div class="row-fluid">
-                <div id="carousel<?php echo $site_count; ?>" class="carousel slide span12">
+            <div class="row">
+                <div id="carousel<?php echo $site_count; ?>" class="carousel slide col-md-12">
                      <!-- Dot Tracker -->
                      <ol class="carousel-indicators">
                         <?php
@@ -368,7 +368,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
                             <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
-                              <img alt="image <?php echo $image['id']; ?>" class="search_minipic" src="<?php echo $image['symbiostock_minipic']  ?>" />
+                              <img alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>
                             <?php symbiostock_hover_controls($count, $image['id'], $image['permalink']); ?>
@@ -395,7 +395,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                     <a class="carousel-control left" href="#carousel<?php echo $site_count; ?>" data-slide="prev">&lsaquo;</a>
                     <a class="carousel-control right" href="#carousel<?php echo $site_count; ?>" data-slide="next">&rsaquo;</a>
                 </div>
-            </div><!--row-fluid-->
+            </div><!--row-->
         <?php    
         endif;
         

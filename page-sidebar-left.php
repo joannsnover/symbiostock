@@ -9,12 +9,12 @@ Template Name: Page - Sidebar Left
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home row-fluid">
-            <div class="span4">            
+        <div class="home col-md-">
+            <div class="col-md-4">            
                 <?php get_sidebar(); ?>
             </div>            
             
-            <div id="primary" class="content-area span8">            
+            <div id="primary" class="content-area col-md-8">            
                             
                
                 <div id="content" class="site-content" role="main">

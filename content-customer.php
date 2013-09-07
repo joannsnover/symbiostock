@@ -16,8 +16,8 @@ if ( !defined('DONOTCACHEPAGE') ){
         <br /><small><?php echo stripslashes(get_option('symbiostock_customer_area_greeting')); ?></small></h1>
   
     </header><!-- .entry-header -->
-<div class="row-fluid">
-    <div class="span6">
+<div class="row">
+    <div class="col-md-6">
     <?php         
         $cart_display = new symbiostock_cart();                   
         $cart_display->display_customer_cart();                    

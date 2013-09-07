@@ -4,15 +4,15 @@
  * @since symbiostock 1.0
  */ 
 ?>
-    <div id="primary" class="content-area row-fluid">
-        <div id="content" class="site-content span12" role="main">
+    <div id="primary" class="content-area col-md-">
+        <div id="content" class="site-content col-md-12" role="main">
             <article id="post-0" class="post error404 not-found">
                 <header class="entry-header">
                     <h1 class="entry-title"><?php _e( 'No results found for ' . ucwords(urldecode (get_query_var('image-tags'))), 'symbiostock' ); ?></h1>
                 </header><!-- .entry-header -->
                 <div class="entry-content">
                     
-           <div class="hero-unit">
+           <div class="jumbotron">
                     <h2>No Results found. Try browsing the categories. Maybe you will find some hidden gems!</h2>                    
                    <?php
                    

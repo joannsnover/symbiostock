@@ -158,10 +158,10 @@ $ssnet_no = '';
                 <tr>
                     <th scope="row">Author Settings <br /> <?php echo sshelp('author_settings', 'Author Settings'); ?></th>
                     <td>
-                        <strong><a title="Author Settings" href="<?php echo get_home_url(); ?>/wp-admin/profile.php">&raquo; Author Settings </a></strong>
+                        <strong><a title="Author Settings" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php">&raquo; Author Settings </a></strong>
                         <span class="description"> &mdash; Basic author settings used by wordpress and Symbiostock.</span> 
                         <br /> 
-                        <strong><a title="Network Bonus Info" href="<?php echo get_home_url(); ?>/wp-admin/profile.php#extended_network_info">&raquo; Network Bonus Info</a></strong>
+                        <strong><a title="Network Bonus Info" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php#extended_network_info">&raquo; Network Bonus Info</a></strong>
                         <span class="description"> &mdash; Special extended info settings used by Symbiostock on author pages and outside network referring pages.</span>
                         <br /><label for="symbiostock_site_author"><?php symbiostock_list_admins(); ?> Symbiocard Author</label>
                     </td>

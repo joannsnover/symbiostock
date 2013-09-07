@@ -203,7 +203,7 @@ class symbiostock_cart
         </div>
         <?php endif; ?>        
         
-        <table id="symbiostock_product_table" class="table table-striped table-hover">
+        <table id="symbiostock_product_table" class="table-bordered table table-condensed table-responsive table-hover">
         <thead>
             <tr>
                 <th>
@@ -309,6 +309,7 @@ class symbiostock_cart
                                     
                 </tfoot>
             </table>
+            
             </form>  <?php
  
     }

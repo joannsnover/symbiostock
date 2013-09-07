@@ -9,9 +9,9 @@ Template Name: HOME Page Simple
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home row-fluid">
+        <div class="home row">
     
-            <div id="primary" class="content-area span12">     
+            <div id="primary" class="content-area col-md-12">     
             
                 <div id="content" class="site-content home-content" role="main">
     
@@ -31,7 +31,7 @@ get_header(); ?>
           
             <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
             
-            <div class="call-to-actions row-fluid">
+            <div class="call-to-actions row">
             
             <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
             <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>

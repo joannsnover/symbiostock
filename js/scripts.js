@@ -1,4 +1,108 @@
 // JavaScript Document
+
+//pulse effects for user guiding
+    
+(function( $ ){
+	  var methods = {
+	    init: function(options) {
+	      var settings = {
+	        color: $(this).css("background-color"),
+	        reach: 20,
+	        speed: 1000,
+	        pause: 0,
+	        glow: true,
+	        repeat: true,
+	        onHover: false
+	      };
+	      $(this).css({
+	        "-moz-outline-radius": $(this).css("border-top-left-radius"),
+	        "-webkit-outline-radius": $(this).css("border-top-left-radius"),
+	        "outline-radius": $(this).css("border-top-left-radius")
+	      });
+
+	      if (options) {
+	        $.extend(settings, options);
+	      }
+	      settings.color = $("<div style='background:" + settings.color + "'></div>").css("background-color");
+	      if(settings.repeat !== true && !isNaN(settings.repeat) && settings.repeat > 0) {
+	        settings.repeat -=1;
+	      }
+
+	      return this.each(function() {
+	        if(settings.onHover) {
+	          $(this).bind("mouseover", function () {pulse(settings, this, 0);})
+	                 .bind("mouseout", function (){$(this).pulsate("destroy");});
+	        } else {
+	          pulse(settings, this, 0);
+	        }
+	      });
+	    },
+	    destroy: function() {
+	      return this.each(function() {
+	        clearTimeout(this.timer);
+	        $(this).css("outline",0);
+	      });
+	    }
+	  };
+
+	  var pulse = function(options, el, count) {
+	    var reach = options.reach,
+	        count = count>reach ? 0 : count,
+	        opacity = (reach-count)/reach,
+	        colorarr = options.color.split(","),
+	        color = "rgba(" + colorarr[0].split("(")[1] + "," + colorarr[1] + "," + colorarr[2].split(")")[0] + "," + opacity + ")",
+	        cssObj = {
+	          "outline": "2px solid " + color
+	        };
+	    if(options.glow) {
+	      cssObj["box-shadow"] = "0px 0px " + parseInt((count/1.5)) + "px " + color;
+	      userAgent = navigator.userAgent || '';
+	      if(/(chrome)[ \/]([\w.]+)/.test(userAgent.toLowerCase())) {
+	        cssObj["outline-offset"] = count + "px";
+	        cssObj["outline-radius"] = "100 px";
+	      }
+	    } else {
+	      cssObj["outline-offset"] = count + "px";
+	    }
+	    $(el).css(cssObj);
+
+	    var innerfunc = function () {
+	      if(count>=reach && !options.repeat) {
+	        $(el).pulsate("destroy");
+	        return false;
+	      } else if(count>=reach && options.repeat !== true && !isNaN(options.repeat) && options.repeat > 0) {
+	        options.repeat = options.repeat-1;
+	      } else if(options.pause && count>=reach) {
+	        pause(options, el, count+1);
+	        return false;
+	      }
+	      pulse(options, el, count+1);
+	    };
+
+	    el.timer = setTimeout(innerfunc, options.speed/reach);
+	  };
+
+	  var pause = function (options, el, count) {
+	    innerfunc = function () {
+	      pulse(options, el, count);
+	    };
+	    setTimeout(innerfunc, options.pause);
+	  };
+
+	  $.fn.pulsate = function( method ) {
+	    // Method calling logic
+	    if ( methods[method] ) {
+	      return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+	    } else if ( typeof method === 'object' || ! method ) {
+	      return methods.init.apply( this, arguments );
+	    } else {
+	      $.error( 'Method ' +  method + ' does not exist on jQuery.pulsate' );
+	    }
+
+	  };
+	})( jQuery );
+
+
 //navigation menu
 jQuery(document).ready(function ($) {
         
@@ -22,7 +126,7 @@ jQuery(document).ready(function ($) {
         //window sizing and responsive adjustments for devices
         var window_size = $(window).width();
         var main_nav = $('#main-navigation').clone(true, true);
-        var mobile_nav = $('.mobile_menu').clone(true, true).addClass('cloned span12');
+        var mobile_nav = $('.mobile_menu').clone(true, true).addClass('cloned col-md-12');
         if (window_size < 1000) {
             $('#main-navigation').hide();
             $(mobile_nav).insertAfter('.main-navigation');
@@ -57,6 +161,18 @@ jQuery(document).ready(function ($) {
         }, function (response) {
             $("#symbiostock_product_form").replaceWith(response);
         });
+
+        $('.license_area').pulsate({
+      	  color: "#09f",  // set the color of the pulse
+      	  reach: 20,                              // how far the pulse goes in px
+      	  speed: 1000,                            // how long one pulse takes in ms
+      	  pause: 50,                               // how long the pause between pulses is in ms
+      	  glow: false,                             // if the glow should be shown too
+      	  repeat: 1,                               // will repeat forever if true, if given a number will repeat for that many times
+      	  onHover: false                          // if true only pulsate if user hovers over the element
+      	}); 
+      
+        
     });
     //remove item from cart...
     $(document).on("click", '.remove_from_cart', function (event) {
@@ -69,6 +185,7 @@ jQuery(document).ready(function ($) {
         }, function (response) {
             $("#symbiostock_cart").replaceWith(response);
         });
+        
         return false;
         e.preventDefault();
     });
@@ -83,4 +200,16 @@ jQuery(document).ready(function ($) {
             $('#symbiostock_pay_now').attr("disabled","true"); 
         }
     });
+        
+    $('#ss_primary_search').pulsate({
+    	  color: "#09f",  // set the color of the pulse
+    	  reach: 5,                              // how far the pulse goes in px
+    	  speed: 500,                            // how long one pulse takes in ms
+    	  pause: 50,                               // how long the pause between pulses is in ms
+    	  glow: false,                             // if the glow should be shown too
+    	  repeat: 3,                               // will repeat forever if true, if given a number will repeat for that many times
+    	  onHover: false                          // if true only pulsate if user hovers over the element
+    	}); 
+    
+
 });

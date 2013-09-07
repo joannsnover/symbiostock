@@ -39,7 +39,7 @@ function symbiostock_image_manager_register( )
         'has_archive' => true,
         'exclude_from_search' => false,
         'query_var' => true,
-        'collection' => array(
+        'supports' => array(
              'title',
             'editor',
             'thumbnail', 

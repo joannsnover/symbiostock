@@ -8,7 +8,6 @@ if(!is_user_logged_in()){
     $user_login_title = 'You are logged in.';    
         }                    
 ?>
-<div class="hero-unit">
     
     <span>Not a member? <em><a title="Register" href="#register-form">Register...</a></em></span>
     
@@ -84,4 +83,3 @@ if(!is_user_logged_in()){
     </div>
 <?php }
 ?>
-</div> 

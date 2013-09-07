@@ -37,39 +37,36 @@ if($is_marketer_request == true){
     <?php do_action( 'before' ); ?>
     <header id="masthead" class="site-header" role="banner">
         
-           <div class="row-fluid">
-            <div class="span6">    
+           <div class="row">
+            <div class="col-md-6">    
                 <hgroup>
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'description' ); ?>" class="logo" src ="<?php echo get_option( 'symbiostock_logo_link', symbiostock_LOGO ); ?>" /></a>
-                    </hgroup> 
+                </hgroup> 
             </div>
           
-            <div class="span6">
-                <div class="row-fluid">
-                    <div class="span12">
-                    <?php     
-                    symbiostock_above_header_nav( ); 
-                    ?>
-                    </div> 
-                    
-                </div>        
-                            <?php
-                //get the search form
-                include_once('searchform_symbiostock.php');
-                ?>
-                
-            </div>
         </div>
         
         <div class="row"> 
         
-            <nav role="navigation" class="site-navigation main-navigation"> 
+            <nav role="navigation" class="navbar-fixed-top navbar-collapse navbar navbar-default"> 
                
                 <h1 class="assistive-text"><?php _e( 'Menu', 'symbiostock' ); ?></h1>
                 <div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a></div>
             
-                <div id="main-navigation" class="span12  header-main-nav"> 
+                <div id="main-navigation" class="col-md-12"> 
                 <?php symbiostock_header_nav( ); ?>
+               
+                <div class="navbar-right">
+                <?php     
+                symbiostock_above_header_nav( ); 
+                ?>
+                </div>
+          
+                
+                <?php
+                //get the search form
+                include_once('searchform_symbiostock.php');
+                ?>                
                 </div>
              </nav><!-- .site-navigation .main-navigation -->
                 

@@ -33,10 +33,10 @@ else{
     get_header(); ?>
             
             
-            <div class="row-fluid">
+            <div class="row">
             
                     <section id="primary" class="content-area">
-                    <div id="content" class="site-content search_page span<?php echo $search_span; ?>" role="main">
+                    <div id="content" class="site-content search_page col-md-<?php echo $search_span; ?>" role="main">
                     <?php                            
                             
         echo '<h1 class="results_for">Results for <em>"' . ucwords(str_replace('-', ' ', get_query_var('s'))) . '"</em></h1>';
@@ -97,7 +97,7 @@ else{
                 </section><!-- #primary .content-area -->
                
             <?php if($symbiostock_image_search == false){ ?>
-                <div class="span4">
+                <div class="col-md-4">
     <?php get_sidebar(); ?>
                 </div>
             <?php } ?>

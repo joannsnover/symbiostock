@@ -69,8 +69,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         
     ?>
  
-    <div <?php echo $schema; ?> class="author-bio contributor vcard row-fluid">        
-        <div class="symbiostock_author_info span7">
+    <div <?php echo $schema; ?> class="author-bio contributor vcard col-md-">        
+        <div class="symbiostock_author_info col-md-7">
             <div class="author-name">
             <span itemprop="<?php echo $creator_credits ?>" ><a class="ssref" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
             </div>
@@ -124,8 +124,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 
                 <div class="<?php echo $btn_group ?>">
                     <?php if($compact == true): ?>
-                    <button class="btn btn-small"><i class="icon-sign-blank"> </i> <?php echo $symbiocard['symbiostock_profession_1'] ?> Info</button>
-                    <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-sign-blank"> </i> <?php echo $symbiocard['symbiostock_profession_1'] ?> Info</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     </button>
                     <?php endif; ?>
@@ -272,16 +272,16 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                             <tr><td>Symbiostock vsn: </td><td><?php echo $symbiocard['symbiostock_version'] ?></td></tr>
                             <tr><td>Last Update: </td><td><?php echo $symbiocard['symbiostock_csv_generated_time'] ?></td></tr>       
                         </table>
-                        <div class="row-fluid">
+                        <div class=row>
                         
-                        <a class="btn btn-large span12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
+                        <a class="btn btn-large col-md-12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
                         </div>
                     </div>
                 </div>              
             </div>
             <?php endif; ?> 
         </div>
-        <div class="symbiostock_author_avatar span5">
+        <div class="symbiostock_author_avatar col-md-5">
             
             <?php         
             
@@ -323,9 +323,9 @@ function symbiostock_csv_symbiocard_network_results($symbiocard_location = ''){
     ?>
 <img class="network_avatar" alt="<?php echo $symbiocard['symbiostock_my_network_name']; ?>" src="<?php echo $symbiocard['symbiostock_my_network_avatar']; ?>" />            
 <div class="btn-group">    
-    <button class="btn btn-small"><i class="icon-user"> </i> <?php echo $symbiocard['symbiostock_display_name'] ?> Network Results:</button>
-    <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
+    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-user"> </i> <?php echo $symbiocard['symbiostock_display_name'] ?> Network Results:</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <colspan class="caret"></colspan>
     </button> 
    
     <ul class="dropdown-menu">

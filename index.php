@@ -13,9 +13,9 @@
  */
 get_header(); ?>
         
-        <div class="row-fluid">
+        <div class=row>
             <div id="primary" class="content-area">
-                <div id="content" class="site-content span8" role="main">
+                <div id="content" class="site-content col-md-8" role="main">
     
                 <?php if ( have_posts() ) : ?>
     
@@ -45,7 +45,7 @@ get_header(); ?>
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
             
-            <div class="span4">
+            <div class="col-md-4">
 <?php get_sidebar(); ?>
             </div>
             

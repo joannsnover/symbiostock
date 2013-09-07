@@ -15,9 +15,9 @@ Template Name: Network - Associated
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="row-fluid">
+        <div class=row>
     
-            <div id="primary" class="content-area span6">
+            <div id="primary" class="content-area col-md-6">
                 <div id="content" class="site-content" role="main">
                 <?php
                 //add support for YOAST SEO
@@ -30,6 +30,8 @@ get_header(); ?>
                 $networks->list_all_networks();
                 
                 ?>
+                    <div class="clearfix"><br /></div>
+                    <hr />
                     <div class="alert alert-info ">
                         
                         <span class="alignleft"><?php echo symbiostock_directory_link($text = '', false, false) ?></span>
@@ -43,7 +45,7 @@ get_header(); ?>
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
                 
-            <div class="span6">
+            <div class="col-md-6">
             <?php while ( have_posts() ) : the_post(); ?>
             
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

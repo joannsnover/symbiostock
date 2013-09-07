@@ -9,9 +9,9 @@ Template Name: Registered, Thank You
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="row-fluid">
+        <div class=row>
     
-            <div id="primary" class="content-area span12">
+            <div id="primary" class="content-area col-md-12">
                 <div id="content" class="site-content" role="main">
                 <?php
                 //add support for YOAST SEO
@@ -31,8 +31,8 @@ get_header(); ?>
                         $user_login_title = 'You are logged in.';    
                             }                    
                     ?>
-                    <div class="hero-unit">Thank you for registering. <strong>Please check your email</strong> and log in below.</div>
-                    <div class="hero-unit">
+                    <div class="jumbotron">Thank you for registering. <strong>Please check your email</strong> and log in below.</div>
+                    <div class="jumbotron">
                         
                         <h2 class="entry-title"><i class="icon-user"> </i> <?php echo $user_login_title; ?></h2>
                         

@@ -9,9 +9,9 @@ Template Name: Home Page - Sidebar
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home row-fluid">
+        <div class="home col-md-">
     
-            <div id="primary" class="content-area span8">
+            <div id="primary" class="content-area col-md-8">
             
                 <div id="content" class="site-content" role="main">
     
@@ -39,7 +39,7 @@ get_header(); ?>
          
             </div><!-- #primary .content-area -->
             
-            <div class="span4">            
+            <div class="col-md-4">            
                 <?php get_sidebar(); ?>
             </div>
         

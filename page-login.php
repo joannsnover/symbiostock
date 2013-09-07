@@ -9,9 +9,9 @@ Template Name: Login Page
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="row-fluid">
+        <div class=row>
     
-            <div id="primary" class="content-area span12">
+            <div id="primary" class="content-area col-md-12">
                 <div id="content" class="site-content" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>

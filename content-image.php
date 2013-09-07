@@ -17,16 +17,16 @@ $symbiostock_post_meta['caller_action'] = 'ss_before_image_page';
 do_action( 'ss_before_image_page', $symbiostock_post_meta ); 
 
 ?> 
-<article id="post-<?php the_ID(); ?>" <?php post_class("row-fluid"); ?>>
-    <div class="symbiostock-image span7">
+<article id="post-<?php the_ID(); ?>" <?php post_class(row); ?>>
+    <div class="symbiostock-image col-md-7">
         <header class="entry-header">
             <div itemscope itemtype="http://schema.org/CreativeWork" class="hmedia">
-                <div class="well">
+                <div class="">
                     <?php 
                     $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_title';
                     do_action( 'ss_before_img_page_title', $symbiostock_post_meta );  
                     ?>
-                    <h1 itemprop="name" class="entry-title title">
+                    <h1 itemprop="name" class="page-header entry-title title">
                         <a class="" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'symbiostock' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
                             <?php the_title(); ?>                       
                         </a>
@@ -41,7 +41,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_preview';
                         do_action( 'ss_before_img_page_preview', $symbiostock_post_meta ); 
                         ?>     
-                        <div class="item-preview content-box"><a id="stock-image-preview" title="<?php the_title(); ; ?>" rel="enclosure" type="image/jpeg" href="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"> <img itemprop="contentURL image" class="photo" alt="<?php the_title();  ?>" src="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"/> </a></div>
+                        <div class="item-preview content-box"><a id="stock-image-preview" title="<?php the_title(); ; ?>" rel="enclosure" type="image/jpeg" href="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"> <img itemprop="contentURL image" class="photo img-responsive" alt="<?php the_title();  ?>" src="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"/> </a></div>
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_preview';
                         do_action( 'ss_after_img_page_preview', $symbiostock_post_meta ); 
@@ -84,7 +84,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                 </div>
                 <div id="keywords-listing">
                     
-                    <div itemprop="keywords"  class="well">
+                    <div itemprop="keywords"  class="">
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_keywords';
                         do_action( 'ss_before_img_page_keywords', $symbiostock_post_meta );  
@@ -95,7 +95,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                         <?php           
                 $symbiostock_categories = get_the_term_list( $post->ID, 'image-type', '', ' | ', '' );            
                 if($symbiostock_categories){ ?>
-                <div class="well">
+                <div class="">
                 <?php 
                 $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_categories';
                 do_action( 'ss_before_img_page_categories', $symbiostock_post_meta );  
@@ -117,7 +117,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         <!-- .entry-header --> 
         
     </div>
-    <div class="span5">    
+    <div class="col-md-5">    
         <?php
         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_product_table';
         do_action( 'ss_before_img_page_product_table', $symbiostock_post_meta ); 

@@ -26,9 +26,9 @@ if(($symbiostock_network_search)==true || ($symbiostock_network_info)==true){
     } else { 
 //if for human, display page
 get_header(); ?>
-    <div class="row-fluid">
+    <div class=row>
         <section id="primary" class="content-area">
-            <div id="content" class="site-content search_page search-results span12" role="main">
+            <div id="content" class="site-content search_page search-results col-md-12" role="main">
             
             <?php
             echo '<h1 class="results_for">Results for "' . ucwords(urldecode( get_query_var('image-tags'))) . '"  '.symbiostock_feed('rss_url','icon', 'image-tags').'</h1>';

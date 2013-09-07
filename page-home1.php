@@ -9,13 +9,13 @@ Template Name: HOME Page CTAs
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home row-fluid">
+        <div class="home col-md-">
     
-            <div id="primary" class="content-area span12">
+            <div id="primary" class="content-area col-md-12">
             
             <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
             
-                <div id="content" class="site-content home-content row-fluid" role="main">
+                <div id="content" class="site-content home-content col-md-" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>
                     <div class="span6">
@@ -30,7 +30,7 @@ get_header(); ?>
                             </div><!-- .entry-content -->
                         </article><!-- #post-<?php the_ID(); ?> -->
                     </div>
-                    <div class="span6">
+                    <div class="col-md-6">
                     
                     <?php dynamic_sidebar( 'Home Page (Beside Content)' ) ?>
                     
@@ -44,7 +44,7 @@ get_header(); ?>
           
             <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
             
-            <div class="call-to-actions row-fluid">
+            <div class="call-to-actions col-md-">
             
             <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
             <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>
