@@ -37,18 +37,17 @@ if($is_marketer_request == true){
     <?php do_action( 'before' ); ?>
     <header id="masthead" class="site-header" role="banner">
         
-           <div class="row">
+        <div class="row">
             <div class="col-md-6">    
                 <hgroup>
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'description' ); ?>" class="logo" src ="<?php echo get_option( 'symbiostock_logo_link', symbiostock_LOGO ); ?>" /></a>
                 </hgroup> 
-            </div>
-          
+            </div>          
         </div>
         
         <div class="row"> 
         
-            <nav role="navigation" class="navbar-fixed-top navbar-collapse navbar navbar-default"> 
+            <nav id="ss_fixed_nav" role="navigation" class="navbar-fixed-top navbar-collapse navbar navbar-default"> 
                
                 <h1 class="assistive-text"><?php _e( 'Menu', 'symbiostock' ); ?></h1>
                 <div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a></div>

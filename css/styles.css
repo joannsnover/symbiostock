@@ -10,8 +10,8 @@ html {
 	/* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 }
 
-#ss_primary_search{
-	z-index:5000;		
+#ss_primary_search {
+	z-index: 5000;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,nav,section
@@ -24,7 +24,7 @@ ol,ul {
 }
 
 table { /* tables still need 'cellspacing="0"' in the markup */
-
+	
 }
 
 caption,th,td {
@@ -135,7 +135,7 @@ a img.aligncenter {
 }
 /* =Global
 ----------------------------------------------- */
-body{
+body {
 	padding-top: 70px;
 	text-rendering: optimizelegibility;
 	line-height: 1.68;
@@ -175,8 +175,6 @@ footer.site-footer {
 
 footer .footer_section {
 	padding: 10px;
-	border-radius: 5px 5px;
-	border: 1px solid #333;
 	margin-bottom: 10px;
 }
 
@@ -259,15 +257,15 @@ footer .footer_info {
 }
 
 .mobile_menu select {
-
+	
 }
 
 .main-navigation ul ul {
-
+	
 }
 
 .main-navigation ul ul ul {
-
+	
 }
 
 .main-navigation ul ul a {
@@ -301,7 +299,7 @@ footer .footer_info {
 /* Small menu */
 /*above header nav*/
 .above-header-menu {
-
+	
 }
 
 ul.above-header-menu li {
@@ -437,11 +435,11 @@ SYMBIOSTOCK CONTENT
 }
 
 .site-content {
-
+	
 }
 
 .home .site-content {
-
+	
 }
 
 .home-content h1 {
@@ -590,15 +588,15 @@ SYMBIOSTOCK FEATURED POSTS
 
 .widget_symbiostock_latest_images h3,.widget_symbiostock_featured_images h3
 	{
-	background-color: #F0F0F0;
+	background-color: transparent;
 	margin: 0;
 	margin-bottom: 10px;
 	padding-left: 10px;
 }
 
 .widget_symbiostock_latest_images,.widget_symbiostock_featured_images {
-	border-top: 1px solid #E6E6E6;
-	border-bottom: 1px solid #E6E6E6;
+	border-top: 0;
+	border-bottom: 0;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
@@ -611,7 +609,7 @@ SYMBIOSTOCK FEATURED POSTS
 .widget-featured img {
 	border: #E6E6E6 1px solid;
 	-webkit-border-radius: 12px;
-	border-radius: 12px;
+	border-radius: 0;
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
@@ -959,7 +957,7 @@ embed,iframe,object {
 }
 
 .network_results .carousel-indicators {
-
+	
 }
 
 .network_results .network_avatar {
@@ -978,4 +976,19 @@ embed,iframe,object {
 .network_directory  .bio-container {
 	height: 100px;
 	overflow: hidden;
+}
+
+/* Bootstrap Overrides
+----------------------------------------------- */
+.img-thumbnail {
+	display: inline-block;
+	height: auto;
+	max-width: 100%;
+	padding: 4px;
+	line-height: 1.428571429;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }

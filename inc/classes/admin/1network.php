@@ -140,11 +140,14 @@ $ssnet_no = '';
         </div>
     </div>
     <div id="symbiostock_network_sidebar">
-        <div class="symbiostock_frame_container"> <a target="_blank" title="Symbiostock Updates" href="http://www.symbiostock.com"> <img title="Symbiostock Updates" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>
-            <?php
-        symbiostock_feed_display('http://www.symbiostock.com/feed/', 3)       
-       ?>
-            <p>This is where updates, news, and general cool stuff about Symbiostock will go. Yes, there will be shameless advertising as well.</p>
+        <div class="symbiostock_frame_container"> <a target="_blank" title="Symbiostock Updates" href="http://www.symbiostock.com"> <img title="Symbiostock Updates" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>       <hr />
+       
+       <p class="description"><a target="_blank" title="Community Forums" href="http://www.symbiostock.org">www.symbiostock.org</a>, Community activity
+       </p><br />
+       <?php        
+        symbiostock_feed_display('http://www.symbiostock.org/feed/rss/', 10);        
+        ?>
+        
         </div>
     </div>
     <div id="symbiostock_network_updates">

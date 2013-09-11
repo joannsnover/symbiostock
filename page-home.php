@@ -1,3 +1,9 @@
+<style>
+body{
+background-image: url('http://www.symbiostock.org/img/bg_dotted.gif');
+}
+</style>
+
 <?php
 /*
 Template Name: Home Page

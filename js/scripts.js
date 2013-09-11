@@ -120,29 +120,8 @@ jQuery(document).ready(function ($) {
     
     //carousel
     $('.carousel').carousel()
-    
-    if ($('#symbiostock_mobile_menu').length) {
-        
-        //window sizing and responsive adjustments for devices
-        var window_size = $(window).width();
-        var main_nav = $('#main-navigation').clone(true, true);
-        var mobile_nav = $('.mobile_menu').clone(true, true).addClass('cloned col-md-12');
-        if (window_size < 1000) {
-            $('#main-navigation').hide();
-            $(mobile_nav).insertAfter('.main-navigation');
-        }
-        $(window).on('resize', function () {
-            var resized = $(window).width();
-            if (resized < 1000) {
-                $('#main-navigation').hide();
-                $(mobile_nav).insertAfter('.main-navigation');
-            } else {
-                $(mobile_nav).remove();
-                $('#main-navigation').show();
-            }
-        });    
-    }
-    
+                
+  
     //disable image link, but keep it for SEO
     $('#stock-image-preview').css( 'cursor', 'default' );
     $('#stock-image-preview').click(function(e) {
@@ -211,5 +190,23 @@ jQuery(document).ready(function ($) {
     	  onHover: false                          // if true only pulsate if user hovers over the element
     	}); 
     
+    //window sizing and responsive adjustments for devices
+    
+    function symbiostock_adjust_body_padding(){
+    	
+        var nav_height = $('#ss_fixed_nav').height();
+        
+        $("body").css({ paddingTop: nav_height });
+               
+    	
+    }
+    
+    symbiostock_adjust_body_padding();
+    
+    $(window).on('resize', function () {
+
+    	symbiostock_adjust_body_padding();
+    	
+    });   
 
 });

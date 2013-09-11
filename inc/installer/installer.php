@@ -72,7 +72,7 @@ fwrite($handle, $data);
 fclose($handle);
 //make our customer cart/activity page --------------------------
 $check_page = get_option('symbiostock_eula_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_eula_page');
     
@@ -98,7 +98,7 @@ if(!get_page($check_page)){
 
 //make our Symbiostock Directory page --------------------------
 $check_page = get_option('symbiostock_directory_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_directory_page');
     
@@ -126,7 +126,7 @@ if(!get_page($check_page)){
 
 //make our Symbiostock Network activity page --------------------------
 $check_page = get_option('symbiostock_network_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_network_page');
     
@@ -151,7 +151,7 @@ if(!get_page($check_page)){
 }
 //make our customer cart/activity page --------------------------
 $check_page = get_option('symbiostock_customer_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_customer_page');
     
@@ -176,7 +176,7 @@ if(!get_page($check_page)){
 }
 //make our customer login/logout page --------------------------
 $check_page = get_option('symbiostock_login_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_login_page');
     
@@ -201,7 +201,7 @@ if(!get_page($check_page)){
 }
 //make our customer "Thank you for registering page" page --------------------------
 $check_page = get_option('symbiostock_registered_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_registered_page');
     $registered_page = array(
@@ -225,7 +225,7 @@ if(!get_page($check_page)){
 }
 //make our categories page --------------------------
 $check_page = get_option('symbiostock_categories_page');
-if(!get_page($check_page)){
+if(!get_post($check_page)){
     
     delete_option('symbiostock_categories_page');
     $registered_page = array(
@@ -290,6 +290,8 @@ To ensure best network performance and SEO, fill out all info:
 <br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
 
 $message .= '<br />Network info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
+
+$message .= '<br /><br /> Visit the community forums - <a title="community forums" href="http://www.symbiostock.org/">www.symbiostock.org</a>';
 
 $subject = 'Symbiostock Site Deployed: ' . get_site_url() . ' - ' . date("F d, Y h:ia");;
 wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);

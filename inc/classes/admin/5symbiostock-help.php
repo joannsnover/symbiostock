@@ -1,12 +1,31 @@
 <div class="symbiostock_help">
     <h2><span class="description">&mdash; <a title="help topics" href="#help_topics">Jump to help topics ...</a> </span></h2>
-    <div> <strong>Symbiostock Resources</strong>
+    <div> 
+        
+        <strong>Start here: Startup and Tutorials: <a title="Getting started"  href="http://www.symbioguides.com">Symbioguides.com</a></strong>
+    
+        <strong>Symbiostock Main Community Site</strong>
+        <ul>
+            <li><a title="Symbiostock Community site..." href="http://www.symbiostock.org/">Symbiostock.org</a> </li>
+           
+            <li><a title="Welcome" href="http://www.symbiostock.org/forum/14/welcome/">Welcome</a></li>
+            <li><a title="Network Building" href="http://www.symbiostock.org/forum/3/network-building/">Network Building</a></li>
+            <li><a title="Hosting" href="http://www.symbiostock.org/forum/4/hosting/">Hosting</a></li>
+            <li><a title="Site Launching" href="http://www.symbiostock.org/forum/20/site-launching/">Site Launching</a></li>            
+            <li><a title="Technical Support" href="http://www.symbiostock.org/forum/5/technical-support/">Technical Support</a></li>
+            <li><a title="SEO and Marketing" href="http://www.symbiostock.org/forum/7/seo-marketing/">SEO and Marketing</a></li>
+                        
+        </ul>    
+    
+        <strong>Symbiostock Resources</strong>
         <ul>
             <li><a title="Symbiostock" href="http://www.symbiostock.com/">Symbiostock Website</a></li>
             <li><a title="Development" href="https://github.com/orangeman555/symbiostock">Symbiostock Development on github</a></li>
             <li><strong><a title="Use Bluehost Instead" href="http://www.bluehost.com/track/symbiostock">BLUEHOST</a></strong> &mdash; optimal hosting solution for Symbiostock performance/cost ratio.</li>
         </ul>
-        <strong>Symbiostock Forums</strong>
+        
+        <div class="description">       
+        <strong>Symbiostock Forums On Microstockgroup</strong>
         <ul>
             <li><a title="Symbiostock - General" href="http://www.microstockgroup.com/symbiostock-general/">General</a></li>
             <li><a title="Symbiostock - Network Building" href="http://www.microstockgroup.com/symbiostock-network-building/">Network Building</a></li>
@@ -15,6 +34,7 @@
             <li><a title="Symbiostock - Suggestions" href="http://www.microstockgroup.com/symbiostock-suggestions/">Suggestions</a></li>
             <li><a title="Symbiostock - SEO and Marketing" href="http://www.microstockgroup.com/symbiostock-seo-marketing/">SEO &amp; Marketing</a></li>
         </ul>
+        </div>
     </div>
     <h2>Welcome to Symbiostock</h2>
     <p><strong>Thank you for using Symbiostock</strong>. Here is some quick inspiration to get you headed toward success in selling images direct.</p>
@@ -53,109 +73,7 @@
     <p>Symbiostock's main goal is to be a strong network. Thoughtfully created content, a strong SEO regimen, and a prolific networking system will hopefully make Symbiostock a well recognized and trusted network. </p>
     <p>Above all it aims to benefit individuals who work hard to provide for themselves and their families. </p>
     <p>While the system is made to promote royalty free content, its main objective is to bring customers to artists and build professional relationships.</p>
-    <div id="getting_started" class="postbox">
-        <div class="inside">
-            <h1>Tinny's Getting Started Tutorial</h1>
-            <p>Tutorial for Symbiostock Arcitum to be read in conjunction with the help pages.</p>
-            <p>Hopefully this will help you with getting started with the Symbiostock Arcitum, Stock Image networking theme created by Leo Blanchette.  This tutorial was created for early  V2</p>
-            <h3>INSTALLATION</h3>
-            <p>I will assume you already have Wordpress installed on your site with only the default settings.</p>
-            <p>Install and Activate Symbiostock Arcitum,</p>
-            <p>Although it is not essential I would also recommend you repeat this procedure with the Symbiostock Child theme, then if you ever decide to edit any of the css you will not have to re-edit if you update the parent theme.</p>
-            <p>Now take time to look around and familiarise yourself with the various areas especially:</p>
-            <p>Appearance – menus and widgets.<br>
-                Users – your profile area<br>
-                Settings – general and Permalinks<br>
-                Symbiostock (bee) – the heart of the networking area, especially take note of the Symbiostock Help tab!<br>
-                Images (ladybird) – image control</p>
-            <p>You will find lots of helpful links as you look around.</p>
-            <h3>GETTING READY</h3>
-            <p>1.<br>
-                Settings Tabs<br>
-                You need to make two changes here<br>
-                General – tick the box marked &quot;Membership – &quot;Anyone can Register &quot;  then Save<br>
-                Permalinks – under &quot;Common Settings, select &quot;Post&quot; then Save</p>
-            <p>2.<br>
-                Users<br>
-                This  Symbiocard will be your directory listing in the Symbiostock Network so fill this out with as much detail as possible and that you are willing to share.  Do not put your actual address or anything you do not want other people to see as it could be shared around many sites.  Remember to save when you have finished.</p>
-            <p>3.<br>
-                Symbiostock</p>
-            <p>This area has various tabs, firstly -</p>
-            <h3>NETWORK</h3>
-            <p>Here you choose whether to be part of the Symbiostock Network or to go it alone.  Select your option and Save.  If you choose to be part of the Network and click Activate more options will appear at the top of the page</p>
-            <p>Symbiostock Network - Associates and Status<br>
-                Under here will see your site listed, click the + sign to bring up a space to add a network member.  If you do not yet know anyone to add then visit one or both of these directory pages to find members of the network<br>
-                http://www.clipartillustrations.com/symbiostock-network-directory/     -Symbiostock creator &amp;  vector illustrator<br>
-                http://www.stockimages.kerioak.com/symbiostock-network-directory/    - Photographer</p>
-            <p>Then either type the full address of the site you would like to link to into the box or click on one of the links on the directory pages or click on the drop down author box and select author page, then select Author Attributes and Symbiocard, scroll down to get Symbiocard and save it to your computer, then upload it to the space provided.   If you prefer to type in the site address it will collect the symbiocard for you once you update the page.</p>
-            <p>Your Site Info - How your site appears to others.</p>
-            <p>These are all fairly self explanatory but if help is required see the help link in each section<br>
-            </p>
-            <p>Use Symbiostock network<br>
-                If you wish to use the network and link to others and have them link to you then select Activate, if you wish to go it alone then select Deactivate (by do the latter you will miss out on what this theme is all about</p>
-            <p>Most important on every page!      SAVE CHANGES.<br>
-            </p>
-            <h3>SETTINGS</h3>
-            <p>Templates for logos and watermarks are available from the  PSD and JPG/AI and EPS link at the top of the page.</p>
-            <p>Again this tabs are self-explanatory and have detailed help links</p>
-            <p>Credit Links<br>
-                Please keep these they help keep the theme free</p>
-            <p>Footer Copyright Info:  Your own or business name that appears in the footer of every page</p>
-            <p>Most Important! SAVE CHANGES</p>
-            <h3>AUTHOR OPTIONS</h3>
-            This is where you set your prices
-            </p>
-            <p>Image Status<br>
-                Exclusive:   Your images are only available on your Symbiostock site<br>
-                Not Exclusive:  Your images are available for licence/sale elsewhere such as stock sites.<br>
-                Live/Not live:   Live for when you are ready to sell/licence your images to customers<br>
-                Not Live:  If you are not yet ready to sell, or do not have enough images up or your site ready yet.  Very useful also if you just wish to display the images you have on stock sites.  You can link to them further down the page in the Referral Links area<br>
-            </p>
-            <p>Prices and Options:  Set the global prices for your images/items and select from the drop down boxes.  If for instance you do not wish to sell/licence blog sized images then de-select appropriately</p>
-            <p>Default Size Settings:  IMPORTANT THESE CANNOT BE CHANGED at present so make sure  you get them right before you upload anything.<br>
-                Image SEO (search engine optimisation)<br>
-                Add the text in the box that you wish to appear after each image to help SEO for instance<br>
-                stock images by xx, perfect stock images, images by xxx, royalty free images (latter not really recommended as you will get lots of people coming to you looking for free images and many of the EULA (end user licence agreements) that members use do not use the wording of royalty free.</p>
-            <p>Referral Links<br>
-                If your images are exclusive elsewhere or if you just wish to display for some reason and sell though stock sites then add the link to your portfolio(s) here</p>
-            <p>Tick box if you wish to update all existing images with the new values – make sure you do wish to change ALL of them</p>
-            <p>Most important!  SAVE CHANGES</p>
-            <h3>MARKETING</h3>
-            <p><strong>[in development]</strong> Self explanatory – and displays results when you click the buttons</p>
-            <h3>SYMBIOSTOCK HELP</h3>
-            <p>One of the most important pages here – read it!</p>
-            <h3>APPEARANCE</h3>
-            <p>One major benefit of Wordpress and thus Symbiostock is the ability to edit the theme to your own preferences.</p>
-            <p>When you first open it, it looks somewhat boring and there is lots of data in the top right hand corner (above header area), most of us have edited this to just show login and contact details.  To get<br>
-                CONTACT DETAILS you are best using a plug in such as Contact Form 7 (go to Plug Ins and search) then install and activate it.  Edit it to your liking and remove the extra &lt; &gt; that it automatically places around [email] or you will not get the email address of the person contacting you.</p>
-            <p>In your Pages section Symbiostock automatically creates some pages, I think this is one of them, you can add additional text if you wish.</p>
-            <p>Now to make use of that contact form</p>
-            <p>Go to Appearance, Menus</p>
-            <p>Click on the little plus sign and in the menu name box add &quot; above header &quot; – without the quote marks and save menu.<br>
-                On the left hand side of the page select Above Header in the theme locations above header box and save.  Keep saving so you do not forget and lose your work.</p>
-            <p>Repeat this with header as you will also need a header soon.</p>
-            <p>Now select your &quot;above header&quot; tab .  On the left hand side of the page there will be a section called &quot;Pages&quot;, if it is not showing then go to the top right of the page just under where it says Howdy, select &quot;screen options&quot; and the drop down will give you a list of options you can show on the page.  Once you have pages showing then click in the box next to &quot;Contact&quot; and click the add to menu box below it.  This will now show up in your header so SAVE.</p>
-            <h3>CATEGORY MENU in HEADER</h3>
-            <p>The time will come when you wish to add categories to your header menu.  Use the same method but instead of adding from &quot;pages&quot; add them from &quot;image categories&quot;.  If you wish to have child categories such as Animal – dog then just pull the Dog tab slightly to the right so it indents under Animal.  You can change the order of these by dragging them up and down as you wish.</p>
-            <p>You can also add pages to the Header menu.<br>
-            </p>
-            <h3>PLUG INS</h3>
-            <p>There are hundreds if not thousands of plug-ins available for Wordpress, some work well and others fight against the theme you are using so once you are set up if things are not working as you expect try de-activating the plug-ins before you try anything else.</p>
-            <p>WIDGETS</p>
-            <p>Symbiostock has various widgets available for latest images, Symbiostock selected images (use the category to select these when you are processing them) and more as Leo develops the theme.</p>
-            <p>I have found the best way of getting them working on the home page is to use the page template – HOME PAGE CTA's</p>
-            <p>To set the widgets up go to Appearance – Widgets and drag the ones you wish to use across to the various page options</p>
-            <p>Royalty Free IMAGES (with ladybird)</p>
-            <p>All Images – this is where all your images are listed and where they are put so you can edit them with  their descriptions, categories, SEO data (Yoast works well with Symbiostock) etc.</p>
-            <p>Image Categories  Here you can add, delete and edit the categories you wish to use for your images, many stock creators do not like using them but they are very useful with Symbiostock and for SEO</p>
-            <p>Image Keywords.  Here you can add, edit and delete keywords such as those you have misspelt or added accidentally</p>
-            <p>Upload Images  This is one of the methods you can use for uploading your image<br>
-                Upload Images  This is one of the methods you can use for uploading your image</p>
-            <p>Process Images.  This is where your images go when they are first uploaded, from here you Process them either to drafts so you can add keywords, SEO, categories etc or direct to Publish<br>
-            </p>
-           
-        </div>
-    </div>
+   
     <div id="help_topics" class="help_topics">
         <h2>Symbiostock General Help and Settings Info</h2>
         <ul>
@@ -210,14 +128,14 @@
             </li>
             <li>
                 <h3 id="site_avatar"><span class="description">Network  &mdash; </span>Site Avatar</h3>
-                <p>URL to Avatar you uploaded in <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. <em>Must be <strong>32 × 32 px</strong>.</em> <br />
+                <p>URL to Avatar you uploaded in <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. <em>Must be <strong>32 × 32 px</strong>.</em> <br />
                     <br />
                     This is a smaller icon that is used among network sites. <br />
                     <span class="description"> Templates &mdash; <a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a></em></span> </p>
             </li>
             <li>
                 <h3 id="site_logo"><span class="description">Network  &mdash; </span>Site Logo</h3>
-                <p>URL to Logo you uploaded in <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. <em>Must be <strong>128 × 128 px</strong>.</em><br />
+                <p>URL to Logo you uploaded in <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. <em>Must be <strong>128 × 128 px</strong>.</em><br />
                     <br />
                     This is the little branded box that shows beside your search results on your network associate's sites. <br />
                     <span class="description">Templates &mdash; <a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a></em></span> </p>
@@ -233,15 +151,15 @@
             </li>
             <li>
                 <h3 id="header_logo"><span class="description">Settings  &mdash; </span>Header Logo</strong></h3>
-                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. This can be as large as you wish it to be. Leave empty for default Symbiostock logo. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
+                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. This can be as large as you wish it to be. Leave empty for default Symbiostock logo. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
             </li>
             <li>
                 <h3 id="login_page_logo"><span class="description">Settings  &mdash; </span>Login Page Logo</strong></h3>
-                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. Must be *exactly* 323 x 67px. Leave empty for default Symbiostock logo. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
+                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. Must be *exactly* 323 x 67px. Leave empty for default Symbiostock logo. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
             </li>
             <li>
                 <h3 id="watermark_image"><span class="description">Settings  &mdash; </span>Watermark Image</strong></h3>
-                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. Transparent PNG image (522 x 522px). If not supplied, default watermark (Symbiostock S) will be used. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
+                <p>Uploaded in <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. Transparent PNG image (522 x 522px). If not supplied, default watermark (Symbiostock S) will be used. See <strong><a title="templates" href="#templates">templates</a></strong> for a good starting size.</p>
             </li>
             <li>
                 <h3 id="paypal"><span class="description">Settings  &mdash; </span>Paypal Settings</strong></h3>
@@ -328,11 +246,11 @@
             </li>
             <li>
                 <h3 id="symbiostock_profile"><span class="description">Author Options (profile area)  &mdash; </span> Your profile and network symbiocard</h3>
-                <p><a title="Network profile info" href="<?php echo get_home_url(); ?>/wp-admin/profile.php#extended_network_info">Symbiostock Profile and Extended Network Info</a>. This info will go into your Symbiocard and travel the network. Please fill out as much as possible. It will all backlink to your site and show up where relevant, possibly many sites away.</p>
+                <p><a title="Network profile info" href="<?php echo get_home_url( ); ?>/wp-admin/profile.php#extended_network_info">Symbiostock Profile and Extended Network Info</a>. This info will go into your Symbiocard and travel the network. Please fill out as much as possible. It will all backlink to your site and show up where relevant, possibly many sites away.</p>
             </li>
             <li>
                 <h3 id="personal_photo"><span class="description">Author Options (profile area)  &mdash; </span> Personal Photo</h3>
-                <p><strong>Input URL</strong> to photo pic, such as from <a title="Media Area" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">Media area</a>. Illustration or professional (or just good) picture! Have fun, be professional. It personalizes your presence on the network, and will be used on multiple sites. The more people see the human (or some well illustrated avatar) they understand the value of the work. <br />
+                <p><strong>Input URL</strong> to photo pic, such as from <a title="Media Area" href="<?php echo get_home_url( ); ?>/wp-admin/upload.php">Media area</a>. Illustration or professional (or just good) picture! Have fun, be professional. It personalizes your presence on the network, and will be used on multiple sites. The more people see the human (or some well illustrated avatar) they understand the value of the work. <br />
                     <br />
                     <strong>Please keep it under 250px on its longest side since other sites will be using it, and the layout will account for that size.</strong> </p>
             </li>
@@ -372,7 +290,9 @@
                 <ol>
                 <li>Marketing services must be turned on. (If off, its specialized requests will not be recognized &mdash; a security feature.)</li>
                 <li>Generate your <em>Marketer user number</em>. This is a randomly generated number that acts as both a user name and passcode, which only you and your marketer know. It can be changed at any time.</li>
-                <li>Go to <a title="Edit images..." href="<?php echo get_bloginfo('url') . '/wp-admin/edit.php?post_type=image'; ?>"><?php echo get_bloginfo('url') . '/wp-admin/edit.php?post_type=image'; ?></a> and select images you wish to market. Then select "<strong>Make Promo Preview</strong>" from dropdown, and push "<strong>Apply</strong>"</li>
+                <li>Go to <a title="Edit images..." href="<?php echo get_bloginfo( 
+        'url' ) . '/wp-admin/edit.php?post_type=image'; ?>"><?php echo get_bloginfo( 
+        'url' ) . '/wp-admin/edit.php?post_type=image'; ?></a> and select images you wish to market. Then select "<strong>Make Promo Preview</strong>" from dropdown, and push "<strong>Apply</strong>"</li>
                 <li>Give your marketing service the <em>Marketer user number</em>. They should in turn be able to fetch required info from your site.</li>
                 </ol>
                 
@@ -389,8 +309,8 @@
                 </ol>
                 <p>Image processing occurs in a few areas in the Symbiostock theme:</p>
                 <ol>
-                    <li><a title="Processing uploads" href="<?php echo get_home_url(); ?>/wp-admin/edit.php?post_type=image&page=symbiostock-process-images">Process Uploads</a> (Note at top of screen, it will tell you if you are using GD or ImageMagic)</li>
-                    <li><a title="Image List" href="<?php echo get_home_url(); ?>/wp-admin/edit.php?post_type=image">Images Listing / Editing Area</a> ("Bulk Options" dropdown, "<strong>Reprocess</strong>")</li>
+                    <li><a title="Processing uploads" href="<?php echo get_home_url( ); ?>/wp-admin/edit.php?post_type=image&page=symbiostock-process-images">Process Uploads</a> (Note at top of screen, it will tell you if you are using GD or ImageMagic)</li>
+                    <li><a title="Image List" href="<?php echo get_home_url( ); ?>/wp-admin/edit.php?post_type=image">Images Listing / Editing Area</a> ("Bulk Options" dropdown, "<strong>Reprocess</strong>")</li>
                 </ol>
                 <p>Symbiostock checks to see if your server is using <strong>ImageMagick</strong> and if its not, it falls back to <strong>GD Library</strong>. Its highly advised you configure your server to use ImageMagic if it does not already. It uses less memory and generally produces better results. "Cheap" hosting using GD Library will give you much trouble with frequest script crashes, though will often still give satisfactory results in a good server environment.</p>
                 <p>If you can't seem to break out of memory limitations, use <strong><a title="Use Bluehost Instead" href="http://www.bluehost.com/track/symbiostock">BLUEHOST</a></strong> as your hosting company instead. <a title="Use Bluehost Instead" href="http://www.bluehost.com/track/symbiostock">BLUEHOST</a> has the best cost/power ratio and Symbiostock sites do great on it.</p>

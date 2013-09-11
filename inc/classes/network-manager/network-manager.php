@@ -606,7 +606,7 @@ class network_manager
                 
                 symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );
                 
-                echo '<hr />';
+                echo '<hr class="clearfix" />';
                 
                 $count++;
             } //$sites[ 0 ] as $site
