@@ -54,6 +54,8 @@ else{
         
         $local_results->display_results(false);        
         
+        ?> <div class="clearfix">&nbsp;</div> <?php
+        
         //now do network search
         $network_results = new network_manager();
         
@@ -98,7 +100,7 @@ else{
                
             <?php if($symbiostock_image_search == false){ ?>
                 <div class="col-md-4">
-    <?php get_sidebar(); ?>
+                <?php get_sidebar(); ?>
                 </div>
             <?php } ?>
             </div> 

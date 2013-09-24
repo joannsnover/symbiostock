@@ -51,8 +51,6 @@ define( 'symbiostock_TMPROOT' , $symbiostock_theme_root . '/tmp/' );
 
 if ( !function_exists( 'ss_url_key' ) )
 {
-
-
     /**
      * Generate URL key which is used to uniquely identify sites in Symbiostock
      * 
@@ -72,7 +70,6 @@ if ( !function_exists( 'ss_url_key' ) )
 define( 'SSREF' , '?r=' . home_url( ) );
 
 add_action( 'after_switch_theme' , 'symbiostock_installer' );
-
 
 function symbiostock_installer()
 {
@@ -760,7 +757,7 @@ function symbiostock_customer_area( $text, $btn = false )
     if ( $btn == true )
     {
 
-        $btn_class = "btn btn-success alignright";
+        $btn_class = "btn btn-success btn-lg alignright";
 
     }
 
@@ -2865,9 +2862,125 @@ if ( is_admin( ) )
     }
 }
 //set up the theme auto-updater
-require_once( 'theme-updater.php' );
-new WPUpdatesThemeUpdater( 'http://wp-updates.com/api/1/theme', 334,
-        basename( get_template_directory( ) ) );
+require_once( 'wp-updates-theme.php' );
+new WPUpdatesThemeUpdater_409( 'http://wp-updates.com/api/2/theme', basename(get_template_directory()));
+
+
 
 //get marketing functions
 require_once( symbiostock_MARKETROOT . 'marketer_functions.php' );
+
+/*
+ * Responsible for determining main menu placement.
+*
+*/
+
+function ss_main_menu_options(){
+    
+    if(isset($_POST['symbiostock_menu_location'])){
+        
+        update_option('symbiostock_menu_location', $_POST['symbiostock_menu_location']);
+        
+    }
+
+    $menu_location = get_option('symbiostock_menu_location', 0);
+    
+    if($menu_location == 1){
+        $symbiostock_menu_location_top = 'checked';
+        $symbiostock_menu_location_mid = '';
+    } else {
+        $symbiostock_menu_location_top = '';
+        $symbiostock_menu_location_mid = 'checked';        
+    }
+    
+    ?>
+    <tr>
+        <td colspan="2">
+            <strong>Main Menu Location</strong> <br />
+            <label for="symbiostock_menu_location_1">
+                <input type="radio" id="symbiostock_menu_location_1" name="symbiostock_menu_location" <?php echo $symbiostock_menu_location_top; ?> value="1" />
+                Top Anchored
+            </label>
+             
+            <label for="symbiostock_menu_location_2">
+                <input type="radio" id="symbiostock_menu_location_2" name="symbiostock_menu_location" <?php echo $symbiostock_menu_location_mid ; ?> value="0" />
+                Below Header
+            </label>                      
+        </td>
+    </tr>
+    <?php 
+
+}
+add_action( 'ss_settings_table_top' , 'ss_main_menu_options', 5  );
+
+/*
+ * Allows daily chron jobs to run.
+ *
+ */
+
+function ss_daily_update_settings(){
+
+    if(isset($_POST['symbiostock_update_settings'])){
+
+        update_option('symbiostock_update_settings', $_POST['symbiostock_update_settings']);
+
+    }
+
+    $update_settings = get_option('symbiostock_update_settings', 1);
+
+    if($update_settings == 1){
+        $symbiostock_update_settings_yes = 'checked';
+        $symbiostock_update_settings_no = '';
+    } else {
+        $symbiostock_update_settings_yes = '';
+        $symbiostock_update_settings_no = 'checked';
+    }
+
+    ?>
+    <tr>
+        <td colspan="2">
+            <strong>Run daily image update?</strong> (for network and connected search engines) <br />
+            <label for="symbiostock_update_settings_1">
+                <input type="radio" id="symbiostock_update_settings_1" name="symbiostock_update_settings" <?php echo $symbiostock_update_settings_yes; ?> value="1" />
+                Yes
+            </label>
+             
+            <label for="symbiostock_update_settings_2">
+                <input type="radio" id="symbiostock_update_settings_2" name="symbiostock_update_settings" <?php echo $symbiostock_update_settings_no ; ?> value="0" />
+                No
+            </label>                      
+        </td>
+    </tr>
+    <?php 
+
+}
+add_action( 'ss_settings_table_top' , 'ss_daily_update_settings', 6 );
+
+/*
+ * Sets name of download button.
+ *
+ */
+
+function ss_name_download_button(){
+
+    if(isset($_POST['symbiostock_download_button_name'])){
+
+        update_option('symbiostock_download_button_name', trim($_POST['symbiostock_download_button_name']));
+
+    }
+
+    $name = get_option('symbiostock_download_button_name', 'DOWNLOAD');     
+
+    ?>
+    <tr>
+        <td colspan="2">            
+            <label for="symbiostock_download_button_name">                
+                <input type="text" id="symbiostock_download_button_name" name="symbiostock_download_button_name" value="<?php echo $name ?>" />
+            </label>
+                   
+        </td>
+    </tr>
+    <?php 
+
+}
+add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );

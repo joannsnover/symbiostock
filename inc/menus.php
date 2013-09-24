@@ -13,7 +13,7 @@ function symbiostock_above_header_nav()
     'container'       => 'ul', 
     'container_class' => 'menu-{menu slug}-container ', 
     'container_id'    => '',
-    'menu_class'      => 'nav nav-pills above-header-menu', 
+    'menu_class'      => 'nav navbar-nav navbar-right', 
     'menu_id'         => '',
     'echo'            => true,
     'fallback_cb'     => 'wp_page_menu',

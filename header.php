@@ -47,25 +47,32 @@ if($is_marketer_request == true){
         
         <div class="row"> 
         
-            <nav id="ss_fixed_nav" role="navigation" class="navbar-fixed-top navbar-collapse navbar navbar-default"> 
+            <?php 
+            $menu_location = get_option('symbiostock_menu_location');
+            if($menu_location == 1){
+                $is_fixed = 'navbar-fixed-top';                
+            } else {                
+                $is_fixed = '';
+            }
+            ?>
+            
+            <nav id="ss_fixed_nav" role="navigation" class="<?php echo $is_fixed; ?> navbar-collapse navbar navbar-default"> 
                
                 <h1 class="assistive-text"><?php _e( 'Menu', 'symbiostock' ); ?></h1>
                 <div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a></div>
             
                 <div id="main-navigation" class="col-md-12"> 
                 <?php symbiostock_header_nav( ); ?>
-               
-                <div class="navbar-right">
-                <?php     
-                symbiostock_above_header_nav( ); 
-                ?>
-                </div>
-          
-                
+
                 <?php
                 //get the search form
                 include_once('searchform_symbiostock.php');
-                ?>                
+                ?>   
+                
+                <?php     
+                symbiostock_above_header_nav( ); 
+                ?>   
+             
                 </div>
              </nav><!-- .site-navigation .main-navigation -->
                 

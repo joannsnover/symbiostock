@@ -51,7 +51,11 @@ function symbiostock_marketer(){
         $args = array(
              'post_type' => 'image',
             'post_status' => 'publish',
-            'paged' => $page
+            'paged' => $page,
+            'meta_query' => array(
+                    'meta_key' => 'ss_is_promo',
+                    'meta_value' => 1
+                    )
         );
         
         //at first we wanted to dump all info, but this might not be smart for people with rediculously large portfolios

@@ -301,8 +301,11 @@ class symbiostock_cart
                     <td class="gotocart text-right" colspan="4"><?php
         
         //get cart link and amount
-        $cart_value = '(' . $this->get_cart_value() . ')';            
-        echo symbiostock_customer_area( 'DOWNLOAD ' . $cart_value, true);
+        $cart_value = '(' . $this->get_cart_value() . ')';  
+
+        $dl_label = get_option('symbiostock_download_button_name', 'DOWNLOAD');
+        
+        echo symbiostock_customer_area( $dl_label . ' ' . $cart_value, true);
         
 ?></td>
                     </tr>
@@ -667,11 +670,11 @@ class symbiostock_cart
             !isset($symbiostock_currency)  ? $symbiostock_currency = 'USD' : '';
         
             $symbiostock_currencies = array(
-                'USD' => array( 'US Dollars ($)',       '$', 'USD' ),
-                'EUR' => array( 'Euros (€)',            '€', 'EUR' ),
-                'GBP' => array( 'Pounds Sterling (£)',  '£', 'GBP' ),
-                'CAD' => array( 'Canadian Dollars ($)', '$', 'CAD' ),
-                'JPY' => array( 'Japanese Yen (¥)',     '¥', 'JPY' ),
+                'USD' => array( 'US Dollars $',       '$', 'USD' ),
+                'EUR' => array( 'Euros €',            '€', 'EUR' ),
+                'GBP' => array( 'Pounds Sterling £',  '£', 'GBP' ),
+                'CAD' => array( 'Canadian Dollars $', '$', 'CAD' ),
+                'JPY' => array( 'Japanese Yen ¥',     '¥', 'JPY' ),
             );        
             
             $symbiostock_currency = $symbiostock_currencies[$symbiostock_currency];    

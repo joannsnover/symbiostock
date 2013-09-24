@@ -184,29 +184,30 @@ jQuery(document).ready(function ($) {
     	  color: "#09f",  // set the color of the pulse
     	  reach: 5,                              // how far the pulse goes in px
     	  speed: 500,                            // how long one pulse takes in ms
-    	  pause: 50,                               // how long the pause between pulses is in ms
-    	  glow: false,                             // if the glow should be shown too
-    	  repeat: 3,                               // will repeat forever if true, if given a number will repeat for that many times
-    	  onHover: false                          // if true only pulsate if user hovers over the element
+    	  pause: 50,                             // how long the pause between pulses is in ms
+    	  glow: false,                          // if the glow should be shown too
+    	  repeat: 3,                             // will repeat forever if true, if given a number will repeat for that many times
+    	  onHover: false                        // if true only pulsate if user hovers over the element
     	}); 
     
     //window sizing and responsive adjustments for devices
-    
     function symbiostock_adjust_body_padding(){
     	
         var nav_height = $('#ss_fixed_nav').height();
         
-        $("body").css({ paddingTop: nav_height });
-               
+        $("body").css({ paddingTop: nav_height });               
     	
-    }
-    
-    symbiostock_adjust_body_padding();
-    
-    $(window).on('resize', function () {
+    }       
+    if ($('#ss_fixed_nav').hasClass('navbar-fixed-top')) {
+ 
+	    symbiostock_adjust_body_padding();
+	    
+	    $(window).on('resize', function () {
 
-    	symbiostock_adjust_body_padding();
-    	
-    });   
+	    	symbiostock_adjust_body_padding();
+	    	
+	    }); 
+    }
+  
 
 });

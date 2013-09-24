@@ -118,11 +118,11 @@ global $current_user;
             <label for="symbiostock_currency">
                 <?php
             $symbiostock_currencies = array(
-                'USD' => __( 'US Dollars ($)', 'symbiostock' ),
-                'EUR' => __( 'Euros (€)', 'symbiostock' ),
-                'GBP' => __( 'Pounds Sterling (£)', 'symbiostock' ),
-                'CAD' => __( 'Canadian Dollars ($)', 'symbiostock' ),
-                'JPY' => __( 'Japanese Yen (¥)', 'symbiostock' ),
+                'USD' => __( 'US Dollars $', 'symbiostock' ),
+                'EUR' => __( 'Euros €', 'symbiostock' ),
+                'GBP' => __( 'Pounds Sterling £', 'symbiostock' ),
+                'CAD' => __( 'Canadian Dollars $', 'symbiostock' ),
+                'JPY' => __( 'Japanese Yen ¥', 'symbiostock' ),
             );
             ?>
                 <select id="symbiostock_currency" name="symbiostock_currency">

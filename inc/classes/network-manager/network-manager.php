@@ -2296,8 +2296,14 @@ function update_symbiocards() {
     //wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Network Symbiocards Updated - ' . current_time( 'mysql' ), 'Network Symbiocards Updated - ' . current_time( 'mysql' ) );
 }
 
+$update_settings = get_option('symbiostock_update_settings', 1);
+
+if($update_settings == 1){
+
 add_action( 'wp', 'symbiostock_site_data_activation' );
 add_action( 'symbiostock_site_data_daily_event', 'update_symbiostock_site_data' );
+
+}
 
 function symbiostock_site_data_activation() {
     if ( !wp_next_scheduled( 'symbiostock_site_data_daily_event' ) ) {
