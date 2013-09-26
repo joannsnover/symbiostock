@@ -28,26 +28,27 @@ function symbiostock_above_header_nav()
     );
     
 }
+
 function symbiostock_header_nav()
 {
     wp_nav_menu(
     array(
     'theme_location'  => 'header-menu',
-    'menu'            => '', 
-    'container'       => 'div', 
+    'menu'            => 'primary', 
+    'container'       => false, 
     'container_class' => '', 
     'container_id'    => '',
     'menu_class'      => 'nav navbar-nav', 
     'menu_id'         => '',
     'echo'            => true,
-    'fallback_cb'     => 'wp_page_menu',
+    'fallback_cb'     => 'wp_bootstrap_navwalker::fallback',
     'before'          => '',
     'after'           => '',
     'link_before'     => '',
     'link_after'      => '',
     'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-    'depth'           => 3,
-    'walker'          =>  new nav_walker_description()
+    'depth'           => 2,
+    'walker'          =>  new wp_bootstrap_navwalker()
         )
     );
     

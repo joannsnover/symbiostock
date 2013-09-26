@@ -627,7 +627,7 @@ class network_manager
                         
                         if(in_array($filetype[ 0 ], $excluded)){ continue; }
                         
-                        echo '<div class="author_container">';    
+                        echo '<div class="col-md-4 author_container">';    
                                             
                         symbiostock_csv_symbiocard_box( symbiostock_NETDIR . $dir . $entry, $compact, 'symbiostock_author_' . $count );
                         
@@ -2331,6 +2331,5 @@ function update_symbiostock_site_data() {
     
     do_action('symbiostock_daily_chron');
     
-
 }
 ?>

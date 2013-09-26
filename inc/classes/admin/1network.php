@@ -66,7 +66,7 @@ if(isset($_POST['symbiostock_my_network_about_page'])){
 
 if(isset($_POST['symbiostock_my_promoted_keywords'])){ 
     $total = explode(',', $_POST['symbiostock_my_promoted_keywords']);
-    if(count($total) > 20){
+    if(count($total) > 40){
         $no_more_keywords =  '<p>Please choose no more than 20 promoted keywords. Promoted keywords not saved.</p>';
         
         } else {
@@ -175,7 +175,7 @@ $ssnet_no = '';
                 </tr>
                 
                 <tr>
-                    <th scope="row">Promoted Keywords <em>(choose 20)</em>  <br /> <?php echo sshelp('promoted_keywords', 'Promoted Keywords'); ?></th>
+                    <th scope="row">Promoted Keywords <em>(choose up to 40)</em>  <br /> <?php echo sshelp('promoted_keywords', 'Promoted Keywords'); ?></th>
                     <td>
                     <?php
                     if(isset($no_more_keywords )){ echo $no_more_keywords; }

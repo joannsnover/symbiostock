@@ -124,7 +124,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 
                 <div class="<?php echo $btn_group ?>">
                     <?php if($compact == true): ?>
-                    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-sign-blank"> </i> <?php echo $symbiocard['symbiostock_profession_1'] ?> Info</button>
+                    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-info"> </i></button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     </button>

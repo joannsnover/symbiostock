@@ -21,6 +21,7 @@ $symbiostock_marketer == '0' ? $symbiostock_marketer_0 = 'selected="selected"' :
 
 <?php
 if( use_symbiostock_marketer( ) || $_POST['symbiostock_marketer'] == 1 ):
+
 ?>
 
 <h2>Marketing Services</h2>

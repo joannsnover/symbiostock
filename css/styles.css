@@ -657,7 +657,7 @@ SYMBIOSTOCK SEARCH RESULTS
 }
 
 .network_results_container {
-	height: 290px;
+	
 }
 
 .search_page {
@@ -967,10 +967,7 @@ embed,iframe,object {
 }
 
 .network_directory .author_container {
-	width: 330px;
-	height: 150px;
-	float: left;
-	margin: 30px;
+	height: 200px;	
 }
 
 .network_directory  .bio-container {

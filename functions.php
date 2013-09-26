@@ -2870,10 +2870,70 @@ new WPUpdatesThemeUpdater_409( 'http://wp-updates.com/api/2/theme', basename(get
 //get marketing functions
 require_once( symbiostock_MARKETROOT . 'marketer_functions.php' );
 
+function ss_image_blog_form_option(){
+    $menu_option = get_option('symbiostock_menu_option', 1);
+    
+    if($menu_option == 1){
+        ?>
+            <select class="form-control" id="select_type" name="post_type" >
+                <option value="image">Images</option>
+                <option value="post">Blog</option>
+            </select>
+        <?php 
+    } else {
+        ?>
+            <input type="hidden" value="image" name="post_type" />
+        <?php 
+    }    
+}
+
 /*
  * Responsible for determining main menu placement.
-*
-*/
+ *
+ */
+
+function ss_main_menu_selection(){
+
+    if(isset($_POST['symbiostock_menu_option'])){
+
+        update_option('symbiostock_menu_option', $_POST['symbiostock_menu_option']);
+
+    }
+
+    $menu_option = get_option('symbiostock_menu_option', 0);
+
+    if($menu_option == 1){
+        $symbiostock_menu_option_top = 'checked';
+        $symbiostock_menu_option_mid = '';
+    } else {
+        $symbiostock_menu_option_top = '';
+        $symbiostock_menu_option_mid = 'checked';
+    }
+
+    ?>
+    <tr>
+        <td colspan="2">
+            <strong>Enable "Search Images / Blog" Option</strong> <br />
+            <label for="symbiostock_menu_option_1">
+                <input type="radio" id="symbiostock_menu_option_1" name="symbiostock_menu_option" <?php echo $symbiostock_menu_option_top; ?> value="1" />
+                On
+            </label>             
+            <label for="symbiostock_menu_option_2">
+                <input type="radio" id="symbiostock_menu_option_2" name="symbiostock_menu_option" <?php echo $symbiostock_menu_option_mid ; ?> value="0" />
+                Off
+            </label>                      
+        </td>
+    </tr>
+    <?php 
+
+}
+add_action( 'ss_settings_table_top' , 'ss_main_menu_selection', 6  );
+
+
+/*
+ * Responsible for determining main menu placement.
+ *
+ */
 
 function ss_main_menu_options(){
     
@@ -2968,19 +3028,24 @@ function ss_name_download_button(){
         update_option('symbiostock_download_button_name', trim($_POST['symbiostock_download_button_name']));
 
     }
-
-    $name = get_option('symbiostock_download_button_name', 'DOWNLOAD');     
-
+    $name = get_option('symbiostock_download_button_name', 'DOWNLOAD');
     ?>
     <tr>
         <td colspan="2">            
-            <label for="symbiostock_download_button_name">                
+            <label for="symbiostock_download_button_name">
+                <strong>Product table "Cart" Button Name</strong><br />             
                 <input type="text" id="symbiostock_download_button_name" name="symbiostock_download_button_name" value="<?php echo $name ?>" />
-            </label>
-                   
+            </label>                   
         </td>
     </tr>
     <?php 
-
 }
 add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );
+
+function symbiostock_info_sitelist(){
+    
+    $sitelist = explode("\n", file_get_contents('http://symbiostock.info/sitelist.php'));
+    if(is_array($sitelist))
+        return $sitelist;
+    
+}

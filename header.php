@@ -56,10 +56,13 @@ if($is_marketer_request == true){
             }
             ?>
             
-            <nav id="ss_fixed_nav" role="navigation" class="<?php echo $is_fixed; ?> navbar-collapse navbar navbar-default"> 
+            <nav id="ss_fixed_nav" role="navigation" class="<?php echo $is_fixed; ?> navbar navbar-default"> 
                
                 <h1 class="assistive-text"><?php _e( 'Menu', 'symbiostock' ); ?></h1>
-                <div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a></div>
+                
+                <div class="assistive-text skip-link">
+                    <a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a>
+                </div>
             
                 <div id="main-navigation" class="col-md-12"> 
                 <?php symbiostock_header_nav( ); ?>
@@ -72,7 +75,7 @@ if($is_marketer_request == true){
                 <?php     
                 symbiostock_above_header_nav( ); 
                 ?>   
-             
+                
                 </div>
              </nav><!-- .site-navigation .main-navigation -->
                 

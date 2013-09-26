@@ -11,16 +11,16 @@
             <div class="form-group">
             <label for="s" class="assistive-text"><?php _e( 'Search', 'symbiostock' ); ?></label>
                     
-            <input id="ss_primary_search" class="form-control" type="text" class="field" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" id="s" placeholder="<?php esc_attr_e( 'Search &hellip;', 'symbiostock' ); ?>" />
+            <input id="ss_primary_search" class="form-control field" type="text" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" id="s" placeholder="<?php esc_attr_e( 'Search &hellip;', 'symbiostock' ); ?>" />
             </div>
             <div class="form-group">
-            <input class="form-control" type="submit" class="submit" name="submit" id="searchsubmit" value="<?php esc_attr_e( 'Search', 'symbiostock' ); ?>" />
+            <input class="form-control submit" type="submit" name="submit" id="searchsubmit" value="<?php esc_attr_e( 'Search', 'symbiostock' ); ?>" />
             
-            <select class="form-control" id="select_type" name="post_type" >
-                <option value="image">Images</option>
-                <option value="post">Blog</option>
-            </select>
+            <?php 
+            ss_image_blog_form_option();
+            ?>
             </div>
-            <button class="btn btn-primary" type="submit">search</button>
-        
+            <div class="form-group">
+                <button class="btn btn-primary form-control" type="submit">search</button>
+            </div>
     </form>

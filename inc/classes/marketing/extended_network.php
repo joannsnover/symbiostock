@@ -2,7 +2,11 @@
 <br />
 <label for="symbiostock_scan_network">
     <input id="symbiostock_scan_network" type="checkbox" name="symbiostock_scan_network" />
-    Scan network and update directory.</label>
+    Scan network and update directory - </label>
+    <label for="symbiostock_info_scan">
+    <input id="symbiostock_info_scan" type="checkbox" name="symbiostock_info_scan" />
+    Fetch from <a title="network hub of Symbiostock" href="http://www.symbiostock.info">symbiostock.info</a></label>
+    
 <br />
 <br />
 <label for="symbiostock_reset_extended_network">
@@ -21,13 +25,35 @@ if(isset($_POST['symbiostock_reset_extended_network'])){
 }
 
 if(isset($_POST['symbiostock_scan_network'])){
-        
+
     echo '<div class="postbox">';
-    echo '<div class="inside">';
+    echo '<div class="inside">';    
     
-    $spider = new network_manager();
-    $spider->the_spider();
+    if(isset($_POST['symbiostock_info_scan'])){
+        
+        $sitelist = symbiostock_info_sitelist();
+        $spider = new network_manager();
+        if(is_array($sitelist)){
+            
+            foreach($sitelist as $site){
+                
+            echo 'Getting site: ' . $site . '...<br />';
+            
+            $spider->fetch_symbiocard( $site, true );
+            echo $spider->messages;
+            $spider->massages = '';
+            echo '<br />';
+                
+            }
+            
+        }
+        
+    } else {                
+ 
+        $spider = new network_manager();
+        $spider->the_spider();
     
+    }
     echo '</div>';
     echo '</div>';
 }
