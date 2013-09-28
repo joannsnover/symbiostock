@@ -9,7 +9,7 @@ Template Name: Page - Sidebar Left
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home col-md-">
+        <div class="home row">
             <div class="col-md-4">            
                 <?php get_sidebar(); ?>
             </div>            

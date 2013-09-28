@@ -13,7 +13,7 @@
  */
 get_header(); ?>
         
-        <div class=row>
+        <div class="row">
             <div id="primary" class="content-area">
                 <div id="content" class="site-content col-md-8" role="main">
     

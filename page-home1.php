@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: HOME Page CTAs
+Template Name: HOME Page Call To Action
 */
 /**
  * The template for displaying home landing page.
@@ -9,13 +9,13 @@ Template Name: HOME Page CTAs
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home col-md-">
+        <div class="home row">
     
             <div id="primary" class="content-area col-md-12">
             
             <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
             
-                <div id="content" class="site-content home-content col-md-" role="main">
+                <div id="content" class="site-content home-content row" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>
                     <div class="span6">

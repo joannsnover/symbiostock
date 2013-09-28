@@ -15,7 +15,7 @@ Template Name: Network - Associated
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class=row>
+        <div class="row">
     
             <div id="primary" class="content-area col-md-6">
                 <div id="content" class="site-content" role="main">

@@ -9,7 +9,7 @@ Template Name: Page - Full Width
  * @since symbiostock 1.0
  */
 get_header(); ?>
-        <div class="home col-md-">
+        <div class="home row">
         
               <div id="primary" class="content-area col-md-12">  
                

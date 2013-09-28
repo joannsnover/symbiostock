@@ -4,7 +4,7 @@
  * @since symbiostock 1.0
  */ 
 ?>
-    <div id="primary" class="content-area col-md-">
+    <div id="primary" class="content-area row">
         <div id="content" class="site-content col-md-12" role="main">
             <article id="post-0" class="post error404 not-found">
                 <header class="entry-header">
