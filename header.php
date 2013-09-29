@@ -38,9 +38,9 @@ if($is_marketer_request == true){
     <?php do_action( 'before' ); ?>
     <header id="masthead" class="site-header" role="banner">
         
-        <div class="row">
+        <div class="row symbiostock_branding">
             <div class="col-md-6">    
-                <hgroup>
+                <hgroup>                    
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'description' ); ?>" class="logo" src ="<?php echo get_option( 'symbiostock_logo_link', symbiostock_LOGO ); ?>" /></a>
                 </hgroup> 
             </div>          
@@ -49,12 +49,18 @@ if($is_marketer_request == true){
         <div class="row"> 
         
             <?php 
-            $menu_location = get_option('symbiostock_menu_location');
-            if($menu_location == 1){
-                $is_fixed = 'navbar-fixed-top';                
-            } else {                
-                $is_fixed = '';
+            
+            $menu_location = get_theme_mod( 'menu_location' );
+            if( $menu_location != '' ) {                
+       
+                if($menu_location == 0){
+                    $is_fixed = 'navbar-fixed-top';                
+                } else {                
+                    $is_fixed = '';
+                }
+                
             }
+
             ?>
             
             <nav id="ss_fixed_nav" role="navigation" class="<?php echo $is_fixed; ?> navbar navbar-default"> 

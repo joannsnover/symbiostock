@@ -107,9 +107,11 @@ if ( !function_exists( 'symbiostock_setup' ) ) :/**
          */
         require( get_template_directory( ) . '/inc/extras.php' );
         /**
-         * Custom Theme Options
-         */
-        //require( get_template_directory() . '/inc/theme-options/theme-options.php' );
+         * Customize Theme Options
+         */        
+        require_once('customizer.php');
+        
+        
         /**
          * WordPress.com-specific functions and definitions
          */
@@ -145,6 +147,22 @@ if ( !function_exists( 'symbiostock_setup' ) ) :/**
          * Add support for the Aside Post Formats
          */
         add_theme_support( 'post-formats' , array( 'aside', ) );
+        
+        $defaults = array(
+                'default-image'          => '',
+                'random-default'         => false,
+                'width'                  => 0,
+                'height'                 => 0,
+                'flex-height'            => false,
+                'flex-width'             => false,
+                'default-text-color'     => '',
+                'header-text'            => false,
+                'uploads'                => true,
+                'wp-head-callback'       => '',
+                'admin-head-callback'    => '',
+                'admin-preview-callback' => '',
+        );
+        add_theme_support( 'custom-header', $defaults );        
     }
 endif; // symbiostock_setup
 add_action( 'after_setup_theme' , 'symbiostock_setup' );
@@ -2871,7 +2889,7 @@ new WPUpdatesThemeUpdater_409( 'http://wp-updates.com/api/2/theme', basename(get
 require_once( symbiostock_MARKETROOT . 'marketer_functions.php' );
 
 function ss_image_blog_form_option(){
-    $menu_option = get_option('symbiostock_menu_option', 1);
+    $menu_option = get_theme_mod( 'show_blog_search' );
     
     if($menu_option == 1){
         ?>
@@ -2887,91 +2905,6 @@ function ss_image_blog_form_option(){
     }    
 }
 
-/*
- * Responsible for determining main menu placement.
- *
- */
-
-function ss_main_menu_selection(){
-
-    if(isset($_POST['symbiostock_menu_option'])){
-
-        update_option('symbiostock_menu_option', $_POST['symbiostock_menu_option']);
-
-    }
-
-    $menu_option = get_option('symbiostock_menu_option', 0);
-
-    if($menu_option == 1){
-        $symbiostock_menu_option_top = 'checked';
-        $symbiostock_menu_option_mid = '';
-    } else {
-        $symbiostock_menu_option_top = '';
-        $symbiostock_menu_option_mid = 'checked';
-    }
-
-    ?>
-    <tr>
-        <td colspan="2">
-            <strong>Enable "Search Images / Blog" Option</strong> <br />
-            <label for="symbiostock_menu_option_1">
-                <input type="radio" id="symbiostock_menu_option_1" name="symbiostock_menu_option" <?php echo $symbiostock_menu_option_top; ?> value="1" />
-                On
-            </label>             
-            <label for="symbiostock_menu_option_2">
-                <input type="radio" id="symbiostock_menu_option_2" name="symbiostock_menu_option" <?php echo $symbiostock_menu_option_mid ; ?> value="0" />
-                Off
-            </label>                      
-        </td>
-    </tr>
-    <?php 
-
-}
-add_action( 'ss_settings_table_top' , 'ss_main_menu_selection', 6  );
-
-
-/*
- * Responsible for determining main menu placement.
- *
- */
-
-function ss_main_menu_options(){
-    
-    if(isset($_POST['symbiostock_menu_location'])){
-        
-        update_option('symbiostock_menu_location', $_POST['symbiostock_menu_location']);
-        
-    }
-
-    $menu_location = get_option('symbiostock_menu_location', 0);
-    
-    if($menu_location == 1){
-        $symbiostock_menu_location_top = 'checked';
-        $symbiostock_menu_location_mid = '';
-    } else {
-        $symbiostock_menu_location_top = '';
-        $symbiostock_menu_location_mid = 'checked';        
-    }
-    
-    ?>
-    <tr>
-        <td colspan="2">
-            <strong>Main Menu Location</strong> <br />
-            <label for="symbiostock_menu_location_1">
-                <input type="radio" id="symbiostock_menu_location_1" name="symbiostock_menu_location" <?php echo $symbiostock_menu_location_top; ?> value="1" />
-                Top Anchored
-            </label>
-             
-            <label for="symbiostock_menu_location_2">
-                <input type="radio" id="symbiostock_menu_location_2" name="symbiostock_menu_location" <?php echo $symbiostock_menu_location_mid ; ?> value="0" />
-                Below Header
-            </label>                      
-        </td>
-    </tr>
-    <?php 
-
-}
-add_action( 'ss_settings_table_top' , 'ss_main_menu_options', 5  );
 
 /*
  * Allows daily chron jobs to run.
