@@ -95,17 +95,11 @@ class symbiostock_featured_images extends WP_Widget{
             ?>
     <div class="widget-featured symbiostock-featured search-result">
         <div class="inner-featured">
-            <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
-                <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
-                </a> </div>
-      <!--  <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
-            <?php the_title(); ?>
-            </a>
-            <?php  the_excerpt( ); ?>
-            
-            <p class="entry-date"><i class="icon-calendar"> </i>
-                <?php the_time('F j, Y'); ?>
-            </p>-->
+            <div class="thumb"> 
+                <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
+                    <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
+                </a> 
+            </div>
             
         </div>
     </div>

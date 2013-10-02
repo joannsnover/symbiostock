@@ -193,7 +193,7 @@ jQuery(document).ready(function ($) {
     //window sizing and responsive adjustments for devices
     function symbiostock_adjust_body_padding(){
     	
-        var nav_height = $('#ss_fixed_nav').height();
+        var nav_height = $('#ss_fixed_nav').height()+10;
         
         $("body").css({ paddingTop: nav_height });               
     	

@@ -18,7 +18,7 @@ get_header(); ?>
                 <div id="content" class="site-content home-content row" role="main">
     
                     <?php while ( have_posts() ) : the_post(); ?>
-                    <div class="span6">
+                    <div class="col-md-6">
                         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                             <header class="entry-header">
                                 <h1 class="entry-title"><?php the_title(); ?></h1>
@@ -44,7 +44,7 @@ get_header(); ?>
           
             <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
             
-            <div class="call-to-actions col-md-">
+            <div class="call-to-actions col-md-6">
             
             <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
             <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>

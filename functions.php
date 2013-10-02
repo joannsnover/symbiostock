@@ -13,8 +13,10 @@
 
 ini_set( 'display_errors' , 1 );
 
-//trash the admin bar...
-add_filter( 'show_admin_bar' , '__return_false' );
+//trash the admin bar if not admin...
+if(!is_admin){
+    add_filter( 'show_admin_bar' , '__return_false' );
+}
 
 //define some paths for easy working
 //remove code editing ability
@@ -67,7 +69,7 @@ if ( !function_exists( 'ss_url_key' ) )
 }
 
 //This variable is our simplified domain location used in referrals
-define( 'SSREF' , '?r=' . home_url( ) );
+define( 'SSREF' , '?r=' . str_replace('http://', '', home_url( ) ) );
 
 add_action( 'after_switch_theme' , 'symbiostock_installer' );
 
@@ -879,16 +881,21 @@ function symbiostock_customer_nav_links()
     if ( !is_user_logged_in( ) )
     {
 
-        $nav_links = '<li data-toggle="modal" data-target="#symbiostock_member_modal" class="login_register">'
-                . symbiostock_customer_login( 'Login / Register' ) . '</li>';
+        $nav_links = '<li data-toggle="modal" data-target="#symbiostock_member_modal" class="login_register">
+        <button type="button" class="btn btn-default navbar-btn">'
+                . symbiostock_customer_login( 'Login / Register' ) . '
+        </button></li>';
 
     } else
     {
-        $nav_links = '<li class="logout"><a href="'
-                . wp_logout_url( get_permalink( ) )
-                . '" title="Logout">(<i class="icon-key"> </i> Logout)</a></li>';
-        $nav_links .= '<li class="license_area">'
-                . symbiostock_customer_area( $name ) . '</li>';
+        $nav_links = '<li class="logout">        
+        <a href="' . wp_logout_url( get_permalink( ) ) . '" title="Logout">(<i class="icon-key"> </i> Logout)</a>
+        </button>';
+        $nav_links .= '<li class="license_area">
+        <button type="button" class="btn btn-default navbar-btn">
+        ' . symbiostock_customer_area( $name ) . '
+        </button>
+        </li>';
 
     }
 

@@ -1,13 +1,7 @@
-html {
-	font-family: 'Open Sans', sans-serif;
-	font-size: 62.5%;
-	/* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
-	overflow-y: scroll;
-	/* Keeps page centred in all browsers regardless of content height */
-	-webkit-text-size-adjust: 100%;
-	/* Prevents iOS text size adjust after orientation change, without disabling user zoom */
-	-ms-text-size-adjust: 100%;
-	/* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+
+.container {
+	padding-right: 20px;
+	padding-left: 20px;	
 }
 
 #ss_primary_search {
@@ -139,23 +133,9 @@ a img.aligncenter {
 ----------------------------------------------- */
 body {
 	padding-top: 0;
-	text-rendering: optimizelegibility;
-	line-height: 1.68;
-	font-family: 'Open Sans', Arial, sans-serif;
-	text-shadow: 0 1px rgba(255, 255, 255, 0.75);
+	text-rendering: optimizelegibility;			
 }
 
-ul {
-	text-shadow: none;
-}
-
-footer {
-	text-shadow: none;
-}
-
-body {
-	
-}
 
 h1 {
 	font-size: 32px;
@@ -192,7 +172,7 @@ footer .footer_info {
 }
 
 .carousel .carousel-control {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 /* Alignment */
 .alignleft {
@@ -220,42 +200,33 @@ footer .footer_info {
 }
 
 .site-header {
-	background-color: transparent;
+
 }
 /* =Menu
 ----------------------------------------------- */
+
 .main-navigation {
-	clear: both;
-	display: block;
-	float: left;
-	width: 100%;
+
 }
 
 .main-navigation ul {
-	list-style: none;
-	margin: 0;
-	padding-left: 0;
+
 }
 
 .main-navigation li {
-	float: left;
-	position: relative;
+
 }
 
 .main-navigation a {
-	display: block;
-	text-decoration: none;
+
 }
 
 .mobile_menu {
-	background-color: #666;
-	border-radius: 5px;
-	margin-bottom: 10px;
+
 }
 
 .mobile_menu form {
-	padding: 10px 10px 0px 10px;
-	margin: 0;
+
 }
 
 .mobile_menu select {
@@ -305,7 +276,7 @@ footer .footer_info {
 }
 
 ul.above-header-menu li {
-	float: right;
+	
 }
 /*above header nav*/
 .menu-toggle {
@@ -313,7 +284,7 @@ ul.above-header-menu li {
 }
 
 .main-small-navigation .menu {
-	display: none;
+	
 }
 
 .header-main-nav {
@@ -674,7 +645,7 @@ SYMBIOSTOCK SEARCH RESULTS
 .search-result {
 	text-align: center;
 	float: left;
-	width: 170px;
+	width: 160px;
 	height: 170px;
 	margin: 10px;
 }
@@ -991,3 +962,18 @@ embed,iframe,object {
 	-webkit-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
+
+body.admin-bar {
+        margin-top: -28px;
+        padding-bottom: 28px;
+    }
+    #wpadminbar {
+        top: auto !important;
+        bottom: 0;
+    }
+    #wpadminbar .quicklinks>ul>li {
+        position:relative;
+    }
+    #wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
+        bottom:28px;
+    }

@@ -1495,7 +1495,7 @@ class network_manager
                  'post-type' => 'image',
                 'paged' => $paged,
                 'tax_query' => $tax_query, 
-                'order' => 'ASC',
+                'order' => 'DESC',
             );
             
         } //!is_post_type_archive( 'image' )
@@ -1506,7 +1506,7 @@ class network_manager
                 'tax_query' => $tax_query,
                 'paged' => $paged,
                 'posts_per_page' => 24 ,
-                'order'     => 'ASC',
+                'order'     => 'DESC',
             );
         } //is_search()        
         
@@ -1516,16 +1516,9 @@ class network_manager
                 'post_status' => 'publish',
                 'caller_get_posts' => 1,
                 'paged' => $paged,
-                'order' => 'ASC',
+                'order' => 'DESC',
             );                        
-        }
-        
-        //temporary function until everyone has toggled their theme    and is equal to or above 2.4.9        
-        $image_rank_update = get_option('image_rank_update');    
-        if(    $image_rank_update == true ){            
-            $local_query['meta_key'] =  'symbiostock_rank';
-            $local_query['orderby'] =  'meta_value_num';        
-        }
+        }        
         
         $get_all = get_query_var( 'type' );
         
