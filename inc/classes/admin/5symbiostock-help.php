@@ -1,5 +1,7 @@
 <div class="symbiostock_help">
     <h2><span class="description">&mdash; <a title="help topics" href="#help_topics">Jump to help topics ...</a> </span></h2>
+    <p>Customize your site's appearance here: <a title="Customize" href="<?php echo get_home_url() ?>/wp-admin/customize.php">Customize Symbiostock</a></p>
+    
     <div> 
         
         <strong>Start here: Startup and Tutorials: <a title="Getting started"  href="http://www.symbioguides.com">Symbioguides.com</a></strong>

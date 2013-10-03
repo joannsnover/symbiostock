@@ -53,6 +53,7 @@ if(empty($logo)){
 global $current_user;
       get_currentuserinfo();
 ?>
+<p>Customize your site's appearance here: <a title="Customize" href="<?php echo get_home_url() ?>/wp-admin/customize.php">Customize Symbiostock</a></p>
 <table class="widefat form-table symbiostock-settings">
     <thead>
         <tr>

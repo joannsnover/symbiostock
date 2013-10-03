@@ -289,7 +289,9 @@ $message .= '<br /><br />
 To ensure best network performance and SEO, fill out all info: 
 <br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
 
-$message .= '<br />Network info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
+$message .= '<br /><br />Customize your site live: <a title="Customize" href="' . get_home_url() . '/wp-admin/customize.php">Customize</a>';
+
+$message .= '<br /><br />Network info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
 
 $message .= '<br /><br /> Visit the community forums - <a title="community forums" href="http://www.symbiostock.org/">www.symbiostock.org</a>';
 
