@@ -889,12 +889,9 @@ function symbiostock_customer_nav_links()
     } else
     {
         $nav_links = '<li class="logout">        
-        <a href="' . wp_logout_url( get_permalink( ) ) . '" title="Logout">(<i class="icon-key"> </i> Logout)</a>
-        </button>';
-        $nav_links .= '<li class="license_area">
-        <button type="button" class="btn btn-default navbar-btn">
-        ' . symbiostock_customer_area( $name ) . '
-        </button>
+        <a href="' . wp_logout_url( get_permalink( ) ) . '" title="Logout">(<i class="icon-key"> </i> Logout)</a>';
+        $nav_links .= '<li class="license_area">        
+        ' . symbiostock_customer_area( $name ) . '        
         </li>';
 
     }
