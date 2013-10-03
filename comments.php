@@ -20,7 +20,8 @@
     if ( post_password_required() )
         return;
 ?>
-    <div id="comments" class="comments-area">
+<div class="panel panel-info">
+    <div id="comments" class="panel-body comments-area">
     <?php // You can start editing here -- including this comment! ?>
     <?php if ( have_comments() ) : ?>
         <h2 class="comments-title">
@@ -62,6 +63,7 @@
         <p class="nocomments"><?php _e( 'Comments are closed.', 'symbiostock' ); ?></p>
     <?php endif; ?>
     <?php comment_form(); ?>
+</div>
 </div>
 <?php
 ?>

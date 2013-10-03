@@ -21,12 +21,12 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
     <div class="symbiostock-image col-md-7">
         <header class="entry-header">
             <div itemscope itemtype="http://schema.org/CreativeWork" class="hmedia">
-                <div class="">
+                <div class="panel panel-default image_container">
                     <?php 
                     $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_title';
                     do_action( 'ss_before_img_page_title', $symbiostock_post_meta );  
                     ?>
-                    <h1 itemprop="name" class="page-header entry-title title">
+                    <h1 itemprop="name" class="panel-heading page-header entry-title title">
                         <a class="" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'symbiostock' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
                             <?php the_title(); ?>                       
                         </a>
@@ -35,7 +35,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                     $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_title';
                     do_action( 'ss_after_img_page_title', $symbiostock_post_meta );  
                     ?>
-                    <div itemscope itemtype="http://schema.org/ImageObject">
+                    <div class="panel-body" itemtype="http://schema.org/ImageObject">
                         
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_preview';
@@ -65,52 +65,55 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                           
                         </div>
                     </div>
-                    <?php 
-                    $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_author_box';
-                    do_action( 'ss_before_img_page_author_box', $symbiostock_post_meta ); 
-                    ?> 
-                    <?php symbiostock_csv_symbiocard_box($symbiocard_location = '', true, '', true); ?>
-                    <?php 
-                    $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_author_box';
-                    do_action( 'ss_after_img_page_author_box', $symbiostock_post_meta ); 
-                    ?> 
-                    <hr />
-                    <span class="date updated muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>                    
-                    <!-- .entry-content -->
-                    <?php 
-                    $symbiostock_post_meta['caller_action'] = 'ss_bottom_img_page_preview_well';
-                    do_action( 'ss_bottom_img_page_preview_well' );  
-                    ?> 
+                    <div class="panel-body bio_box">
+                        <?php 
+                        $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_author_box';
+                        do_action( 'ss_before_img_page_author_box', $symbiostock_post_meta ); 
+                        ?> 
+                        <?php symbiostock_csv_symbiocard_box($symbiocard_location = '', true, '', true); ?>
+                        <?php 
+                        $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_author_box';
+                        do_action( 'ss_after_img_page_author_box', $symbiostock_post_meta ); 
+                        ?> 
+                        <hr />
+                        <span class="date updated text-muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>                    
+                        <!-- .entry-content -->
+                        <?php 
+                        $symbiostock_post_meta['caller_action'] = 'ss_bottom_img_page_preview_well';
+                        do_action( 'ss_bottom_img_page_preview_well' );  
+                        ?>
+                    </div> 
                 </div>
-                <div id="keywords-listing">
-                    
-                    <div itemprop="keywords"  class="">
+                <div class="panel panel-default" id="keywords-listing">
+                    <div class="panel-heading"><h4 class="panel-title">Keywords</h4></div>
+                    <div itemprop="keywords"  class="panel-body">
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_keywords';
                         do_action( 'ss_before_img_page_keywords', $symbiostock_post_meta );  
                         ?>
-                        <h5>Keywords</h5>
-                        <?php echo get_the_term_list( $post->ID, 'image-tags', '', ', ', '' ); ?> </div>
+                        
+                        <?php echo get_the_term_list( $post->ID, 'image-tags', '', ', ', '' ); ?> 
+                    </div>
                     
                         <?php           
-                $symbiostock_categories = get_the_term_list( $post->ID, 'image-type', '', ' | ', '' );            
-                if($symbiostock_categories){ ?>
-                <div class="">
-                <?php 
-                $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_categories';
-                do_action( 'ss_before_img_page_categories', $symbiostock_post_meta );  
-                ?>
-                <h5>Image Categories</h5>                
-                <?php echo  $symbiostock_categories; ?>
-                 
-                </div><?php
-                }
+                    $symbiostock_categories = get_the_term_list( $post->ID, 'image-type', '', ' | ', '' );            
+                    if($symbiostock_categories){ ?>
+                    <div class="panel-heading"><h4 class="panel-title">Image Categories</h4></div>
+                    <div class="panel-body">
+                        <?php 
+                        $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_categories';
+                        do_action( 'ss_before_img_page_categories', $symbiostock_post_meta );  
+                        ?>                                        
+                        <?php echo  $symbiostock_categories; ?>
+                     
+                    </div><?php
+                    }
                 ?>                    
                 </div>
                                 
                 <?php                
                 //get bottom sidebar
-                dynamic_sidebar( 'Image Page Bottom' );                
+                dynamic_sidebar( 'image-page-bottom' );                
                 ?>                
             </div>
         </header>
@@ -122,17 +125,25 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_product_table';
         do_action( 'ss_before_img_page_product_table', $symbiostock_post_meta ); 
         //set up the buying options from cart class
-        $cart_options = new symbiostock_cart($symbiostock_post_meta);        
+        $cart_options = new symbiostock_cart($symbiostock_post_meta);
+
+        ?><div class="panel panel-info">
+        <div class="panel-heading"><span class="panel-title">Image #<?php echo $postid  ?></span></div>
+        <?php 
         $cart_options->display_product_table();
+        ?></div><?php 
+        
         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_product_table';
         do_action( 'ss_after_img_page_product_table', $symbiostock_post_meta ); 
+        
         
         //get sidebar
         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_sidebar';
         do_action( 'ss_before_img_page_sidebar', $symbiostock_post_meta ); 
-        dynamic_sidebar( 'Image Page Side' );
+        dynamic_sidebar( 'image-page-side' );
         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_sidebar';
         do_action( 'ss_after_img_page_sidebar', $symbiostock_post_meta); 
+        
         
         $cart_options->display_referral_links();
         symbiostock_credit_links('product_page');
@@ -171,7 +182,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
 $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_bottom_widget';
 do_action( 'ss_before_img_page_bottom_widget', $symbiostock_post_meta );  ?>
  
-<?php dynamic_sidebar( 'Image Page Bottom Fullwidth' ); ?> 
+<?php dynamic_sidebar( 'image-page-bottom-fullwidth' ); ?> 
  
 <?php 
 $symbiostock_post_meta['caller_action'] = 'ss_after_image_page';

@@ -86,7 +86,7 @@ class symbiostock_featured_images extends WP_Widget{
         $featuredWidget = new WP_Query($args);
         
         ?>
-<div class="row front-page-featured">
+<div class="row  panel-body">
     <?php 
         
         while ( $featuredWidget->have_posts() ) : 
@@ -118,6 +118,7 @@ class symbiostock_featured_images extends WP_Widget{
     
 }
 register_widget( 'symbiostock_featured_images' );
+
 class symbiostock_latest_images extends WP_Widget{
     
     public function __construct() {
@@ -187,7 +188,7 @@ class symbiostock_latest_images extends WP_Widget{
         $featuredWidget = new WP_Query($args);
         
         ?>
-<div class="row front-page-featured">
+<div class="row  panel-body">
     <?php 
         
         while ( $featuredWidget->have_posts() ) : 
@@ -809,7 +810,7 @@ class symbiostock_similar_images extends WP_Widget{
                 $related_images = km_rpbt_related_posts_by_taxonomy( $post->ID, $taxonomies, $args  );
             }        
                 
-            ?> <div class="row front-page-featured"> <?php
+            ?> <div class="panel-body"> <?php
             if($related_images){
                 foreach ( (array) $related_images as $image ) {    
                 

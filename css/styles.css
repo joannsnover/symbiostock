@@ -137,16 +137,6 @@ body {
 }
 
 
-h1 {
-	font-size: 32px;
-	font-weight: normal;
-}
-
-h2,h3,h4,h5,h6 {
-	font-weight: normal;
-	font-size: 24px;
-	color: #666;
-}
 
 footer.site-footer {
 	background-color: #111;
@@ -416,14 +406,15 @@ SYMBIOSTOCK CONTENT
 }
 
 .home-content h1 {
-	font-size: 24px;
-	color: #666;
+
 }
 
 .home-content {
 	color: #666;
 }
-
+.symbiostock_author_avatar{
+	text-align: right;
+}
 /*--------------------------------------------------------------
 SYMBIOSTOCK WIDGETS
 --------------------------------------------------------------*/
@@ -473,7 +464,7 @@ SYMBIOSTOCK WIDGETS
 SYMBIOSTOCK CART
 --------------------------------------------------------------*/
 .symbiostock_product th {
-	background-color: #E6E6E6;
+	
 }
 
 #symbiostock_product_table tr {

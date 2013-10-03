@@ -182,9 +182,9 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Sidebar' , 'symbiostock' ),
                     'id' => 'sidebar-1',
-                    'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-                    'after_widget' => '</aside>',
-                    'before_title' => '<h1 class="widget-title">',
+                    'before_widget' => '<div class="panel panel-default"><aside id="%1$s" class="widget %2$s">',
+                    'after_widget' => '</div></aside>',
+                    'before_title' => '<h1 class="panel-heading widget-title panel-heading">',
                     'after_title' => '</h1>', ) );
 
     //Home page, above content area (typically for a slide show)
@@ -192,18 +192,18 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Home Page (Above Content)' , 'symbiostock' ),
                     'id' => 'home-page-above-content',
-                    'before_widget' => '<div class="home-above-content"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="panel panel-default home-above-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
                     'after_title' => '</h3></div>', ) );
     //home page beside content area, such as for a sidebar type content, or CTA
     register_sidebar( 
             array( 
                     'name' => __( 'Home Page (Beside Content)' , 'symbiostock' ),
                     'id' => 'home-page-beside-content',
-                    'before_widget' => '<div class="home-beside-content"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="panel panel-default home-beside-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
                     'after_title' => '</h3></div>', ) );
 
     //Home page below content (for featured images)        
@@ -211,9 +211,9 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Home Page (Below Content)' , 'symbiostock' ),
                     'id' => 'home-page-below-content',
-                    'before_widget' => '<div class="col-md-12 home-below-content"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="col-md-12 panel panel-default home-below-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside><br class="clearfix" /></div>',
-                    'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
                     'after_title' => '</h3></div>', ) );
 
     //Call To Action Widgets
@@ -268,27 +268,27 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Image Page Side' , 'symbiostock' ),
                     'id' => 'image-page-side',
-                    'before_widget' => '<div class=" image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="image_page_side panel panel-default image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
+                    'before_title' => '<h3 class="panel-heading">',
                     'after_title' => '</h3>', ) );
 
     register_sidebar( 
             array( 
                     'name' => __( 'Image Page Bottom' , 'symbiostock' ),
                     'id' => 'image-page-bottom',
-                    'before_widget' => '<div class=" image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="image_page_bottom panel panel-default  image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
+                    'before_title' => '<h3 class="panel-heading">',
                     'after_title' => '</h3>', ) );
 
     register_sidebar( 
             array( 
                     'name' => __( 'Image Page Bottom Fullwidth' , 'symbiostock' ),
                     'id' => 'image-page-bottom-fullwidth',
-                    'before_widget' => '<div class="col-md- image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
+                    'before_widget' => '<div class="image_page_bottom_fullwidth panel panel-default  col-md-12 image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
+                    'before_title' => '<h3 class="panel-heading">',
                     'after_title' => '</h3>', ) );
     //footer sidebars
 
@@ -1173,34 +1173,41 @@ function symbiostock_credit_links( $position )
 
     $symbiostock_credit_links = get_option( 'symbiostock_credit_links' );
 
-    $links = array( 
-            'ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man' => 'http://www.clipartillustration.com',
-            'Symbiostock Community - Network with illustrators, photographers, and designers.' => 'http://www.symbiostock.org/',
-            'Symbiostock.com - Sell your images and network with fellow microstock professionals.' => 'http://www.symbiostock.com/',
-            'Symbiostock.info - Search the Symbiostock network.' => 'http://www.symbiostock.info/',
-            'Symbiostock search  - Search the Symbiostock Network.' => 'http://symbiostock-search.com/',
+    $links = array(             
+            'Symbiostock Community - Network with illustrators, photographers, and designers.' => 'http://www.symbiostock.org/',            
+            'Symbiostock.info - Search images on the Symbiostock network.' => 'http://www.symbiostock.info/',
+            'Symbiostock Search  - Search Symbiostock images and network..' => 'http://symbiostock-search.com/',
             'Symbioguides.com - Symbiostock knowledge base.' => 'http://www.symbioguides.com/',
+            'Symbiostock.com - Sell your images and network with fellow microstock professionals.' => 'http://www.symbiostock.com/',
+            'ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art' => 'http://www.clipartof.com/', 
+            'ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man' => 'http://www.clipartillustration.com',
             'Microstockgroup.com - A meeting place for microstock professionals.' => 'http://www.microstockgroup.com',
-            'ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art' => 'http://www.clipartof.com/', );
+            );
 
     if ( $position == $symbiostock_credit_links )
     {
 
-        echo '<ul class="nav nav-tabs nav-stacked nav-list">';
+        echo '<div class="panel panel-info">
+        <div class="panel-heading dropdown-toggle" data-toggle="dropdown" type="button"><h3 class="panel-title">Symbiostock Community <i class="icon-caret-down"> </i> </h3></div>
+        <ul class="dropdown-menu list-group" role="menu">';
 
         foreach ( $links as $title => $link )
         {
 
             $link_parts = explode( '-' , $title );
 
-            echo '<li><a class="" title="' . trim( $link_parts[ 1 ] )
+            echo '<li class="list-group-item">
+            <h5 class="list-group-item-heading"><a title="' . trim( $link_parts[ 1 ] )
                     . '" href="' . $link
                     . '"><i class="icon-double-angle-right"> </i>'
-                    . trim( $link_parts[ 0 ] ) . '</a></li>';
+                    . trim( $link_parts[ 0 ] ) . '</a></h5>'
+                    . '<p class="list-group-item-text text-muted">'.trim( $link_parts[ 1 ] ).'</p>
+            </li>';
 
         }
 
-        echo '</ul>';
+        echo '</ul>
+        </div>';
     }
 
 }

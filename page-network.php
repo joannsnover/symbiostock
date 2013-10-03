@@ -17,8 +17,8 @@ Template Name: Network - Associated
 get_header(); ?>
         <div class="row">
     
-            <div id="primary" class="content-area col-md-6">
-                <div id="content" class="site-content" role="main">
+            <div id="primary" class="panel panel-default content-area col-md-6">
+                <div id="content" class="panel-body site-content" role="main">
                 <?php
                 //add support for YOAST SEO
                 if ( function_exists('yoast_breadcrumb') ) {
@@ -37,8 +37,7 @@ get_header(); ?>
                         <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="edit-link">', '</span>' ); ?>
                     </div><!-- .entry-content -->
                 </article><!-- #post-<?php the_ID(); ?> -->
-                
-                    <?php comments_template( '', true ); ?>
+                                   
                 
                 <?php endwhile; // end of the loop. ?>
                 

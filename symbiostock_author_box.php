@@ -55,7 +55,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         $creator_credits = '';
         $bio = '';
         
-    }else {        
+    } else {        
     
         $links = 'nav nav-list';    
         $btn_group = '';
@@ -69,7 +69,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         
     ?>
  
-    <div <?php echo $schema; ?> class="author-bio contributor vcard col-md-">        
+    <div <?php echo $schema; ?> class="author-bio contributor vcard col-md-12">        
         <div class="symbiostock_author_info col-md-7">
             <div class="author-name">
             <span itemprop="<?php echo $creator_credits ?>" ><a class="ssref" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
@@ -124,7 +124,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 
                 <div class="<?php echo $btn_group ?>">
                     <?php if($compact == true): ?>
-                    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-info"> </i></button>
+                    <button type="button" class="btn btn-default" data-toggle="dropdown">info</button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     </button>
@@ -288,12 +288,13 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
             
             !isset($symbiocard['symbiostock_personal_photo'])||!isset($symbiocard['symbiostock_personal_photo']) ? $avatar_img = symbiostock_IMGDIR . '/generic-user.jpg' : $avatar_img = $symbiocard['symbiostock_personal_photo'] ;
             ?>
-            <a class="ssref" title="<?php echo $symbiocard['symbiostock_display_name']; ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>">          
+            <p>
+            <a class="ssref pull-right" title="<?php echo $symbiocard['symbiostock_display_name']; ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>">          
                 <img class="avatar avatar-150 thumbnail" src="<?php echo $avatar_img  ?>" alt="Author avatar" /> 
             </a> 
         </div>
         
-        <div class="clear"></div>
+        <div class="clearfix"></div>
       
     </div>
 <?php    
