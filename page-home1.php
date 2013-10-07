@@ -13,7 +13,11 @@ get_header(); ?>
     
             <div id="primary" class="content-area col-md-12">
             
+            <?php if(is_dynamic_sidebar( 'Home Page (Above Content)' )): ?>
+            <div class="panel panel-default">
             <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
+            </div>
+            <?php endif; ?>
             
                 <div id="content" class="site-content home-content row" role="main">
     
@@ -31,9 +35,11 @@ get_header(); ?>
                         </article><!-- #post-<?php the_ID(); ?> -->
                     </div>
                     <div class="col-md-6">
-                    
-                    <?php dynamic_sidebar( 'Home Page (Beside Content)' ) ?>
-                    
+                        <div class="panel panel-default">
+                        
+                        <?php dynamic_sidebar( 'Home Page (Beside Content)' ) ?>
+                        
+                        </div>
                     </div>                
     
                     <?php endwhile; // end of the loop. ?>
@@ -41,19 +47,47 @@ get_header(); ?>
                 </div><!-- #content .site-content -->
             
             
-          
+            <?php if(is_dynamic_sidebar( 'Home Page (Above Content)' )): ?>
+            <div class="panel panel-default">
+           
             <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
             
-            <div class="call-to-actions col-md-6">
-            
-            <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 3/3' ) ?>
-            
             </div>
+            <?php endif; ?>
+            
+            
+            <?php if(                     
+                     is_active_sidebar( 'cta-1' ) ||
+                     is_active_sidebar( 'cta-2' ) ||
+                     is_active_sidebar( 'cta-3' )
+                     ): ?>
+            
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-1' ) ?>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-2' ) ?>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-3' ) ?>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <?php endif; ?>
          
             </div><!-- #primary .content-area -->
-        
+            
         </div>        
         
         

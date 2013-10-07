@@ -1,4 +1,3 @@
-
 .container {
 	padding-right: 20px;
 	padding-left: 20px;	
@@ -415,50 +414,7 @@ SYMBIOSTOCK CONTENT
 .symbiostock_author_avatar{
 	text-align: right;
 }
-/*--------------------------------------------------------------
-SYMBIOSTOCK WIDGETS
---------------------------------------------------------------*/
-.widget-area {
-	color: #999;
-}
 
-.widget-area ul {
-	list-style-type: none;
-}
-
-.widget-area aside {
-	padding-bottom: 40px;
-}
-
-.widget-area h1,.widget-area h2,.widget-area h3,.widget-area h4,.widget-area h5,.widget-area h6
-	{
-	clear: both;
-	font-size: 22px;
-	color: #999;
-	letter-spacing: 1px;
-	border-bottom: 3px solid #E6E6E6;
-	padding: 5px 0 5px 0;
-	margin: 5px 0 4px 0;
-	line-height: 1.618;
-}
-
-.widget-area ul li a:link,.widget-area ul li a:visted {
-	color: #999;
-	text-decoration: none;
-	display: block;
-	width: 100%;
-}
-
-.widget-area ul {
-	margin: 0;
-	padding: 0;
-}
-
-.widget-area ul li {
-	padding-top: 5px;
-	padding-bottom: 4px;
-	border-bottom: 1px #E6E6E6 solid;
-}
 
 /*--------------------------------------------------------------
 SYMBIOSTOCK CART
@@ -555,7 +511,7 @@ SYMBIOSTOCK FEATURED POSTS
 	background-color: transparent;
 	margin: 0;
 	margin-bottom: 10px;
-	padding-left: 10px;
+
 }
 
 .widget_symbiostock_latest_images,.widget_symbiostock_featured_images {
@@ -708,14 +664,11 @@ SYMBIOSTOCK SEARCH RESULTS
 ----------------------------------------------- */
 .symbiostock-image a:link,.symbiostock-image a:visited,.symbiostock-image a:hover,.symbiostock-image a:active
 	{
-	text-decoration: none;
-	color: #666;
+
 }
 
 .symbiostock-image h1 {
 	font-size: 18px;
-	margin-top: 0;
-	margin-bottom: 20px;
 }
 
 .sticky {
@@ -925,17 +878,17 @@ embed,iframe,object {
 }
 
 .network_results .network_avatar {
-	padding-right: 10px;
-	margin-right: 10px;
-	border-right: 1px #CCC solid;
+
 }
 
 .network_directory .author_container {
-	height: 200px;	
+	height: 250px;	
+	margin-bottom: 20px;
+	overflow: hidden;
 }
 
 .network_directory  .bio-container {
-	height: 100px;
+	height: 130px;
 	overflow: hidden;
 }
 

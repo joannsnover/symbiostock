@@ -45,6 +45,10 @@ get_header(); ?>
         
     </a><br /><br />
     <p><a title="Symbiostock, the Stock Photography Network" href="http://www.symbiostock.com/">Symbiostock</a> is a network of independent photographers and illustrators.<br />Browse our network to find the high quality images you are looking for. <br /><br />The network contributor results below are automatically generated for your convenience.</p>
+    
+    <h4>Community News / Activity</h4>
+    <?php symbiostock_community_activity(); ?>
+    
     </div>
     <div class="clearfix"><br /></div>
     <hr />

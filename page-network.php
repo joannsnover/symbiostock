@@ -17,8 +17,8 @@ Template Name: Network - Associated
 get_header(); ?>
         <div class="row">
     
-            <div id="primary" class="panel panel-default content-area col-md-6">
-                <div id="content" class="panel-body site-content" role="main">
+            <div id="primary" class="panel-default content-area col-md-6">
+                <div id="content" class="site-content" role="main">
                 <?php
                 //add support for YOAST SEO
                 if ( function_exists('yoast_breadcrumb') ) {
@@ -41,11 +41,13 @@ get_header(); ?>
                 
                 <?php endwhile; // end of the loop. ?>
                 
-                <?php
-                $networks = new network_manager();
-                $networks->list_all_networks();
+
+                    <?php
+                    $networks = new network_manager();
+                    $networks->list_all_networks();
+                    ?>
+
                 
-                ?>
                     <div class="clearfix"><br /></div>
                     <hr />
                     <div class="alert alert-info ">
@@ -67,18 +69,20 @@ get_header(); ?>
             </div><!-- #primary .content-area -->
                 
             <div class="col-md-6">
-            <h2>
-                <a target="_blank" title="Symbiostock Community Activity" href="http://www.symbiostock.org">
-                Symbiostock Community Activity
-                </a>
-            </h2>
-            <?php 
-            
-                symbiostock_community_activity();
-            
-            ?>           
-                        
-            
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a target="_blank" title="Symbiostock Community Activity" href="http://www.symbiostock.org">
+                            Symbiostock Community News and Activity
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="panel-body">
+                    <?php 
+                        symbiostock_community_activity();
+                    ?>           
+                    </div>
+                </div>
             </div>
         </div>        
 <?php get_footer(); ?>

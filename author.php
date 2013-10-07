@@ -13,7 +13,7 @@
 get_header(); ?>
         <div class="row">
     
-            <div id="primary" class="content-area span7">
+            <div id="primary" class="content-area col-md-7">
                 <div id="content" class="site-content" role="main">
                 
                 <?php
@@ -22,16 +22,28 @@ get_header(); ?>
                 yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span><hr />');
                 } ?>                   
                     
+
                     <?php symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = false) ?>
+
+                    <?php if(is_dynamic_sidebar( 'Home Page (Above Content)' )): ?>
+                    <div class="panel panel-default">
+                    <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
+                    </div>
+                    <?php endif; ?>                    
                     
-                    <?php dynamic_sidebar( 'Author Page (Below Content)' ) ?>
     
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
         
         
             <div class="col-md-5">
+
+            <?php if(is_dynamic_sidebar( 'Author Page (Sidebar)' )): ?>
+            <div class="panel panel-default">
             <?php dynamic_sidebar( 'Author Page (Sidebar)' ) ?>
+            </div>
+            <?php endif; ?>              
+            
             </div>
         </div>        
 <?php get_footer(); ?>

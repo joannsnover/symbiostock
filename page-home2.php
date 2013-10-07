@@ -29,15 +29,42 @@ get_header(); ?>
     
                 </div><!-- #content .site-content -->            
           
-            <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
             
-            <div class="call-to-actions row">
+            <?php if(is_dynamic_sidebar( 'Home Page (Below Content)' )): ?>
+                <div class="panel panel-default">
+                <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
+                </div>
+            <?php endif; ?> 
             
-            <?php dynamic_sidebar( 'Home Page Bottom Row 1/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 2/3' ) ?>
-            <?php dynamic_sidebar( 'Home Page Bottom Row 3/3' ) ?>
+            <?php if(                     
+                     is_active_sidebar( 'cta-1' ) ||
+                     is_active_sidebar( 'cta-2' ) ||
+                     is_active_sidebar( 'cta-3' )
+                     ): ?>
             
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-1' ) ?>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-2' ) ?>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                    <?php dynamic_sidebar( 'cta-3' ) ?>
+                    </div>
+                </div>
+                
             </div>
+            
+            <?php endif; ?>
          
             </div><!-- #primary .content-area -->
         

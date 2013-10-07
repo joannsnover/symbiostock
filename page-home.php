@@ -28,7 +28,11 @@ get_header(); ?>
             
             
           
-            <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
+            <?php if(is_dynamic_sidebar( 'Featured Posts (Below Content)' )): ?>
+                <div class="panel panel-default">
+                <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
+                </div>
+            <?php endif; ?> 
          
             </div><!-- #primary .content-area -->
         

@@ -59,7 +59,7 @@ class symbiostock_featured_images extends WP_Widget{
         
         echo $before_widget;
         
-        if ( !empty( $title ) ) echo $before_title . $title . $after_title;
+        if ( !empty( $title ) ) echo $before_title . '<i class="icon-star-empty"> </i> ' . $title . $after_title;
         
         $featured_images_id = get_option('symbiostock_featured_images', '');
         
@@ -86,7 +86,7 @@ class symbiostock_featured_images extends WP_Widget{
         $featuredWidget = new WP_Query($args);
         
         ?>
-<div class="row  panel-body">
+<div class="row  ">
     <?php 
         
         while ( $featuredWidget->have_posts() ) : 
@@ -178,7 +178,7 @@ class symbiostock_latest_images extends WP_Widget{
         
         echo $before_widget;
         
-        if ( !empty( $title ) ) echo $before_title . $title . ' ' . symbiostock_feed('rss_url', 'icon', 'new-images') . $after_title;
+        if ( !empty( $title ) ) echo $before_title . '<i class="icon-eye-open"> </i> ' .  $title . ' ' . symbiostock_feed('rss_url', 'icon', 'new-images') . $after_title;
                 
         $args = array(        
             'post_type' => 'image',       
@@ -188,7 +188,7 @@ class symbiostock_latest_images extends WP_Widget{
         $featuredWidget = new WP_Query($args);
         
         ?>
-<div class="row  panel-body">
+<div class="row  ">
     <?php 
         
         while ( $featuredWidget->have_posts() ) : 
@@ -199,12 +199,8 @@ class symbiostock_latest_images extends WP_Widget{
         <div class="inner-latest">
             <div class="thumb"> <a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>">
                 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(  ); } ?>
-                </a> </div>
-            
-            <p class="entry-date"><i class="icon-calendar"> </i>
-                <?php the_time('F j, Y'); ?>
-            </p>
-            
+                </a> 
+            </div>
         </div>
     </div>
     <?php
@@ -723,7 +719,7 @@ class symbiostock_network_directory extends WP_Widget{
 }
 register_widget( 'symbiostock_network_directory' );
 
-//similar images widget STILL UNDER CONSTRUCTION
+//similar images widget 
 
 class symbiostock_similar_images extends WP_Widget{
     
@@ -785,7 +781,7 @@ class symbiostock_similar_images extends WP_Widget{
             echo $before_widget;
     
         if ( !empty( $title ) )
-            echo $before_title . $title . $after_title;
+            echo $before_title . '<i class="icon-bullseye"> </i> ' .  $title . $after_title;
         
         //this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin        
                                     
@@ -810,7 +806,7 @@ class symbiostock_similar_images extends WP_Widget{
                 $related_images = km_rpbt_related_posts_by_taxonomy( $post->ID, $taxonomies, $args  );
             }        
                 
-            ?> <div class="panel-body"> <?php
+            ?> <div class=""> <?php
             if($related_images){
                 foreach ( (array) $related_images as $image ) {    
                 

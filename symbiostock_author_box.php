@@ -45,6 +45,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         $schema = '';
         $creator_credits = 'author contributor copyrightHolder creator name';
         $bio = '';
+        $panel_info = '';
+        $panel_body = 'panel-body';
     } elseif($compact ==true && $attribution == false){
         
         $links = 'dropdown-menu';    
@@ -54,7 +56,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         $schema = '';
         $creator_credits = '';
         $bio = '';
-        
+        $panel_info = 'panel';
+        $panel_body = '';
     } else {        
     
         $links = 'nav nav-list';    
@@ -64,16 +67,21 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         $schema = 'itemtype="http://schema.org/CreativeWork"';
         $creator_credits = 'givenName name';
         $bio = 'itemprop="description"';
+        $panel_info = 'panel panel-info';
+        $panel_body = 'panel-body';
     }
     
         
     ?>
  
-    <div <?php echo $schema; ?> class="author-bio contributor vcard col-md-12">        
-        <div class="symbiostock_author_info col-md-7">
-            <div class="author-name">
-            <span itemprop="<?php echo $creator_credits ?>" ><a class="ssref" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
-            </div>
+    <div <?php echo $schema; ?> class="author-bio contributor vcard <?php echo $panel_info ?>">        
+
+        <div class="author-name panel-heading">
+            <span class="panel-title" itemprop="<?php echo $creator_credits ?>" ><a class="ssref" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
+        </div>
+        
+        <div class="symbiostock_author_info col-md-7 <?php echo $panel_body ?>">
+
             <div class="bio-container">                        
                 <p <?php echo $bio; ?>><?php
                 
@@ -112,7 +120,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 } else {$temp_location_2 = '';}        
                     
             ?>
-            <div id="<?php echo $id ?>" class="accordion">            
+            <div id="<?php echo $id ?>" class="panel-group accordion">            
                 <!--author important links-->  
                 <div class="accordion-group">
                     <div class="accordion-heading">
@@ -274,14 +282,15 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                         </table>
                         <div class=row>
                         
-                        <a class="btn btn-large col-md-12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
+                        <a class="btn btn-primary btn-large col-md-12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
                         </div>
                     </div>
                 </div>              
             </div>
             <?php endif; ?> 
-        </div>
-        <div class="symbiostock_author_avatar col-md-5">
+        </div>        
+
+        <div class="symbiostock_author_avatar panel-body col-md-5">
             
             <?php         
             

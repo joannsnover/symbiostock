@@ -177,33 +177,37 @@ add_action( 'after_setup_theme' , 'symbiostock_setup' );
  */
 function symbiostock_widgets_init()
 {
+    
 
     register_sidebar( 
             array( 
-                    'name' => __( 'Sidebar' , 'symbiostock' ),
-                    'id' => 'sidebar-1',
-                    'before_widget' => '<div class="panel panel-default"><aside id="%1$s" class="widget %2$s">',
-                    'after_widget' => '</div></aside>',
-                    'before_title' => '<h1 class="panel-heading widget-title panel-heading">',
-                    'after_title' => '</h1>', ) );
+                    'name'          => __( 'Sidebar' , 'symbiostock' ),
+                    'id'            => 'sidebar-1',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="panel-body"><aside id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '</aside></div>',
+                    'before_title'  => '<div class="panel-heading"><h3 class="panel-title widget-title">',
+                    'after_title'   => '</h3></div>', ) );
 
     //Home page, above content area (typically for a slide show)
     register_sidebar( 
             array( 
                     'name' => __( 'Home Page (Above Content)' , 'symbiostock' ),
-                    'id' => 'home-page-above-content',
-                    'before_widget' => '<div class="panel panel-default home-above-content"><aside id="%1$s" class="widget %2$s">',
+                    'id' => 'home-page-above-content',   
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="panel-body home-above-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class=" panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
     //home page beside content area, such as for a sidebar type content, or CTA
     register_sidebar( 
             array( 
                     'name' => __( 'Home Page (Beside Content)' , 'symbiostock' ),
                     'id' => 'home-page-beside-content',
-                    'before_widget' => '<div class="panel panel-default home-beside-content"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="panel-body home-beside-content widget %2$s"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class=" panel-heading"><h3 class="panel-title featured-posts">',
                     'after_title' => '</h3></div>', ) );
 
     //Home page below content (for featured images)        
@@ -211,36 +215,40 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Home Page (Below Content)' , 'symbiostock' ),
                     'id' => 'home-page-below-content',
-                    'before_widget' => '<div class="col-md-12 panel panel-default home-below-content"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class=" panel-body home-below-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside><br class="clearfix" /></div>',
-                    'before_title' => '<div class="row panel-heading"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class=" panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
 
     //Call To Action Widgets
     register_sidebar( 
             array( 
-                    'name' => __( 'Home Page Bottom Row 1/3' , 'symbiostock' ),
+                    'name' => __( 'Home Page Bottom  1/3' , 'symbiostock' ),
                     'id' => 'cta-1',
-                    'before_widget' => '<div class="symbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="symbiostock-cta panel-body"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
     register_sidebar( 
             array( 
-                    'name' => __( 'Home Page Bottom Row 2/3' , 'symbiostock' ),
+                    'name' => __( 'Home Page Bottom  2/3' , 'symbiostock' ),
                     'id' => 'cta-2',
-                    'before_widget' => '<div class=" ymbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="symbiostock-cta panel-body"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
     register_sidebar( 
             array( 
-                    'name' => __( 'Home Page Bottom Row 3/3' , 'symbiostock' ),
+                    'name' => __( 'Home Page Bottom  3/3' , 'symbiostock' ),
                     'id' => 'cta-3',
-                    'before_widget' => '<div class="symbiostock-cta col-md-4"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="symbiostock-cta panel-body"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3>',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
 
     //author page widgets 
 
@@ -249,17 +257,19 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Author Page (Below Content)' , 'symbiostock' ),
                     'id' => 'author-page-below-content',
-                    'before_widget' => '<div class="col-md- author-below-content"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="panel-body author-below-content"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
     register_sidebar( 
             array( 
                     'name' => __( 'Author Page (Sidebar)' , 'symbiostock' ),
                     'id' => 'author-page-sidebar',
-                    'before_widget' => '<div class="col-md- author-sidebar"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div  class="panel-body author-sidebar"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<div class="row"><h3 class="featured-posts col-md-12">',
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
 
     //image page widget areas    
@@ -268,33 +278,37 @@ function symbiostock_widgets_init()
             array( 
                     'name' => __( 'Image Page Side' , 'symbiostock' ),
                     'id' => 'image-page-side',
-                    'before_widget' => '<div class="image_page_side panel panel-default image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="image_page_side panel-body image-page-widget-side"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3 class="panel-heading">',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
 
     register_sidebar( 
             array( 
                     'name' => __( 'Image Page Bottom' , 'symbiostock' ),
                     'id' => 'image-page-bottom',
-                    'before_widget' => '<div class="image_page_bottom panel panel-default  image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="image_page_bottom panel-body  image-page-widget-bottom"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3 class="panel-heading">',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
 
     register_sidebar( 
             array( 
                     'name' => __( 'Image Page Bottom Fullwidth' , 'symbiostock' ),
                     'id' => 'image-page-bottom-fullwidth',
-                    'before_widget' => '<div class="image_page_bottom_fullwidth panel panel-default  col-md-12 image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
+                    'class'         => 'panel-body',
+                    'before_widget' => '<div class="image_page_bottom_fullwidth panel-body   image-page-widget-bottom-fullwidth"><aside id="%1$s" class="widget %2$s">',
                     'after_widget' => '</aside></div>',
-                    'before_title' => '<h3 class="panel-heading">',
-                    'after_title' => '</h3>', ) );
+                    'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
+                    'after_title' => '</h3></div>', ) );
     //footer sidebars
 
     register_sidebar( 
             array( 
                     'name' => 'Footer 1/3',
+                    'class'         => 'panel-body',
                     'before_widget' => '<div class="footer_section col-md-4">',
                     'after_widget' => "</div>\n",
                     'before_title' => '',
@@ -303,6 +317,7 @@ function symbiostock_widgets_init()
     register_sidebar( 
             array( 
                     'name' => 'Footer 2/3',
+                    'class'         => 'panel-body',
                     'before_widget' => '<div class="footer_section col-md-4">',
                     'after_widget' => "</div>\n",
                     'before_title' => '',
@@ -311,6 +326,7 @@ function symbiostock_widgets_init()
     register_sidebar( 
             array( 
                     'name' => 'Footer 3/3',
+                    'class'         => 'panel-body',
                     'before_widget' => '<div class="footer_section col-md-4">',
                     'after_widget' => "</div>\n",
                     'before_title' => '',
@@ -940,7 +956,7 @@ function symbiostock_truncate( $string, $limit, $break = ".", $pad = "..." )
 function symbiostock_community_activity()
 {
 
-    $rss = fetch_feed( 'http://www.symbiostock.org/feed/rss/' );
+    $rss = fetch_feed( 'http://www.symbiostock.org/feed/rss/news/' );
 
     if ( !is_wp_error( $rss ) ) :
         $maxitems = $rss->get_item_quantity( 10 );

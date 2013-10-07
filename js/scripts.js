@@ -207,7 +207,21 @@ jQuery(document).ready(function ($) {
 	    	symbiostock_adjust_body_padding();
 	    	
 	    }); 
-    }
-  
+    }   
+    
+    //a small fix to compensate for wordpress's widget layout in regards to bootstrap 3 nesting requirements
+	$(function(){
+		$('.panel-heading').each(function(){
+		$(this).insertBefore($(this).closest('.panel-body'));
+		});
+	});
+	
+	//add some classes to lists in sidebar
 
+	$(function(){
+		$('#secondary ul').addClass('nav nav-pills nav-stacked');
+		$('#secondary li').addClass('');
+		
+	});
+	
 });
