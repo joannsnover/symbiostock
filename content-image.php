@@ -114,17 +114,23 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                 </div>
                                 
                
-                <?php 
-                if(is_active_sidebar( 'image-page-bottom' )): 
-                ?>
+                <?php
+                if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
                 
-                <div class="panel panel-default">                
-                <?php    
-                //get bottom sidebar
-                dynamic_sidebar( 'image-page-bottom' );                
+                    if(is_active_sidebar( 'image-page-bottom' )):                 
+                
+                    ?>
+                    
+                    <div class="panel panel-default">                
+                    <?php    
+                    //get bottom sidebar
+                    dynamic_sidebar( 'image-page-bottom' );                
+                    ?>
+                    </div>
+                    <?php endif; 
+                    
+                endif;
                 ?>
-                </div>
-                <?php endif; ?>
                               
             </div>
         </header>
@@ -153,12 +159,16 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         do_action( 'ss_before_img_page_sidebar', $symbiostock_post_meta ); 
         
         
-        if(is_active_sidebar( 'image-page-side' )): 
-        ?><div class="panel panel-default"><?php
-                      
-        dynamic_sidebar( 'image-page-side' );
+        if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
         
-        ?></div><?php 
+            if(is_active_sidebar( 'image-page-side' )): 
+            ?><div class="panel panel-default"><?php
+                          
+            dynamic_sidebar( 'image-page-side' );
+            
+            ?></div><?php 
+            endif;
+        
         endif;
         
         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_sidebar';
@@ -202,18 +212,22 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
 $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_bottom_widget';
 do_action( 'ss_before_img_page_bottom_widget', $symbiostock_post_meta ); 
 
-if(is_active_sidebar( 'image-page-bottom-fullwidth' )): 
-?>
-<div class="col-md-12">
-    <div class="panel panel-default"><?php
-    
-    dynamic_sidebar( 'image-page-bottom-fullwidth' );
-    
+if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
+
+    if(is_active_sidebar( 'image-page-bottom-fullwidth' )): 
     ?>
+    <div class="col-md-12">
+        <div class="panel panel-default"><?php
+        
+        dynamic_sidebar( 'image-page-bottom-fullwidth' );
+        
+        ?>
+        </div>
     </div>
-</div>
-<?php
-endif; 
+    <?php
+    endif; 
+
+endif;
 
 $symbiostock_post_meta['caller_action'] = 'ss_after_image_page';
 do_action( 'ss_after_image_page', $symbiostock_post_meta ); ?>  
