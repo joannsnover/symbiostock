@@ -3,6 +3,7 @@
 	padding-left: 20px;	
 }
 
+
 #ss_primary_search {
 	z-index: 5000;
 }
@@ -15,8 +16,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section
 ol,ul {
 	list-style: none;
 }
-
-
 
 table { /* tables still need 'cellspacing="0"' in the markup */
 	
@@ -135,25 +134,11 @@ body {
 	text-rendering: optimizelegibility;			
 }
 
-
-
-footer.site-footer {
-	background-color: #111;
-	border-top: 7px solid #333;
-	padding: 20px 20px;
-	color: #E6E6E6;
-}
-
 footer .footer_section {
-	padding: 10px;
-	margin-bottom: 10px;
 }
 
 footer .footer_info {
-	padding: 10px 0;
-	margin: 10px 0;
 	text-align: center;
-	border: 1px solid #333;
 }
 
 .tags-links .icon-tag,.entry-meta .icon-tag {
@@ -596,7 +581,10 @@ SYMBIOSTOCK SEARCH RESULTS
 	height: 170px;
 	margin: 10px;
 }
-
+.widget .search-result {
+	height: 160px;
+	
+}
 .sscntrl {
 	display: none;
 	font-size: 18px;

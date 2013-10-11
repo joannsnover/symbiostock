@@ -7,30 +7,50 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
-?>
-    </div><!-- #main .site-main -->
-    </div>
-    
-<footer id="colophon" class="site-footer" role="contentinfo">
-       <div class="container footer-container">
-        <div class="site-info row">
-      
-            
-            <?php dynamic_sidebar('Footer 1/3'); ?>                      
-            
-            <?php dynamic_sidebar('Footer 2/3'); ?>            
-            
-            <?php dynamic_sidebar('Footer 3/3'); ?>
-            
-            <?php symbiostock_credit_links('footer'); ?>
-            </div>
+?>   
+            <footer id="colophon" class="well" role="contentinfo">   
+                <div class="row">
+                    <?php if(is_active_sidebar( 'footer-1-3' )): ?> 
+                    <div class="col-md-4">  
+                        <div class="panel">
+                            <?php dynamic_sidebar('footer-1-3'); ?>                      
+                        </div>
+                    </div>
+                    <?php endif; ?>
                     
-        </div><!-- .site-info -->
-    
-   <div class="footer_info">       
-               <?php symbiostock_website_copyright(); ?>               
-   </div>          
-</footer><!-- #colophon .site-footer -->
+                    <?php if(is_active_sidebar( 'footer-2-3' )): ?> 
+                    <div class="col-md-4"> 
+                        <div class="panel">
+                            <?php dynamic_sidebar('footer-2-3'); ?>            
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <?php if(is_active_sidebar( 'footer-3-3' )): ?> 
+                    <div class="col-md-4"> 
+                        <div class="panel">
+                            <?php dynamic_sidebar('footer-3-3'); ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    
+                    
+                    <div class="col-md-12">
+                    <?php symbiostock_credit_links('footer'); ?>
+                    </div>
+                                    
+                    
+                    <div class="col-md-12 footer_info">
+                        <div class="">       
+                        <?php symbiostock_website_copyright(); ?> 
+                        </div>              
+                    </div>                  
+                </div>                          
+            </footer><!-- #colophon .site-footer -->
+
+     </div><!-- #main .site-main -->
+</div>
+
 <?php get_template_part('modal-login'); ?>
 <?php wp_footer(); ?>
 

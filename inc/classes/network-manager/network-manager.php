@@ -1337,6 +1337,11 @@ class network_manager
     
     public function write_keyword_list(){
         
+        //determine if we can fetch keyword views
+        $views = false;        
+        if(function_exists('get_terms_meta'))
+            $views = true;
+        
         $args = array(
             'orderby'       => 'count', 
             'order'         => 'DESC',
@@ -1345,12 +1350,26 @@ class network_manager
         
         $term_list = array();
         
-        foreach ($terms as $term){            
-            array_push($term_list, array(
+        foreach ($terms as $term){ 
+            
+            $term_info = array(
                 'Name'  => $term->name, 
                 'Slug'  => $term->slug, 
-                'Count' => $term->count
-            ));                                
+                'Count' => $term->count,                    
+            );                        
+            
+            if($views == true){
+
+                $v = get_terms_meta($term->term_id, 'views');
+                
+                if(isset($v[0]) || !empty($v[0]) && is_numeric($v[0])){
+                    $term_info['Views'] = $v[0];
+                } else {
+                    $term_info['Views'] = 0;
+                }
+                
+            }            
+            array_push($term_list, $term_info);                              
         }
                 
                 
@@ -1414,6 +1433,8 @@ class network_manager
         else {
             $image_tags = get_query_var( 'image-tags' );
         }
+        
+        symbiostock_keyword_update($image_tags);
         
         //if this is a category page, then we set the value
         $category = get_query_var( 'image-type' );
@@ -1497,6 +1518,7 @@ class network_manager
                 'tax_query' => $tax_query, 
                 'order' => 'DESC',
             );
+            
             
         } //!is_post_type_archive( 'image' )
         elseif ( is_search() ) {            
@@ -2262,6 +2284,8 @@ function symbiostock_save_image_list_info( )
     $network_info->write_keyword_list();
 
 }
+
+
 
 //set up hourly fetching of symbiocards
 

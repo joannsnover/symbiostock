@@ -303,7 +303,7 @@ class symbiostock_cart
         //get cart link and amount
         $cart_value = '(' . $this->get_cart_value() . ')';  
 
-        $dl_label = get_option('symbiostock_download_button_name', 'DOWNLOAD');
+        $dl_label = get_option('symbiostock_download_button_name', 'CHECKOUT');
         
         echo symbiostock_customer_area( $dl_label . ' ' . $cart_value, true);
         

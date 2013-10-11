@@ -8,7 +8,7 @@
  * @since symbiostock 1.0
  */
  
- 
+
 //we must determine if this search is for a human or remote site
 //this MUST be placed before we instantiate our search class
 //instantiate counter class for search result ids
@@ -31,6 +31,8 @@ get_header(); ?>
             <div id="content" class="site-content search_page search-results col-md-12" role="main">
             
             <?php
+
+            
             echo '<h1 class="results_for">Results for "' . ucwords(urldecode( get_query_var('image-tags'))) . '"  '.symbiostock_feed('rss_url','icon', 'image-tags').'</h1>';
             
             $local_results->display_results(false);

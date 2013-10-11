@@ -10,7 +10,7 @@
  *
  * @since symbiostock 1.0
  */
-
+error_reporting ( E_ERROR );
 ini_set( 'display_errors' , 1 );
 
 //trash the admin bar if not admin...
@@ -80,8 +80,21 @@ function symbiostock_installer()
      * Install Theme Databases..
      */
     require( get_template_directory( ) . '/inc/installer/installer.php' );
-
+    
+    
 }
+
+/**
+ * Include the TGM_Plugin_Activation class.
+ */
+
+require_once ( get_template_directory( ) . '/inc/classes/class-tgm-plugin-activation.php' );
+
+/**
+ * Activate Plugins.
+ */
+require_once ( get_template_directory( ) . '/inc/plugin_install_list.php' );
+
 
 if ( !isset( $content_width ) )
     $content_width = 640;
@@ -308,29 +321,32 @@ function symbiostock_widgets_init()
     register_sidebar( 
             array( 
                     'name' => 'Footer 1/3',
+                    'id' => 'footer-1-3',
                     'class'         => 'panel-body',
-                    'before_widget' => '<div class="footer_section col-md-4">',
+                    'before_widget' => '<div class="panel-body footer_section">',
                     'after_widget' => "</div>\n",
-                    'before_title' => '',
-                    'after_title' => "", ) );
+                    'before_title' => '<div class="panel-heading"><h6 class="panel-title">',
+                    'after_title' => '</h6></div>', ) );                    
 
     register_sidebar( 
             array( 
                     'name' => 'Footer 2/3',
+                    'id' => 'footer-2-3',
                     'class'         => 'panel-body',
-                    'before_widget' => '<div class="footer_section col-md-4">',
+                    'before_widget' => '<div class="panel-body footer_section">',
                     'after_widget' => "</div>\n",
-                    'before_title' => '',
-                    'after_title' => "", ) );
+                    'before_title' => '<div class="panel-heading"><h6 class="panel-title">',
+                    'after_title' => '</h6></div>', ) );
 
     register_sidebar( 
             array( 
                     'name' => 'Footer 3/3',
+                    'id' => 'footer-3-3',
                     'class'         => 'panel-body',
-                    'before_widget' => '<div class="footer_section col-md-4">',
+                    'before_widget' => '<div class="panel-body footer_section">',
                     'after_widget' => "</div>\n",
-                    'before_title' => '',
-                    'after_title' => "", ) );
+                    'before_title' => '<div class="panel-heading"><h6 class="panel-title">',
+                    'after_title' => '</h6></div>', ) );
 
 }
 add_action( 'widgets_init' , 'symbiostock_widgets_init' );
@@ -1020,6 +1036,9 @@ function symbiostock_wp_query_vars( $qvars )
     $qvars[ ] = 'symbiostock_network_search'; //is this a network query?
     $qvars[ ] = 'symbiostock_network_info'; //do we want network info?
     $qvars[ ] = 'symbiostock_number_results'; //how many search results do we want?
+    
+    $qvars[ ] = 'r'; //r is for "referrer"
+    $qvars[ ] = 'image-tags'; //for our keyword system
 
     $qvars[ ] = 'paypal_return_message'; //if returning from paypal, we show a message in user area
     $qvars[ ] = 'page';
@@ -1291,7 +1310,7 @@ function symbiostock_website_copyright()
             get_option( 'symbiostock_copyright_name' , '' ) );
 
     ?>
-    <p class="muted">    
+    <p class="text-muted">    
     Copyright &copy;
     <?php $the_year = date( "Y" );
     echo $the_year; ?>
@@ -1306,7 +1325,7 @@ function symbiostock_website_copyright()
     if ( empty( $theme_credit ) || $theme_credit == 'on' )
     {
     ?>
-        <div class="muted">
+        <div class="text-muted">
             <strong>Stock image</strong> and <strong>networking</strong> platform <a href="http://www.symbiostock.com/">SYMBIOSTOCK</a>, by the maker of <a href="http://www.clipartillustration.com/">ClipArtIllustration.com</a>
         </div>    
         <?php
@@ -3009,3 +3028,11 @@ function symbiostock_info_sitelist(){
         return $sitelist;
     
 }
+
+/**
+ * Keyword Analytics
+ */ 
+
+require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
+
+?>

@@ -124,7 +124,7 @@ if( $bootstrap_search_menu_type != '' ) {
     <header id="masthead" class="site-header" role="banner">
         
         <div class="row symbiostock_branding">
-            <div class="col-md-6">    
+            <div class="symbiostock_logo">    
                 <hgroup>                    
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'description' ); ?>" class="logo" src ="<?php echo get_option( 'symbiostock_logo_link', symbiostock_LOGO ); ?>" /></a>
                 </hgroup> 

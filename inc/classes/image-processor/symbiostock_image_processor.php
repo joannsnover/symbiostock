@@ -20,7 +20,7 @@ function symbiostock_get_meta($file){
         
         //Metadata toolkit throws annoying errors that may not be necessary to see...so turn off errors for this function
         error_reporting ( 0 );
-    // Retrieve the header information
+        // Retrieve the header information
         $jpeg_header_data = get_jpeg_header_data( $file );
         
         // Retreive the EXIF, XMP and Photoshop IRB information from

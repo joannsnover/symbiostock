@@ -251,35 +251,7 @@ if(!get_post($check_page)){
 //create new link category for Symbiostock and start populating it with useful stuff...
 include_once('taxonomies_and_links.php');
 //---------------------------------------------------------------------------------------
-// Include the plugin.php file so you have access to the activate_plugin() function
-require_once(ABSPATH .'/wp-admin/includes/plugin.php');
-require_once(ABSPATH .'/wp-admin/includes/file.php');
-$symbiostock_plugin_path = ABSPATH . 'wp-content/plugins/';
-//install the Symbiostock Emailer Plugin
-$symbiostock_emailer =  dirname(__FILE__) . '/symbiostock_emailer.php';
-if (!copy($symbiostock_emailer, $symbiostock_plugin_path . 'symbiostock_emailer.php')) {
-    echo "failed to copy emailer plugin.";
-}
-activate_plugin($symbiostock_plugin_path . 'symbiostock_emailer.php');
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
-//install the related-posts-by-taxonomy plugin
-//http://wordpress.org/support/topic/custom-query-related-posts-by-common-tag-amount
-//http://wordpress.org/extend/plugins/related-posts-by-taxonomy/
-$related_posts_plugin =  dirname(__FILE__) . '/related-posts-by-taxonomy.zip';
-WP_Filesystem();
-unzip_file( $related_posts_plugin, $symbiostock_plugin_path  );
 
-activate_plugin($symbiostock_plugin_path . 'related-posts-by-taxonomy/related-posts-by-taxonomy.php');
-
-//move uploads directory
-//we create a new upload directory due to some strange new issue regarding the original directory being randomnly blocked.
-//wordpress.org/support/topic/theme-directory-blocked-off-from-public-access
-if(!is_dir(WP_CONTENT_DIR.'/plupload.zip')){
-    unzip_file( dirname(__FILE__) . '/plupload.zip', WP_CONTENT_DIR );
-}
-
-//---------------------------------------------------------------------------------------
 //notify Symbiostock of successful deployment
 
 $headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';
@@ -288,6 +260,8 @@ $message = get_site_url() . "<br />" . $theme_version . '<br />' . date("F d, Y 
 $message .= '<br /><br />
 To ensure best network performance and SEO, fill out all info: 
 <br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
+
+$message .= '<br /><br />Get Suggested Plugins: <a title="Customize" href="' . get_home_url() . '/wp-admin/themes.php?page=install-required-plugins">Acquire and Activate</a>';
 
 $message .= '<br /><br />Customize your site live: <a title="Customize" href="' . get_home_url() . '/wp-admin/customize.php">Customize</a>';
 

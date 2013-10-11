@@ -37,7 +37,7 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
     
     //check to see if user has purchased product, if so, proceed
     
-    if ( isset( $user_products[ intval($file_and_selection[ 0 ]) ] [ 'size_name' ][ $file_and_selection[ 1 ] ] ) ) {
+    if ( $user_products[ $file_and_selection[ 0 ] ][ 'size_name' ] == $file_and_selection[ 1 ] ) { 
         
         $selection = $file_and_selection[ 1 ];
         

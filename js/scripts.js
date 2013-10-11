@@ -216,11 +216,12 @@ jQuery(document).ready(function ($) {
 		});
 	});
 	
-	//add some classes to lists in sidebar
+	//add some classes to elements to take advantage of bootstrap 3 (cuts down on stylesheet size)
 
 	$(function(){
-		$('#secondary ul').addClass('nav nav-pills nav-stacked');
-		$('#secondary li').addClass('');
+		$('#secondary ul').addClass('nav nav-pills nav-stacked');		
+		$('input, select, input[type=password], textarea').addClass('form-control');
+		$('input[type=submit], input[type=reset], input[type=button]').addClass('btn btn-default form-control');
 		
 	});
 	
