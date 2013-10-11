@@ -11,7 +11,7 @@
  * @since symbiostock 1.0
  */
 error_reporting ( E_ERROR );
-ini_set( 'display_errors' , 1 );
+
 
 //trash the admin bar if not admin...
 if(!is_admin){
@@ -3033,6 +3033,6 @@ function symbiostock_info_sitelist(){
  * Keyword Analytics
  */ 
 
-require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
+//require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
 
 ?>
