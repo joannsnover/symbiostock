@@ -81,12 +81,11 @@ function symbiostock_mobile_menu(){
 add_action('init', 'register_symbiostock_menus'); 
 function register_symbiostock_menus()
 {
-    register_nav_menus(array( // Using array to specify more menus if needed
-        'above-header-menu' => 'Above Header Menu', // Extra Navigation if needed (duplicate as many as you need!)
+    register_nav_menus(array( // Using array to specify more menus if needed        
         'header-menu' => 'Header Menu', // Main Navigation
-        'sidebar-menu' => 'Sidebar Menu', // Sidebar Navigation     
-        
-        'mobile-navigation' => 'Mobile Navigation' // Mobile Navigation. Found in footer, clones to header based on browser width.      
+        'above-header-menu' => 'Account/Cart Menu', // Extra Navigation if needed (duplicate as many as you need!)
+        'sidebar-menu' => 'Sidebar Menu', // Sidebar Navigation            
+    
     ));
 }
  

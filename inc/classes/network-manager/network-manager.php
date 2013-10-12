@@ -604,9 +604,7 @@ class network_manager
                 
                 $file = symbiostock_NETDIR . $dir . $site;
                 
-                symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );
-                
-                echo '<hr class="clearfix" />';
+                symbiostock_csv_symbiocard_box( $file, $compact, 'symbiostock_author_' . $count );  
                 
                 $count++;
             } //$sites[ 0 ] as $site

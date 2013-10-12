@@ -77,7 +77,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_author_box';
                         do_action( 'ss_after_img_page_author_box', $symbiostock_post_meta ); 
                         ?> 
-                        <hr />
+                        
                         <span class="date updated text-muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>                    
                         <!-- .entry-content -->
                         <?php 

@@ -3033,6 +3033,6 @@ function symbiostock_info_sitelist(){
  * Keyword Analytics
  */ 
 
-//require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
+require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
 
 ?>

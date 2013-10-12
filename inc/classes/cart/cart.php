@@ -152,7 +152,7 @@ class symbiostock_cart
     public function product_option( $extension, $name )
     {
         $product_id = $this->product_info[ 'id' ];
-        
+        $data_price = $this->product_info['price_' . $name];
         $size = $this->option_count++;
         
         $this->number_size[ $size ] = $name;
@@ -174,7 +174,7 @@ class symbiostock_cart
         //check our availability options    
         if(isset($this->product_info['symbiostock_' . $name . '_available'][0]) && $this->product_info['symbiostock_' . $name . '_available'][0] == 'no_select'){ $state="disabled"; } else { $state = '';}
         
-        $option = '<label class="radio" for="' . $field_id . '"><input ' . $in_cart[ 0 ] . 'type="radio" value="' . $field_id . '" id="' . $field_id . '" ' . $input_attrs  . ' ' . $state . ' />' . ucwords( $name ) . '</label>';
+        $option = '<label class="radio" for="' . $field_id . '"><input data-price="'.$data_price[0].'" ' . $in_cart[ 0 ] . 'type="radio" value="' . $field_id . '" id="' . $field_id . '" ' . $input_attrs  . ' ' . $state . ' />' . ucwords( $name ) . '</label>';
        
         
         //add on other elements (invisible) this way...
