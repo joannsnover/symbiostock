@@ -1879,12 +1879,16 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
         // if disabled, results will be in network list order, but sometimes much slower
         $random_enabled = get_option( 'symbiostock_fast_network_display', 1 );
         $cache_enabled = get_option( 'symbiostock_cache_enabled', 1 );
-        $days = min( get_option('symbiostock_cache_days', 21), 60 );
-        $max_cache_count = get_option('symbiostock_cache_max_files', 50000);
+        $max_cache_count = get_option('symbiostock_cache_max_files', 60000);
         $max_cache_delete = get_option('symbiostock_cache_max_delete', 100);
 
-        $caching_time = $days * 24 * 3600;   // must be number of seconds
         $crawler = ajt_crawler_detect();
+	if ( $crawler == '' )
+	        $days = min( get_option('symbiostock_cache_days', 21), 60 );
+	else	
+                $days = 60;
+        $caching_time = $days * 24 * 3600;   // must be number of seconds
+        
 
         // let's delete old files once a day
         $log_file = ajt_cache_log_file_open(); // open file and lock
@@ -1910,10 +1914,6 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
         $mh = curl_multi_init();
         $next_to_show = 0;
         $site_count = count( $query_list );
-        if ( file_exists( ABSPATH . 'symbiostock_xml_cache/.cachelog' ) )
-            $last_log_time = filemtime( ABSPATH . 'symbiostock_xml_cache/.cachelog' );
-        else
-            $last_log_time = 0;
         for ( $count = 0; $count < $site_count; $count++ ) {
                   array_push( $result_list, '' );
                   $search_site = ajt_search_url ( $query_list[$count] );
@@ -1934,9 +1934,14 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                    else
                      ajt_cache_log_file_close( $log_file );
                      
-                   if ( $crawler != '' && $result_list[$count] == '' && ( $search_site && get_option( 'symbiostock_cached_results', 0 ) > 0 || $last_log_time + 1 > time() ) ) 
-                        $result_list[$count] = ajt_xml_no_results_found();    
-                        
+                  if ( $crawler != '' && $result_list[$count] == '' && $search_site ) {
+			$cached = get_option( 'symbiostock_cached_results', 0 );
+			if ( $crawler[0] == 'G' ) $level = 1;
+			else $level = 0;
+			if ( $cached > $level ) 
+                             $result_list[$count] = ajt_xml_no_results_found();    
+                   }
+
                    if ( $result_list[$count] == '' ) {
                          array_push( $ch, curl_init() );
                          curl_setopt( $ch[$count], CURLOPT_RETURNTRANSFER, true );
@@ -2026,10 +2031,12 @@ if ( ! function_exists( 'ajt_get_remote_xml' ) ) {
     function ajt_get_remote_xml( $url, $site = '' )
     {
 
-      $days = min( get_option('symbiostock_cache_days', 14), 90 );
-      $caching_time = $days * 24 * 3600;   // must be number of seconds
-
       $crawler = ajt_crawler_detect();
+      if ( $crawler == '' )
+	$days = min( get_option('symbiostock_cache_days', 21), 60 );
+      else	
+	$days = 60;
+      $caching_time = $days * 24 * 3600;   // must be number of seconds
 
       $key = ajt_make_cache_key_from_url( $url );
 
@@ -2116,7 +2123,7 @@ if ( ! function_exists( 'ajt_xml_no_results_found' ) ) {
 if ( ! function_exists( 'ajt_cache_log_file_open' ) ) {
     function ajt_cache_log_file_open( )
     {
-      $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog';
+      $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog' . date( '-Y-m' );
 
       if ( ! file_exists( $log_file_name ) )
          file_put_contents( $log_file_name, date('c') . "  cache log created\n" );
@@ -2183,7 +2190,7 @@ if ( ! function_exists( 'ajt_search_url' ) ) {
 if ( ! function_exists( 'ajt_crawler_detect' ) ) {
     function ajt_crawler_detect()
     {
-      $crawlers_names = "Googlebot|GoogleBot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider|Ezooms|SiteExplorer|bingbot";
+      $crawlers_names = "Googlebot|GoogleBot|msnbot|AhrefsBot|YandexBot|MJ12bot|Baiduspider|Ezooms|SiteExplorer|bingbot|BLEXBot|ScreenerBot|Crawler|archiver|SearchBot|TurnitinBot";
       $crawlers = explode( "|", $crawlers_names );
       foreach( $crawlers as $crawler )
         if ( strpos( $_SERVER['HTTP_USER_AGENT'], $crawler ) !== false )
