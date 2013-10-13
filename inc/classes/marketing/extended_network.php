@@ -33,21 +33,10 @@ if(isset($_POST['symbiostock_scan_network'])){
         
         $sitelist = symbiostock_info_sitelist();
         $spider = new network_manager();
-        if(is_array($sitelist)){
-            
-            foreach($sitelist as $site){
-                
-            echo 'Getting site: ' . $site . '...<br />';
-            
-            $spider->fetch_symbiocard( $site, true );
-            echo $spider->messages;
-            $spider->massages = '';
-            echo '<br />';
-                
-            }
-            
-        }
         
+        if(is_array($sitelist))
+            $spider->fetch_symbiocards( $sitelist, true );
+
     } else {                
  
         $spider = new network_manager();
