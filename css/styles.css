@@ -1,8 +1,7 @@
 .container {
 	padding-right: 20px;
-	padding-left: 20px;	
+	padding-left: 20px;
 }
-
 
 #ss_primary_search {
 	z-index: 5000;
@@ -132,10 +131,11 @@ a img.aligncenter {
 ----------------------------------------------- */
 body {
 	padding-top: 0;
-	text-rendering: optimizelegibility;			
+	text-rendering: optimizelegibility;
 }
 
 footer .footer_section {
+	
 }
 
 footer .footer_info {
@@ -147,7 +147,7 @@ footer .footer_info {
 }
 
 .carousel .carousel-control {
-
+	
 }
 /* Alignment */
 .alignleft {
@@ -175,33 +175,32 @@ footer .footer_info {
 }
 
 .site-header {
-
+	
 }
 /* =Menu
 ----------------------------------------------- */
-
 .main-navigation {
-
+	
 }
 
 .main-navigation ul {
-
+	
 }
 
 .main-navigation li {
-
+	
 }
 
 .main-navigation a {
-
+	
 }
 
 .mobile_menu {
-
+	
 }
 
 .mobile_menu form {
-
+	
 }
 
 .mobile_menu select {
@@ -391,31 +390,31 @@ SYMBIOSTOCK CONTENT
 }
 
 .home-content h1 {
-
+	
 }
 
 .home-content {
 	color: #666;
 }
-.symbiostock_author_avatar{
+
+.symbiostock_author_avatar {
 	text-align: right;
 }
 
-.ss-home-main{
-	margin-top: 20px;	
+.ss-home-main {
+	margin-top: 20px;
 }
+
 .ss-home-main .panel {
-	min-height: 260px;	
+	min-height: 260px;
 }
 
-.ss-home-featured .ss-home-minipic{
-	margin-bottom: 20px;	
+.ss-home-featured .ss-home-minipic {
+	margin-bottom: 20px;
 }
 
-.cta-cells .panel{
-	
+.cta-cells .panel {
 	min-height: 230px;
-	
 }
 
 /*--------------------------------------------------------------
@@ -513,7 +512,6 @@ SYMBIOSTOCK FEATURED POSTS
 	background-color: transparent;
 	margin: 0;
 	margin-bottom: 10px;
-
 }
 
 .widget_symbiostock_latest_images,.widget_symbiostock_featured_images {
@@ -598,10 +596,11 @@ SYMBIOSTOCK SEARCH RESULTS
 	height: 170px;
 	margin: 10px;
 }
+
 .widget .search-result {
 	height: 160px;
-	
 }
+
 .sscntrl {
 	display: none;
 	font-size: 18px;
@@ -669,7 +668,7 @@ SYMBIOSTOCK SEARCH RESULTS
 ----------------------------------------------- */
 .symbiostock-image a:link,.symbiostock-image a:visited,.symbiostock-image a:hover,.symbiostock-image a:active
 	{
-
+	
 }
 
 .symbiostock-image h1 {
@@ -829,5 +828,21 @@ embed,iframe,object {
 .bypostauthor {
 	
 }
-/* =Widgets
------------------------------------------------ */
+
+body.admin-bar {
+	margin-top: -28px;
+	padding-bottom: 28px;
+}
+
+#wpadminbar {
+	top: auto !important;
+	bottom: 0;
+}
+
+#wpadminbar .quicklinks>ul>li {
+	position: relative;
+}
+
+#wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
+	bottom: 28px;
+}
