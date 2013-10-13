@@ -67,7 +67,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
         $schema = 'itemtype="http://schema.org/CreativeWork"';
         $creator_credits = 'givenName name';
         $bio = 'itemprop="description"';
-        $panel_info = 'panel panel-info';
+        $panel_info = 'panel';
         $panel_body = 'panel-body';
     }
     
@@ -120,9 +120,10 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 } else {$temp_location_2 = '';}        
                     
             ?>
-            <div id="<?php echo $id ?>" class="panel-group accordion">            
+            <div id="<?php echo $id ?>" class="panel-group accordion">
+                <!-- PANEL OPEN -->           
                 <!--author important links-->  
-                <div class="accordion-group">
+                <div class="accordion-group ">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseOne_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-link">&nbsp;</i>  <span itemprop="address">Author </span></a>
                     </div>
@@ -285,7 +286,8 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                         <a class="btn btn-primary btn-large col-md-12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
                         </div>
                     </div>
-                </div>              
+                </div>
+                <!-- PANEL CLOSE -->                
             </div>
             <?php endif; ?> 
         </div>        

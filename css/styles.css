@@ -15,6 +15,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section
 
 ol,ul {
 	list-style: none;
+	padding-left: 10px;
 }
 
 table { /* tables still need 'cellspacing="0"' in the markup */
@@ -400,6 +401,22 @@ SYMBIOSTOCK CONTENT
 	text-align: right;
 }
 
+.ss-home-main{
+	margin-top: 20px;	
+}
+.ss-home-main .panel {
+	min-height: 260px;	
+}
+
+.ss-home-featured .ss-home-minipic{
+	margin-bottom: 20px;	
+}
+
+.cta-cells .panel{
+	
+	min-height: 230px;
+	
+}
 
 /*--------------------------------------------------------------
 SYMBIOSTOCK CART
@@ -814,98 +831,3 @@ embed,iframe,object {
 }
 /* =Widgets
 ----------------------------------------------- */
-.widget {
-	
-}
-/* Search widget */
-#searchsubmit {
-	display: none;
-}
-
-#commentform input[type=text],#commentform textarea {
-	width: 90%;
-}
-
-.form-allowed-tags code {
-	white-space: normal;
-}
-
-.standard-form#signup_form div.submit {
-	float: right;
-}
-
-.symbiostock_carousel_preview_container {
-	width: 590px;
-}
-
-.symbiostock_carousel_preview_container .item {
-	height: 590px;
-}
-
-.symbiostock_carousel_minipic_container {
-	width: 250px;
-}
-
-.symbiostock_carousel_minipic_container .item {
-	height: 250px;
-}
-
-.symbiostock_carousel_preview_container img,.symbiostock_carousel_minipic_container img
-	{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.symbiostock_carousel_preview {
-	
-}
-
-.network_results .carousel-indicators {
-	
-}
-
-.network_results .network_avatar {
-
-}
-
-.network_directory .author_container {
-	height: 250px;	
-	margin-bottom: 20px;
-	overflow: hidden;
-}
-
-.network_directory  .bio-container {
-	height: 130px;
-	overflow: hidden;
-}
-
-/* Bootstrap Overrides
------------------------------------------------ */
-.img-thumbnail {
-	display: inline-block;
-	height: auto;
-	max-width: 100%;
-	padding: 4px;
-	line-height: 1.428571429;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 0;
-	-webkit-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
-}
-
-body.admin-bar {
-        margin-top: -28px;
-        padding-bottom: 28px;
-    }
-    #wpadminbar {
-        top: auto !important;
-        bottom: 0;
-    }
-    #wpadminbar .quicklinks>ul>li {
-        position:relative;
-    }
-    #wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
-        bottom:28px;
-    }

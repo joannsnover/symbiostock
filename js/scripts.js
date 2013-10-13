@@ -136,34 +136,27 @@ jQuery(document).ready(function ($) {
     	
     	var price = $(this).data("price");
     	
-    	var c=confirm('Add size "' + $('input[name="product"]:checked').parent().text() + '" ('+price +') to cart?');
     	
-    	if(c){	    	
-	        var process = 'product_cart_action';
-	        var product_selection = $('input[name="product"]:checked').val();
-	        // Initialise the request
-	        $.post(ajaxurl, {
-	            action: 'symbiostock_process',
-	            product_selection: product_selection
-	        }, function (response) {
-	            $("#symbiostock_product_form").replaceWith(response);
-	        });
-	
-	        $('.license_area').pulsate({
-	            color: "#09f", // set the color of the pulse
-	            reach: 20, // how far the pulse goes in px
-	            speed: 1000, // how long one pulse takes in ms
-	            pause: 50, // how long the pause between pulses is in ms
-	            glow: false, // if the glow should be shown too
-	            repeat: 1, // will repeat forever if true, if given a number will repeat for that many times
-	            onHover: false // if true only pulsate if user hovers over the element
-	        });
-    	} else {
-    		
-    		return false;
-    		
-    	}
-        
+        var process = 'product_cart_action';
+        var product_selection = $('input[name="product"]:checked').val();
+        // Initialise the request
+        $.post(ajaxurl, {
+            action: 'symbiostock_process',
+            product_selection: product_selection
+        }, function (response) {
+            $("#symbiostock_product_form").replaceWith(response);
+        });
+
+        $('.license_area').pulsate({
+            color: "#09f", // set the color of the pulse
+            reach: 20, // how far the pulse goes in px
+            speed: 1000, // how long one pulse takes in ms
+            pause: 50, // how long the pause between pulses is in ms
+            glow: false, // if the glow should be shown too
+            repeat: 1, // will repeat forever if true, if given a number will repeat for that many times
+            onHover: false // if true only pulsate if user hovers over the element
+        });
+    
 
     });
     //remove item from cart...

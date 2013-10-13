@@ -13,7 +13,6 @@
             <input id="ss_primary_search" class="form-control field" type="text" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" id="s" placeholder="<?php esc_attr_e( 'Search &hellip;', 'symbiostock' ); ?>" />
             </div>
             <div class="form-group">
-            <input class="form-control submit" type="submit" name="submit" id="searchsubmit" value="<?php esc_attr_e( 'Search', 'symbiostock' ); ?>" />
             
             <?php 
             ss_image_blog_form_option();

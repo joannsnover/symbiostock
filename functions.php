@@ -126,6 +126,10 @@ if ( !function_exists( 'symbiostock_setup' ) ) :/**
          */        
         require_once('customizer.php');
         
+        /*
+         * Front Page Specific Setup 
+         */
+        require_once( get_template_directory( ) . '/inc/front_page_generator.php' );
         
         /**
          * WordPress.com-specific functions and definitions
