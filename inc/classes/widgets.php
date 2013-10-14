@@ -67,7 +67,9 @@ class symbiostock_featured_images extends WP_Widget{
                 
             $args = array(
             
-            'post_type' => 'image',       
+            'post_type' => 'image',
+            'order' => 'asc',
+            'orderby' => 'rand',                   
             'posts_per_page' => 4,
             'tax_query' => array(
                 array(
