@@ -230,6 +230,17 @@ jQuery(document).ready(function ($) {
         $('input[type=text], input[type=email], select, input[type=password], textarea').addClass('form-control');
         $('input[type=submit], input[type=reset], input[type=button]').addClass('btn btn-default form-control');
 
+    });   
+    
+    //correct category page parent child relationships
+    $('.ss-category-list').each(function() {
+    	
+    	$child = $(this).data('parent');
+    	
+    	if ( typeof $child !== 'undefined') {  
+    		$(this).insertAfter('#panel_list_'+$child);
+    	}
+        
     });
 
 });

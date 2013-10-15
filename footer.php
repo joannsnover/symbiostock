@@ -35,15 +35,18 @@
                     <?php endif; ?>
                     
                     
-                    <div class="col-md-12">
-                    <?php symbiostock_credit_links('footer'); ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <?php symbiostock_credit_links('footer'); ?>
+                        </div>
                     </div>
                                     
-                    
-                    <div class="col-md-12 footer_info">
-                        <div class="">       
-                        <?php symbiostock_website_copyright(); ?> 
-                        </div>              
+                    <div class="row">
+                        <div class="col-md-12 footer_info">
+                            <div class="">       
+                            <?php symbiostock_website_copyright(); ?> 
+                            </div>              
+                        </div>
                     </div>                  
                 </div>                          
             </footer><!-- #colophon .site-footer -->

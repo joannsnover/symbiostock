@@ -814,16 +814,14 @@ class symbiostock_similar_images extends WP_Widget{
                 
                 $attachment_id = get_post_meta($image->ID, 'symbiostock_minipic_id');
                 
-                ?>        
-                    <div class="widget-featured symbiostock-similar search-result">
-                        <div class="inner-featured">
-                            <div class="thumb">                           
-                                <a title="<?php echo $image->post_title; ?>" href="<?php echo get_permalink( $image->ID ); ?>">
-                                    <?php echo wp_get_attachment_image( $attachment_id[0] ); ?>
-                                </a> 
-                            </div>
-                        </div>
-                    </div>                
+                ?> 
+                    <div class="col-md-6">
+                        <div class="similars-container">                                                                            
+                        <a class="thumbnail" title="<?php echo $image->post_title; ?>" href="<?php echo get_permalink( $image->ID ); ?>">
+                            <?php echo wp_get_attachment_image( $attachment_id[0] ); ?>
+                        </a> 
+                        </div>                                            
+                    </div>   
                 <?php                 
                 }
                 

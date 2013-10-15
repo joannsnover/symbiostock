@@ -1,24 +1,10 @@
-.container {
-	padding-right: 20px;
-	padding-left: 20px;
-}
-
 #ss_primary_search {
 	z-index: 5000;
-}
-
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section
-	{
-	display: block;
 }
 
 ol,ul {
 	list-style: none;
 	padding-left: 10px;
-}
-
-table { /* tables still need 'cellspacing="0"' in the markup */
-	
 }
 
 caption,th,td {
@@ -43,9 +29,6 @@ a:hover,a:active {
 	outline: 0;
 }
 
-a img {
-	border: 0;
-}
 /* =WordPress Core
 -------------------------------------------------------------- */
 .alignnone {
@@ -134,10 +117,6 @@ body {
 	text-rendering: optimizelegibility;
 }
 
-footer .footer_section {
-	
-}
-
 footer .footer_info {
 	text-align: center;
 }
@@ -174,202 +153,14 @@ footer .footer_info {
 	position: absolute !important;
 }
 
-.site-header {
-	
-}
-/* =Menu
------------------------------------------------ */
-.main-navigation {
-	
-}
-
-.main-navigation ul {
-	
-}
-
-.main-navigation li {
-	
-}
-
-.main-navigation a {
-	
-}
-
-.mobile_menu {
-	
-}
-
-.mobile_menu form {
-	
-}
-
-.mobile_menu select {
-	
-}
-
-.main-navigation ul ul {
-	
-}
-
-.main-navigation ul ul ul {
-	
-}
-
-.main-navigation ul ul a {
-	
-}
-
-.main-navigation ul ul li {
-	
-}
-
-.main-navigation li:hover>a {
-	
-}
-
-.main-navigation ul ul :hover>a {
-	
-}
-
-.main-navigation ul ul a:hover {
-	
-}
-
-.main-navigation ul li:hover>ul {
-	display: block;
-}
-
-.main-navigation li.current_page_item a,.main-navigation li.current-menu-item a
-	{
-	
-}
-/* Small menu */
-/*above header nav*/
-.above-header-menu {
-	
-}
-
-ul.above-header-menu li {
-	
-}
-/*above header nav*/
-.menu-toggle {
-	cursor: pointer;
-}
-
-.main-small-navigation .menu {
-	
-}
-
-.header-main-nav {
-	
-}
-
-.header-main-nav ul li {
-	
-}
-
-.header-main-nav ul li a:link,.header-main-nav ul li a:visited {
-	
-}
-
-.header-main-nav ul li a:hover {
-	
-}
-
-.header-main-nav ul li i {
-	
-}
-
-.header-main-nav ul li a i {
-	
-}
-
-.header-main-nav ul li a:hover i {
-	
-}
-
-.header-main-nav .icon-home,.header-main-nav .icon-chevron-down {
-	
-}
-
-.header-main-nav .icon-chevron-down {
-	
-}
-
-.dropdown-toggle a:link {
-	
-}
-
-.dropdown-toggle .sub-menu {
-	
-}
-
-.dropdown-toggle .sub-menu li {
-	
-}
-
-.dropdown-toggle .sub-menu li a {
-	
-}
-
-.dropdown-toggle .sub-menu li a:link,.dropdown-toggle .sub-menu li a:visited
-	{
-	
-}
-
-.dropdown-toggle .sub-menu li a:hover {
-	
-}
-
-.dropdown-toggle .sub-menu ul {
-	
-}
-
-.header-main-nav ul li.current-menu-item a:link,.header-main-nav ul li.current-menu-item a:visited,.header-main-nav ul li.current-menu-item a:hover,.header-main-nav ul li.current-menu-item a:active
-	{
-	
-}
-
-.header-main-nav ul li.current-menu-item ul a:link,.header-main-nav ul li.current-menu-item ul a:visited
-	{
-	
-}
-
-.header-main-nav ul li.current-menu-item ul a:hover {
-	
-}
-
-.header-main-nav ul li.current-menu-item a:link i,.header-main-nav ul li.current-menu-item a:visited i,.header-main-nav ul li.current-menu-item a:hover i,.header-main-nav ul li.current-menu-item a:active i
-	{
-	
-}
-
-.header-main-nav ul li.current-menu-item ul li a:link,.header-main-nav ul li.current-menu-item ul li a:visited,.header-main-nav ul li.current-menu-item ul li a:hover,.header-main-nav ul li.current-menu-item ul li a:active
-	{
-	
-}
-
-.header-main-nav ul li ul li.current-menu-item a:link,.header-main-nav ul li ul li.current-menu-item a:visited,.header-main-nav ul li ul li.current-menu-item a:hover,.header-main-nav ul li ul li.current-menu-item a:active
-	{
-	
-}
 /*--------------------------------------------------------------
 SYMBIOSTOCK CONTENT
 --------------------------------------------------------------*/
-.content-wrap {
-	clear: both;
-}
-
 .item-preview img.photo {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-}
-
-.site-main {
-	border-top: #E6E6E6 0px solid;
 }
 
 .site-content:after {
@@ -379,22 +170,6 @@ SYMBIOSTOCK CONTENT
 	visibility: hidden;
 	line-height: 0;
 	height: 0;
-}
-
-.site-content {
-	
-}
-
-.home .site-content {
-	
-}
-
-.home-content h1 {
-	
-}
-
-.home-content {
-	color: #666;
 }
 
 .symbiostock_author_avatar {
@@ -420,14 +195,6 @@ SYMBIOSTOCK CONTENT
 /*--------------------------------------------------------------
 SYMBIOSTOCK CART
 --------------------------------------------------------------*/
-.symbiostock_product th {
-	
-}
-
-#symbiostock_product_table tr {
-	
-}
-
 #symbiostock_product_table tr.in_cart td,#symbiostock_product_table tr.in_cart label
 	{
 	font-style: oblique;
@@ -497,16 +264,8 @@ a:active.remove_from_cart {
 	color: #666;
 }
 /*--------------------------------------------------------------
-SYMBIOSTOCK FEATURED POSTS
+SYMBIOSTOCK FEATURED 
 --------------------------------------------------------------*/
-.widget-featured .inner-featured {
-	
-}
-
-.front-page-featured {
-	
-}
-
 .widget_symbiostock_latest_images h3,.widget_symbiostock_featured_images h3
 	{
 	background-color: transparent;
@@ -576,35 +335,38 @@ SYMBIOSTOCK SEARCH RESULTS
 	height: 280px;
 }
 
-.network_results_container {
-	
-}
-
 .search_page {
 	border-right: 0;
 	padding-top: 10px;
 }
 
-.symbiostock_loader {
-	
+.search-result {
+	height: 170px;
 }
 
-.search-result {
-	text-align: center;
-	float: left;
-	width: 160px;
-	height: 170px;
-	margin: 10px;
+.image-page-widget-side .similars-container {
+	height: 150px;
+	margin-bottom: 20px;
 }
 
 .widget .search-result {
 	height: 160px;
+	width: 150px;
+	margin-left: 10px;
+	float: left;
 }
 
 .sscntrl {
+	font-size: 36px;
 	display: none;
-	font-size: 18px;
-	padding: 2px;
+	position: absolute;
+	top: 0;
+	left: 25px;
+}
+
+.sscntrl a {
+	background-color: white;
+	background: rgba(255, 255, 255, .7);
 }
 
 .modal_control {
@@ -642,14 +404,6 @@ SYMBIOSTOCK SEARCH RESULTS
 	clear: both;
 }
 
-.network_results {
-	
-}
-
-.network_results_header {
-	
-}
-
 .network_results .pagination {
 	margin: 0;
 }
@@ -665,14 +419,8 @@ SYMBIOSTOCK SEARCH RESULTS
 	margin: 10px;
 }
 
-
 /* =Content
 ----------------------------------------------- */
-.symbiostock-image a:link,.symbiostock-image a:visited,.symbiostock-image a:hover,.symbiostock-image a:active
-	{
-	
-}
-
 .symbiostock-image h1 {
 	font-size: 18px;
 }
@@ -762,10 +510,6 @@ SYMBIOSTOCK SEARCH RESULTS
 	margin-bottom: 1.5em;
 }
 
-.gallery-caption {
-	
-}
-
 .site-content .gallery a img {
 	border: none;
 	height: auto;
@@ -805,26 +549,6 @@ embed,iframe,object {
 	width: 50%;
 }
 
-#symbiostock_main_search {
-	float: right;
-}
-
-#symbiostock_main_search form {
-	
-}
-
-#symbiostock_main_search #s {
-	
-}
-
-#symbiostock_main_search #select_type {
-	
-}
-
-#symbiostock_main_search button {
-	border-color: #009de0;
-	width: 100px;
-}
 /* =Comments
 ----------------------------------------------- */
 .bypostauthor {

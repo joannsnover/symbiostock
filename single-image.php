@@ -11,7 +11,7 @@ get_header();
 ?>        
         <div class=row>
         
-            <div id="primary" class="content-area col-md-12">
+            <div id="primary" class="content-area">
             
             <?php
             //add support for YOAST SEO

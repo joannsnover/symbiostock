@@ -129,10 +129,7 @@ function symbiostock_hover_controls($count, $id, $permalink){
     
     ?><br />
     <span class="sscntrl">
-        <span>
-            <a class="modal_activate" id="<?php echo $id . '_details'; ?>" title="Preview" data-toggle="modal" href="#symbiostock_display_preview" ><i class="icon-zoom-in">&nbsp;</i></a>
-            <a id="<?php echo $id . '_goto'; ?>" title="Go to stock image." href="<?php echo  $permalink; ?>"><i class="icon-share-alt">&nbsp;</i></a>
-        </span> 
+         <a class="modal_activate" id="<?php echo $id . '_details'; ?>" title="Preview" data-toggle="modal" href="#symbiostock_display_preview" ><i class="icon-zoom-in">&nbsp;</i></a>            
     </span>     
     <?php
 }
@@ -172,30 +169,10 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         
         
         <div class="hero-unit">
-            <h2>No Results found. Try browsing the categories. Maybe you will find some hidden gems!</h2>
-            <?php
-           
-           //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
-            $taxonomy     = 'image-type';
-            $orderby      = 'name'; 
-            $show_count   = 1;      // 1 for yes, 0 for no
-            $pad_counts   = 1;      // 1 for yes, 0 for no
-            $hierarchical = 1;      // 1 for yes, 0 for no
-            $title        = '<h2 class="muted">Image Categories</h2><hr />';
-            
-            $args = array(
-              'taxonomy'     => $taxonomy,
-              'orderby'      => $orderby,
-              'show_count'   => $show_count,
-              'pad_counts'   => $pad_counts,
-              'hierarchical' => $hierarchical,
-              'title_li'     => $title,
-             
-            );
+            <h2>No Results found. Try browsing the categories.</h2>
+            <?php 
+            ss_list_pretty_categories();
             ?>
-            <ul>
-                <?php wp_list_categories( $args ); ?>
-            </ul>
         </div>
         
         <?php
@@ -366,9 +343,9 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         
                         ?>
                         
-                        <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result">
+                        <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result col-md-2">
                             <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
-                              <img alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
+                              <img data-toggle="tooltip" alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>
                             <?php symbiostock_hover_controls($count, $image['id'], $image['permalink']); ?>

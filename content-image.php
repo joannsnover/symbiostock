@@ -17,7 +17,7 @@ $symbiostock_post_meta['caller_action'] = 'ss_before_image_page';
 do_action( 'ss_before_image_page', $symbiostock_post_meta ); 
 
 ?> 
-<article id="post-<?php the_ID(); ?>" <?php post_class(row); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(' row'); ?>>
     <div class="symbiostock-image col-md-7">
         <header class="entry-header">
             <div itemscope itemtype="http://schema.org/CreativeWork" class="hmedia">

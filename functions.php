@@ -10,8 +10,8 @@
  *
  * @since symbiostock 1.0
  */
-error_reporting ( E_ERROR );
-
+error_reporting(E_ERROR);
+ini_set('error_reporting', E_ERROR);
 
 //trash the admin bar if not admin...
 if(!is_admin){
@@ -408,7 +408,7 @@ function symbiostock_scripts()
 
             wp_register_script( 'search-results' ,
                     symbiostock_JSDIR . '/search-results.js' ,
-                    array( 'jquery' ) , '2.6.2' );
+                    array( 'jquery' ) );
 
             wp_enqueue_script( 'search-results' ); // Enqueue it!
 
@@ -3038,5 +3038,11 @@ function symbiostock_info_sitelist(){
  */ 
 
 require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
+
+/*
+ * Get category template
+ */
+require_once(get_template_directory( ) . '/inc/list_categories.php');
+
 
 ?>
