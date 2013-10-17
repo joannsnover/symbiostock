@@ -1223,7 +1223,7 @@ function symbiostock_credit_links( $position )
     if ( $position == $symbiostock_credit_links )
     {
 
-        echo '<div class="panel panel-info">
+        echo '<div class="panel panel-default">
         <div class="panel-heading dropdown-toggle" data-toggle="dropdown" type="button"><h3 class="panel-title">Symbiostock Community <i class="icon-caret-down"> </i> </h3></div>
         <ul class="dropdown-menu list-group" role="menu">';
 

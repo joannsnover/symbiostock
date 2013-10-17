@@ -45,19 +45,19 @@ get_header(); ?>
             <div class="row">
                 
                 <div class="col-md-4">
-                    <div class="panel panel-info">
+                    <div class="panel panel-default">
                     <?php dynamic_sidebar( 'cta-1' ) ?>
                     </div>
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="panel panel-info">
+                    <div class="panel panel-default">
                     <?php dynamic_sidebar( 'cta-2' ) ?>
                     </div>
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="panel panel-info">
+                    <div class="panel panel-default">
                     <?php dynamic_sidebar( 'cta-3' ) ?>
                     </div>
                 </div>

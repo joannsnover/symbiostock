@@ -144,7 +144,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         //set up the buying options from cart class
         $cart_options = new symbiostock_cart($symbiostock_post_meta);
 
-        ?><div class="panel panel-info">
+        ?><div class="panel panel-default">
         <div class="panel-heading"><span class="panel-title">Image #<?php echo $postid  ?></span></div>
         <?php 
         $cart_options->display_product_table();
