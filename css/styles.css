@@ -1,5 +1,5 @@
 #ss_primary_search {
-	z-index: 5000;
+	z-index: 900;
 }
 
 ol,ul {
@@ -248,21 +248,7 @@ a:active.remove_from_cart {
 	
 }
 /*tags*/
-#keywords-listing a:link {
-	color: #666;
-}
 
-#keywords-listing  a:visited {
-	color: #666;
-}
-
-#keywords-listing a:hover {
-	color: #333;
-}
-
-#keywords-listing a:active {
-	color: #666;
-}
 /*--------------------------------------------------------------
 SYMBIOSTOCK FEATURED 
 --------------------------------------------------------------*/
@@ -338,10 +324,21 @@ SYMBIOSTOCK SEARCH RESULTS
 .search_page {
 	border-right: 0;
 	padding-top: 10px;
+	overflow: hidden;
 }
 
+.search_page .well{
+	border-radius: 0;
+}
+.search_page  .carousel-control{
+	font-size: 36px;	
+}
 .search-result {
 	height: 170px;
+	
+}
+.search_page .search-result{
+
 }
 
 .image-page-widget-side .similars-container {
@@ -423,7 +420,9 @@ SYMBIOSTOCK SEARCH RESULTS
 ----------------------------------------------- */
 .symbiostock-image h1 {
 	font-size: 18px;
+	border: 0;
 }
+
 
 .sticky {
 	
@@ -547,6 +546,10 @@ embed,iframe,object {
 	float: right;
 	text-align: right;
 	width: 50%;
+}
+
+.navbar{
+	 border-radius: 0;
 }
 
 /* =Comments

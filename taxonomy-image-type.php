@@ -13,7 +13,7 @@ $local_results = new network_manager();
 $local_results->local_search();
 get_header(); ?>
     <div class=row>
-        <section id="primary" class="content-area">
+        <section id="primary" class="content-area col-md-12">
             <div id="content" class="site-content" role="main">
             
             <?php

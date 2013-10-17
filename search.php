@@ -35,8 +35,8 @@ else{
             
             <div class="row">
             
-                    <section id="primary" class="content-area">
-                    <div id="content" class="site-content search_page col-md-<?php echo $search_span; ?>" role="main">
+                    <section id="primary" class="content-area search_page  col-md-<?php echo $search_span; ?>">
+                    <div id="content" class="site-content " role="main">
                     <?php                            
                             
         echo '<h1 class="results_for">Results for <em>"' . ucwords(str_replace('-', ' ', get_query_var('s'))) . '"</em></h1>';
