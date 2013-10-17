@@ -1007,7 +1007,8 @@ class network_manager
             'price_medium',
             'price_large',
             'price_vector',
-            'price_zip' 
+            'price_zip',
+            'symbiostock_image_file_checksum'
         );
         
         $profile_info = get_option( 'symbiostock_social_credentials', ' ' );
@@ -1417,7 +1418,8 @@ class network_manager
         } //$this->images_meta as $vals
         
         fclose( $fp );
-        
+        update_option( 'symbiostock_image_file_checksum', md5_file( $name ) );
+
     }
     
     public function write_keyword_list(){
