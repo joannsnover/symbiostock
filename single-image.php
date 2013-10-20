@@ -13,7 +13,7 @@ get_header();
         
             <div id="primary" class="content-area">
             
-            <div class="row">
+            
                 <div class="col-md-12">
                 <?php
                 //add support for YOAST SEO
@@ -21,7 +21,7 @@ get_header();
                 yoast_breadcrumb('<span class="text-info" id="breadcrumbs">','</span><hr />');
                 } ?>
                 </div>
-            </div>          
+                     
                 <div id="content" class="site-content" role="main">
                 
                 

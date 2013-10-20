@@ -3,6 +3,13 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
+
+$strictly_minimal = get_theme_mod( 'strictly_minimal' );
+if( $strictly_minimal == '' ) {    
+    $strictly_minimal = 1;       
+} 
+
+
 ?>
 <?php 
 //get our post meta
@@ -86,6 +93,11 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                         ?>
                     </div> 
                 </div>
+                
+                <?php 
+                if($strictly_minimal == 1):
+                ?>
+                
                 <div class="panel panel-default" id="keywords-listing">
                     <div class="panel-heading"><h4 class="panel-title"><i class="icon-tags"> </i> Keywords</h4></div>
                     <div itemprop="keywords"  class="panel-body">
@@ -111,13 +123,11 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                     </div><?php
                     }
                 ?>                    
-                </div>
-                                
-               
+                </div>                
+
                 <?php
                 if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
-                    
-                    
+                                        
                     if(is_active_sidebar( 'image-page-bottom' )):                
                 
                     ?>                    
@@ -131,6 +141,11 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                     
                 endif;
                 ?>
+                
+                <?php 
+                endif; //strictly minimal
+                ?>                
+               
                               
             </div>
         </header>
@@ -152,6 +167,10 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         
         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_product_table';
         do_action( 'ss_after_img_page_product_table', $symbiostock_post_meta ); 
+        
+        
+        if($strictly_minimal == 1):
+        
         
         
         //get sidebar
@@ -204,11 +223,18 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         </footer>
         <!-- .entry-meta --> 
         
+        <?php 
+        endif; //strictly minimal 
+        ?>
+        
     </div>
     
 </article>
 <!-- #post-<?php the_ID(); ?> -->
 <?php 
+
+if($strictly_minimal == 1):
+
 $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_bottom_widget';
 do_action( 'ss_before_img_page_bottom_widget', $symbiostock_post_meta ); 
 
@@ -228,6 +254,8 @@ if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_
     endif; 
 
 endif;
+
+endif; //strictly minimal
 
 $symbiostock_post_meta['caller_action'] = 'ss_after_image_page';
 do_action( 'ss_after_image_page', $symbiostock_post_meta ); ?>  

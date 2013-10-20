@@ -423,6 +423,9 @@ SYMBIOSTOCK SEARCH RESULTS
 	margin: 10px;
 }
 
+.network_results_header {
+    clear: both;
+}
 /* =Content
 ----------------------------------------------- */
 .symbiostock-image h1 {
