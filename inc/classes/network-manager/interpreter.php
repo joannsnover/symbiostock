@@ -171,7 +171,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         <div class="hero-unit">
             <h2>No Results found. Try browsing the categories.</h2>
             <?php 
-            ss_list_pretty_categories();
+            ss_list_categories();
             ?>
         </div>
         

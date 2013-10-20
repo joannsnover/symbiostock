@@ -242,5 +242,21 @@ jQuery(document).ready(function ($) {
     	}
         
     });
+    
+   //adjust searchform for browser widths
+    var $window = $(window);
+
+    // Function to handle changes to style classes based on window width
+    function checkWidth() {
+	    if ($window.width() < 768) {
+	        $('.navbar-form').removeClass('ss-searchform');
+	        };	
+	    if ($window.width() >= 768) {
+	        $('.navbar-form').addClass('ss-searchform');
+	    }
+    }
+	
+	checkWidth();
+	$(window).resize(checkWidth);    
 
 });

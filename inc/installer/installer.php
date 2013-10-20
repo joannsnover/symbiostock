@@ -252,6 +252,19 @@ if(!get_post($check_page)){
 include_once('taxonomies_and_links.php');
 //---------------------------------------------------------------------------------------
 
+//-------------
+//create a new upload directory 
+//wordpress.org/support/topic/theme-directory-blocked-off-from-public-access
+
+require_once(ABSPATH .'/wp-admin/includes/file.php');
+WP_Filesystem();
+
+if(!is_dir(WP_CONTENT_DIR.'/plupload/')){
+    unzip_file( dirname(__FILE__) . '/plupload.zip', WP_CONTENT_DIR );
+}
+
+//-------------
+
 //notify Symbiostock of successful deployment
 
 $headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';

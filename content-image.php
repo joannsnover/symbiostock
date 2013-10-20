@@ -116,11 +116,11 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                
                 <?php
                 if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
-                
-                    if(is_active_sidebar( 'image-page-bottom' )):                 
-                
-                    ?>
                     
+                    
+                    if(is_active_sidebar( 'image-page-bottom' )):                
+                
+                    ?>                    
                     <div class="panel panel-default">                
                     <?php    
                     //get bottom sidebar
@@ -217,7 +217,7 @@ if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_
     if(is_active_sidebar( 'image-page-bottom-fullwidth' )): 
     ?>
     <div class="col-md-12">
-        <div class="panel panel-default"><?php
+        <div class="panel panel-default ss-widget-12"><?php
         
         dynamic_sidebar( 'image-page-bottom-fullwidth' );
         

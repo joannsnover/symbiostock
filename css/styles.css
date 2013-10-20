@@ -327,18 +327,25 @@ SYMBIOSTOCK SEARCH RESULTS
 	overflow: hidden;
 }
 
-.search_page .well{
+.search_page .well {
 	border-radius: 0;
 }
-.search_page  .carousel-control{
-	font-size: 36px;	
+
+.search_page  .carousel-control {
+	font-size: 36px;
 }
+
 .search-result {
 	height: 170px;
+}
+
+.search_page .search-result {
 	
 }
-.search_page .search-result{
 
+.ss-widget-12 .widget-featured {
+	width: 15%;
+	min-width: 150px;
 }
 
 .image-page-widget-side .similars-container {
@@ -422,7 +429,6 @@ SYMBIOSTOCK SEARCH RESULTS
 	font-size: 18px;
 	border: 0;
 }
-
 
 .sticky {
 	
@@ -548,8 +554,8 @@ embed,iframe,object {
 	width: 50%;
 }
 
-.navbar{
-	 border-radius: 0;
+.navbar {
+	border-radius: 0;
 }
 
 /* =Comments
@@ -574,4 +580,42 @@ body.admin-bar {
 
 #wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
 	bottom: 28px;
+}
+
+/* =Search
+----------------------------------------------- */
+
+.ss-searchform input,.ss-searchform select {
+	border-right: 0;	
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	position: relative;
+	left: 7px;
+}
+.ss-searchform select{
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	left: 3px; 
+ }
+
+.ss-searchform .form-group{
+	margin-right: 0;
+}
+
+.ss-searchform input[type=text] {	
+	border-bottom-left-radius: 15px;
+	border-top-left-radius: 15px;
+}
+.ss-searchform .btn {	
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;	
+	border-bottom-right-radius: 15px;
+	border-top-right-radius: 15px;
+}
+.navbar.ss-top-anchored{
+	background-color: transparent;
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	margin-bottom: 0;
 }

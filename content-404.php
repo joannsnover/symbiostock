@@ -14,7 +14,7 @@
                     <p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'symbiostock' ); ?></p>
                  
                     <?php 
-                    ss_list_pretty_categories();
+                    ss_list_categories();
                     ?>
                     <?php
                     /* translators: %1$s: smilie */

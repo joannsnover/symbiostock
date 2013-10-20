@@ -21,14 +21,10 @@ get_header(); ?>
                     
                 
                     <?php 
-                    ss_list_pretty_categories();
+                    ss_list_categories();
                     ?>
                         
-                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                        <header class="entry-header">
-                          
-                        </header><!-- .entry-header -->
-                    
+                    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>                    
                         <div class="entry-content">
                             <?php the_content(); ?>
                             <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'symbiostock' ), 'after' => '</div>' ) ); ?>

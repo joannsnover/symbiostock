@@ -234,7 +234,7 @@ function symbiostock_widgets_init()
                     'id' => 'home-page-below-content',
                     'class'         => 'panel-body',
                     'before_widget' => '<div class=" panel-body home-below-content"><aside id="%1$s" class="widget %2$s">',
-                    'after_widget' => '</aside><br class="clearfix" /></div>',
+                    'after_widget' => '</aside></div>',
                     'before_title' => '<div class=" panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
 
@@ -320,6 +320,7 @@ function symbiostock_widgets_init()
                     'after_widget' => '</aside></div>',
                     'before_title' => '<div class="panel-heading"><h3 class="panel-title">',
                     'after_title' => '</h3></div>', ) );
+    
     //footer sidebars
 
     register_sidebar( 

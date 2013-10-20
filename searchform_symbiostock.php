@@ -6,7 +6,7 @@
  * @since symbiostock 1.0
  */
 ?>
-    <form class="navbar-form navbar-right" name="symbiostock_search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
+    <form class="navbar-form navbar-right ss-searchform" name="symbiostock_search" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
             <div class="form-group">
             <label for="s" class="assistive-text"><?php _e( 'Search', 'symbiostock' ); ?></label>
                     

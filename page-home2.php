@@ -31,7 +31,7 @@ get_header(); ?>
           
             
             <?php if(is_dynamic_sidebar( 'Home Page (Below Content)' )): ?>
-                <div class="panel panel-default">
+                <div class="panel panel-default ss-widget-12">
                 <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
                 </div>
             <?php endif; ?> 

@@ -38,9 +38,18 @@ if( $menu_location != '' ) {
 $search_account_menu_location = get_theme_mod( 'separate_search_menu' );
 if( $search_account_menu_location != '' ) {
      
-    if($search_account_menu_location == 1){
+    if($search_account_menu_location == 1 || $search_account_menu_location == 2){
         $top = 1;
-        $search_account_nav_fixed = 'id="ss_fixed_nav"';
+        
+        if($search_account_menu_location == 1){        
+           $search_account_nav_fixed = 'id="ss_fixed_nav"';
+           $fixed_class = 'navbar-fixed-top';
+        } else  {
+           $search_account_nav_fixed = 'id="ss_anchored_nav"';
+           $is_fixed = '';
+           $fixed_class = 'col-md-12 ss-top-anchored';
+        }
+        
     } else {
         $top = 0;
         $search_account_nav_fixed = '';
@@ -59,7 +68,7 @@ if( $bootstrap_menu_inverse != '' ) {
     if($bootstrap_menu_inverse == 1){
         $inverted_main_menu = '';
     } else {
-        $inverted_main_menu = 'navbar-inverse';
+        $inverted_main_menu = 'navbar-inverse';        
     }
 } else {
     
@@ -121,29 +130,29 @@ if( $bootstrap_search_menu_type != '' ) {
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site container">
     <?php do_action( 'before' ); ?>
-    <header id="masthead" class="site-header" role="banner">
+    <header id="masthead" class="site-header" role="banner"> 
+        <?php         
+        if($top == 1){
+            ?>
+            <div class="row">
+            <div <?php echo $search_account_nav_fixed ?> role="navigation" class="<?php echo $search_menu_style ?> <?php echo $fixed_class ?> <?php echo $inverted_search_menu ?>"> <?php
+            //get the search form
+            include_once('searchform_symbiostock.php');
         
+            symbiostock_above_header_nav( );
+            ?>
+            </div>
+            </div>
+            <?php
+        }
+            
+        ?>            
         <div class="row symbiostock_branding">
-            <div class="symbiostock_logo">    
+            <div class="symbiostock_logo col-md-12">    
                 <hgroup>                    
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img alt="<?php bloginfo( 'description' ); ?>" class="logo" src ="<?php echo get_option( 'symbiostock_logo_link', symbiostock_LOGO ); ?>" /></a>
                 </hgroup> 
-            </div>              
-        <?php 
-        
-        if($top == 1){
-            ?><div <?php echo $search_account_nav_fixed ?> role="navigation" class="<?php echo $search_menu_style ?> navbar-fixed-top <?php echo $inverted_search_menu ?>"> <?php
-            //get the search form
-            include_once('searchform_symbiostock.php');
-            ?>
-                        
-            <?php     
-            symbiostock_above_header_nav( );
-            ?></div><?php
-            }
-            
-        ?>
-                       
+            </div>    
         </div>
         
         

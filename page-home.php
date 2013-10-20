@@ -29,7 +29,7 @@ get_header(); ?>
             
           
             <?php if(is_dynamic_sidebar( 'Featured Posts (Below Content)' )): ?>
-                <div class="panel panel-default">
+                <div class="panel panel-default ss-widget-12">
                 <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
                 </div>
             <?php endif; ?> 

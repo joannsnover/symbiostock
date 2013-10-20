@@ -62,7 +62,8 @@ function symbiostock_image_manager_register( )
         'rewrite' => true,
         'exclude_from_search' =>false,
         'public' => true, 
-        'slug' => 'image-type'         
+        'slug' => 'image-type',
+        'show_in_nav_menus' => true,         
         
     ) );
     
