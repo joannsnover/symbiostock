@@ -1,4 +1,8 @@
 <?php 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8c0efb94a0f47960b36aaa0177bd532552d19fd9
 if(isset($_POST['symbiostock_cache_days']) && is_numeric($_POST['symbiostock_cache_days']) && $_POST['symbiostock_cache_days'] >= 0){    
     update_option('symbiostock_cache_days', trim($_POST['symbiostock_cache_days']));    
     update_option('symbiostock_fast_network_display', $_POST['symbiostock_fast_network_display']=='1'?1:0 );    
