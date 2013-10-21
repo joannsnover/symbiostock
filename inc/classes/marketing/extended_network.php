@@ -174,6 +174,7 @@ foreach($list as $listing){
 $seeds = get_option('symbiostock_enqueued_seeds', array());
 
 if(!empty($seeds)){
+    
     ?>
 
     <ul>
