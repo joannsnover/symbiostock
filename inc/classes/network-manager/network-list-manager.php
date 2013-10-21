@@ -1,9 +1,10 @@
 <?php 
 
-if(isset($_POST['symbiostock_cache_days']) && !empty($_POST['symbiostock_cache_days']) && is_numeric($_POST['symbiostock_cache_days']) ){    
+if(isset($_POST['symbiostock_cache_days']) && is_numeric($_POST['symbiostock_cache_days']) && $_POST['symbiostock_cache_days'] >= 0){    
     update_option('symbiostock_cache_days', trim($_POST['symbiostock_cache_days']));    
-    } 
-    
+    update_option('symbiostock_fast_network_display', $_POST['symbiostock_fast_network_display']=='1'?1:0 );    
+} 
+
 $update_symbiostock_networks = new network_manager;
 $update_symbiostock_networks->update_connected_networks();
 if(isset($_FILES[ 'symbiostock_csv_file' ]) && !empty($_FILES[ 'symbiostock_csv_file' ])){
@@ -165,12 +166,13 @@ foreach($symbiocards as $symbiocard){
              <label class="description" for="update_symbiocards"><input id="update_symbiocards" name="update_symbiocards" type="checkbox" /> <strong>Update Symbiocards</strong> <em>Last update: <?php echo $last_symbiocard_update ?></em></label>         
             </td>
             <td>
+            <label class="description" for="symbiostock_fast_network_display"><input id="symbiostock_fast_network_display" name="symbiostock_fast_network_display" type="checkbox" <?php if ( get_option('symbiostock_fast_network_display', 1) == 1 ) echo 'checked="1"' ?> value="1" /> Random order</label>         
             
             <label class="description" for="symbiostock_cache_days">
             <strong>
                 <input style="text-align: center;" size="3" type="text" name="symbiostock_cache_days" value="<?php echo get_option('symbiostock_cache_days', 14) ?>" />
             </strong>
-            <em> days cache network search</em> 
+            <em> Cache days</em> 
             </label>                
             </td>
             </tr>
