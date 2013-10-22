@@ -189,4 +189,11 @@ if( $bootstrap_search_menu_type != '' ) {
             
         
     </header><!-- #masthead .site-header -->
-    <div id="main" class="site-main">    
+    <div id="main" class="site-main">
+    <?php 
+    if(isset($_GET['register'])){
+        ?>
+        <div class="alert alert-success">Registration successful! <?php echo symbiostock_customer_area( 'Your <strong>cart area</strong> is here' )?>.</div>
+        <?php         
+    }    
+    ?>

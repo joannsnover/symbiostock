@@ -2073,7 +2073,7 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                                 if ( ajt_search_url ( $query_list[$count] ) && ( $pos = strpos( $data, "_cached_results#" ) ) > 0 ) 
                                     update_option( 'symbiostock_cached_results', $data[$pos - 1] );
 
-                                if ( $random_enabled && !$search_site && strlen( $data ) > 15000 )
+                                if ( $random_enabled && strlen( $data ) > 15000 )
 
                                   $nm->display_network_results( $count, $data );
                                 else
@@ -2435,4 +2435,3 @@ function update_symbiostock_site_data() {
     do_action('symbiostock_daily_chron');
     
 }
-?>

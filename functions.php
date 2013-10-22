@@ -14,8 +14,8 @@ error_reporting(E_ERROR);
 ini_set('error_reporting', E_ERROR);
 
 //trash the admin bar if not admin...
-if(!is_admin){
-    add_filter( 'show_admin_bar' , '__return_false' );
+if ( ! current_user_can( 'manage_options' ) ) {
+    show_admin_bar( false );
 }
 
 //define some paths for easy working
@@ -181,7 +181,10 @@ if ( !function_exists( 'symbiostock_setup' ) ) :/**
                 'admin-head-callback'    => '',
                 'admin-preview-callback' => '',
         );
-        add_theme_support( 'custom-header', $defaults );        
+        add_theme_support( 'custom-header', $defaults );     
+
+
+        
     }
 endif; // symbiostock_setup
 add_action( 'after_setup_theme' , 'symbiostock_setup' );
@@ -465,6 +468,25 @@ function symbiostock_sep_content( $content )
 add_filter( 'the_content' , 'symbiostock_sep_content' , 1 );
 //custom login functions
 
+
+// Auto login and redirect to a page
+function symbiostock_auto_login_new_user( $user_id ) {
+    wp_set_current_user($user_id);
+    wp_set_auth_cookie($user_id);
+
+    
+    
+    if(isset($_POST['redirect_to'])){
+        $redirect = $_POST['redirect_to'];        
+    } else {
+        $redirect = home_url();
+    }    
+    
+    // You can change home_url() to the specific URL,such as wp_redirect( 'http://www.wpcoke.com' );
+    wp_redirect( $redirect );      
+    
+}
+add_action( 'user_register', 'symbiostock_auto_login_new_user' );
 
 function symbiostock_is_login_page()
 {
