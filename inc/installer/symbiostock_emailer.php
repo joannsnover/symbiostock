@@ -37,8 +37,7 @@ if ( !function_exists('wp_new_user_notification') ) {
             $message
         );
         
-        if(isset($_POST['ss_password_1'])){		
-			wp_set_password( $_POST['ss_password_1'], $user_id );			
+        if(isset($_POST['ss_password_1'])){							
 			$plaintext_pass = $_POST['ss_password_1'];		
 		} else {		
 			$plaintext_pass = wp_generate_password();			
