@@ -99,8 +99,7 @@ function symbiostock_mail_from_name() {
 
 function symbiostock_registration($user_id) {
 	
-		if(isset($_POST['ss_password_1'])){		
-			wp_set_password( $_POST['ss_password_1'], $user_id );			
+		if(isset($_POST['ss_password_1'])){								
 			$new_pass = $_POST['ss_password_1'];		
 		} else {		
 			$new_pass = wp_generate_password();			

@@ -480,7 +480,7 @@ function symbiostock_auto_login_new_user( $user_id ) {
 	}
     
     wp_set_current_user($user_id);
-    wp_set_auth_cookie($user_id, true);
+    wp_set_auth_cookie($user_id, 1);
     
     
     if(isset($_POST['redirect_to'])){
@@ -493,7 +493,7 @@ function symbiostock_auto_login_new_user( $user_id ) {
     wp_redirect( $redirect );      
     
 }
-add_action( 'user_register', 'symbiostock_auto_login_new_user' );
+add_action( 'user_register', 'symbiostock_auto_login_new_user', 1 );
 
 function symbiostock_is_login_page()
 {
