@@ -123,9 +123,12 @@ if ( !function_exists( 'symbiostock_setup' ) ) :/**
         require( get_template_directory( ) . '/inc/extras.php' );
         /**
          * Customize Theme Options
-         */        
-        require_once('customizer.php');
+         */  
+        $use_customizer = get_option('ss_use_customizer', 1);
         
+        if($use_customizer == 1){               
+			require_once('customizer.php');
+		}
         /*
          * Front Page Specific Setup 
          */
@@ -471,9 +474,13 @@ add_filter( 'the_content' , 'symbiostock_sep_content' , 1 );
 
 // Auto login and redirect to a page
 function symbiostock_auto_login_new_user( $user_id ) {
+    
+    if(isset($_POST['ss_password_1'])){
+		wp_set_password( $_POST['ss_password_1'], $user_id );
+	}
+    
     wp_set_current_user($user_id);
-    wp_set_auth_cookie($user_id);
-
+    wp_set_auth_cookie($user_id, true);
     
     
     if(isset($_POST['redirect_to'])){
@@ -1213,6 +1220,14 @@ function symbiostock_network_results_per_page( $query )
     }
 }
 add_action( 'pre_get_posts' , 'symbiostock_network_results_per_page' );
+
+function symbiostock_featured_home( $query ) {
+    if ( is_home() ) {     
+        $query->set( 'posts_per_page', 144 );
+        return;
+    }
+}
+add_action( 'pre_get_posts', 'symbiostock_featured_home' );
 
 //Symbiostock Decode Entities function
 
@@ -2978,6 +2993,49 @@ function ss_image_blog_form_option(){
     }    
 }
 
+
+/*
+ * Use customizer?
+ *
+ */
+
+function ss_use_customizer(){
+
+    if(isset($_POST['ss_use_customizer'])){
+
+        update_option('ss_use_customizer', $_POST['ss_use_customizer']);
+
+    }
+
+    $update_settings = get_option('ss_use_customizer', 1);
+
+    if($update_settings == 1){
+        $ss_use_customizer_yes = 'checked';
+        $ss_use_customizer_no = '';
+    } else {
+        $ss_use_customizer_yes = '';
+        $ss_use_customizer_no = 'checked';
+    }
+
+    ?>
+    <tr>
+        <td colspan="2">
+            <strong>Symbiostock Customizer</strong> <span class="description">Keep OFF if you have specific child theme setups that you don't want overridden by the customizer.</span><br />
+            <label for="ss_use_customizer_1">
+                <input type="radio" id="ss_use_customizer_1" name="ss_use_customizer" <?php echo $ss_use_customizer_yes; ?> value="1" />
+                On
+            </label>
+             
+            <label for="ss_use_customizer_2">
+                <input type="radio" id="ss_use_customizer_2" name="ss_use_customizer" <?php echo $ss_use_customizer_no ; ?> value="0" />
+                Off
+            </label>                      
+        </td>
+    </tr>
+    <?php 
+
+}
+add_action( 'ss_settings_table_top' , 'ss_use_customizer', 7 );
 
 /*
  * Allows daily chron jobs to run.

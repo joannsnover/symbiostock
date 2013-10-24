@@ -68,9 +68,9 @@ class symbiostock_featured_images extends WP_Widget{
             $args = array(
             
             'post_type' => 'image',
-            'order' => 'asc',
-            'orderby' => 'rand',                   
-            'posts_per_page' => 4,
+            'order' => 'asc',                         
+            'posts_per_page' => -1,
+            'caller_get_posts' => 1,
             'tax_query' => array(
                 array(
                         'taxonomy' => 'image-type',
@@ -763,6 +763,8 @@ class symbiostock_similar_images extends WP_Widget{
     
     //get current image id
     global $wp_query;
+    
+    $wp_query->set( 'posts_per_page' , 144 );
     
     $post = $wp_query->post;
     

@@ -257,6 +257,35 @@ jQuery(document).ready(function ($) {
     }
 	
 	checkWidth();
-	$(window).resize(checkWidth);    
+	$(window).resize(checkWidth);  
+
+
+    //login/logout functions
+    $('#ss_account_submit').attr('disabled','disabled');            
+    $('#ss_account_submit').val('Password does not match.');
+		
+	$('.password').keyup(function(){
+      if($("#ss_password_1").val() == $("#ss_password_2").val()){
+            
+            if($("#ss_password_1").val() == ''){
+                return;
+            }
+            if($("#ss_password_2").val() == ''){
+                return;
+            }
+                          
+            $('#ss_account_submit').removeAttr('disabled');
+            $('#ss_account_submit').val('Create Account!');
+           
+            $('.password').removeClass('password_mismatch');
+            $('.password').addClass('password_match');
+      }else{
+            $('#ss_account_submit').attr('disabled','disabled');            
+            $('#ss_account_submit').val('Password does not match.');
+            
+            $('.password').addClass('password_mismatch');
+            $('.password').removeClass('password_match');
+      }
+ });  
 
 });

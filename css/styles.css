@@ -184,8 +184,11 @@ SYMBIOSTOCK CONTENT
 	min-height: 260px;
 }
 
-.ss-home-featured .ss-home-minipic {
+.ss-home-featured .ss-home-minipic, .ss-home-minipic {
 	margin-bottom: 20px;
+	min-height: 170px;
+	max-width: 195px;
+	float: left;
 }
 
 .cta-cells .panel {
@@ -345,7 +348,7 @@ SYMBIOSTOCK SEARCH RESULTS
 
 .ss-widget-12 .widget-featured {
 	width: 15%;
-	min-width: 150px;
+	min-width: 170px;
 }
 
 .image-page-widget-side .similars-container {
@@ -355,7 +358,7 @@ SYMBIOSTOCK SEARCH RESULTS
 
 .widget .search-result {
 	height: 160px;
-	width: 150px;
+	min-width: 170px;
 	margin-left: 10px;
 	float: left;
 }
@@ -621,4 +624,12 @@ body.admin-bar {
 	box-shadow: none;
 	border: none;
 	margin-bottom: 0;
+}
+
+.password_mismatch{
+	background-color: #FCF2F2;
+}
+
+.password_match{
+	background-color: #F0F7FD;
 }

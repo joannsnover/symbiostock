@@ -29,15 +29,32 @@ if ( ! is_user_logged_in() ){
                     <label for="user_login"><?php _e('Username'); ?>: </label>
                     <input class="form-control" type="text" name="user_login" value="<?php echo esc_attr(stripslashes($user_login)); ?>" size="20" id="user_login" tabindex="101" />
                 </div>
-                <div class="password form-group">
+                <div class=" form-group">
                     <label for="user_email"><?php _e('Your Email'); ?>: </label>
                     <input class="form-control" type="text" name="user_email" value="<?php echo esc_attr(stripslashes($user_email)); ?>" size="25" id="user_email" tabindex="102" />
                 </div>
+                
+                <!--confirm pass-->
+                
+                <div class=" form-group">
+                    <label for="ss_password_1"><?php _e('Password'); ?>: </label>
+                    <input id="ss_password_1" class=" password_mismatch form-control password " type="password" name="ss_password_1" value="" size="25" id="user_email" tabindex="102" />
+                </div>
+                
+                <div class=" form-group">
+                    <label for="ss_password_2"><?php _e('Confirm Password'); ?>: </label>
+                    <input id="ss_password_2" class=" password_mismatch form-control password" type="password" name="ss_password_2" value="" size="25" id="user_email" tabindex="102" />
+                </div> 
+                
+                <!--confirm pass-->
+                                
                 <div class="login_fields">
                     <?php do_action('register_form'); ?>
-                    <input class="btn btn-primary form-control" type="submit" name="user-submit" value="<?php _e('Sign up!'); ?>" class="user-submit" tabindex="103" />
+                    <input disabled id="ss_account_submit" class="btn btn-primary form-control user-submit" type="submit" name="user-submit" value="<?php _e('Sign up!'); ?>" tabindex="103" />
                     <?php $register = $_GET['register']; if($register == true) { echo '<p>Check your email for the password!</p>'; }
                     else {echo '<p><br />*A password will be emailed to you.</p>';} ?>
+                                                           
+                    
                     <input type="hidden" name="redirect_to" value="<?php echo $registered_page; ?>?register=true" />
                     <input type="hidden" name="user-cookie" value="1" />
                     
