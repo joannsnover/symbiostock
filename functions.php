@@ -1184,6 +1184,9 @@ function symbiostock_image_results_per_page( $query )
 {
     $network_search = get_query_var( 'symbiostock_network_search' );
 
+	if(defined('symbiostock_remove_cap'))
+		return;
+
     if ( $network_search != true && !is_admin( ) )
     {
         $marketer_user_key = get_option( 'marketer_user_number' );
@@ -1207,6 +1210,10 @@ function symbiostock_network_results_per_page( $query )
 {
     $network_search = get_query_var( 'symbiostock_network_search' );
 
+
+	if(defined('symbiostock_remove_cap'))
+		return;
+
     if ( $network_search == true )
     {
         $per_page = 24;
@@ -1222,6 +1229,11 @@ function symbiostock_network_results_per_page( $query )
 add_action( 'pre_get_posts' , 'symbiostock_network_results_per_page' );
 
 function symbiostock_featured_home( $query ) {
+   
+    
+	if(defined('symbiostock_remove_cap'))
+		return;
+    
     if ( is_home() ) {     
         $query->set( 'posts_per_page', 144 );
         return;

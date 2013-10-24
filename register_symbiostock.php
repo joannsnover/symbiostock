@@ -50,7 +50,7 @@ if ( ! is_user_logged_in() ){
                                 
                 <div class="login_fields">
                     <?php do_action('register_form'); ?>
-                    <input disabled id="ss_account_submit" class="btn btn-primary form-control user-submit" type="submit" name="user-submit" value="<?php _e('Sign up!'); ?>" tabindex="103" />
+                    <input id="ss_account_submit" class="btn btn-primary form-control user-submit" type="submit" name="user-submit" value="<?php _e('Sign up!'); ?>" tabindex="103" />
                     <?php $register = $_GET['register']; if($register == true) { echo '<p>Check your email for the password!</p>'; }
                     else {echo '<p><br />*A password will be emailed to you.</p>';} ?>
                                                            
