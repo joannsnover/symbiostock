@@ -1965,7 +1965,7 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
 
         $crawler = ajt_crawler_detect();
 	if ( $crawler == '' )
-	        $days = min( get_option('symbiostock_cache_days', 21), 60 );
+	        $days = min( get_option('symbiostock_cache_days', 14), 60 );
 	else	
                 $days = 60;
         $caching_time = $days * 24 * 3600;   // must be number of seconds
@@ -2029,18 +2029,18 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                          if ($random_enabled )
                            $timeout = 7;
                          else
-                           $timeout = 5;
+                           $timeout = 6;
                          curl_setopt( $ch[$count], CURLOPT_CONNECTTIMEOUT, $timeout );
                          curl_setopt( $ch[$count], CURLOPT_TIMEOUT, $timeout );
                          curl_setopt( $ch[$count], CURLOPT_REFERER, get_home_url() );
-                         curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, true );
+                         curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, false );
                          curl_setopt( $ch[$count], CURLOPT_URL, $query_list[$count] );
                          curl_multi_add_handle( $mh, $ch[$count] );
                          $call_curl = true;
                    } 
                    else {
                          array_push( $ch, 0 );
-                         if ( $next_to_show == $count || $random_enabled && !$search_site && strlen( $result_list[$count] ) > 15000 ) {
+                         if ( $next_to_show == $count || $random_enabled && strlen( $result_list[$count] ) > 15000 ) {
                             $next_to_show++;
                             $nm->display_network_results( $count, $result_list[$count] );
                             $result_list[$count] = '';
@@ -2073,9 +2073,14 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                                 if ( ajt_search_url ( $query_list[$count] ) && ( $pos = strpos( $data, "_cached_results#" ) ) > 0 ) 
                                     update_option( 'symbiostock_cached_results', $data[$pos - 1] );
 
-                                if ( $random_enabled && strlen( $data ) > 15000 )
-
+                                if ( $random_enabled && strlen( $data ) > 15000 || !$random_enabled && $next_to_show == $count ) {
+				  $next_to_show++;
                                   $nm->display_network_results( $count, $data );
+				  while ( $next_to_show < $site_count && $result_list[$next_to_show] != '' ) {
+					$nm->display_network_results( $next_to_show, $result_list[$next_to_show] );
+					$result_list[$next_to_show++] = '';
+				  }
+				}  
                                 else
                                    $result_list[$count] = $data;
                              }
@@ -2151,7 +2156,7 @@ if ( ! function_exists( 'ajt_get_remote_xml' ) ) {
         curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
         curl_setopt( $ch, CURLOPT_REFERER, get_home_url() );
 
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, false );
         curl_setopt( $ch, CURLOPT_URL, $url ); // get the url contents
 
         $data = curl_exec( $ch ); // execute curl request
@@ -2435,3 +2440,4 @@ function update_symbiostock_site_data() {
     do_action('symbiostock_daily_chron');
     
 }
+?>
