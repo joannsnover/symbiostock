@@ -9,7 +9,6 @@ if ( !defined('DONOTCACHEPAGE') ){
     define('DONOTCACHEPAGE',true);
 }
 ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <header class="entry-header">
         <h1 class="entry-title"><i class="icon-user">&nbsp;</i><i class="icon-shopping-cart">&nbsp;</i><?php the_title(); ?>

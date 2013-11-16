@@ -2,9 +2,12 @@
 	z-index: 900;
 }
 
-ol,ul {
-	list-style: none;
+ol,ul {	
 	padding-left: 10px;
+}
+
+ul{
+	list-style: none;
 }
 
 caption,th,td {
@@ -618,8 +621,7 @@ body.admin-bar {
 	border-bottom-right-radius: 15px;
 	border-top-right-radius: 15px;
 }
-.navbar.ss-top-anchored{
-	background-color: transparent;
+.navbar.ss-top-anchored{	
 	background-image: none;
 	box-shadow: none;
 	border: none;

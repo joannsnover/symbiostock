@@ -25,9 +25,9 @@ get_header(); ?>
 
                     <?php symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = false) ?>
 
-                    <?php if(is_dynamic_sidebar( 'Home Page (Above Content)' )): ?>
+                    <?php if(is_dynamic_sidebar( 'Author Page (Below Content)' )): ?>
                     <div class="panel panel-default">
-                    <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
+                    <?php dynamic_sidebar('Author Page (Below Content)') ?>
                     </div>
                     <?php endif; ?>                    
                     

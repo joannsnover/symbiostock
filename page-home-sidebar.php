@@ -34,9 +34,9 @@ get_header(); ?>
                 </div><!-- #content .site-content -->
                        
           
-            <?php if(is_dynamic_sidebar( 'Featured Posts (Below Content)' )): ?>
+            <?php if(is_dynamic_sidebar( 'Home Page (Below Content)' )): ?>
                 <div class="panel panel-default">
-                <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
+                <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
                 </div>
             <?php endif; ?> 
          

@@ -1080,6 +1080,7 @@ function symbiostock_wp_query_vars( $qvars )
 
     //marketing
     $qvars[ ] = 'ss-' . get_option( 'marketer_user_number' , '88888888' );
+    $qvars[ ] = 'deleted';
     $qvars[ ] = 'type';
     $qvars[ ] = 'date';
     $qvars[ ] = 'time';
@@ -2982,6 +2983,7 @@ if ( is_admin( ) )
 //set up the theme auto-updater
 require_once( 'wp-updates-theme.php' );
 new WPUpdatesThemeUpdater_409( 'http://wp-updates.com/api/2/theme', basename(get_template_directory()));
+
 
 
 
