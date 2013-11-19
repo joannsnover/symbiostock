@@ -1,7 +1,0 @@
-     Order Deny,Allow 
-     Deny from All 
-
-<Files "upload.php"> 
-     Order Deny,Allow 
-     Allow from All 
-</Files>
