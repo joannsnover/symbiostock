@@ -1,54 +1,173 @@
 <?php
 /**
- * symbiostock functions and definitions
+ * Main functions file of Symbiostock
  *
- * @package symbiostock
- * @since symbiostock 1.0
+ * Coordinates all other Symbiostock includes, functions, and classes.
+ * 
+ * @package    symbiostock
+ * @author     Leo Blanchette <Leo@Symbiostock.com>
+ * @copyright  2013 Symbiostock LLC
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
+ * @link       http://www.symbiostock.org
  */
-/**
- * Set the content width based on the theme's design and stylesheet.
- *
- * @since symbiostock 1.0
- */
-error_reporting(E_ERROR);
-ini_set('error_reporting', E_ERROR);
+
+/*
+ Copyright 2012  Leo Blanchette (email : leo@symbiostock.com)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 3, as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 //trash the admin bar if not admin...
 if ( ! current_user_can( 'manage_options' ) ) {
     show_admin_bar( false );
 }
 
-//define some paths for easy working
-//remove code editing ability
-//define('DISALLOW_FILE_EDIT', TRUE);
-//http constants
+
 $symbiostock_template_directory = get_bloginfo( 'template_directory' );
-define( 'symbiostock_CLASSDIR' ,
-        $symbiostock_template_directory . '/inc/classes' );
-define( 'symbiostock_IMGDIR' , $symbiostock_template_directory . '/img' );
-define( 'symbiostock_HEADERDIR' ,
-        $symbiostock_template_directory . '/img/header' );
+
+/**
+ * HTML Path to the "classes" directory.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_CLASSDIR', $symbiostock_template_directory . '/inc/classes' );
+
+/**
+ * HTML Path to the "img" directory (main theme images).
+ * @package symbiostock
+ * @subpackage site-constants 
+ */
+define( 'symbiostock_IMGDIR', $symbiostock_template_directory . '/img' );
+
+/**
+ * HTML Path to the "header" directory.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_HEADERDIR', $symbiostock_template_directory . '/img/header' );
+
+/**
+ * HTML Path to the "js" (javascript) directory.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_JSDIR' , $symbiostock_template_directory . '/js' );
+
+/**
+ * HTML Path to the "css" directory (main css files).
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_CSSDIR' , $symbiostock_template_directory . '/css' );
+
+/**
+ * HTML Path to the "tmp" directory (often used for file manipulation).
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_TMPDIR' , $symbiostock_template_directory . '/tmp' );
-//branding - shows up a lot in the theme, so we make some constants for that
+
+/**
+ * Convenient HTML Link to the large Symbiostock logo.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_LOGO' , symbiostock_IMGDIR . '/symbiostock_logo.png' );
-define( 'symbiostock_LOGOSMALL' ,
-        symbiostock_IMGDIR . '/symbiostock_logo_small.png' );
+
+/**
+ * Convenient HTML Link to the large Symbiostock small logo.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_LOGOSMALL', symbiostock_IMGDIR . '/symbiostock_logo_small.png' );
+
+/**
+ * Convenient HTML Link to the 32px SS avatar.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.jpg' );
+
+/**
+ * Convenient HTML Link to the 12px SS avatar.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.jpg' );
+
 //filepath constants 
-$symbiostock_theme_root = get_theme_root( ) . '/symbiostock';
+$symbiostock_theme_root = get_theme_root( ) . '/' . get_template();
+
+/**
+ * FILE PATH to the "symbiostock_rf" directory. "rf" is meaningless, but
+ * all of symbiostock's protected stock images are kept here.
+ * 
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_STOCKDIR' , ABSPATH . 'symbiostock_rf/' );
+
+/**
+ * FILE PATH to Symbiostock's network director, where Symbiocards are kept and updated.
+ *
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_NETDIR' , ABSPATH . 'symbiostock_network/' );
-define( 'symbiostock_MARKETROOT' ,
-        $symbiostock_theme_root . '/inc/classes/marketing/' );
-define( 'symbiostock_CLASSROOT' , $symbiostock_theme_root . '/inc/classes/' );
-define( 'symbiostock_INCLUDESROOT' , $symbiostock_theme_root . '/inc/' );
-define( 'symbiostock_NETWORK_MANAGER' ,
-        $symbiostock_theme_root . '/inc/classes/network-manager/' );
+
+/**
+ * FILE PATH to marketing functions
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_MARKETROOT', $symbiostock_theme_root . '/inc/classes/marketing/' );
+
+/**
+ * FILE PATH to main "classes" folder
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_CLASSROOT', $symbiostock_theme_root . '/inc/classes/' );
+
+/**
+ * FILE PATH to "inc" folder, where most Symbiostock functionality is kept.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_INCLUDESROOT', $symbiostock_theme_root . '/inc/' );
+
+/**
+ * FILE PATH to the "Network Manager" system, which is responsible for most network functionality
+ * @package symbiostock
+ * @subpackage site-constants
+ */
+define( 'symbiostock_NETWORK_MANAGER', $symbiostock_theme_root . '/inc/classes/network-manager/' );
+
+/**
+ * FILE PATH to CSS -- was used when css files were generated dynamically on install.
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_CSSROOT' , $symbiostock_theme_root . '/css/' );
+
+/**
+ * FILE PATH to the temporary folder which is often used in image/file manipulation
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'symbiostock_TMPROOT' , $symbiostock_theme_root . '/tmp/' );
+
 //setup databases after activation - 
 
 if ( !function_exists( 'ss_url_key' ) )
@@ -56,7 +175,7 @@ if ( !function_exists( 'ss_url_key' ) )
     /**
      * Generate URL key which is used to uniquely identify sites in Symbiostock
      * 
-     * @param string $site (the URL of the site)
+     * @param string $site The URL of the site.
      * @return string
      */
 
@@ -68,20 +187,46 @@ if ( !function_exists( 'ss_url_key' ) )
     }
 }
 
-//This variable is our simplified domain location used in referrals
+/**
+ * Simplified domain name of our website, which is often passed in referral.
+ * 
+ * Javascript inserts your website's domain name on click of certain links,
+ * allowing the tracking of human traffic. It does not get used with search engines,
+ * thus keeping links "clean" and not dynamic.
+ * 
+ * @package symbiostock
+ * @subpackage site-constants
+ */
 define( 'SSREF' , '?r=' . str_replace('http://', '', home_url( ) ) );
 
 add_action( 'after_switch_theme' , 'symbiostock_installer' );
 
+/**
+ * Upon theme activation, runs a set of actions that set up Symbiostock.
+ * 
+ * Very important function that sets up Symbiostock for proper functionality.
+ * 
+ * It does the following: 
+ * <ul>
+ * <li> Create our content directory for wordpress, which holds previews on product pages.</li>
+ * <li> Create our directory for downloadable products.</li>
+ * <li> Create our directory for paypal IPN.</li>
+ * <li> Create and move "downloads" script to proper directory (which customer retrieves purchases with).</li>
+ * <li> Creates the seeds directory, for collecting network data.</li>
+ * <li> Creates our htaccess, to protect downloadable products.</li>
+ * <li> Sets up essential pages, based on templates, which are referenced by essential Symbiostock navigation.</li>
+ * <li> Creates initial categories for image organization (which can be deleted).</li>
+ * <li> Creates upload directory.</li>
+ * <li> Upon completion, sends upgrade email.</li>
+ * </ul>
+ * 
+ * @package symbiostock
+ * @subpackage installation-activation
+ * 
+ */
 function symbiostock_installer()
 {
-
-    /**
-     * Install Theme Databases..
-     */
-    require( get_template_directory( ) . '/inc/installer/installer.php' );
-    
-    
+    require( get_template_directory( ) . '/inc/installer/installer.php' );        
 }
 
 /**
@@ -101,15 +246,15 @@ if ( !isset( $content_width ) )
 /* pixels */
 
 
-if ( !function_exists( 'symbiostock_setup' ) ) :/**
-                                                 * Sets up theme defaults and registers support for various WordPress features.
-                                                 *
-                                                 * Note that this function is hooked into the after_setup_theme hook, which runs
-                                                 * before the init hook. The init hook is too late for some features, such as indicating
-                                                 * support post thumbnails.
-                                                 *
-                                                 * @since symbiostock 1.0
-                                                 */
+if ( !function_exists( 'symbiostock_setup' ) ) :
+/**
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which runs
+ * before the init hook. The init hook is too late for some features, such as indicating
+ * support post thumbnails.
+ *
+ */
     function symbiostock_setup()
     {
 
@@ -194,14 +339,13 @@ add_action( 'after_setup_theme' , 'symbiostock_setup' );
 
 
 /**
- * Register widgetized area and update sidebar with default widgets
+ * Register widgetized areas and update sidebar with default widgets
  *
  * @since symbiostock 1.0
+ *  
  */
 function symbiostock_widgets_init()
-{
-    
-
+{   
     register_sidebar( 
             array( 
                     'name'          => __( 'Sidebar' , 'symbiostock' ),
@@ -222,6 +366,7 @@ function symbiostock_widgets_init()
                     'after_widget' => '</aside></div>',
                     'before_title' => '<div class=" panel-heading"><h3 class="panel-title featured-posts ">',
                     'after_title' => '</h3></div>', ) );
+    
     //home page beside content area, such as for a sidebar type content, or CTA
     register_sidebar( 
             array( 
@@ -364,7 +509,7 @@ add_action( 'widgets_init' , 'symbiostock_widgets_init' );
 
 
 /**
- * Enqueue scripts and styles
+ * Enqueue scripts and styles for Symbiostock
  */
 function symbiostock_scripts()
 {
@@ -421,10 +566,12 @@ function symbiostock_scripts()
 
         }
 
-
+		/**
+		 * Set up scripts that show up in the head area of template.
+		 */
         function symbiostock_header_js()
         {
-?>
+		?>
             <script type="text/javascript">
             var symbiostock_large_loader = "<?php echo symbiostock_IMGDIR
                     . '/loading-large.gif' ?>";
@@ -448,9 +595,17 @@ function symbiostock_scripts()
     }
 
 }
-//separate content from addon-stuff that other plugins do
 
-
+/**
+ * Adds "hr /" tags before and after content, with high priority.
+ * 
+ * This is necessary because some plugins insert content before and
+ * after content, messing up layout and appearance. The "hr" tags 
+ * split things up and keep it organized.
+ * 
+ * @param string $content The content of the post being altered
+ * @return string The altered content
+ */
 function symbiostock_sep_content( $content )
 {
     if ( !is_feed( ) && !is_home( ) )
@@ -472,7 +627,17 @@ add_filter( 'the_content' , 'symbiostock_sep_content' , 1 );
 //custom login functions
 
 
-// Auto login and redirect to a page
+/**
+ * Auto-login for customers signing up.
+ * 
+ * Keeps things streamlined, so customer does not have to 
+ * verify credentials via email, thus allowing a faster checkout
+ * and increasing chance for sales. 
+ * 
+ * At login, user is redirected to the page they were visiting.
+ * 
+ * @param int $user_id User id of customer or webmaster.
+ */
 function symbiostock_auto_login_new_user( $user_id ) {
     
     if(isset($_POST['ss_password_1'])){
@@ -495,15 +660,21 @@ function symbiostock_auto_login_new_user( $user_id ) {
 }
 add_action( 'user_register', 'symbiostock_auto_login_new_user', 1 );
 
+/**
+ * Checks if current page is "login" page.
+ * 
+ * @return boolean
+ */
 function symbiostock_is_login_page()
 {
-    return !strncmp( $_SERVER[ 'REQUEST_URI' ] , '/wp-login.php' ,
-            strlen( '/wp-login.php' ) );
+    return !strncmp( $_SERVER[ 'REQUEST_URI' ], '/wp-login.php', strlen( '/wp-login.php' ) );
 }
+
 if ( symbiostock_is_login_page( ) )
 {
-
-
+	/**
+	 * Enqueue special style sheet if this is the login page.
+	 */
     function symbiostock_login_stylesheet()
     {
             ?>
@@ -513,8 +684,10 @@ if ( symbiostock_is_login_page( ) )
     }
 
     add_action( 'login_enqueue_scripts' , 'symbiostock_login_stylesheet' );
-
-
+	
+    /**
+     * Get site logo, and replace "Wordpress" branding on login page.
+     */
     function symbiostock_login_logo()
     {
 
@@ -539,7 +712,11 @@ if ( symbiostock_is_login_page( ) )
     <?php }
     add_action( 'login_enqueue_scripts' , 'symbiostock_login_logo' );
 
-
+	/**
+	 * Gets logo URL, to replace wordpress.org URL in login page.
+	 * 
+	 * @return Ambigous <string, mixed, boolean>
+	 */
     function sybiostock_login_logo_url()
     {
         return get_bloginfo( 'url' );
@@ -547,7 +724,11 @@ if ( symbiostock_is_login_page( ) )
     }
     add_filter( 'login_headerurl' , 'sybiostock_login_logo_url' );
 
-
+	/**
+	 * Simply replaces title of login page logo.
+	 * 
+	 * @return Ambigous <mixed, boolean>
+	 */
     function symbiostock_login_logo_url_title()
     {
         return get_option( 'symbiostock_my_network_description' ,
@@ -563,14 +744,24 @@ if ( symbiostock_is_login_page( ) )
  */
 add_filter( 'excerpt_length' , 'symbiostock_excerpt_length' );
 
-
+/**
+ * Limits excerpts to 20 chars.
+ * 
+ * @param unknown $length
+ * @return number
+ */
 function symbiostock_excerpt_length( $length )
 {
     return 20;
 }
 add_filter( 'excerpt_more' , 'symbiostock_excerpt_more' );
 
-
+/**
+ * Generates the "See More" link at the end of a given excerpt.
+ * 
+ * @param unknown $more
+ * @return string
+ */
 function symbiostock_excerpt_more( $more )
 {
 
@@ -581,7 +772,9 @@ function symbiostock_excerpt_more( $more )
 
 }
 
-
+/**
+ * Removes the Wordpress Logo from the admin bar! Poor wordpress...
+ */
 function symbiostock_admin_bar_remove()
 {
     global $wp_admin_bar;
@@ -589,12 +782,18 @@ function symbiostock_admin_bar_remove()
     $wp_admin_bar->remove_menu( 'wp-logo' );
 }
 add_action( 'wp_before_admin_bar_render' , 'symbiostock_admin_bar_remove' , 0 );
+
 add_action( 'wp_enqueue_scripts' , 'symbiostock_scripts' );
-//symbiostock_product_attachments, symbiostock_delete_cleanup, symbiostock_product_delete
-//are all used in a complete deleletion of files when an image post is deleted
-//this gets all attachment ids for post
 
-
+/**
+ * Retrieves all attachment IDs for an image product.
+ * 
+ * symbiostock_product_attachments, symbiostock_delete_cleanup, symbiostock_product_delete
+ *  functions are all used in a complete deletion of files when an image post is deleted.
+ * 
+ * @param int $post_id ID of Image Post
+ * @return multitype:
+ */
 function symbiostock_product_attachments( $post_id )
 {
 
@@ -619,10 +818,14 @@ function symbiostock_product_attachments( $post_id )
 
     return $attachments_to_delete;
 }
-//during image deletion, we tidy up by removing attachments
+
 add_action( 'wp_trash_post' , 'symbiostock_delete_cleanup' );
 
-
+/**
+ * Deletes related preview images on post deletion.
+ * 
+ * @param int $post_id ID of Image Post
+ */
 function symbiostock_delete_cleanup( $post_id )
 {
 
@@ -655,10 +858,14 @@ function symbiostock_delete_cleanup( $post_id )
     }
 
 }
-//if an image post is deleted, stock image files also get deleted
+
 add_action( 'delete_post' , 'symbiostock_product_delete' );
 
-
+/**
+ * Deletes full-size and promo-size protected product images upon deletion of Image post.
+ * 
+ * @param int $post_id ID of Image Post
+ */
 function symbiostock_product_delete( $post_id )
 {
 
@@ -693,24 +900,21 @@ function symbiostock_product_delete( $post_id )
     }
 
 }
-
-
-function symbiostock_filter_post_tag_term_links( $term_links )
-{
-    $wrapped_term_links = array();
-    foreach ( $term_links as $term_link )
-    {
-
-        $wrapped_term_links[ ] = '<i class="icon-tag"></i> ' . $term_link;
-    }
-
-    return $wrapped_term_links;
-}
-add_filter( 'term_links-post_tag' , 'symbiostock_filter_post_tag_term_links' );
-//image info specific functions
-//WARNING too database intensive. Needs to use get_post_custom() but that function does not seem to play well with serialized data
-
-
+/**
+ * Main function for grabbing all product values for a given image.
+ * 
+ * It loops through each expected value and retrieves it via get_post_meta.
+ * Becaues it generally happens during the main loop, it does not hammer the database.
+ * 
+ * See $meta_values - its a filter for adding more post_meta's for retrieving.
+ * 
+ * An improvement would be to use get_post_custom() instead, but its unknown how this
+ *  would effect things down the line of use.
+ * 
+ * @param int $postid ID of Image Post
+ * @return array Full set of image meta values relating to product
+ *  
+ */
 function symbiostock_post_meta( $postid )
 {
 
@@ -774,7 +978,14 @@ function symbiostock_post_meta( $postid )
 
 }
 
-
+/**
+ * Retrieves purchased user files.
+ * 
+ * This can be filtered by other plugins to do different things with purchases.
+ * 
+ * @param string||int $user_id
+ * @return mixed
+ */
 function symbiostock_get_user_files( $user_id = '' )
 {
 
@@ -791,13 +1002,17 @@ function symbiostock_get_user_files( $user_id = '' )
 
     //plugins and upgrades may wish to modify conditions based on user purchases
     //EXAMPLE: Your custom product may have special post meta, which may actually allow other products downloadable
-    $user_products = apply_filters( 'symbiostock_get_user_files' ,
-            $user_products );
+    
+    $user_products = apply_filters( 'symbiostock_get_user_files' , $user_products );
 
     return $user_products;
 }
 
-
+/**
+ * Creates a simple array of local site attributes, which are used in networking.
+ * 
+ * @return array A set of network attributes relating to your site.
+ */
 function symbiostock_network_info()
 {
 
@@ -822,9 +1037,12 @@ function symbiostock_network_info()
     return $network_info;
 
 }
-//customer page is generated on setup. We retrieve this at various parts of site
 
-
+/**
+ * Simply fetches customer area page link for quick use. Referenced on various parts of site.
+ * 
+ * @return string Permalink of Customer Area page.
+ */
 function symbiostock_customer_area_link()
 {
 
@@ -836,7 +1054,14 @@ function symbiostock_customer_area_link()
 
 }
 
-
+/**
+ * Creates a link or button leading to Customer Area.
+ * 
+ * @param string $text What you want link or button to say.
+ * @param bool $btn Whether this is a button or link. True for "Button"
+ * 
+ * @return string HTML of button or link.
+ */
 function symbiostock_customer_area( $text, $btn = false )
 {
 
@@ -857,9 +1082,13 @@ function symbiostock_customer_area( $text, $btn = false )
     return $customer_page_link;
 
 }
-//customer login page is generated on setup. We retrieve this at various parts of site
 
-
+/**
+ * A simple link with cute icon that leads to customer login area.
+ * 
+ * @param string $text What anchor text is used for link.
+ * @return string
+ */
 function symbiostock_customer_login( $text )
 {
 
@@ -873,7 +1102,13 @@ function symbiostock_customer_login( $text )
 
 }
 
-
+/**
+ * Creates an anchor tag or basic permalink leading to default EULA page.
+ * 
+ * @param string $text What anchor text link will show.
+ * @param bool $linkonly Whether or not its just the permalink or a full on anchor tag.
+ * @return string The link to be displayed.
+ */
 function symbiostock_eula( $text, $linkonly = false )
 {
 
@@ -889,7 +1124,13 @@ function symbiostock_eula( $text, $linkonly = false )
 
 }
 
-
+/**
+ * Creates an anchor tag or basic permalink leading to the Symbiostock network page.
+ *
+ * @param string $text What anchor text link will show.
+ * @param bool $linkonly Whether or not its just the permalink or a full on anchor tag.
+ * @return string The link to be displayed.
+ */
 function symbiostock_network( $text, $linkonly = false )
 {
 
@@ -908,7 +1149,13 @@ function symbiostock_network( $text, $linkonly = false )
 
 }
 
-
+/**
+ * Creates an anchor tag or permalink leading to Symbiostock Directory Page.
+ *
+ * @param string $text What anchor text link will show.
+ * @param bool $linkonly Whether or not its just the permalink or a full on anchor tag.
+ * @return string The link to be displayed.
+ */
 function symbiostock_directory_link( $text = '', $linkonly = false,
         $small_pic = true )
 {
@@ -934,7 +1181,14 @@ function symbiostock_directory_link( $text = '', $linkonly = false,
 
 }
 
-
+/**
+ * Conditionally creates a login button or navigation links leading to customer area.
+ * 
+ * If user is logged in, links leading to customer area are printed. If customer is not
+ * logged in, a "Log In" button is printed.
+ * 
+ * @return string Login button or navigation links to customer area.
+ */
 function symbiostock_customer_nav_links()
 {
     if ( is_user_logged_in( ) )
@@ -969,6 +1223,13 @@ function symbiostock_customer_nav_links()
 add_filter( 'wp_nav_menu_items' , 'add_customer_nav' , 10 , 2 );
 
 
+/**
+ * Adds navigation links to Account/Customer Menu
+ * 
+ * @param string $nav HTML of navigation menu.
+ * @param object $args
+ * @return string The modified menu.
+ */
 function add_customer_nav( $nav, $args )
 {
 
@@ -978,6 +1239,16 @@ function add_customer_nav( $nav, $args )
 }
 
 
+/**
+ * Simple string truncating function, used for various needs.
+ * 
+ * @param string $string the string to get truncified!
+ * @param int $limit limit to how many characters.
+ * @param string $break Character to possibly end on, instead of truncating.
+ * @param string $pad Three dots to imply continued thought. :)
+ * 
+ * @return string Truncified statement.
+ */
 function symbiostock_truncate( $string, $limit, $break = ".", $pad = "..." )
 { // return with no change if string is shorter than $limit 
 
@@ -1000,9 +1271,11 @@ function symbiostock_truncate( $string, $limit, $break = ".", $pad = "..." )
     return $string;
 }
 
-//show community activity
-
-
+/**
+ * Dials into Symbiostock.org and pipes the action into your site!
+ * 
+ * Utilizes symbiostock.org's news feed and prints it to the page.
+ */
 function symbiostock_community_activity()
 {
 
@@ -1030,6 +1303,12 @@ function symbiostock_community_activity()
 //set up our symbiostock feed
 
 
+/**
+ * Displays an RSS feed as a series of links.
+ * 
+ * @param string $feed_url
+ * @param int $qty
+ */
 function symbiostock_feed_display( $feed_url, $qty )
 {
 
@@ -1048,9 +1327,13 @@ function symbiostock_feed_display( $feed_url, $qty )
         endif;
     endif;
 }
-//for validating URLs
 
-
+/**
+ * Simple URL validating function. 
+ * 
+ * @param string $url
+ * @return boolean True if valid, false if not.
+ */
 function symbiostock_validate_url( $url )
 {
     if ( filter_var( $url , FILTER_VALIDATE_URL ) )
@@ -1061,9 +1344,19 @@ function symbiostock_validate_url( $url )
         return false;
     }
 }
-//set up some unique variables for wp_query so that our network search gets parameters properly
 
 
+/**
+ * Creates valid "query vars" which are checked throughout the theme.
+ * 
+ * Oddly enough, Wordpress will not allow $_GET variables to pass through
+ * in many instances unless you declare them ahead of time. This is the place
+ * where they are declared. At the end of the function filters are applied, 
+ * where other plugins can add or remove various query vars easily.
+ * 
+ * @param unknown $qvars
+ * @return string
+ */
 function symbiostock_wp_query_vars( $qvars )
 {
     global $wp_query;
@@ -1089,32 +1382,28 @@ function symbiostock_wp_query_vars( $qvars )
     return $qvars;
 }
 add_filter( 'query_vars' , 'symbiostock_wp_query_vars' );
-//the next few functions compensate for what appears to be a pagination bug.
-//image searches are sent to taxonomy where results are shown. If no results, 404 is thrown, but 
-// we disguise the 404 to be a typical "no results found in search" page.
 
 
-function symbiostock_modify_query( $query )
-{
-    if ( ( is_search( ) && get_query_var( 'post_type' ) == 'image' ) )
-    {
-        /*    
-            $encoded_search_term = urlencode(get_query_var('s'));
-            
-            $home = home_url();
-            $params = array( 'image-tags' => $encoded_search_term);
-            $redirect = add_query_arg( $params, $home );
-            wp_redirect($redirect);
-            exit();*/
+/*
+ * The next few functions compensate for what appears to be a pagination bug.
+ * image searches are sent to taxonomy where results are shown. If no results, 404 is thrown, but
+ * we disguise the 404 to be a typical "no results found in search" page. 
+ */
 
-    }
-}
-//symbiostock_search_pagination_mod filter fixes a horrible pagination bug with this theme. Its a creative work around, and hopefully doesnt trouble us anymore.
-//the "paged" variable does not seem to work on search results, but only on archive and taxonomy pages. 
-//So this modifies the pagination to use "page" variable instead, which seems to work fine.
+
 add_filter( 'paginate_links' , 'symbiostock_search_pagination_mod' , 1 );
 
-
+/**
+ * Modification on pagination *important*
+ * 
+ * Symbiostock_search_pagination_mod filter fixes a horrible pagination bug with this theme. 
+ * Its a creative work around, and hopefully doesnt trouble us anymore.
+ * The "paged" variable does not seem to work on search results, but only on archive and taxonomy pages.
+ * So this modifies the pagination to use "page" variable instead, which seems to work fine. 
+ * 
+ * @param string $link
+ * @return string Modified link for pagination.
+ */
 function symbiostock_search_pagination_mod( $link )
 {
 
@@ -1141,9 +1430,15 @@ function symbiostock_search_pagination_mod( $link )
     }
     return $link;
 }
-add_action( 'parse_query' , 'symbiostock_modify_query' );
 
 
+
+/**
+ * Simple filtering of the 404 page title, to something less scary.
+ * 
+ * @param string $title
+ * @return string Less scary title.
+ */
 function symbiostock_filter_404_title( $title )
 {
     if ( is_404( ) && is_tax( 'image-tags' ) )
@@ -1154,17 +1449,35 @@ function symbiostock_filter_404_title( $title )
     // just return $title
     return $title;
 }
-//this changes the "topics" word to "images" in taxonomy cloud
 
-
+/**
+ * This changes the "topics" word to "images" in taxonomy cloud.
+ * 
+ * Its uncertain of this filter is needed, and can probably be deleted.
+ * Called by "symbiostock_widget_tag_cloud_args( $args )"
+ * 
+ * @deprecated
+ * 
+ * @param unknown $count
+ * @return string
+ */
 function symbiostock_category_text( $count )
 {
     return sprintf( _n( '%s topic' , '%s Images' , $count ) ,
             number_format_i18n( $count ) );
 }
+
 add_filter( 'widget_tag_cloud_args' , 'symbiostock_widget_tag_cloud_args' );
-
-
+/**
+ * Employs symbiostock_widget_tag_cloud_args( $args ) to determine whether to filter taxonomy.
+ * 
+ * This can probably be deleted soon.
+ * 
+ * @deprecated
+ * 
+ * @param unknown $args
+ * @return string
+ */
 function symbiostock_widget_tag_cloud_args( $args )
 {
 
@@ -1178,15 +1491,24 @@ function symbiostock_widget_tag_cloud_args( $args )
 // Hook into wp_title filter hook
 add_filter( 'wp_title' , 'symbiostock_filter_404_title' , 1 );
 
-//set the results per page depending on if we are doing image search
-
-
+/**
+ * The function infamous for locking image results per page.
+ * 
+ * Its necessary to alter posts-per-page because this dictates 
+ * how many images per page will show, since images are a 
+ * custom post type. It tends to haunt bloggers because it effects
+ * how many blog posts per page are shown in blog results.
+ * 
+ * @todo Fix results-per-page so that it does not effect blog posts.
+ * 
+ * @param object $query The modified query.
+ */
 function symbiostock_image_results_per_page( $query )
 {
     $network_search = get_query_var( 'symbiostock_network_search' );
 
-	if(defined('symbiostock_remove_cap'))
-		return;
+	if(defined('symbiostock_remove_cap') || defined('ss_is_ipn'))
+		return $query->set( 'posts_per_page' , -1);
 
     if ( $network_search != true && !is_admin( ) )
     {
@@ -1204,16 +1526,18 @@ function symbiostock_image_results_per_page( $query )
 }
 add_action( 'pre_get_posts' , 'symbiostock_image_results_per_page' );
 
-//set the results per page depending on if we are doing image search
-
-
+/**
+ * Determines results per page on on network queries.
+ * 
+ * @param object $query Wordpress query object
+ */
 function symbiostock_network_results_per_page( $query )
-{
+{	
+	
     $network_search = get_query_var( 'symbiostock_network_search' );
 
-
-	if(defined('symbiostock_remove_cap'))
-		return;
+	if(defined('symbiostock_remove_cap') || defined('ss_is_ipn'))
+		return $query->set( 'posts_per_page' , -1);
 
     if ( $network_search == true )
     {
@@ -1229,32 +1553,27 @@ function symbiostock_network_results_per_page( $query )
 }
 add_action( 'pre_get_posts' , 'symbiostock_network_results_per_page' );
 
-function symbiostock_featured_home( $query ) {
-   
-    
-	if(defined('symbiostock_remove_cap'))
-		return;
-    
-    if ( is_home() ) {     
-        $query->set( 'posts_per_page', 144 );
-        return;
-    }
-}
-add_action( 'pre_get_posts', 'symbiostock_featured_home' );
-
-//Symbiostock Decode Entities function
-
-
+/**
+ * Symbiostock Decode Entities function
+ * 
+ * This is an essential function for decoding character entities
+ * passed via network xml feeds. Undecoded, they do serious damage! 
+ * 
+ * @param string $text to be decoded.
+ * @return string decoded text.
+ */
 function ssde( $text )
 {
     $text = htmlspecialchars( $text ); #NOTE: UTF-8 does not work!
-    //$text= preg_replace('/&#(\d+);/me',"chr(\\1)",$text); #decimal notation
-    //$text= preg_replace('/&#x([a-f0-9]+);/mei',"chr(0x\\1)",$text);  #hex notation
-
     return $text;
 }
 
 
+/**
+ * A function for showing Symbiostock credits and supporting sites.
+ * 
+ * @param string $position Where on page it is position.
+ */
 function symbiostock_credit_links( $position )
 {
 
@@ -1298,9 +1617,15 @@ function symbiostock_credit_links( $position )
     }
 
 }
-//appends an SEO phrase to image titles
 
-
+/**
+ * Appends an SEO phrase to image titles
+ * 
+ * Determines what SEO text user had assigned to append to image titles, and inserts it.
+ * 
+ * @param unknown $title Original image title.
+ * @return string Modified image title.
+ */
 function symbiostock_seo_title( $title )
 {
     if ( is_single( $post ) && 'image' == get_post_type( ) && in_the_loop( ) )
@@ -1314,20 +1639,16 @@ function symbiostock_seo_title( $title )
 }
 add_filter( 'the_title' , 'symbiostock_seo_title' , 10 , 2 );
 
-
-function symbiostock_sort_tag_score( $item1, $item2 )
-{
-    if ( $item1[ 'score' ][ 0 ] != $item2[ 'score' ][ 0 ] )
-    {
-        return $item1[ 'score' ][ 0 ] < $item2[ 'score' ][ 0 ] ? 1 : -1;
-    } else
-    {
-        return $item1[ 'score' ][ 1 ] < $item2[ 'score' ][ 1 ] ? -1 : 1; // ASC
-    }
-}
-//prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
-
-
+/**
+ * Prevents slug clashes between categories and image keywords by appending '-images' to the category slug.
+ * 
+ * This is necessary because although Wordpress can employ different taxonomies, it still does not 
+ * allow duplicate slugs, despite being different taxonomies. This is a work-around.
+ * 
+ * @param int $term_id
+ * @param int $tt_id
+ * @param string $taxonomy
+ */
 function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
 {
 
@@ -1349,15 +1670,19 @@ function symbiostock_unique_category( $term_id, $tt_id, $taxonomy )
 
         wp_update_term( $term_id , $taxonomy ,
                 array( 'slug' => $name
- ) );
+ 		) );
 
     }
 
 }
 add_action( 'create_term' , 'symbiostock_unique_category' , 10 , 3 );
-//generates copyright notice for website 
 
-
+/**
+ * Generates copyright notice for website 
+ * 
+ * @package symbiostock
+ * @subpackage html-functions
+ */
 function symbiostock_website_copyright()
 {
 
@@ -1387,10 +1712,14 @@ function symbiostock_website_copyright()
     }
 
 }
-//simply brings you to help page and lands on given id #
-//
 
-
+/**
+ * A function used in admin area - brings you to related help via id#
+ * 
+ * @param string $destination_id ID of help element.
+ * @param string $subject Human readable text relating to help subject.
+ * @return string Link pointing to help subject.
+ */
 function sshelp( $destination_id, $subject )
 {
     //get_home_url(); /wp-admin/profile.php#extended_network_info"
@@ -1401,10 +1730,16 @@ function sshelp( $destination_id, $subject )
     </span>';
 
 }
-//this converts the name of a network assocate to a unique value: www.mysite.com/my_symbiostock/ becomes "wwwmysitecommysymbiostock"
-//which can be used as a folder name or ID.
 
-
+/**
+ * this converts the name of a network assocate to a unique value:
+ *  
+ * www.mysite.com/my_symbiostock/ becomes "wwwmysitecommysymbiostock"
+ * which can be used as a folder name or ID.
+ * 
+ * @param string $website Typical domain name
+ * @return string Domain name converted to website key.
+ */
 function symbiostock_website_to_key( $website )
 {
 
@@ -1416,10 +1751,18 @@ function symbiostock_website_to_key( $website )
     return $key;
 }
 
-//Symbiostock shares email addresses, and sometimes they could be harvested if .csv files are searched. This converts them to a string unrecognizeable outside our program.
-//http://stackoverflow.com/questions/16314678/php-encode-an-email-address-hide-from-spammers-decode-easily-without-flaws
-
-
+/**
+ * Encodes or Decodes email addresses.
+ * 
+ * Symbiostock shares email addresses, and sometimes they could be harvested if .csv files are searched. 
+ * This converts them to a string unrecognizeable outside our program.
+ * 
+ * @link http://stackoverflow.com/questions/16314678/php-encode-an-email-address-hide-from-spammers-decode-easily-without-flaws
+ * 
+ * @param string $email Email address to encode or decode.
+ * @param string $action "encode" or "decode"
+ * @return string A meaningless number to half-hearted spammers.
+ */
 function symbiostock_email_convert( $email, $action = 'encode' )
 {
     if ( $action == 'decode' )
@@ -1435,6 +1778,9 @@ function symbiostock_email_convert( $email, $action = 'encode' )
 }
 
 
+/**
+ * Simple function to list site administrators.
+ */
 function symbiostock_list_admins()
 {
 
@@ -1450,14 +1796,14 @@ function symbiostock_list_admins()
                 : $choice = '';
                                                                               ?><option <?php echo $choice; ?> value="<?php echo $admin
                 ->ID; ?>"><?php echo $admin->display_name; ?></option> <?php
-    }
-                                                                                                                            ?></select><?php
-
+    }  
 }
 
-//checks if current logged in user is the Symbiostock site author
-
-
+/**
+ * Checks if current logged in user is the Symbiostock site author
+ * 
+ * @return boolean
+ */
 function is_symbiostock_author()
 {
     $main_author = get_option( 'symbiostock_site_author' );
@@ -1478,7 +1824,18 @@ function is_symbiostock_author()
 add_action( 'show_user_profile' , 'symbiostock_social_credentials' );
 add_action( 'edit_user_profile' , 'symbiostock_social_credentials' );
 
-
+/**
+ * Prints and processes a form necessary for recording "social" credentials.
+ * 
+ * This function is relevant to the network and symbiocard.
+ * 
+ * @package symbiostock
+ * @subpackage html-functions
+ * 
+ * @param object $user Site's admin user.
+ * @param bool $get_fields Whether or not to get form fields.
+ * @return void|boolean|multitype: Returns all sorts of stuff depending on conditions.
+ */
 function symbiostock_social_credentials( $user, $get_fields = false )
 {
     $symbiostock_social_credentials = get_option( 
@@ -1568,7 +1925,7 @@ function symbiostock_social_credentials( $user, $get_fields = false )
                     'Industry',
                     'Mascot Series' ),
 
- );
+	);
 
     //this function can also be used to get the expected values array
     if ( $get_fields == true )
@@ -1665,10 +2022,17 @@ function symbiostock_social_credentials( $user, $get_fields = false )
     </table>
 <?php }
 add_action( 'personal_options_update' , 'symbiostock_update_social_credentials' );
-add_action( 'edit_user_profile_update' ,
-        'symbiostock_update_social_credentials' );
+add_action( 'edit_user_profile_update' ,'symbiostock_update_social_credentials' );
 
 
+/**
+ * Updates social / professional info.
+ * 
+ * Utilizes supplied values submitted from symbiostock_social_credentials() form/function.
+ * 
+ * @param object $user The user being updated.
+ * @return void|boolean
+ */
 function symbiostock_update_social_credentials( $user )
 {
 
@@ -1712,17 +2076,17 @@ function symbiostock_update_social_credentials( $user )
     symbiostock_save_network_info( );
 }
 
-
-function symbiostock_get_social_credentials( $user )
-{
-
-}
-
-//creates image sliders for various needs in the theme
-
-
-function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview',
-        $action = 'latest' )
+/**
+ * Creates image sliders for various needs in the theme
+ * 
+ * @package symbiostock
+ * @subpackage html-functions 
+ * 
+ * @param string $id html element id# of desired slider.
+ * @param string $size "preview" || "minipic"
+ * @param string $action "latest" || "featured"
+ */
+function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview', $action = 'latest' )
 {
 
     $images = array();
@@ -1806,6 +2170,11 @@ function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview',
 //
 
 
+/**
+ * Creates a simple Symbiostock image slider shortcode.
+ * 
+ * @param array $atts
+ */
 function symbiostock_slider_shorttag( $atts )
 {
     if ( empty( $atts[ 'id' ] ) || empty( $atts[ 'size' ] )
@@ -1816,59 +2185,68 @@ function symbiostock_slider_shorttag( $atts )
     symbiostock_image_slider( $atts[ 'id' ] , $atts[ 'size' ] , $atts[ 'action' ] );
 }
 add_shortcode( 'ss-slider' , 'symbiostock_slider_shorttag' );
-/**
- * Implement the Custom Header feature
- */
-//require( get_template_directory() . '/inc/custom-header.php' );
+
 
 /**
  * Get symbiostock Menus
  */
 require_once( 'inc/menus.php' );
+
 /**
  * Get symbiostock Widgets
  */
-
 require_once( 'inc/classes/widgets.php' );
+
 /**
  * Get symbiostock Carousel
  */
-
 require_once( 'inc/classes/symbiostock_carousel.php' );
 /**
  * Get symbiostock Admin Area
  */
 
 require_once( 'inc/classes/admin.php' );
+
 /**
  * Get Image Custom Post Functions
  */
-
 require_once( 'inc/rf-custom-post-functions.php' );
+
 /**
  * Get the cart
  */
-
 require_once( 'inc/classes/cart/cart.php' );
+
 /**
  * Get symbiostock frontend ajax
  */
 require_once( 'inc/classes/symbiostock_ajax_frontend.php' );
 
-//get our interpreter class, for displaying network data and search results
+/**
+ * Get our interpreter class, for displaying network data and search results
+ */
 require_once( symbiostock_NETWORK_MANAGER . '/network-manager.php' );
-//added support for other plugins 
-//http://wordpress.org/extend/plugins/gecka-terms-thumbnails/
-//category thumbnails
+
+/**
+ * Added support for other plugins 
+ * @link http://wordpress.org/extend/plugins/gecka-terms-thumbnails/
+ */
 if ( function_exists( 'add_term_thumbnails_support' ) )
     add_term_thumbnails_support( 'image-type' );
-//http://wordpress.org/extend/plugins/gecka-terms-thumbnails/
-//category thumbnails
-//get any number of symbiostock feeds 
 
 
-function symbiostock_feed( $type = 'rss_url', $format = 'link',
-        $fetchwhat = 'new-images' )
+/**
+ * Retrieves an Image RSS feed type, depending on input.
+ * 
+ * @package symbiostock
+ * @subpackage html-functions 
+ * 
+ * @param string $type 'rss_url' is presently only one available.
+ * @param string $format 'atom_url'|| 'rdf_url' || 'rss_url' || 'rss2_url'
+ * @param string $fetchwhat 'new-images' || 'image-type' || 'image-tags'
+ * @return string The resulting feed link with cute icon attached.
+ */
+function symbiostock_feed( $type = 'rss_url', $format = 'link', $fetchwhat = 'new-images' )
 {
 
     $feed = get_bloginfo( $type );
@@ -1897,107 +2275,21 @@ function symbiostock_feed( $type = 'rss_url', $format = 'link',
         return $feed;
     } elseif ( $format == 'icon' )
     {
-        return '<small><a class="muted" title="RSS" href="' . $feed
-                . '"><i class="icon-rss">&nbsp;</i></a></small>';
+        return '<small><a class="muted" title="RSS" href="' . $feed . '"><i class="icon-rss">&nbsp;</i></a></small>';
     }
 }
 
-//include the author-box function. Its so big it gets its own file!    
+
+/**
+ * Include the author-box function. Its so big it gets its own file! 
+ */   
 require_once( 'symbiostock_author_box.php' );
-//misc image processing functions 
 
-
-function symbiostock_reprocess_image( $post_id, $promo = false, $size = 590 )
-{
-    global $post;
-    global $typenow;
-    $post_type_bulk = $typenow;
-
-    if ( $post->post_type == 'image'
-            || $post_type_bulk == 'image'
-                    && !isset( $_POST[ 'symbiostock_update_images' ] ) )
-    //sometimes people have images of obnoxiously huge size, so we up memory to obnoxiously huge limit
-        ini_set( "memory_limit" , "1024M" );
-    //set the time limit for five minutes in case theres a lot of images
-    set_time_limit( 300 );
-
-    $attachment_id = get_post_meta( $post_id , 'symbiostock_preview_id' );
-
-    $file_attachment_path = get_attached_file( $attachment_id[ 0 ] );
-
-    include_once( symbiostock_CLASSROOT
-            . 'image-processor/symbiostock_image_processor.php' );
-
-    $watermark_path = symbiostock_get_watermark_path( );
-
-    $stockdir = symbiostock_STOCKDIR;
-
-    $tmp = symbiostock_TMPROOT;
-
-    if ( file_exists( $stockdir . $post_id . '.jpg' ) )
-    {
-        $file = $stockdir . $post_id . '.jpg';
-        $meta = true;
-        $ext = '.jpg';
-    } else if ( file_exists( $stockdir . $post_id . '.png' ) )
-    {
-
-        //if this is a promo image, we must abort because png files don't do IPTC
-        if ( $promo == true )
-            return;
-
-        $file = $stockdir . $post_id . '.png';
-        $meta = false;
-        $ext = '.png';
-    } else
-    {
-        return;
-    }
-
-    //first generate a new preview, then save it to tmp
-    $image = wp_get_image_editor( $file );
-    $image->resize( $size , $size );
-    $image->set_quality( 100 );
-    $image->save( $tmp . $post_id . '.jpg' );
-
-    if ( $promo == false )
-    {
-        //watermark the image
-        symbiostock_watermark_image( $tmp . $post_id . '.jpg' ,
-                $tmp . $post_id . '.jpg' , $watermark_path );
-    }
-
-    //update its meta
-    symbiostock_update_meta( $file , $tmp . $post_id . '.jpg' ,
-            $tmp . $post_id . '.jpg' , $post_id );
-    //copy it
-
-    if ( $promo == true )
-    {
-
-        //if promo it sits in our protected directory as an assumed promo image (passed through protected URL)
-        if ( !copy( $tmp . $post_id . '.jpg' ,
-                $stockdir . $post_id . '_promo.jpg' ) )
-        {
-            echo "failed to copy $file...\n";
-        }
-    } else
-    {
-        //if it is watermarked, we over-write its preview        
-        if ( !copy( $tmp . $post_id . '.jpg' , $file_attachment_path ) )
-        {
-            echo "failed to copy $file...\n";
-        }
-    }
-
-    //delete temp image
-    if ( file_exists( $tmp . $post_id . '.jpg' ) )
-    {
-        unlink( $tmp . $post_id . '.jpg' );
-    } elseif ( file_exists( $tmp . $post_id . '.png' ) )
-    {
-        unlink( $tmp . $post_id . '.jpg' );
-    }
+if(is_admin()){
+	/**
+	 * Get the function necessary for reprocessing images
+	 */
+	require_once('inc/classes/image-processor/reprocess_image.php');
 }
 
 if ( is_admin( ) )
@@ -2005,6 +2297,13 @@ if ( is_admin( ) )
     //for changing image sizes    
 
 
+    /**
+     * @param unknown $image_id
+     * @param unknown $bloggee_size
+     * @param unknown $small_size
+     * @param unknown $medium_size
+     * @return void|Ambigous <void, string>
+     */
     function symbiostock_change_image_sizes( $image_id, $bloggee_size,
             $small_size, $medium_size )
     {
@@ -2038,9 +2337,17 @@ if ( is_admin( ) )
     }
 
 }
-//for generating image previews, which are used by promoting agencies (optional feature, not used unless specifically evoked)
 
-
+/**
+ * For generating image previews, which are used by promoting agencies 
+ * 
+ * Optional feature, not used unless specifically evoked.
+ *
+ * @package symbiostock
+ * @subpackage image-processing
+ * 
+ * @param array $images IDs of images to be processed into promo images.
+ */
 function symbiostock_promo_image( $images )
 {
     //images is an array of post ids which are used to coordate the images
@@ -2062,28 +2369,32 @@ function symbiostock_promo_image( $images )
 
 }
 
-//adding custom functionality to the bulk edit screen is not easy with current wordpress. We are using a class developed by FoxRunSoftware
-/*
-Plugin Name: FoxRunSoftware Custom Bulk Action Demo
-Plugin URI: http://www.foxrunsoftware.net/articles/wordpress/add-custom-bulk-action/
-Description: A working demonstration of a custom bulk action
-Author: Justin Stern
-Author URI: http://www.foxrunsoftware.net
-Version: 0.1
-    Copyright: © 2012 Justin Stern (email : justin@foxrunsoftware.net)
-    License: GNU General Public License v3.0
-    License URI: http://www.gnu.org/licenses/gpl-3.0.html
- */
+
+
 if ( is_admin )
 {
     if ( !class_exists( 'symbiostock_reprocess_images' ) )
     {
 
+    	/**
+    	 * Extra class for reprocessing images in the admin area of Symbiostock
+    	 * 
+    	 * This is used by the "basic" version, sufficient to reprocess images 
+    	 * through the dropdown found in the edit images area. Its not extremely 
+    	 * convenient, but still enough to get the job done.
+    	 * 
+		 * @package    symbiostock
+		 * @subpackage image-processing
+		 * @author     Justin Stern <justin@foxrunsoftware.net>
+		 * @copyright  © 2012 Justin Stern 
+		 * @license    GNU General Public License v3.0
+		 * @version    .01
+		 * @link       http://www.foxrunsoftware.net
+    	 *
+    	 */
 
         class symbiostock_reprocess_images
         {
-
-
             public function __construct()
             {
 
@@ -2269,9 +2580,21 @@ if ( is_admin )
     new symbiostock_reprocess_images( );
 }
 
-//generates dublin core semantic markup for SEO purposes.
 
-
+/**
+ * Generates Dublin Core semantic markup for SEO purposes.
+ * 
+ * This was an SEO feature suggested early in creation of Symbiostock.
+ * Its purpose is to give meaningful markup to the page, showing as much 
+ * as possible image info search engines can utilize for proper indexing and rank.
+ * 
+ * @link http://dublincore.org/
+ * @package symbiostock
+ * @subpackage html-functions 
+ * @category SEO
+ * 
+ * @param bool $head If TRUE, creates HTML for the document header. FALSE, basic HTML.
+ */
 function symbiostock_dublin_core( $head = true )
 {
 
@@ -2402,11 +2725,21 @@ function symbiostock_dublin_core( $head = true )
 
 if ( is_admin( ) )
 {
-    //updates all images on site with current values if needed
     //in case user updates ALL posts, we up the time limit so it doesn't crash
     set_time_limit( 0 );
 
-
+    /**
+     * Updates all images on site with current values if needed
+     * 
+     * This is responsible for applying huge batch edits.
+     * Its a sensitive function with lots of conditionals,
+     * so be carefull editing it!
+     * 
+     * @category batch-editing
+     * @package symbiostock
+     * @subpackage image-processing
+     * 
+     */
     function symbiostock_update_all_images()
     {
         ini_set( "memory_limit" , "1024M" );
@@ -2534,6 +2867,9 @@ if ( is_admin( ) )
     }
 
 
+    /**
+     * 
+     */
     function symbiostock_settings_and_pricing()
     {
 
@@ -2980,16 +3316,28 @@ if ( is_admin( ) )
 
     }
 }
-//set up the theme auto-updater
+
+/**
+ * Set up the theme auto-updater
+ */
 require_once( 'wp-updates-theme.php' );
 new WPUpdatesThemeUpdater_409( 'http://wp-updates.com/api/2/theme', basename(get_template_directory()));
 
-
-
-
-//get marketing functions
+/**
+ * Get marketing functions
+ */
 require_once( symbiostock_MARKETROOT . 'marketer_functions.php' );
 
+/**
+ * To show Blog Search option or not.
+ * 
+ * Works with the them Customizer. Determines whether or not
+ * to show blog search. Most webmasters would leave it out.
+ * 
+ * @package symbiostock.
+ * @subpackage html-functions
+ * 
+ */
 function ss_image_blog_form_option(){
     $menu_option = get_theme_mod( 'show_blog_search' );
     
@@ -3007,12 +3355,14 @@ function ss_image_blog_form_option(){
     }    
 }
 
-
-/*
- * Use customizer?
- *
+/**
+ * Determines whether or not to use customizer for site's look.
+ * 
+ * Some webmasters would wish to leave Customizer options off, 
+ * giving them more freedom in Style/CSS. This is controlled in the 
+ * BEE->SETTINGS tab in the admin area. 
+ * 
  */
-
 function ss_use_customizer(){
 
     if(isset($_POST['ss_use_customizer'])){
@@ -3056,6 +3406,15 @@ add_action( 'ss_settings_table_top' , 'ss_use_customizer', 7 );
  *
  */
 
+/**
+ * Determines if daily chron jobs should run.
+ * 
+ * There are functions that update your site's csv and xml
+ * files daily. They tend to be memory intensive, and some webmasters
+ * would prefer to keep this turned off. This is controlled in the 
+ * BEE->SETTINGS tab in the admin area. 
+ * 
+ */
 function ss_daily_update_settings(){
 
     if(isset($_POST['symbiostock_update_settings'])){
@@ -3096,7 +3455,10 @@ add_action( 'ss_settings_table_top' , 'ss_daily_update_settings', 6 );
 
 /*
  * Sets name of download button.
- *
+ * 
+ * Some webmasters want control over the "cart" or "download"
+ * button found under the product table. This is controlled in the 
+ * BEE->SETTINGS tab in the admin area. 
  */
 
 function ss_name_download_button(){
@@ -3120,12 +3482,18 @@ function ss_name_download_button(){
 }
 add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );
 
-function symbiostock_info_sitelist(){
-    
+/**
+ * Gets an array of connection symbio-sites.
+ * 
+ * @package symbiostock
+ * @subpackage networking
+ * 
+ * @return array list of connected sites.:
+ */
+function symbiostock_info_sitelist(){    
     $sitelist = explode("\n", file_get_contents('http://symbiostock.info/sitelist.php'));
     if(is_array($sitelist))
-        return $sitelist;
-    
+        return $sitelist;    
 }
 
 /**
@@ -3138,6 +3506,3 @@ require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
  * Get category template
  */
 require_once(get_template_directory( ) . '/inc/list_categories.php');
-
-
-?>

@@ -31,14 +31,20 @@ $upload_dir = wp_upload_dir();
 if (!file_exists($upload_dir['basedir'] . '/symbiostock_rf_content/')) {
 mkdir($upload_dir['basedir'] . '/symbiostock_rf_content/', 0755);
 }
+
+
 //make our directory for downloadable products 
 if (!file_exists(ABSPATH . 'symbiostock_rf/')) {
 mkdir(ABSPATH . 'symbiostock_rf/', 0700);
 }
+
+
 //make our directory for network management
 if (!file_exists(ABSPATH . 'symbiostock_network/')) {
 mkdir(ABSPATH . 'symbiostock_network/', 0755);
 }
+
+
 //make our directory for paypal IPN
 if (!file_exists(ABSPATH . 'symbiostock_ipn/')) {
 mkdir(ABSPATH . 'symbiostock_ipn/', 0755);
@@ -48,21 +54,26 @@ mkdir(ABSPATH . 'symbiostock_ipn/', 0755);
 if(file_exists(get_theme_root() . '/symbiostock/ipn/index-draft.php')){
     copy(get_theme_root() . '/symbiostock/ipn/index-draft.php', ABSPATH . 'symbiostock_ipn/index.php');
     }
+    
+    
 //set up index file for possible use    
 if(file_exists(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php')){
     copy(get_theme_root() . '/symbiostock/ipn/paypal_ipn.php', ABSPATH . 'symbiostock_ipn/paypal_ipn.php');
     }
+    
         
-    //we have to move our download script to the content directory because sometimes its blocked in themes area 
-    copy(symbiostock_CLASSROOT . 'image-processor/symbiostock_file_download.php', WP_CONTENT_DIR . '/symbiostock_file_download.php');
+//we have to move our download script to the content directory because sometimes its blocked in themes area 
+copy(symbiostock_CLASSROOT . 'image-processor/symbiostock_file_download.php', WP_CONTENT_DIR . '/symbiostock_file_download.php');
 //make our directory for temp files
 if (!file_exists(ABSPATH . 'symbiostock_xml_cache/')) {
 mkdir(ABSPATH . 'symbiostock_xml_cache/', 0755);
 }
+
 //now make the seeds directory, for collecting network data 
 if (!file_exists(ABSPATH . 'symbiostock_network/seeds/')) {
 mkdir(ABSPATH . 'symbiostock_network/seeds/', 0755);
 }
+
 //make our htaccess, to protect downloadable products
 //protect files
 $htaccess = ABSPATH . 'symbiostock_rf/.htaccess';
@@ -149,6 +160,8 @@ if(!get_post($check_page)){
     
     update_option( 'symbiostock_network_page', $created_symbiostock_network_page );
 }
+
+
 //make our customer cart/activity page --------------------------
 $check_page = get_option('symbiostock_customer_page');
 if(!get_post($check_page)){
@@ -174,6 +187,8 @@ if(!get_post($check_page)){
     
     update_option( 'symbiostock_customer_page', $created_customer_page );
 }
+
+
 //make our customer login/logout page --------------------------
 $check_page = get_option('symbiostock_login_page');
 if(!get_post($check_page)){
@@ -199,6 +214,8 @@ if(!get_post($check_page)){
     
     update_option( 'symbiostock_login_page', $created_login_page );
 }
+
+
 //make our customer "Thank you for registering page" page --------------------------
 $check_page = get_option('symbiostock_registered_page');
 if(!get_post($check_page)){
@@ -223,6 +240,8 @@ if(!get_post($check_page)){
     
     update_option( 'symbiostock_registered_page', $created_registered_page );
 }
+
+
 //make our categories page --------------------------
 $check_page = get_option('symbiostock_categories_page');
 if(!get_post($check_page)){
@@ -247,6 +266,8 @@ if(!get_post($check_page)){
     
     update_option( 'symbiostock_categories_page', $symbiostock_categories_page );
 }
+
+
 //---------------------------------------------------------------------------------------
 //create new link category for Symbiostock and start populating it with useful stuff...
 include_once('taxonomies_and_links.php');

@@ -1,5 +1,5 @@
 <?php 
-
+define('ss_is_ipn', true);
 //get wordpress - 
 require_once( dirname( __FILE__ ) . '/../wp-load.php' );;
 // STEP 1: Read POST data

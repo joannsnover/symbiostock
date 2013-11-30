@@ -22,7 +22,7 @@ class symbiostock_cart
     //constructor
     function __construct( $symbiostock_post_meta = array( ) )
     {
-        
+    	define("symbiostock_remove_cap", true);
         if(function_exists('ipn_user_id')){
         $this->user = get_userdata(ipn_user_id());
         
@@ -541,10 +541,13 @@ class symbiostock_cart
         
         $xtra = array($product, $cart, '');
         
+        //this simply allows a plugin to take an array of info, and formulate a string to append "extra" text to product info.
         $xtra = apply_filters('ss_purchased_appended_info', $xtra);
-                                    
+		if(is_array($xtra))
+			$xtra = '';
+        
         $product_string .='<tr>'.        
-         '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $price['compare'] . ' ' . $xtra[2]  .  '</td>' 
+         '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $price['compare'] . ' ' . $xtra  .  '</td>' 
         .'</tr>';
       
     }    

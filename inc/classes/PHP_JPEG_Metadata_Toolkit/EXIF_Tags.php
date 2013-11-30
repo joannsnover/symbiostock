@@ -1,4 +1,27 @@
 <?php
+/**
+ * Part of the Metadata toolkit
+ *
+ * This is the the way we are presently handling metadata in Symbiostock.
+ * It should be temporary, as there are probably better libraries out there
+ * for handling metadata. For now, this seems the most complete, though ancient!
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @package    metadata-toolkit
+ * @author     Evan Hunter  <evan@ozhiker.com>
+ * @copyright  Copyright Evan Hunter 2004
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
+ * @version    1.12
+ * @link       http://electronics.ozhiker.com
+ */
+
 /******************************************************************************
 *
 * Filename:     EXIF_Tags.php
@@ -282,10 +305,10 @@ $GLOBALS[ "IFD_Tag_Definitions" ] = array(
                 9 => "Fine weather",
                 10 => "Cloudy weather",
                 11 => "Shade",
-                12 => "Daylight fluorescent (D 5700 – 7100K)",
-                13 => "Day white fluorescent (N 4600 – 5400K)",
-                14 => "Cool white fluorescent (W 3900 – 4500K)",
-                15 => "White fluorescent (WW 3200 – 3700K)",
+                12 => "Daylight fluorescent (D 5700 ï¿½ 7100K)",
+                13 => "Day white fluorescent (N 4600 ï¿½ 5400K)",
+                14 => "Cool white fluorescent (W 3900 ï¿½ 4500K)",
+                15 => "White fluorescent (WW 3200 ï¿½ 3700K)",
                 17 => "Standard light A",
                 18 => "Standard light B",
                 19 => "Standard light C",

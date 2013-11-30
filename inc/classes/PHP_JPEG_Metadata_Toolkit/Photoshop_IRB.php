@@ -1,4 +1,27 @@
 <?php
+/**
+ * Part of the Metadata toolkit
+ *
+ * This is the the way we are presently handling metadata in Symbiostock.
+ * It should be temporary, as there are probably better libraries out there
+ * for handling metadata. For now, this seems the most complete, though ancient!
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @package    metadata-toolkit
+ * @author     Evan Hunter  <evan@ozhiker.com>
+ * @copyright  Copyright Evan Hunter 2004
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
+ * @version    1.12
+ * @link       http://electronics.ozhiker.com
+ */
+
 /******************************************************************************
 *
 * Filename:     Photoshop_IRB.php
@@ -1027,7 +1050,7 @@ function Interpret_Transfer_Function( $Transfer_Function_Binary )
         }
         else
         {
-                $output_str .= "\nOverride: Override printer’s default transfer curve";
+                $output_str .= "\nOverride: Override printerï¿½s default transfer curve";
         }
         // Return the result
         return $output_str;
@@ -1113,7 +1136,7 @@ function Interpret_Halftone( $Halftone_Binary )
         // Interpret Printer Default Screens
         if ( $HalftoneInfo['Default'] == 1 )
         {
-                $output_str .= "Use printer’s default screens\n";
+                $output_str .= "Use printerï¿½s default screens\n";
         }
         else
         {
@@ -1199,9 +1222,9 @@ $GLOBALS[ "Photoshop_ID_Names" ] = array(
 *
 ******************************************************************************/
 $GLOBALS[ "Photoshop_ID_Descriptions" ] = array(
-0x03E8 => "Obsolete—Photoshop 2.0 only. number of channels, rows, columns, depth, and mode.",
+0x03E8 => "Obsoleteï¿½Photoshop 2.0 only. number of channels, rows, columns, depth, and mode.",
 0x03E9 => "Optional. Macintosh print manager print info record.",
-0x03EB => "Obsolete—Photoshop 2.0 only. Contains the indexed color table.",
+0x03EB => "Obsoleteï¿½Photoshop 2.0 only. Contains the indexed color table.",
 0x03ED => "ResolutionInfo structure. See Appendix A in Photoshop SDK Guide.pdf",
 0x03EE => "Names of the alpha channels as a series of Pascal strings.",
 0x03EF => "DisplayInfo structure. See Appendix A in Photoshop SDK Guide.pdf",

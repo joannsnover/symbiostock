@@ -1,4 +1,27 @@
 <?php
+/**
+ * Part of the Metadata toolkit
+ *
+ * This is the the way we are presently handling metadata in Symbiostock.
+ * It should be temporary, as there are probably better libraries out there
+ * for handling metadata. For now, this seems the most complete, though ancient!
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @package    metadata-toolkit
+ * @author     Evan Hunter  <evan@ozhiker.com>
+ * @copyright  Copyright Evan Hunter 2004
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
+ * @version    1.12
+ * @link       http://electronics.ozhiker.com
+ */
+
 /******************************************************************************
 *
 * Filename:     XMP.php
@@ -196,8 +219,8 @@ function read_XMP_array_from_text( $xmptext )
 function write_XMP_array_to_text( $xmparray )
 {
         // Add the XMP packet header
-        // The sequence 0xEFBBBF is the UTF-8 encoded version of the Unicode “zero
-        // width non-breaking space character” (U+FEFF), which is used for detecting
+        // The sequence 0xEFBBBF is the UTF-8 encoded version of the Unicode ï¿½zero
+        // width non-breaking space characterï¿½ (U+FEFF), which is used for detecting
         // whether UTF-16 or UTF-8 is being used.
         $output_XMP_text = "<?xpacket begin='\xef\xbb\xbf' id='W5M0MpCehiHzreSzNTczkc9d'?>\n";
         // Photoshop Seems to add this, but there doesn't appear to be

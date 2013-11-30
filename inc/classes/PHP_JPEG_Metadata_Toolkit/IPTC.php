@@ -1,4 +1,27 @@
 <?php
+/**
+ * Part of the Metadata toolkit
+ *
+ * This is the the way we are presently handling metadata in Symbiostock.
+ * It should be temporary, as there are probably better libraries out there
+ * for handling metadata. For now, this seems the most complete, though ancient!
+ *
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @package    metadata-toolkit
+ * @author     Evan Hunter  <evan@ozhiker.com>
+ * @copyright  Copyright Evan Hunter 2004
+ * @license    http://www.gnu.org/licenses/gpl-2.0.html
+ * @version    1.12
+ * @link       http://electronics.ozhiker.com
+ */
+
 /******************************************************************************
 *
 * Filename:     IPTC.php
@@ -456,7 +479,7 @@ $GLOBALS[ "IPTC_Entry_Descriptions" ] = array(
 "1:50" => "Product ID - Max 32 characters",
 "1:60" => "Envelope Priority - 1 numeric characters",
 "1:70" => "Date Sent - 8 numeric characters CCYYMMDD",
-"1:80" => "Time Sent - 11 characters HHMMSS±HHMM",
+"1:80" => "Time Sent - 11 characters HHMMSSï¿½HHMM",
 "1:90" => "Coded Character Set - Max 32 characters",
 "1:100" => "UNO (Unique Name of Object) - 14 to 80 characters",
 "1:120" => "ARM Identifier - 2 byte binary number",
@@ -476,18 +499,18 @@ $GLOBALS[ "IPTC_Entry_Descriptions" ] = array(
 "2:26" => "Content Location Code - 3 characters",
 "2:27" => "Content Location Name - Max 64 characters",
 "2:30" => "Release Date - 8 numeric characters CCYYMMDD",
-"2:35" => "Release Time - 11 characters HHMMSS±HHMM",
+"2:35" => "Release Time - 11 characters HHMMSSï¿½HHMM",
 "2:37" => "Expiration Date - 8 numeric characters CCYYMMDD",
-"2:35" => "Expiration Time - 11 characters HHMMSS±HHMM",
+"2:35" => "Expiration Time - 11 characters HHMMSSï¿½HHMM",
 "2:40" => "Special Instructions - Max 256 Characters",
 "2:42" => "Action Advised - 2 numeric characters",
 "2:45" => "Reference Service - Max 10 characters",
 "2:47" => "Reference Date - 8 numeric characters CCYYMMDD",
 "2:50" => "Reference Number - 8 characters",
 "2:55" => "Date Created - 8 numeric characters CCYYMMDD",
-"2:60" => "Time Created - 11 characters HHMMSS±HHMM",
+"2:60" => "Time Created - 11 characters HHMMSSï¿½HHMM",
 "2:62" => "Digital Creation Date - 8 numeric characters CCYYMMDD",
-"2:63" => "Digital Creation Time - 11 characters HHMMSS±HHMM",
+"2:63" => "Digital Creation Time - 11 characters HHMMSSï¿½HHMM",
 "2:65" => "Originating Program - Max 32 characters",
 "2:70" => "Program Version - Max 10 characters",
 "2:75" => "Object Cycle - 1 character",
@@ -565,7 +588,7 @@ $GLOBALS[ "IPTC_File Formats" ] = array(
 24 => "Portable Document File (*.PDF) Adobe",
 25 => "News Industry Text Format (NITF)",
 26 => "Tape Archive (*.TAR)",
-27 => "Tidningarnas Telegrambyrå NITF version (TTNITF DTD)",
+27 => "Tidningarnas Telegrambyrï¿½ NITF version (TTNITF DTD)",
 28 => "Ritzaus Bureau NITF version (RBNITF DTD)",
 29 => "Corel Draw [*.CDR]"
 );

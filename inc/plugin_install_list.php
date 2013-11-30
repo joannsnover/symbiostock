@@ -1,16 +1,10 @@
 <?php 
 add_action( 'tgmpa_register', 'symbiostock_register_required_plugins' );
 /**
- * Register the required plugins for this theme.
+ * Register the required plugins for Symbiostock.
  *
- * In this example, we register two plugins - one included with the TGMPA library
- * and one from the .org repo.
- *
- * The variable passed to tgmpa_register_plugins() should be an array of plugin
- * arrays.
- *
- * This function is hooked into tgmpa_init, which is fired within the
- * TGM_Plugin_Activation class constructor.
+ * See examples within function of how to use setup arrays to specify which plugins
+ * must be included.
  */
 function symbiostock_register_required_plugins() {
 
@@ -29,8 +23,8 @@ function symbiostock_register_required_plugins() {
                     'required' 				=> false, // If false, the plugin is only 'recommended' instead of required
                     'force_activation' 		=> false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch
                     'force_deactivation' 	=> false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins
-    'external_url' 			=> '', // If set, overrides default API URL and points to an external URL
-    ),*/
+  					'external_url' 			=> '', // If set, overrides default API URL and points to an external URL
+    		),*/
 
     array(
     'name'     				=> 'SYMBIOSTOCK - Emails and Notifications',
