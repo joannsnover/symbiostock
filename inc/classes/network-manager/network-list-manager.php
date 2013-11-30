@@ -2,6 +2,7 @@
 if(isset($_POST['symbiostock_cache_days']) && is_numeric($_POST['symbiostock_cache_days']) && $_POST['symbiostock_cache_days'] >= 0){    
     update_option('symbiostock_cache_days', trim($_POST['symbiostock_cache_days']));    
     update_option('symbiostock_fast_network_display', $_POST['symbiostock_fast_network_display']=='1'?1:0 );    
+    update_option('symbiostock_global_search', $_POST['symbiostock_global_search']=='1'?1:0 );    
 } 
 
 $update_symbiostock_networks = new network_manager;
@@ -175,6 +176,11 @@ foreach($symbiocards as $symbiocard){
             </label>                
             </td>
             </tr>
+			<tr>
+			<td colspan="2">
+             <label class="description" for="symbiostock_global_search"><input id="symbiostock_global_search" name="symbiostock_global_search" type="checkbox" <?php if ( get_option('symbiostock_global_search', 0) == 1 ) echo 'checked="1"' ?> value="1" /> If no local results found, show images from Global Symbiostock Search Engine</label>         
+			</td>
+			</tr>
         </tfoot>
     </table>
    
