@@ -162,31 +162,52 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
     //site_count variable is simply the site's position on the page/loop. 
     //if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
     //friend's page handle's it properly.
-    
     if(!isset($results['image'])){
-        if($network_search != true): 
-        ?><p>No results found on this site.</p>
-        
-        
+        if($network_search != true) {
+		 if (get_option('symbiostock_global_search', 0) != 1) 
+			echo '<h3>No results found on this site.<h3>';
+		 else {
+			?>
+			<h3>Nothing found on this site. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:</h3><br />
+			<?php
+			if ($site_count != -1) {
+				$search_term=str_replace(' ', '+', get_query_var('s'));
+				$http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&search_order=1";
+				$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
+ 				$xml_result = file_get_contents($http_request, 0, $ctx);
+				libxml_use_internal_errors( true );
+				if ( simplexml_load_string( $xml_result ) ) {
+					$html_result = symbiostock_interpret_results( $xml_result );
+					if ( isset($html_result['image']) ) 
+						symbiostock_build_html_results( $html_result, true, -1 );
+					else
+						echo '<h3>No results found ...</h3>';
+				}	
+				else
+					echo '<h3>No results found ...</h3>';
+				libxml_use_internal_errors( false );
+			}		
+		 }	
+        ?>
         <div class="hero-unit">
-            <h2>No Results found. Try browsing the categories.</h2>
+            <h3>Try browsing categories:</h3>
             <?php 
             ss_list_categories();
             ?>
         </div>
         
         <?php
-        endif;
+        }
         
         return;
-        }
+    }
         
         
     if(isset($_POST['symbiostock_site_order'])){
         
         $site_count = $_POST['symbiostock_site_order'];
         
-        }
+    }
     
     if($network_search == true): 
     
@@ -196,7 +217,9 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
     //about page
             
         
-    ?><div id="network_site_<?php echo $site_count; ?>" class="network_results row">
+    ?>
+	<div id="network_site_<?php echo $site_count; ?>" class="network_results row">
+	<?php if ($site_count != -1): ?>
         <div class="col-md-12 well well-small network_results_header">            
             <?php 
             if(file_exists(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv')){
@@ -207,9 +230,10 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             echo symbiostock_csv_symbiocard_network_results($card_path);
             ?>            
         </div>
+	<?php endif; ?>
         <div class="network_results_container"><!--network_results_container-->
-        <?php    
-        endif;
+    <?php   
+    endif;
         
         //check and set pagination results    
         if(isset($results['pagination']) && is_array($results['pagination']) && array_key_exists('page', $results['pagination']) && !empty($results['pagination']['page'])){
@@ -223,10 +247,77 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             $paginate = false;
         }    
         
-        ?><div class="results_info">
+		
+        if($network_search == true){
+
+			$position = 'right';
+        
+			$size = 'small';
+        
+			//correct the output of our pagination so the user doesn't get led to xml results    
+			//extracts all $_GET vars attached to href, everything after "?" and before "'", 
+                    
+			$remove_vars = array(
+				'symbiostock_network_search',
+				'symbiostock_network_info',
+			);
+    
+			$corrected_pagination = array();
+        
+			foreach($pagination as $href_link){
+        
+			$href_link = str_replace('&hellip;', '...', $href_link);    
+                        
+			$a = new SimpleXMLElement( $href_link );
+			$link = $a['href'];
+			$pattern = "/(href=(\"|'))[^\"']+(?=(\"|'))/";            
+        
+			if(isset($link) && !empty($link)){
+            
+				if(strstr($link, 'post_type=image')){
+					//http://tulip.kerioak.com?s=animal&submit=Search&post_type=image&symbiostock_network_search=1&symbiostock_network_info=1&page=2
+                
+					$user_link = explode('?', $link);
+					$user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
+					$edited_link = str_replace($link, htmlentities($user_link), $href_link);
+					$edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);                
+                            
+					$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
+					$edited_link = preg_replace($pattern,$crawler_link,$edited_link);          
+                
+					} else {
+                
+					$user_link = explode('?', $link);
+					$user_link = $user_link[0];    
+					$edited_link = str_replace($link, htmlentities($user_link), $href_link);
+					$edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
+                
+					$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
+					$edited_link = preg_replace($pattern,$crawler_link,$edited_link);
+				}
+                
+			} else { $edited_link = $href_link;}
+        
+			array_push($corrected_pagination, $edited_link);
+        
+			unset($a);
+			}
+                
+			$pagination = $corrected_pagination;    
+                
+		} 
+		else {
+		
+        	$position = 'centered';
+			$size = 'large'; 
+			
+		  }
+ 				
+		
+        ?><div class="results_info"<?php if ($site_count == -1) echo 'style="padding-bottom:15px;"';?>>
         <?php 
-        if($paginate == true && $network_search == false){
-            symbiostock_display_pagination($pagination, $results['total_results'], 'right', 'pagination-small');
+        if( $paginate == true && ($network_search == false || $site_count == -1) ){
+            symbiostock_display_pagination($pagination, $results['total_results'], 'centered', 'pagination-large');
         } elseif ($network_search == false){
         
             echo '<span>Results: ' . $results['total_results'] . '</span>';
@@ -265,7 +356,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         //check and set network info results
         ?> <input type="hidden" id="network_site_<?php echo $site_count; ?>_start_count" value="<?php echo $sscount->count; ?>" /> <?php        
         
-        if($network_search == true  && count($image_results) > 6):
+        if($network_search == true  && count($image_results) > 6 && $site_count != -1):
         ?>
             <div class="row">
                 <div id="carousel<?php echo $site_count; ?>" class="carousel slide col-md-12">
@@ -289,7 +380,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                     <?php
                     $carousel_count = 1;
                     $active = true;        
-                    endif;
+        endif;
                     $closed = true;
                     foreach($image_results as $image){
                         
@@ -315,7 +406,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         //endif;                        
                         
                         //carousel
-                        if($network_search == true):
+                        if($network_search == true && $site_count != -1):
                             $active == true ? $class = 'active' : '';        
                             $active == true ? $active = false : $class = '';
                             $carousel_count == 1 && count($image_results) > 6 ? $open_div = '<div class="'.$class.' item"><!--six-per-div-->' : $open_div = ''; 
@@ -344,7 +435,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         ?>
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result col-md-2">
-                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>">
+                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>" <?php if ($network_search==true && strpos($image['permalink'],home_url())===false) echo 'target="_blank"' ?>>
                               <img data-toggle="tooltip" alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>
@@ -353,7 +444,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         
                         <?php
                         //carousel
-                        if($network_search == true):
+                        if($network_search == true && $site_count != -1):
                             $carousel_count == 6 ? $close_div = '</div><!--six-per-div-->' : $close_div = '';
                             $carousel_count == 6 && count($image_results) > 6 ? $closed = true : $closed = false;
                             echo $close_div;
@@ -365,7 +456,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                     if($closed == false && count($image_results) > 6){
                         echo '</div><!--/six-per-div (if not closed)-->';
                         }
-                    if($network_search == true && count($image_results) > 6):
+                    if($network_search == true && count($image_results) > 6 && $site_count != -1):
                     ?>
                     <!-- Carousel nav -->
                     </div><!--/carousel-inner-->
@@ -380,70 +471,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         ?>
         </div><!--/network_results_container--> 
         <?php    
-        $position = 'right';
-        
-        $size = 'small';
-        
-        //correct the output of our pagination so the user doesn't get led to xml results    
-        //extracts all $_GET vars attached to href, everything after "?" and before "'", 
-                    
-        $remove_vars = array(
-        'symbiostock_network_search',
-        'symbiostock_network_info',
-        );
-    
-    $corrected_pagination = array();
-        
-    foreach($pagination as $href_link){
-        
-        $href_link = str_replace('&hellip;', '...', $href_link);    
-                        
-        $a = new SimpleXMLElement( $href_link );
-        $link = $a['href'];
-        $pattern = "/(href=(\"|'))[^\"']+(?=(\"|'))/";            
-        
-        if(isset($link) && !empty($link)){
-            
-            if(strstr($link, 'post_type=image')){
-                //http://tulip.kerioak.com?s=animal&submit=Search&post_type=image&symbiostock_network_search=1&symbiostock_network_info=1&page=2
-                
-                $user_link = explode('?', $link);
-                $user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
-                $edited_link = str_replace($link, htmlentities($user_link), $href_link);
-                $edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);                
-                            
-                $crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
-                $edited_link = preg_replace($pattern,$crawler_link,$edited_link);
-                
-                
-                
-                } else {
-                
-                $user_link = explode('?', $link);
-                $user_link = $user_link[0];    
-                $edited_link = str_replace($link, htmlentities($user_link), $href_link);
-                $edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
-                
-                $crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
-                $edited_link = preg_replace($pattern,$crawler_link,$edited_link);
-            }
-                
-        } else { $edited_link = $href_link;}
-        
-        array_push($corrected_pagination, $edited_link);
-        
-        unset($a);
-        }
-                
-        $pagination = $corrected_pagination;    
-                
-    } else {
-        
-    $position = 'centered';
-    
-    $size = 'large';    
-        }
-    
+		}
+		
     if($paginate == true){
         symbiostock_display_pagination($pagination, $results['total_results'], $position, 'pagination-' . $size);
     }
