@@ -170,23 +170,21 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 			?>
 			<h3>Nothing found on this site. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:</h3><br />
 			<?php
-			if ($site_count != -1) {
-				$search_term=str_replace(' ', '+', get_query_var('s'));
-				$http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&search_order=1";
-				$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
- 				$xml_result = file_get_contents($http_request, 0, $ctx);
-				libxml_use_internal_errors( true );
-				if ( simplexml_load_string( $xml_result ) ) {
-					$html_result = symbiostock_interpret_results( $xml_result );
-					if ( isset($html_result['image']) ) 
-						symbiostock_build_html_results( $html_result, true, -1 );
-					else
-						echo '<h3>No results found ...</h3>';
-				}	
+			$search_term=str_replace(' ', '+', get_query_var('s'));
+			$http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&search_order=1";
+			$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
+			$xml_result = file_get_contents($http_request, 0, $ctx);
+			libxml_use_internal_errors( true );
+			if ( simplexml_load_string( $xml_result ) ) {
+				$html_result = symbiostock_interpret_results( $xml_result );
+				if ( isset($html_result['image']) ) 
+					symbiostock_build_html_results( $html_result, true, -1 );
 				else
 					echo '<h3>No results found ...</h3>';
-				libxml_use_internal_errors( false );
-			}		
+			}	
+			else
+				echo '<h3>No results found ...</h3>';
+			libxml_use_internal_errors( false );
 		 }	
         ?>
         <div class="hero-unit">
