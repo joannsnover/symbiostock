@@ -181,7 +181,7 @@ class network_manager
                 $promoted_keywords = explode( ',', $network[ 'symbiostock_my_promoted_keywords' ] );
                 $promoted_keywords  = array_map('strtolower', $promoted_keywords );    
                 
-                if ( count( $promoted_keywords ) > 20 ) {
+                if ( count( $promoted_keywords ) > 40 ) {
                     continue;
                     
                 } //count( $promoted_keywords ) > 20
