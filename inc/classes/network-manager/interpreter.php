@@ -1,6 +1,10 @@
 <?php
 //simply a function that gives our network manager class useable results
 //this converts our simple xml object to a basic array, more easy to work with
+//
+// jas 11-24-2013 incorporate Andrzej's changes to keep the second page on host site rather than moving to symbiostock.info
+// jas 11-21-2013 put a global search on the "no results" page using http://ajotte.com/global-search-api/ by Andrzej Tokarski
+//
 function sx_array($obj){
     $arr = (array)$obj;
     if(empty($arr)){
@@ -158,44 +162,46 @@ function symbiostock_display_pagination($pagination, $results, $position, $size)
 </div> <?php
     }
     
+
+// jas begin
 function symbiostock_build_html_results($results, $network_search, $site_count = 0){
     //site_count variable is simply the site's position on the page/loop. 
     //if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
     //friend's page handle's it properly.
+  
     if(!isset($results['image'])){
-        if($network_search != true) {
-		 if (get_option('symbiostock_global_search', 0) != 1) 
-			echo '<h3>No results found on this site.<h3>';
-		 else {
-			?>
-			<h3>Nothing found on this site. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:</h3><br />
-			<?php
-			$search_term=str_replace(' ', '+', get_query_var('s'));
-                        $http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&r=".parse_url( get_home_url() )['host'];
-			$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
-			$xml_result = file_get_contents($http_request, 0, $ctx);
-			libxml_use_internal_errors( true );
-			if ( simplexml_load_string( $xml_result ) ) {
-				$html_result = symbiostock_interpret_results( $xml_result );
-				if ( isset($html_result['image']) ) 
-					symbiostock_build_html_results( $html_result, true, -1 );
+        if($network_search != true): 
+        ?><h3>Nothing found here. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:</h3><br />
+		<?php
+			if ($site_count != -1) {
+				$search_term=ucwords(str_replace(' ', '+', get_query_var('s')));
+				$http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&search_order=1";
+				$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
+ 				$xml_result = file_get_contents($http_request, 0, $ctx);
+				libxml_use_internal_errors( true );
+				if ( simplexml_load_string( $xml_result ) ) {
+					$html_result = symbiostock_interpret_results( $xml_result );
+					if ( isset($html_result['image']) ) 
+						symbiostock_build_html_results( $html_result, true, -1 );
+					else
+						echo '<h3>Nothing found here. See other Symbiostock sites:</h3>';
+				}	
 				else
-					echo '<h3>No results found ...</h3>';
-			}	
-			else
-				echo '<h3>No results found ...</h3>';
-			libxml_use_internal_errors( false );
-		 }	
+					echo '<h3>Nothing found on on any Symbiostock site</h3>';
+				libxml_use_internal_errors( false );
+			}		
         ?>
         <div class="hero-unit">
             <h3>Try browsing categories:</h3>
+            <!-- add the categories-list class so the CSS can format it into columns if desired -->
+        	<div id="content" class="site-content categories-list">
             <?php 
             ss_list_categories();
             ?>
         </div>
         
         <?php
-        }
+        endif;
         
         return;
     }
@@ -311,7 +317,6 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
 			
 		  }
  				
-		
         ?><div class="results_info"<?php if ($site_count == -1) echo 'style="padding-bottom:15px;"';?>>
         <?php 
         if( $paginate == true && ($network_search == false || $site_count == -1) ){
@@ -433,7 +438,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         ?>
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result col-md-2">
-                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>" <?php if ($network_search==true && strpos($image['permalink'],home_url())===false) echo 'target="_blank"' ?>>
+                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>" <?php if ($network_search==true) echo 'target="_blank"' ?>>
                               <img data-toggle="tooltip" alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>
@@ -479,4 +484,5 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         ?> </div> <?php 
     }
 }
+// jas end
 ?>

@@ -13,6 +13,7 @@ Template Name: Network - Associated
  *
  * @package symbiostock
  * @since symbiostock 1.0
+ * jas 12-08-2013 get rid of the community activity drivel
  */
 get_header(); ?>
         <div class="row">
@@ -67,7 +68,7 @@ get_header(); ?>
                     
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
-                
+<!-- jas begin don't want this                
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -84,5 +85,6 @@ get_header(); ?>
                     </div>
                 </div>
             </div>
-        </div>        
+-->        
+        </div>
 <?php get_footer(); ?>

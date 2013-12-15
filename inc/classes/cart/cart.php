@@ -5,6 +5,8 @@
 // in user meta instead of a database sophisticated table 
 // also creates product tables/purchasing interface
 // we strive to keep this class as absolutely simple as possible
+//
+// edited jas 2013-12-13 add class thumbnail to minipic to get styling of other thumbs on site
 class symbiostock_cart
 
 {
@@ -417,9 +419,10 @@ class symbiostock_cart
             $price = $this->calc_discount($info['price'], $product_info['discount_percent'][0]);
                         
             $sizes = (unserialize($product_info['size_info'][0]));
-                                
-            $minipic = '<a title="" href="' . get_permalink( $product ) . '"><img width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" /></a>';
             
+            // jas begin add class thumbnail to cart images to get styling of other thumbs        
+            $minipic = '<a title="" href="' . get_permalink( $product ) . '"><img class="thumbnail" width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" /></a>';
+            // jas end
             $size_info = unserialize($product_info['size_info'][0]);
             
             $is_collection = get_post_meta($product, 'symbiostock_collection', 0);    
@@ -530,9 +533,9 @@ class symbiostock_cart
         $price = $this->calc_discount($info['price'], $product_info['discount_percent'][0]);
                     
         $sizes = (unserialize($product_info['size_info'][0]));
-                            
-        $minipic = '<a title="" href="' . get_permalink( $product ) . '"><img width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" /></a>';
-        
+        // jas begin add class thumbnail to cart images to get styling of other thumbs
+        $minipic = '<a title="" href="' . get_permalink( $product ) . '"><img class="thumbnail" width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" /></a>';
+        // jas end
         $size_info = unserialize($product_info['size_info'][0]);
         
         $size_name = $info['size_name'];

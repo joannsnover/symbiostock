@@ -1,4 +1,6 @@
 <?php
+// jas edited 12-13-2013 change similar images widget count and number of columns
+
 class symbiostock_featured_images extends WP_Widget{
     
     public function __construct() {
@@ -792,7 +794,7 @@ class symbiostock_similar_images extends WP_Widget{
                     
             $args = array(
                 'post_types'     => 'image', // string or array with multiple post type names
-                'posts_per_page' => 12, // return 5 posts
+                'posts_per_page' => 6, // jas was 12, changed to 6 posts
                 'order'          => 'DESC',
                 'orderby'        => '',
                 'exclude_terms'  => '', // array with term IDs
@@ -816,8 +818,8 @@ class symbiostock_similar_images extends WP_Widget{
                 
                 $attachment_id = get_post_meta($image->ID, 'symbiostock_minipic_id');
                 
-                ?> 
-                    <div class="col-md-6">
+                ?> <!-- jas make 3 columns in similar images widget -->
+                    <div class="col-md-4">
                         <div class="similars-container">                                                                            
                         <a class="thumbnail" title="<?php echo $image->post_title; ?>" href="<?php echo get_permalink( $image->ID ); ?>">
                             <?php echo wp_get_attachment_image( $attachment_id[0], 'full' ); ?>

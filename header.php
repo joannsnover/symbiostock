@@ -7,6 +7,7 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
+// jas 2013-11-06 skip the search box on the home page
  
 $is_marketer_request = symbiostock_marketer();
 
@@ -131,13 +132,19 @@ if( $bootstrap_search_menu_type != '' ) {
 <div id="page" class="hfeed site container">
     <?php do_action( 'before' ); ?>
     <header id="masthead" class="site-header" role="banner"> 
-        <?php         
+        <?php
         if($top == 1){
-            ?>
+        	// jas begin
+        	// don't put the search control in menu bar on the site home page as it's down below         
+            if (!is_front_page()) {?>
             <div class="row">
-            <div <?php echo $search_account_nav_fixed ?> role="navigation" class="<?php echo $search_menu_style ?> <?php echo $fixed_class ?> <?php echo $inverted_search_menu ?>"> <?php
+            <div <?php echo $search_account_nav_fixed ?> role="navigation" class="<?php echo $search_menu_style ?> <?php echo $fixed_class ?> <?php echo $inverted_search_menu ?>"> 
+            <?php
             //get the search form
             include_once('searchform_symbiostock.php');
+           }
+           // Don't skip the above_header_nav as that puts up the login/username
+       	   // jas end
         
             symbiostock_above_header_nav( );
             ?>
@@ -173,8 +180,14 @@ if( $bootstrap_search_menu_type != '' ) {
                 
                 if($top == 0){
                 
-                //get the search form
-                include_once('searchform_symbiostock.php');
+        		// jas begin
+        		// don't put the search control in menu bar on the site home page as it's down below         
+            	if (!is_front_page()) {
+                	//get the search form
+                	include_once('searchform_symbiostock.php');
+           		}
+    			// Don't skip the above_header_nav as that puts up the login/username
+       	 		// jas end
                 ?>   
                 
                 <?php     

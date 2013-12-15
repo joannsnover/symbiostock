@@ -27,6 +27,18 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+// jas 2013-12-13 change similar images to show 6 not 12 images
+// jas 2013-11-30 transfer edits to 2.9.9 version
+// jas 2013-11-18 48 images per page in results or categories
+// jas 2013-10-31 shortcdes in text widgets
+// jas 2013-10-24 transfer edits to 2.9.3 version
+// jas 2013-10-24 made 128_default and 32_default png so they could be transparent
+// jas 2013 10-24 transfer edits to 2.9.2 version
+// jas 2013-10-22 remove the horizontal rule before and after image dscriptions
+
+//  jas begin enble Shortcodes in WordPress Text Widget
+add_filter('widget_text', 'do_shortcode');
+// jas end
 
 //trash the admin bar if not admin...
 if ( ! current_user_can( 'manage_options' ) ) {
@@ -97,14 +109,20 @@ define( 'symbiostock_LOGOSMALL', symbiostock_IMGDIR . '/symbiostock_logo_small.p
  * @package symbiostock
  * @subpackage site-constants
  */
-define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.jpg' );
+//jas begin use my transparent png versus a jpg with a white background
+//define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.jpg' );
+define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.png' );
+//jas end
 
 /**
  * Convenient HTML Link to the 12px SS avatar.
  * @package symbiostock
  * @subpackage site-constants
  */
-define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.jpg' );
+//jas begin use my transparent png versus a jpg with a white background
+//define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.jpg' );
+define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.png' );
+//jas end
 
 //filepath constants 
 $symbiostock_theme_root = get_theme_root( ) . '/' . get_template();
@@ -616,8 +634,13 @@ function symbiostock_sep_content( $content )
         if ( $type == 'image' )
         {
 
-            $content = '<div class="content-wrap"><hr />' . $content
+// jas begin
+/*            $content = '<div class="content-wrap"><hr />' . $content
                     . '<hr /></div>';
+*/
+            $content = '<div class="content-wrap">' . $content
+                    . '</div>';
+// jas end
 
         }
     }
@@ -1170,9 +1193,12 @@ function symbiostock_directory_link( $text = '', $linkonly = false,
     }
 
     $small_pic == true ? $size = 32 : $size = 128;
-
+// jas begin use the png not the jpg logo
+//    $img = '<img class="img-polaroid" alt="Part of the Symbiostock Network" src = "'
+//           . symbiostock_IMGDIR . '/' . $size . '_default.jpg" />';
     $img = '<img class="img-polaroid" alt="Part of the Symbiostock Network" src = "'
-            . symbiostock_IMGDIR . '/' . $size . '_default.jpg" />';
+            . symbiostock_IMGDIR . '/' . $size . '_default.png" />';
+// jas end
 
     $directory_page_link = '<a title="' . $text . '" href="' . $permalink
             . '">' . $img . ' ' . $text . '</a>';
@@ -1515,8 +1541,10 @@ function symbiostock_image_results_per_page( $query )
         $marketer_user_key = get_option( 'marketer_user_number' );
         $marketer_key = get_query_var( 'ss-' . $marketer_user_key );
 
-        isset( $marketer_key ) && !empty( $marketer_key ) ? $per_page = 100
-                : $per_page = 24;
+// jas - original per_page was 24; multiples of 6 work best
+// jas begin
+            isset($marketer_key ) && !empty($marketer_key) ? $per_page = 100 : $per_page = 48;
+// jas end
 
         $per_page = apply_filters( 'symbiostock_posts_per_page' , $per_page );
 
@@ -1541,7 +1569,10 @@ function symbiostock_network_results_per_page( $query )
 
     if ( $network_search == true )
     {
-        $per_page = 24;
+// jas - original per_page was 24; multiples of 6 work best. Don't see this code called ever but should match above
+// jas begin
+        $per_page = 48;
+// jas end
 
         $ipp = get_query_var( 'ipp' ); //ipp is Images Per Page
         isset( $_GET[ 'ipp' ] ) && !empty( $_GET[ 'ipp' ] ) ? $per_page = $_GET[ 'ipp' ]
@@ -2634,8 +2665,8 @@ function symbiostock_dublin_core( $head = true )
     $args = array( 
             'post_types' => 'image',
             // string or array with multiple post type names
-            'posts_per_page' => 12,
-            // return 5 posts
+            'posts_per_page' => 24,
+            // jas was 12. See if this is ever used - versus widgets.php call which is used
             'order' => 'DESC',
             'exclude_posts' => array( $post->ID ),
             // array with post IDs

@@ -7,12 +7,14 @@ Template Name: Categories Page
  *
  * @package symbiostock
  * @since symbiostock 1.0
+ *
+ * jas edited 11-10-2013 make a class categories-list for just the categories list as the ID content and class site-content are used for lots of pages
  */
 get_header(); ?>
         <div class=row>
     
             <div id="primary" class="content-area col-md-12">
-                <div id="content" class="site-content" role="main">
+                <div id="content" class="site-content categories-list" role="main">
                 <?php
                 //add support for YOAST SEO
                 if ( function_exists('yoast_breadcrumb') ) {

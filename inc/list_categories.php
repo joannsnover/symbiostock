@@ -1,9 +1,10 @@
 <?php 
+// jas 11-09-2013 get rid of the horizontal rule
 function ss_list_categories(){
         
     ?>  <!-- panel group -->                    
         <h1>Image Categories &mdash; <span><?php bloginfo( 'name' ); ?></span></h1>
-        <hr />
+        <!--<hr /> -->
         
            <?php                       
             

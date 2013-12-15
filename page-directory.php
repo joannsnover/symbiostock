@@ -9,6 +9,7 @@ Template Name: Network - Directory
  *
  * @package symbiostock
  * @since symbiostock 1.0
+ * jas 12-08-2013 get rid of the community activity drivel
  */
 get_header(); ?>
 
@@ -43,7 +44,10 @@ get_header(); ?>
     <a title="Symbiostock, the Stock Photography Network" href="http://www.symbiostock.com/">
         <img alt="the Symbiostock Network" src="<?php echo symbiostock_IMGDIR . '/symbiostock_logo_small.png' ?>" />
         
-    </a><br /><br />
+    </a>
+    </div>
+    <!--jas begin comment out the community stuff
+    <br /><br />
     <p><a title="Symbiostock, the Stock Photography Network" href="http://www.symbiostock.com/">Symbiostock</a> is a network of independent photographers and illustrators.<br />Browse our network to find the high quality images you are looking for. <br /><br />The network contributor results below are automatically generated for your convenience.</p>
     
     <h4>Community News / Activity</h4>
@@ -52,6 +56,7 @@ get_header(); ?>
     </div>
     <div class="clearfix"><br /></div>
     <hr />
+    jas end -->
     <div id="content" class="col-md- site-content network_directory">
         
              <?php

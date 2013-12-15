@@ -3,6 +3,13 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
+ /*
+  * edited 2013-12-12 jas to make changes to schema.org rich data to remove errors Google's Rich Snippets tool reports
+  * edited 2013-12-07 jas to add hcard and h-entry (p-name) information for Google+ authorship
+  * edited 2013-11-08 jas to move the updated date outside of the author box and under the description. Make text smaller.
+  * edited 2013-10-24 jas to add model release & property release information and remove large image number at top of right column
+  *
+  */
 
 $strictly_minimal = get_theme_mod( 'strictly_minimal' );
 if( $strictly_minimal == '' ) {    
@@ -24,17 +31,22 @@ $symbiostock_post_meta['caller_action'] = 'ss_before_image_page';
 do_action( 'ss_before_image_page', $symbiostock_post_meta ); 
 
 ?> 
-<article id="post-<?php the_ID(); ?>" <?php post_class(' row'); ?>>
+<!-- jas begin add h-entry p-name -->
+<article id="post-<?php the_ID(); ?>" <?php post_class(' h-entry row'); ?>>
+<!-- jas end -->
     <div class="symbiostock-image col-md-7">
         <header class="entry-header">
-            <div itemscope itemtype="http://schema.org/CreativeWork" class="hmedia">
+        <!-- jas begin MediaObject instead of CreativeWork (MO's parent) -->
+            <div itemscope itemtype="http://schema.org/MediaObject" class="hmedia">
                 <div class="panel panel-default image_container">
                     <?php 
                     $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_title';
                     do_action( 'ss_before_img_page_title', $symbiostock_post_meta );  
                     ?>
                     <div class="panel-heading">
-                        <h1 itemprop="name" class="page-header entry-title panel-title title">
+						<!-- jas begin add p-name -->
+                        <h1 itemprop="name" class="page-header entry-title panel-title title p-name">
+						<!-- jas end -->
                             <a class="" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'symbiostock' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
                                 <?php the_title(); ?>                       
                             </a>
@@ -44,14 +56,35 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                     $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_title';
                     do_action( 'ss_after_img_page_title', $symbiostock_post_meta );  
                     ?>
-                    <div class="panel-body" itemtype="http://schema.org/ImageObject">
+                    <!-- jas add missing itemscope -->
+                    <div class="panel-body" itemscope itemtype="http://schema.org/ImageObject">
                         
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_preview';
                         do_action( 'ss_before_img_page_preview', $symbiostock_post_meta ); 
                         ?>     
                         <div class="item-preview content-box"><a id="stock-image-preview" title="<?php the_title(); ; ?>" rel="enclosure" type="image/jpeg" href="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"> <img itemprop="contentURL image" class="photo img-responsive" alt="<?php the_title();  ?>" src="<?php echo $symbiostock_post_meta['symbiostock_preview'][0];  ?>"/> </a></div>
-                        <?php 
+                        <!--jas begin -->
+						<!-- Display the image number, model release and property release status after the preview -->
+						<?php   //code "borrowed" from symbiostock_marketer() in marketer_functions.php
+						// model release
+						$id = get_the_ID();
+						$model_released = get_post_meta( $id, 'symbiostock_model_released', 'N/A'  );
+						if ( empty( $model_released ) || $model_released == false ) {
+							$model_released[ 0 ] = 'N/A';
+						} //empty( $model_released ) || $model_released == false
+				
+						//property release
+						$property_released = get_post_meta( $id, 'symbiostock_property_released', 'N/A' );
+						if ( empty( $property_released ) || $property_released == false ) {
+							$property_released[ 0 ] = 'N/A';
+						} //empty( $property_released ) || $property_released == false
+						?>
+                    	<!-- center the three pieces of information under the image -->
+                        <div style="margin: 5px; font-size: small; text-align: center;">Image No. <?php echo $postid;?>   ▪   Model Released: <?php echo $model_released; ?>   ▪   Property Released: <?php echo $property_released; ?>
+                        </div>
+						<!--jas end -->
+						<?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_preview';
                         do_action( 'ss_after_img_page_preview', $symbiostock_post_meta ); 
                         ?> 
@@ -69,7 +102,9 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                             $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_description';
                             do_action( 'ss_after_img_page_description', $symbiostock_post_meta ); 
                             ?> 
-                           
+                    		<!-- jas begin upload date after the description -->
+                    		<span class="date updated text-muted" style="font-size: x-small;"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>
+                    		<!-- jas end -->
                             <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'symbiostock' ), 'after' => '</div>' ) ); ?>
                           
                         </div>
@@ -85,7 +120,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                         do_action( 'ss_after_img_page_author_box', $symbiostock_post_meta ); 
                         ?> 
                         
-                        <span class="date updated text-muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span>                    
+                        <!-- jas begin Move this under description <span class="date updated text-muted"><em>Image updated&mdash;<?php echo get_the_date(); ?></em></span> jas end -->                    
                         <!-- .entry-content -->
                         <?php 
                         $symbiostock_post_meta['caller_action'] = 'ss_bottom_img_page_preview_well';
@@ -131,6 +166,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
                     if(is_active_sidebar( 'image-page-bottom' )):                
                 
                     ?>                    
+
                     <div class="panel panel-default">                
                     <?php    
                     //get bottom sidebar
@@ -159,8 +195,14 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         //set up the buying options from cart class
         $cart_options = new symbiostock_cart($symbiostock_post_meta);
 
-        ?><div class="panel panel-default">
+        ?>
+        <div class="panel panel-default">
+        <!--jas begin -->
+        <!-- remove large image number as it's under image -->
+        <!--
         <div class="panel-heading"><span class="panel-title">Image #<?php echo $postid  ?></span></div>
+        -->
+        <!--jas end -->
         <?php 
         $cart_options->display_product_table();
         ?></div><?php 
@@ -168,11 +210,10 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         $symbiostock_post_meta['caller_action'] = 'ss_after_img_page_product_table';
         do_action( 'ss_after_img_page_product_table', $symbiostock_post_meta ); 
         
-        
+
         if($strictly_minimal == 1):
-        
-        
-        
+
+                
         //get sidebar
         $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_sidebar';
         do_action( 'ss_before_img_page_sidebar', $symbiostock_post_meta ); 
@@ -180,7 +221,9 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
         
         if(!function_exists('ss_is_collection') || !ss_is_collection( $symbiostock_post_meta )):
         
+
             if(is_active_sidebar( 'image-page-side' )): 
+
             ?><div class="panel panel-default"><?php
                           
             dynamic_sidebar( 'image-page-side' );
@@ -233,7 +276,9 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
 <!-- #post-<?php the_ID(); ?> -->
 <?php 
 
+
 if($strictly_minimal == 1):
+
 
 $symbiostock_post_meta['caller_action'] = 'ss_before_img_page_bottom_widget';
 do_action( 'ss_before_img_page_bottom_widget', $symbiostock_post_meta ); 

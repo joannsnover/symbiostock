@@ -5,6 +5,11 @@
  * @package symbiostock
  * @since symbiostock 1.0
  */
+//
+// edited jas 2013-12-13 transfer to 2.9.9 and add class thumbnail to minipic to get styling of other thumbs on site
+// edited jas 2013-09-19 add image number to download button
+// edited jas 2013-09-20 make minipic in purchased images a link
+//
 if ( !defined('DONOTCACHEPAGE') ){
     define('DONOTCACHEPAGE',true);
 }
@@ -58,11 +63,12 @@ if ( !defined('DONOTCACHEPAGE') ){
                             
                 $sizes = (unserialize($product_info['size_info'][0]));
                         
-                                    
-                echo '<div class="purchased_file well">
+                //jas begin Make minipic a link (from  display_customer_cart( ) in cart.php)
+                echo '<div class="purchased_file well">' .
+                $product_info['id'] . ' <br />
                 
-                    <img width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" />';
-                
+                    <a title="" href="' . get_permalink( $product ) . '"><img class="thumbnail" width="' . $sizes['thumb']['width'] . '" height="' . $sizes['thumb']['height'] . '" alt="img ' . $product . '" src="' . $product_info['symbiostock_minipic'][0] . '" /></a>';
+                //jas end
                 $size_info = unserialize($product_info['size_info'][0]);
                 
                 $size_name = $info['size_name'];
