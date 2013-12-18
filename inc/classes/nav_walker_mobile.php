@@ -1,6 +1,7 @@
 <?php
 //creates a dropdown menu for mobile size screens
 //http://wpconsult.net/change-wordpress-navigation-to-a-dropdown-select-element-for-mobile/
+// edited jas 2013-12-18 to remove any code from menu alt text
 class nav_walker_mobile extends Walker_Nav_Menu{
     
     var $to_depth = -1;
@@ -41,8 +42,9 @@ class nav_walker_mobile extends Walker_Nav_Menu{
         
         $item_output = $args->before;
         
-        $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-        
+		// jas begin add strip_tags() to output of alt text (title) for menu items in case code added for icon or the like
+        $item_output .= $args->link_before . apply_filters( 'the_title', strip_tags($item->title), $item->ID ) . $args->link_after;
+        // jas end
         $output .= $indent.$item_output;
     
     }

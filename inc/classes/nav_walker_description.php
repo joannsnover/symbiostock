@@ -9,7 +9,7 @@
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
-
+// edited jas 2013-12-18 to remove any code from menu alt text
 class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	
 	/**
@@ -78,7 +78,9 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			$output .= $indent . '<li' . $id . $value . $class_names .'>';
 
 			$atts = array();
-			$atts['title']  = ! empty( $item->title ) 	   ? $item->title 	   : '';
+			// jas begin add strip_tags() to output of alt text (title) for menu items in case code added for icon or the like
+			$atts['title']  = ! empty( $item->title ) 	   ? strip_tags($item->title) 	   : '';
+			// jas end
 			$atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 			$atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
 
