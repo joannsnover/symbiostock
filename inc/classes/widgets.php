@@ -1,4 +1,7 @@
 <?php
+// jas edited 12-24-2013 to make the number of images and number of columns choices visible in the widgets
+//                        with limits on 24 images and 4 columns to avoid trouble
+// jas edited 12-22-2013 change latest images to 9
 // jas edited 12-13-2013 change similar images widget count and number of columns
 
 class symbiostock_featured_images extends WP_Widget{
@@ -143,15 +146,22 @@ class symbiostock_latest_images extends WP_Widget{
     public function form( $instance ) {
         
         //outputs the options form on Admin screen
+        // jas looking for number as well as title
         
         $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Latest Images';
-        
+        $num = (isset( $instance[ 'num' ])) ? $instance[ 'num' ] : '6';
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
         <?php _e( 'Title: ' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+    <!--jas ask how many images; no more than24? the max will allow only that number via the arrows but more can be typed in -->
+    <label for="<?php echo $this->get_field_id( 'num' ); ?>">
+        <?php _e( 'How many? ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'num' ); ?>" name="<?php echo $this->get_field_name( 'num' ); ?>"  type="number" min="1" max="24" value ="<?php echo esc_attr( $num ); ?>" />
+
     <br />
     <br />
     Displays your latest images!
@@ -167,6 +177,7 @@ class symbiostock_latest_images extends WP_Widget{
         $instance = array();
         
         $instance['title'] = strip_tags( $new_instance['title'] );
+        $instance['num'] = strip_tags( $new_instance['num'] );
         
         return $instance;
         
@@ -179,14 +190,17 @@ class symbiostock_latest_images extends WP_Widget{
         extract( $args );
         
         $title = apply_filters( 'widget_title', $instance[ 'title' ] );
+        // jas in case user types in random number, restrict this to 24 images
+        $num = $instance[ 'num' ] > 24 ? 24 : $instance[ 'num' ];
         
         echo $before_widget;
         
-        if ( !empty( $title ) ) echo $before_title . '<i class="icon-eye-open"> </i> ' .  $title . ' ' . symbiostock_feed('rss_url', 'icon', 'new-images') . $after_title;
+        if ( !empty( $title ) ) echo $before_title /* jas don't like icons . '<i class="icon-eye-open"> </i> ' */ .  $title . ' ' . symbiostock_feed('rss_url', 'icon', 'new-images') . $after_title;
                 
         $args = array(        
-            'post_type' => 'image',       
-            'showposts' => 6,        
+            'post_type' => 'image',
+            // jas user choosen quantity     
+            'showposts' => $num,        
         );    
         
         $featuredWidget = new WP_Query($args);
@@ -746,8 +760,10 @@ class symbiostock_similar_images extends WP_Widget{
     public function form( $instance ) {
         
         //outputs the options form on Admin screen
-        
+        // jas looking for number of thumbs and number of columns as well as title; default to 6 images and 2 columns
         $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Similar Images';
+        $num = (isset( $instance[ 'num' ])) ? $instance[ 'num' ] : '6';
+        $cols = (isset( $instance[ 'cols' ])) ? $instance[ 'cols' ] : '2';
         
         ?>
 <p>
@@ -755,6 +771,17 @@ class symbiostock_similar_images extends WP_Widget{
         <?php _e( 'Title: ' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
+    <!--jas ask how many images; no more than 24? the max will allow only that number via the arrows but more can be typed in -->
+    <label for="<?php echo $this->get_field_id( 'num' ); ?>">
+        <?php _e( 'How many images? ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'num' ); ?>" name="<?php echo $this->get_field_name( 'num' ); ?>"  type="number" min="1" max="24" value ="<?php echo esc_attr( $num ); ?>" />
+    <!--jas ask how many columns; no more than 4? the max will allow only that number via the arrows but more can be typed in -->
+    <label for="<?php echo $this->get_field_id( 'cols' ); ?>">
+        <?php _e( 'How many columns? ' ); ?>
+    </label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'cols' ); ?>" name="<?php echo $this->get_field_name( 'cols' ); ?>"  type="number" min="1" max="4" value ="<?php echo esc_attr( $cols ); ?>" />
+
 </p>
 <?php
                 
@@ -788,13 +815,17 @@ class symbiostock_similar_images extends WP_Widget{
     
         if ( !empty( $title ) )
             echo $before_title . '<i class="icon-bullseye"> </i> ' .  $title . $after_title;
+        // jas in case user types in random number, restrict this to 24 images
+        $num = $instance[ 'num' ] > 24 ? 24 : $instance[ 'num' ];
+        // jas in case user types in random number, restrict this to 4 columns
+        $cols = $instance[ 'cols' ] > 4 ? 4 : $instance[ 'cols' ];
         
         //this related images code was derived from here: http://www.wprecipes.com/how-to-show-related-posts-without-a-plugin        
                                     
                     
             $args = array(
                 'post_types'     => 'image', // string or array with multiple post type names
-                'posts_per_page' => 6, // jas was 12, changed to 6 posts
+                'posts_per_page' => $num, // jas was 12, changed to user selectable
                 'order'          => 'DESC',
                 'orderby'        => '',
                 'exclude_terms'  => '', // array with term IDs
@@ -818,8 +849,23 @@ class symbiostock_similar_images extends WP_Widget{
                 
                 $attachment_id = get_post_meta($image->ID, 'symbiostock_minipic_id');
                 
-                ?> <!-- jas make 3 columns in similar images widget -->
-                    <div class="col-md-4">
+                ?> <!-- jas make 1-4 columns based on user preference in similar images widget -->
+                <?php
+				switch ($cols) {
+					case 1:
+						echo '<div class="col-md-12">';
+						break;
+					case 2:
+						echo '<div class="col-md-6">';
+						break;
+					case 3:
+						echo '<div class="col-md-4">';
+						break;
+					case 4:
+						echo '<div class="col-md-3">';
+						break;
+			}
+				?>
                         <div class="similars-container">                                                                            
                         <a class="thumbnail" title="<?php echo $image->post_title; ?>" href="<?php echo get_permalink( $image->ID ); ?>">
                             <?php echo wp_get_attachment_image( $attachment_id[0], 'full' ); ?>
