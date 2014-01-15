@@ -44,7 +44,7 @@ if ( !defined('DONOTCACHEPAGE') ){
              get_currentuserinfo();            
             
             $file_download_script = WP_CONTENT_URL . '/symbiostock_file_download.php';
-            ?> <hr /><h2><i class="icon-download"> Your Licensed Images/Files</i></h2>
+            ?> <hr /><h2><i class="icon-download"> <?php _e('Your Licensed Images/Files', 'symbiostock') ?></i></h2>
             <form class="" action="<?php echo $file_download_script; ?>" method="post">
             <input type="hidden" name="symbiostock_current" value="<?php echo $current_user->ID; ?>" />
             <?php            
@@ -68,7 +68,7 @@ if ( !defined('DONOTCACHEPAGE') ){
                 $size_name = $info['size_name'];
                 
                 echo '<br class="clearfix" />
-                <strong><hr /><button class="btn" name="download_file" value="'.$product.'_'.$info['size_name'].'" type="submit"><i class="icon-download"> </i> ' . $info['type'] . ', ' . ucwords($info['size_name']) . '</button></strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] . '<br class="clearfix" /></div>' ;
+                <strong><hr /><button class="btn" name="download_file" value="'.$product.'_'.$info['size_name'].'" type="submit"><i class="icon-download"> </i> ' . $info['type'] . ', ' . ucwords($info['size_name']) . '</button></strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] . '<br class="clearfix" /></div>';
                 
                 //make the row                                        
                 

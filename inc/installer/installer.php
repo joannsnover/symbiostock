@@ -88,7 +88,7 @@ if(!get_post($check_page)){
     delete_option('symbiostock_eula_page');
     
     $symbiostock_eula_page = array(
-      'post_title'    => 'End User License Agreement',
+      'post_title'    => __('End User License Agreement', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -115,7 +115,7 @@ if(!get_post($check_page)){
     
     
     $symbiostock_directory_page = array(
-      'post_title'    => 'Symbiostock Network Directory',
+      'post_title'    => __('Symbiostock Network Directory', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -142,7 +142,7 @@ if(!get_post($check_page)){
     delete_option('symbiostock_network_page');
     
     $symbiostock_network_page = array(
-      'post_title'    => 'Symbiostock Network',
+      'post_title'    => __('Symbiostock Network', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -169,7 +169,7 @@ if(!get_post($check_page)){
     delete_option('symbiostock_customer_page');
     
     $customer_page = array(
-      'post_title'    => 'Customer Licence and File Management Area',
+      'post_title'    => __('Customer Licence and File Management Area', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -196,7 +196,7 @@ if(!get_post($check_page)){
     delete_option('symbiostock_login_page');
     
     $login_page = array(
-      'post_title'    => 'Please Log In',
+      'post_title'    => __('Please Log In', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -222,7 +222,7 @@ if(!get_post($check_page)){
     
     delete_option('symbiostock_registered_page');
     $registered_page = array(
-      'post_title'    => 'Thank You For Registering',
+      'post_title'    => __('Thank You For Registering', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -248,7 +248,7 @@ if(!get_post($check_page)){
     
     delete_option('symbiostock_categories_page');
     $registered_page = array(
-      'post_title'    => 'Image Categories',
+      'post_title'    => __('Image Categories', 'symbiostock'),
       'post_content'  => '',
       'post_status'   => 'publish',
       'post_author'   => 1,
@@ -288,22 +288,22 @@ if(!is_dir(WP_CONTENT_DIR.'/plupload/')){
 
 //notify Symbiostock of successful deployment
 
-$headers[] = 'Cc: Deployment Notifications <deployments@symbiostock.com>';
+$headers[] = 'Cc: '.__('Deployment Notifications', 'symbiostock').' <deployments@symbiostock.com>';
 $message = get_site_url() . "<br />" . $theme_version . '<br />' . date("F d, Y h:ia");
 
 $message .= '<br /><br />
-To ensure best network performance and SEO, fill out all info: 
-<br />Symbiocard main author info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">Symbiostock Profile</a>';
+'.__('To ensure best network performance and SEO, fill out all info: 
+<br />Symbiocard main author info: <a title="Network profile info"', 'symbiostock').' href="' . get_home_url() . '/wp-admin/profile.php#extended_network_info">'.__('Symbiostock Profile', 'symbiostock').'</a>';
 
-$message .= '<br /><br />Get Suggested Plugins: <a title="Customize" href="' . get_home_url() . '/wp-admin/themes.php?page=install-required-plugins">Acquire and Activate</a>';
+$message .= '<br /><br />'.__('Get Suggested Plugins:', 'symbiostock') . '<a title="'.__( 'Customize.', 'symbiostock').'" href="' . get_home_url() . '/wp-admin/themes.php?page=install-required-plugins">'.__('Acquire and Activate', 'symbiostock').'</a>';
 
-$message .= '<br /><br />Customize your site live: <a title="Customize" href="' . get_home_url() . '/wp-admin/customize.php">Customize</a>';
+$message .= '<br /><br />'.__('Customize your site live:', 'symbiostock').' <a title="'.__( 'Customize.', 'symbiostock').'" href="' . get_home_url() . '/wp-admin/customize.php">'.__( 'Customize.', 'symbiostock').'</a>';
 
-$message .= '<br /><br />Network info: <a title="Network profile info" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">Symbiostock Network Info</a>';
+$message .= '<br /><br />'.__( 'Network Info.', 'symbiostock').' <a title="'.__( 'Network Info.', 'symbiostock').'" href="' . get_home_url() . '/wp-admin/?page=symbiostock-control-options">'.__( 'Symbiostock Network Info.', 'symbiostock').'</a>';
 
-$message .= '<br /><br /> Visit the community forums - <a title="community forums" href="http://www.symbiostock.org/">www.symbiostock.org</a>';
+$message .= '<br /><br /> '.__( 'Visit the Community Forums...', 'symbiostock').' - <a title="'.__( 'Community Forums.', 'symbiostock').'" href="http://www.symbiostock.org/community/">www.symbiostock.org/community/</a>';
 
-$subject = 'Symbiostock Site Deployed: ' . get_site_url() . ' - ' . date("F d, Y h:ia");;
+$subject = __('Symbiostock Site Deployed: ', 'symbiostock') . get_site_url() . ' - ' . date("F d, Y h:ia");;
 wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);
 
 

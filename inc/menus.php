@@ -59,9 +59,9 @@ add_action('init', 'register_symbiostock_menus');
 function register_symbiostock_menus()
 {
     register_nav_menus(array( // Using array to specify more menus if needed        
-        'header-menu' => 'Header Menu', // Main Navigation
-        'above-header-menu' => 'Account/Cart Menu', // Extra Navigation if needed (duplicate as many as you need!)
-        'sidebar-menu' => 'Sidebar Menu', // Sidebar Navigation            
+        'header-menu' => __('Header Menu', 'symbiostock'), // Main Navigation
+        'above-header-menu' => __('Account/Cart Menu', 'symbiostock'), // Extra Navigation if needed (duplicate as many as you need!)
+        'sidebar-menu' => __('Sidebar Menu', 'symbiostock'), // Sidebar Navigation            
     
     ));
 }

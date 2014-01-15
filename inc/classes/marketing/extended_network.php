@@ -1,20 +1,20 @@
-<h2>Symbiostock Network Scanner</h2>
+<h2><?php _e( 'Symbiostock Network Scanner', 'symbiostock') ?></h2>
 <br />
 <label for="symbiostock_scan_network">
     <input id="symbiostock_scan_network" type="checkbox" name="symbiostock_scan_network" />
-    Scan network and update directory - </label>
+    <?php _e( 'Scan network and update directory ', 'symbiostock') ?>- </label>
     <label for="symbiostock_info_scan">
     <input id="symbiostock_info_scan" type="checkbox" name="symbiostock_info_scan" />
-    Fetch from <a title="network hub of Symbiostock" href="http://www.symbiostock.info">symbiostock.info</a></label>
+    <?php _e( 'Fetch from', 'symbiostock') ?><a title="<?php _e( 'network hub of Symbiostock', 'symbiostock') ?> href="http://www.symbiostock.info">symbiostock.info</a></label>
     
 <br />
 <br />
 <label for="symbiostock_reset_extended_network">
     <input id="symbiostock_reset_extended_network" type="checkbox" name="symbiostock_reset_extended_network" />
-    Reset extended network (deletes all listings).</label>
-<p class="Description">This scans your network friends and adds their networks to your directory. <br />
+    <?php _e( 'Reset extended network (deletes all listings).', 'symbiostock') ?></label>
+<p class="Description"><?php _e( 'This scans your network friends and adds their networks to your directory. <br />
     In the near future it will follow more leads than that, but this is where we start while the network is still small. <br />
-    This could take a while...be patient and grab a soda or something.</p>
+    This could take a while...be patient and grab a soda or something.', 'symbiostock') ?></p>
 <?php
 
 if(isset($_POST['symbiostock_reset_extended_network'])){
@@ -53,13 +53,13 @@ $network_total_images = 0;
     <thead>
         <tr>
             <th>#</th>
-            <th>Local Site Directory Listing</th>
-            <th>Promoted Keywords</th>
-            <th>#images</th>
-            <th>Marketing Option</th>
-            <th>Promote</th>
-            <th>Exclude</th>
-            <th>Delete</th>
+            <th><?php _e( 'Local Site Directory Listing', 'symbiostock') ?></th>
+            <th>P<?php _e( 'Promoted Keywords', 'symbiostock') ?></th>
+            <th><?php _e( '# Images', 'symbiostock') ?></th>
+            <th><?php _e( 'Marketing Option', 'symbiostock') ?></th>
+            <th><?php _e( 'Promote', 'symbiostock') ?></th>
+            <th><?php _e( 'Exclude', 'symbiostock') ?></th>
+            <th><?php _e( 'Delete', 'symbiostock') ?></th>
         </tr>
     </thead>
     <?php 
@@ -141,9 +141,9 @@ foreach($list as $listing){
         <td>
         <?php
         if(!isset($listing['use_symbiostock_marketer']) || $listing['use_symbiostock_marketer'] == 0 || empty($listing['use_symbiostock_marketer']) ){            
-            echo 'off';            
+            echo __('off', 'symbiostock');            
             } elseif ($listing['use_symbiostock_marketer'] == 1){
-            echo 'on';    
+            echo __('on', 'symbiostock');    
                 }
         ?>
         </td>
@@ -160,7 +160,7 @@ foreach($list as $listing){
     <tfoot>
         <tr>
             <td>#</td>
-            <td><em><a title="See extended directory..." href="<?php echo symbiostock_directory_link('See extended directory...', true, true); ?>">&mdash; See extended directory</a></em></td>
+            <td><em><a title="<?php _e( 'See extended directory...', 'symbiostock') ?>" href="<?php echo symbiostock_directory_link(__('See extended directory...', 'symbiostock'), true, true); ?>">&mdash; <?php _e( 'See extended directory...', 'symbiostock') ?></a></em></td>
             <td>.</td>
             <td><?php echo $network_total_images; ?></td>
             <td>.</td>
@@ -178,7 +178,7 @@ if(!empty($seeds)){
     ?>
 
     <ul>
-    <li><p>Enqueued Seeds <span class="description">Symbiocards discovered through keyword traffic activity, and enqueued for directory. Will be added or updated.</span></p></li>
+    <li><p><?php _e( 'Enqueued Seeds ', 'symbiostock') ?> <span class="description"><?php _e( 'Symbiocards discovered through keyword traffic activity, and enqueued for directory. Will be added or updated. ', 'symbiostock') ?></span></p></li>
     
         <?php
         foreach($seeds as $seed){        

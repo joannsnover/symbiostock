@@ -5,7 +5,7 @@ $test = $networks->get_connected_networks( );
 include_once(symbiostock_CLASSROOT . 'marketing/extended_network.php');
 
 ?>
-<span class="description">Use these for marketing sites to aggregate your info.</span>
+<span class="description"><?php _e( 'Use these for marketing sites to aggregate your info.', 'symbiostock') ?></span>
 <ul>
 <li>
 <?php
@@ -13,14 +13,14 @@ include_once(symbiostock_CLASSROOT . 'marketing/extended_network.php');
     $url = get_bloginfo('url');
 
 if(file_exists(ABSPATH . '/symbiostock_keyword_info.csv')){
-    echo 'Keyword list:  <a title="Keyword list..." href="' . $url . '/symbiostock_keyword_info.csv">' . $url . '/symbiostock_keyword_info.csv</a>';
+    echo __('Keyword list:', 'symbiostock') . ' <a title="' . __('Keyword list:', 'symbiostock') . '" href="' . $url . '/symbiostock_keyword_info.csv">' . $url . '/symbiostock_keyword_info.csv</a>';
     }
 ?>
 </li>
 <li>
 <?php
 if(file_exists(ABSPATH . '/symbiostock_image_info.csv')){
-    echo 'Image list: <a title="Image list..." href="' . $url . '/symbiostock_image_info.csv">' . $url . '/symbiostock_image_info.csv</a>';
+    echo __('Image list:', 'symbiostock') . ' <a title="' . __('Image list:', 'symbiostock') . '" href="' . $url . '/symbiostock_image_info.csv">' . $url . '/symbiostock_image_info.csv</a>';
     }
 ?>
 </li>

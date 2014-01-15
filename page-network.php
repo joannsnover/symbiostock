@@ -37,10 +37,8 @@ get_header(); ?>
                         <?php edit_post_link( __( 'Edit', 'symbiostock' ), '<span class="edit-link">', '</span>' ); ?>
                     </div><!-- .entry-content -->
                 </article><!-- #post-<?php the_ID(); ?> -->
-                                   
                 
                 <?php endwhile; // end of the loop. ?>
-                
 
                     <?php
                     $networks = new network_manager();
@@ -54,16 +52,12 @@ get_header(); ?>
                         
                         <span class="alignleft"><?php echo symbiostock_directory_link($text = '', false, false) ?></span>
                         
-                        <h3>Extended Network Directory</h3>                   
+                        <h3><?php _e('Extended Network Directory', 'symbiostock') ?></h3>                   
                         
-                        <p class="text-info">See the <strong><a title="Local Symbiostock author directory" href="<?php echo symbiostock_directory_link($text = '', true) ?>" >directory</a> </strong> page for more sites / authors.</p>
-                        <div class="clearfix"><br /></div>                        
-
+                        <p class="text-info"><strong><a title="<?php _e('Local Symbiostock author directory', 'symbiostock') ?>" href="<?php echo symbiostock_directory_link($text = '', true) ?>" ></a></strong></p>
+                        <div class="clearfix"><br /></div> 
                         
-                    </div>
-   
-
-                    
+                    </div>                    
                     
                 </div><!-- #content .site-content -->
             </div><!-- #primary .content-area -->
@@ -72,8 +66,8 @@ get_header(); ?>
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h2 class="panel-title">
-                            <a target="_blank" title="Symbiostock Community Activity" href="http://www.symbiostock.org">
-                            Symbiostock Community News and Activity
+                            <a target="_blank" title="<?php _e('Symbiostock Community Activity', 'symbiostock') ?>" href="http://www.symbiostock.org">
+                            <?php _e('Symbiostock Community News and Activity', 'symbiostock') ?>
                             </a>
                         </h2>
                     </div>

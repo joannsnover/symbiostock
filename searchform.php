@@ -6,6 +6,7 @@
  * @since symbiostock 1.0
  */
 ?>
+
 <div class="navbar navbar-default">
     <form class="navbar-form navbar-left" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
        
@@ -17,7 +18,7 @@
             </div>
               
             <div class="col-md-4">  
-                <input id="s" type="submit" value="Search" class="btn btn-default form-control" />
+                <input id="s" type="submit" value="<?php _e('Search ', 'symbiostock') ?>" class="btn btn-default form-control" />
             </div>
             
             <input type="hidden" name="post_type" value="post" />                       

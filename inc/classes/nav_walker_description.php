@@ -172,7 +172,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 
 	function fallback() {
 		if( current_user_can( 'manage_options' ) ) {
-			echo '<li><a href="' . admin_url( 'nav-menus.php' ) . '">Add a menu</a></li>';
+			echo '<li><a href="' . admin_url( 'nav-menus.php' ) . '">'.__( 'Add a menu', 'symbiostock').'</a></li>';
 		}
 	}
 }

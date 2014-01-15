@@ -184,7 +184,7 @@ class network_manager
                 if ( count( $promoted_keywords ) > 40 ) {
                     continue;
                     
-                } //count( $promoted_keywords ) > 20
+                } //count( $promoted_keywords ) > 40
                 
                 else {
                     
@@ -236,7 +236,7 @@ class network_manager
         if ( file_exists( $file ) ) {
             
             if ( !unlink( $file ) ) {
-                echo 'Network symbiocard deleted.';
+                echo __('Network symbiocard deleted.', 'symbiostock');
             } //!unlink( $file )
             else {
                 echo '';
@@ -319,9 +319,9 @@ class network_manager
 
         $info = curl_getinfo($ch);
             if ($info['http_code'] == 200) {
-                $this->messages = '&mdash;<strong>Success<br /></strong>';
+                $this->messages = '&mdash;<strong>'.__( 'Success', 'symbiostock').'<br /></strong>';
             } else {            
-                $this->messages = '&mdash;<strong>' . $info['http_code'] . " @$url</strong> " . ' Aborting site...<br />';
+                $this->messages = '&mdash;<strong>' . $info['http_code'] . " @$url</strong> " . ' '.__( 'Aborting site...', 'symbiostock').'<br />';
                 return false;
             }
                     
@@ -350,7 +350,7 @@ class network_manager
             if ( !isset( $converted[0][$must_have] ) || empty( $converted[0][$must_have] ) ) {
                 
                 unlink( symbiostock_NETDIR . $dir . $key . '.csv' );
-                $this->messages = 'Invalid Symbiocard. Missing: <strong>' . $must_have . '</strong>. Deleted!<br />';
+                $this->messages = __( 'Invalid Symbiocard. Missing: ', 'symbiostock').'<strong>' . $must_have . '</strong>. '.__( 'Deleted!', 'symbiostock').'<br />';
                 return;
                 
             } //!isset( $must_have ) || empty( $must_have )
@@ -394,7 +394,7 @@ class network_manager
 					$raw = curl_multi_getcontent( $info['handle'] );
 					echo 'Getting site: ' . $sites[$start+$i] . '...<br />';
 					if( ! curl_errno( $info['handle'] ) ) {
-						echo '&mdash;<strong>Success<br /></strong>';
+						echo '&mdash;<strong>'.__( 'Success', 'symbiostock').'<br /></strong>';
 
 						if ( file_exists( $files[$start+$i] ) ) {
 							unlink( $files[$start+$i] );
@@ -420,7 +420,7 @@ class network_manager
 							if ( !isset( $converted[0][$must_have] ) || empty( $converted[0][$must_have] ) ) {
                 
 								unlink( $files[$start+$i] );
-								echo 'Invalid Symbiocard. Missing: <strong>' . $must_have . '</strong>. Deleted!<br />';
+								echo ''.__( 'Invalid Symbiocard. Missing:', 'symbiostock').' <strong>' . $must_have . '</strong>. '.__( 'Deleted!', 'symbiostock').'<br />';
 								break;
 							} //!isset( $must_have ) || empty( $must_have )
             
@@ -428,7 +428,7 @@ class network_manager
 
 					}	
 					else {
-						echo '&mdash;<strong>' . $info['http_code'] . " @$urls[$i]</strong> " . ' Aborting site...<br />';
+						echo '&mdash;<strong>' . $info['http_code'] . " @$urls[$i]</strong> " . ' '.__( 'Aborting Site...', 'symbiostock').'<br />';
 					}
 					echo '<br />';
 				} // while
@@ -461,7 +461,7 @@ class network_manager
                 if(!file_exists(symbiostock_NETDIR .$site . '.csv' )){
                     array_push($exists, $site );
                 } else {
-                    echo 'file ' . symbiostock_NETDIR .$site . ' missing...<br /><br />';
+                    echo __( 'file ', 'symbiostock') . symbiostock_NETDIR .$site . ' '.__( 'missing', 'symbiostock').'<br /><br />';
                 }
             } //isset( $_POST[ 'symbiostock_network_site_' . $count ] )
             $count++;
@@ -541,7 +541,7 @@ class network_manager
                 } //symbiostock_validate_url( $_POST[ 'symbiostock_network_site_' . $count ] )
                 elseif ( !empty( $_POST[ 'symbiostock_network_site_' . $success_count ] ) ) {
                     
-                    echo '<p>' . $_POST[ 'symbiostock_network_site_' . $success_count ] . ' is not a valid URL. Try again.</p>';
+                    echo '<p>' . $_POST[ 'symbiostock_network_site_' . $success_count ] . ' '.__( 'is not a valid URL. Try again.', 'symbiostock').'</p>';
                     
                     continue;
                     
@@ -639,8 +639,7 @@ class network_manager
             if ( $exists == false ) {
                 
                 update_option( 'symbiostock_network_site_' . $next, $network_info );
-                
-                
+                               
                 
             } //$exists == false
             
@@ -737,7 +736,7 @@ class network_manager
         $theirinfo = $this->csv_to_array( $path, ',' );
         $theirinfo = $theirinfo[ 0 ];
         
-        $headers[ ] = 'From: ' . $myinfo[ 'symbiostock_site' ] . ' <' . get_bloginfo( 'admin_email' ) . '>';
+        $headers[ ] = __( 'From: ', 'symbiostock') . $myinfo[ 'symbiostock_site' ] . ' <' . get_bloginfo( 'admin_email' ) . '>';
                 
         echo '<br /><br />';
         
@@ -745,23 +744,23 @@ class network_manager
         
         isset( $myinfo[ 'symbiostock_display_name' ] ) ? $name = $myinfo[ 'symbiostock_display_name' ] : $name = $myinfo[ 'symbiostock_site' ];
         
-        $subject = '[symbiostock_network_addition] ' . $name . ' has added you to their site network.';
+        $subject = '[symbiostock_network_addition] ' . $name . __(' has added you to their site network.', 'symbiostock');
         
-        $message = '<p>' . $name . ' has added you to their site network.<br /> If you have not yet added them to your site, here is their Symbiocard: <a title="Author Symbiocard" href="' . site_url() . '/symbiocard.csv">' . site_url() . '/symbiocard.csv</a>
+        $message = '<p>' . $name . ' '.__( 'has added you to their site network.<br /> If you have not yet added them to your site, here is their Symbiocard: ', 'symbiostock').' <a title="'.__( 'Author Symbiocard ', 'symbiostock').'" href="' . site_url() . '/symbiocard.csv">' . site_url() . '/symbiocard.csv</a>
         
-        <br /><br />See their network info at the author page: <a title="Author Page" href="' . $myinfo[ 'symbiostock_author_page' ] . '">' . $myinfo[ 'symbiostock_author_page' ] . '</a><br /><br />
-        <a title="About network emails" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
+        <br /><br />'.__( 'See their network info at the author page: ', 'symbiostock').' <a title="'.__( 'Author Page ', 'symbiostock').'" href="' . $myinfo[ 'symbiostock_author_page' ] . '">' . $myinfo[ 'symbiostock_author_page' ] . '</a><br /><br />
+        <a title="'.__( 'About network emails... ', 'symbiostock').'" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
         
         $mailed = wp_mail( $email, $subject, $message, $headers );
         
         if ( $mailed ) {
-            echo ' Member added. Notification email sent to <strong>' . $email . '</strong>';
+            echo ' '.__( 'Member added. Notification sent to ', 'symbiostock').' <strong>' . $email . '</strong>';
         } //$mailed
         else {
-            echo ' Notification email not sent. Either their Symbiocard lacks an email address or something went wrong.';
+            echo __(' Notification email not sent. Either their Symbiocard lacks an email address or something went wrong.', 'symbiostock');
         }
         
-        wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Network friend ('.$theirinfo[ 'symbiostock_display_name' ].') notified.', '<p>Your network friend '.$theirinfo[ 'symbiostock_display_name' ].' was notified that you added them, and recieved this message: <br /></p>'.$message );
+        wp_mail( get_bloginfo( 'admin_email' ), __( '[symbiostock_network_update] Network friend ', 'symbiostock').' ('.$theirinfo[ 'symbiostock_display_name' ].') '.__( ' notified... ', 'symbiostock').'.', '<p>'.__( 'Your network friend ', 'symbiostock').' '.$theirinfo[ 'symbiostock_display_name' ].''.__(  ' was notified that you added them, and recieved this message: ', 'symbiostock').' <br /></p>'.$message );
     }
     
     public function installation_upgrade_email( )
@@ -785,16 +784,16 @@ class network_manager
                 $theirinfo = $this->csv_to_array( symbiostock_NETDIR . $site[ 'key' ] . '.csv', ',' );
                 $theirinfo = $theirinfo[ 0 ];
                 
-                $headers[ ] = 'From: ' . $myinfo[ 'symbiostock_site' ] . ' <' . get_bloginfo( 'admin_email' ) . '>';
+                $headers[ ] = __('From: ', 'symbiostock') . $myinfo[ 'symbiostock_site' ] . ' <' . get_bloginfo( 'admin_email' ) . '>';
                                
                 $this->messages = '<br /><br />';
                 
                 $email = symbiostock_email_convert( $theirinfo[ 'admin_email' ], 'decode' );
                 array_push($mailed_to, $theirinfo[ 'symbiostock_display_name' ]);
                 
-                $subject = '[symbiostock_upgrade] ' . $myinfo[ 'symbiostock_site' ] . ' (' . $myinfo[ 'symbiostock_display_name' ] . ') has upgraded: ' . $theme_data->Version;
+                $subject = __('[symbiostock_upgrade] ', 'symbiostock') . $myinfo[ 'symbiostock_site' ] . ' (' . $myinfo[ 'symbiostock_display_name' ] . ') '.__( ' has upgraded:', 'symbiostock').' ' . $theme_data->Version;
                 
-                $message = '<p>' . $subject . '<br /><br /><a title="About network emails" href="http://www.symbiostock.com/about-network-emails/"><em>About Network Emails...</a></p>';
+                $message = '<p>' . $subject . '<br /><br /><a title="'.__( ' About Network Emails... ', 'symbiostock').'" href="http://www.symbiostock.com/about-network-emails/"><em>'.__( ' About Network Emails... ', 'symbiostock').'</a></p>';
                 
                 wp_mail( $email, $subject, $message, $headers );    
                 
@@ -839,7 +838,7 @@ class network_manager
             
             if ( !isset( $must_have ) && empty( $must_have ) ) {
                 
-                return '<p>Could not create network associate. Missing required info: <strong>' . $must_have . '</strong></p>';
+                return '<p>'.__( ' Could not create network associate. Missing required info:  ', 'symbiostock').'<strong>' . $must_have . '</strong></p>';
                 
             } //!isset( $must_have ) && empty( $must_have )
             
@@ -1166,7 +1165,7 @@ class network_manager
         $results = $xml->saveXML();
         
         $symbiocard = ABSPATH . '/symbiocard.xml';
-        $fh = fopen($symbiocard, 'w') or die("can't open file");
+        $fh = fopen($symbiocard, 'w') or die(__("can't open file", 'symbiostock'));
         $stringData = $results;
         fwrite($fh, $stringData);
         fclose($fh);
@@ -1182,9 +1181,7 @@ class network_manager
         
         fputcsv( $fp, array_keys( $this->network_info ) );
         
-        fputcsv( $fp, $this->network_info );
-        
-        
+        fputcsv( $fp, $this->network_info );   
         
         fclose( $fp );
         
@@ -1396,7 +1393,7 @@ class network_manager
         $results = $xml->saveXML();
         
         $symbiocard = ABSPATH . '/symbiostock_image_info.xml';
-        $fh = fopen($symbiocard, 'w') or die("can't open file");
+        $fh = fopen($symbiocard, 'w') or die(__("can't open file", 'symbiostock'));
         $stringData = $results;
         fwrite($fh, $stringData);
         fclose($fh);
@@ -2187,7 +2184,7 @@ if ( ! function_exists( 'ajt_xml_no_results_found' ) ) {
     function ajt_xml_no_results_found( ) {
 
         return "<?xml version=\"1.0\"?><symbiostock_search_results>
-                <no_results>No results found.</no_results></symbiostock_search_results>";
+                <no_results>".__( 'No results found.', 'symbiostock')."</no_results></symbiostock_search_results>";
 
     }
 }
@@ -2207,7 +2204,7 @@ if ( ! function_exists( 'ajt_cache_log_file_open' ) ) {
       $log_file_name = ABSPATH . 'symbiostock_xml_cache/.cachelog' . date( '-Y-m' );
 
       if ( ! file_exists( $log_file_name ) )
-         file_put_contents( $log_file_name, date('c') . "  cache log created\n" );
+         file_put_contents( $log_file_name, date('c') . __("  cache log created\n", 'symbiostock') );
 
       $file = fopen( $log_file_name, "a+" );
       flock( $file, LOCK_EX );
@@ -2429,7 +2426,7 @@ function update_symbiostock_site_data() {
 
     update_option('symbiostock_site_data_last_update', current_time( 'mysql' ));
 
-    wp_mail( get_bloginfo( 'admin_email' ), '[symbiostock_network_update] Site has updated image and network - ' . current_time( 'mysql' ), 'Public image and tag info updated. Network has been scanned and directory updated. - ' . current_time( 'mysql' ) );
+    wp_mail( get_bloginfo( 'admin_email' ), ''.__( '[symbiostock_network_update] Site has updated image and network - ', 'symbiostock') . current_time( 'mysql' ), __( 'Public image and tag info updated. Network has been scanned and directory updated. - ', 'symbiostock') . current_time( 'mysql' ) );
     
     
     do_action('symbiostock_daily_chron');

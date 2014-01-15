@@ -129,7 +129,7 @@ function symbiostock_hover_controls($count, $id, $permalink){
     
     ?><br />
     <span class="sscntrl">
-         <a class="modal_activate" id="<?php echo $id . '_details'; ?>" title="Preview" data-toggle="modal" href="#symbiostock_display_preview" ><i class="icon-zoom-in">&nbsp;</i></a>            
+         <a class="modal_activate" id="<?php echo $id . '_details'; ?>" title="<?php _e( 'Preview', 'symbiostock') ?>" data-toggle="modal" href="#symbiostock_display_preview" ><i class="icon-zoom-in">&nbsp;</i></a>            
     </span>     
     <?php
 }
@@ -151,7 +151,7 @@ function symbiostock_display_pagination($pagination, $results, $position, $size)
                 }
             ?>
             <li class="disabled">
-            <span><?php echo 'Results: ' . $results; ?></span>
+            <span><?php echo __('Results: ', 'symbiostock') . $results; ?></span>
             </li>            
             </ul>
         </div>
@@ -162,39 +162,41 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
     //site_count variable is simply the site's position on the page/loop. 
     //if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
     //friend's page handle's it properly.
+  
     if(!isset($results['image'])){
         if($network_search != true) {
-		 if (get_option('symbiostock_global_search', 0) != 1) 
-			echo '<h3>No results found on this site.<h3>';
-		 else {
-			?>
-			<h3>Nothing found on this site. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:</h3><br />
-			<?php
-			$search_term=str_replace(' ', '+', get_query_var('s'));
-                        $http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&r=".parse_url( get_home_url() )['host'];
-			$ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
-			$xml_result = file_get_contents($http_request, 0, $ctx);
-			libxml_use_internal_errors( true );
-			if ( simplexml_load_string( $xml_result ) ) {
-				$html_result = symbiostock_interpret_results( $xml_result );
-				if ( isset($html_result['image']) ) 
-					symbiostock_build_html_results( $html_result, true, -1 );
-				else
-					echo '<h3>No results found ...</h3>';
-			}	
-			else
-				echo '<h3>No results found ...</h3>';
-			libxml_use_internal_errors( false );
-		 }	
+                 if (get_option('symbiostock_global_search', 0) != 1)
+                        echo '<h3>'.__( 'No results found on this site.', 'symbiostock').'<h3>';
+                 else {
+                        ?>
+                        <h3><?php _e( 'Nothing found on this site. See results from <a href="http://symbiostock.info" target="_blank">Global Symbiostock Search Engine</a>:', 'symbiostock') ?></h3><br />
+                        <?php
+                        $search_term=str_replace(' ', '+', get_query_var('s'));
+                        $parsed_url = parse_url( get_home_url() );
+                        $referer = $parsed_url[ 'host' ];
+                        $http_request = "http://symbiostock.info/?symbiostock_network_search=".$search_term."&r=".$referer; 
+                        $ctx = stream_context_create( array( 'http' => array( 'timeout' => 20 ) ) );
+                        $xml_result = file_get_contents($http_request, 0, $ctx);
+                        libxml_use_internal_errors( true );
+                        if ( simplexml_load_string( $xml_result ) ) {
+                                $html_result = symbiostock_interpret_results( $xml_result );
+                                if ( isset($html_result['image']) )
+                                        symbiostock_build_html_results( $html_result, true, -1 );
+                                else
+                                        echo '<h3>'.__( 'No results found ...', 'symbiostock').'</h3>';
+                        }        
+                        else
+                                echo '<h3>'.__( 'No results found ...', 'symbiostock').'</h3>';
+                        libxml_use_internal_errors( false );
+                 }        
         ?>
-        <div class="hero-unit">
-            <h3>Try browsing categories:</h3>
-            <?php 
+		<div class="hero-unit">
+		<h3>Try browsing categories:</h3>
+		<?php
             ss_list_categories();
-            ?>
-        </div>
-        
-        <?php
+        ?>
+		</div>
+		<?php
         }
         
         return;
@@ -318,10 +320,11 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             symbiostock_display_pagination($pagination, $results['total_results'], 'centered', 'pagination-large');
         } elseif ($network_search == false){
         
-            echo '<span>Results: ' . $results['total_results'] . '</span>';
+            echo '<span>'.__('Results: ', 'symbiostock') . $results['total_results'] . '</span>';
         }
         ?>
         </div>
+
         <?php    
         
         
@@ -336,7 +339,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         
         } else {
         
-            return '<p>No results found.</p>';
+            return '<p>'.__( 'No results found ...', 'symbiostock').'</p>';
         
         }
         
@@ -380,6 +383,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                     $active = true;        
         endif;
                     $closed = true;
+
                     foreach($image_results as $image){
                         
                         //filter images by rating (nudity)                                        
@@ -424,7 +428,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         
                         if(isset($results['load_ajax'])):            
                         ?> 
-                        <img class="" alt="Loading site's results..." src="<?php echo symbiostock_IMGDIR . '/loading-large.gif' ?>" /> 
+                        <img class="" alt="<?php _e( 'Loading site\'s results...', 'symbiostock') ?>" src="<?php echo symbiostock_IMGDIR . '/loading-large.gif' ?>" /> 
                         <input class="site_load_ajax" data-search="<?php echo $results['retry_search']; ?>" type="hidden" value="network_site_<?php echo $site_count; ?>" name="load_ajax" />
                         <?php
                         
@@ -470,7 +474,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         </div><!--/network_results_container--> 
         <?php    
 		}
-		
+
     if($paginate == true){
         symbiostock_display_pagination($pagination, $results['total_results'], $position, 'pagination-' . $size);
     }

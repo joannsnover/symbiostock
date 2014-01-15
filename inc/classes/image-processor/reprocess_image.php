@@ -16,7 +16,7 @@ function symbiostock_reprocess_image( $post_id, $promo = false, $size = 590 )
 	global $post;
 	global $typenow;
 	$post_type_bulk = $typenow;
-
+	
 	if ( $post->post_type == 'image'
 			|| $post_type_bulk == 'image'
 					&& !isset( $_POST[ 'symbiostock_update_images' ] ) )
@@ -90,7 +90,7 @@ function symbiostock_reprocess_image( $post_id, $promo = false, $size = 590 )
 			//if it is watermarked, we over-write its preview
 				if ( !copy( $tmp . $post_id . '.jpg' , $file_attachment_path ) )
 				{
-						echo "failed to copy $file...\n";
+						echo __("failed to copy", 'symbiostock') . "$file...\n";
 				}
 				}
 

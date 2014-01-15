@@ -8,7 +8,7 @@ if(!$parent_term){
     $symbiostock_links = wp_insert_term('Symbiostock', // the term 
         'link_category', // the taxonomy
         array(
-        'description' => 'Symbiostock resources and microstock links.',
+        'description' => __('Symbiostock resources and microstock links.', 'symbiostock'),
         'slug' => 'symbiostock'
         
     ));
@@ -20,7 +20,7 @@ if(!$parent_term){
             'link_url' => 'http://www.symbiostock.com/',
             'link_name' => 'Symbiostock',
             'link_target' => '_blank',
-            'link_description' => 'Symbiostock. The integrated microstock community. Get connected with the Symbiostock community. Download the theme and start selling your images.',
+            'link_description' => __('Symbiostock. The integrated microstock community. Get connected with the Symbiostock community. Download the theme and start selling your images.', 'symbiostock'),
             'link_rss' => 'http://www.symbiostock.com/feed/'
         ),
         
@@ -28,7 +28,7 @@ if(!$parent_term){
             'link_url' => 'http://www.clipartillustration.com/',
             'link_name' => 'ClipArtIllustration.com.',
             'link_target' => '_blank',
-            'link_description' => 'Leo\'s illustration website. Was the prototype for Symbiostock.',
+            'link_description' => __('Leo\'s illustration website. Was the prototype for Symbiostock.', 'symbiostock'),
             'link_rss' => 'http://www.clipartillustration.com/feed/'
         ),
         
@@ -36,7 +36,7 @@ if(!$parent_term){
             'link_url' => 'http://www.microstockgroup.com/',
             'link_name' => 'Microstock Group',
             'link_target' => '_blank',
-            'link_description' => 'MicrostockGroup - Professional Microstock Forum',
+            'link_description' => __('MicrostockGroup - Professional Microstock Forum', 'symbiostock'),
             'link_rss' => 'http://www.microstockgroup.com/.xml/?type=rss'
         ),
         
@@ -44,7 +44,7 @@ if(!$parent_term){
             'link_url' => 'http://www.clipartof.com/',
             'link_name' => 'ClipArtOf.com',
             'link_target' => '_blank',
-            'link_description' => 'High resolution royalty free clipart',
+            'link_description' => __('High resolution royalty free clipart', 'symbiostock'),
             'link_rss' => 'http://www.clipartof.com/feeds/New-Clipart-Illustrations.rss'
         )
         
@@ -78,36 +78,35 @@ if(!$parent_term){
 }
 // Now we update our categories. This is a bonus feature, not required.
 $symbiostock_categories = array(
-    'Abstract | Backgrounds | Textures',
-    'Animals',
-    'Architecture | Interiors',
-    'Beauty | Fashion',
-    'Business',
-    'Cities | Rural | Places',
-    'Concepts',
-    'Education',
-    'Food | Drink',
-    'Health',
-    'Healthcare',
-    'Events',
-    'Landscape',
-    'Miscellaneous',
-    'Nature',
-    'Objects',
-    'People',
-    'Recreation | Hobbies',
-    'Science',
-    'Shopping | Retail',
-    'Signs | Symbols | Icons',
-    'Sport',
-    'Technology',
-    'Transport',
-    'Travel',
-    'Vectors | Illustrations | 3D',
-    'Vintage | Retro',
-    'Music',
-    'Industry',
-    '',
+    __( 'Abstract | Backgrounds | Textures', 'symbiostock'),
+    __( 'Animals',                           'symbiostock'),
+    __( 'Architecture | Interiors',          'symbiostock'),
+    __( 'Beauty | Fashion',                  'symbiostock'),
+    __( 'Business',                          'symbiostock'),
+    __( 'Cities | Rural | Places',           'symbiostock'),
+    __( 'Concepts',                          'symbiostock'),
+    __( 'Education',                         'symbiostock'),
+    __( 'Food | Drink',                      'symbiostock'),
+    __( 'Health',                            'symbiostock'),
+    __( 'Healthcare',                        'symbiostock'),
+    __( 'Events',                            'symbiostock'),
+    __( 'Landscape',                         'symbiostock'),
+    __( 'Miscellaneous',                     'symbiostock'),
+    __( 'Nature',                            'symbiostock'),
+    __( 'Objects',                           'symbiostock'),
+    __( 'People',                            'symbiostock'),
+    __( 'Recreation | Hobbies',              'symbiostock'),
+    __( 'Science',                           'symbiostock'),
+    __( 'Shopping | Retail',                 'symbiostock'),
+    __( 'Signs | Symbols | Icons',           'symbiostock'),
+    __( 'Sport',                             'symbiostock'),
+    __( 'Technology',                        'symbiostock'),
+    __( 'Transport',                         'symbiostock'),
+    __( 'Travel',                            'symbiostock'),
+    __( 'Vectors | Illustrations | 3D',      'symbiostock'),
+    __( 'Vintage | Retro',                   'symbiostock'),
+    __( 'Music',                             'symbiostock'),
+    __( 'Industry',                          'symbiostock'),
 );
 
 $categories_installed = get_option('categories_installed', false);
@@ -124,8 +123,8 @@ if($categories_installed == false){
               $category, // the term 
               'image-type', // the taxonomy
               array(
-                'description'=> 'Category for "' . $category . '" related images.',
-                'slug' => $category . '-images',
+                'description'=> $category,
+                'slug' => $category . '-' . __('images', 'symbiostock'),
                 'parent'=> $parent_term_id
               )
             );
@@ -144,10 +143,10 @@ wp_delete_term( $wrong_name_term->term_id, 'image-type', $args );
     
     if(!$parent_term){        
         $featured_images_category_id = wp_insert_term(
-            'Symbiostock Featured Images', // the term 
+            __('Symbiostock Featured Images', 'symbiostock'), // the term 
             'image-type', // the taxonomy
             array(
-                'description'=> 'Category for Symbiostock Featured Images. Used by "Featured Images" widget.',
+                'description'=> __('Category for Symbiostock Featured Images. Used by "Featured Images" widget.', 'symbiostock'),
                 'slug' => 'Symbiostock Featured Images',
                 'parent'=> $parent_term_id
             )

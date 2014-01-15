@@ -39,7 +39,7 @@ else{
                     <div id="content" class="site-content " role="main">
                     <?php                            
                             
-        echo '<h1 class="results_for">Results for <em>"' . ucwords(str_replace('-', ' ', get_query_var('s'))) . '"</em></h1>';
+        echo '<h1 class="results_for">'.__('Results for ', 'symbiostock').' <em>"' . ucwords(str_replace('-', ' ', get_query_var('s'))) . '"</em></h1>';
                             
         if($symbiostock_image_search == true){
         

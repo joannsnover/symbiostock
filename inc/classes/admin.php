@@ -48,15 +48,15 @@ class symbiostock_render_admin_panel
         <?php
         
         if ( isset( $_POST[ 'symbiostock_admin_form_submit' ] ) ) {
-            echo '<p>You submitted the form</p>';
+            echo '<p>'.__( 'You submitted the form ', 'symbiostock').'</p>';
         } //isset( $_POST[ 'symbiostock_admin_form_submit' ] )
         
         include_once( 'admin/' . $this->active_tab . '.php' );
 ?>
         <br />
         
-        <label for="save_network_values" ><input id="save_network_values" type="checkbox" name="save_network_values" value="" /> <em>Update public network info.</em></label>
-        <label for="save_image_info" ><input id="save_image_info" type="checkbox" name="save_image_info" value="" /> <em>Update public image info.</em></label>
+        <label for="save_network_values" ><input id="save_network_values" type="checkbox" name="save_network_values" value="" /> <em><?php _e( 'Update public network info.', 'symbiostock') ?></em></label>
+        <label for="save_image_info" ><input id="save_image_info" type="checkbox" name="save_image_info" value="" /> <em><?php _e( 'Update public image info.', 'symbiostock') ?></em></label>
         <input type="hidden" name="save_form_info" value="1" />
         <?php
         
@@ -65,12 +65,12 @@ class symbiostock_render_admin_panel
         //when saved, update network file
         if(isset($_POST['save_network_values'])){            
             symbiostock_save_network_info();
-            echo '<p><em>Network info updated.</em></p>';
+            echo '<p><em>'.__( 'Network info updated.', 'symbiostock').'</em></p>';
             }
         //when saved, update image info file
         if(isset($_POST['save_image_info'])){            
             symbiostock_save_image_list_info();
-            echo '<p><em>Image info info updated.</em></p>';
+            echo '<p><em>'.__( 'Image info updated.', 'symbiostock').'/em></p>';
             }    
                 
 ?>

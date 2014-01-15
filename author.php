@@ -25,9 +25,9 @@ get_header(); ?>
 
                     <?php symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = false) ?>
 
-                    <?php if(is_dynamic_sidebar( 'Author Page (Below Content)' )): ?>
+                    <?php if(is_dynamic_sidebar( 'author-page-below-content' )): ?>
                     <div class="panel panel-default">
-                    <?php dynamic_sidebar('Author Page (Below Content)') ?>
+                    <?php dynamic_sidebar( 'author-page-below-content' ) ?>
                     </div>
                     <?php endif; ?>                    
                     
@@ -38,9 +38,9 @@ get_header(); ?>
         
             <div class="col-md-5">
 
-            <?php if(is_dynamic_sidebar( 'Author Page (Sidebar)' )): ?>
+            <?php if(is_dynamic_sidebar( 'author-page-sidebar' )): ?>
             <div class="panel panel-default">
-            <?php dynamic_sidebar( 'Author Page (Sidebar)' ) ?>
+            <?php dynamic_sidebar( 'author-page-sidebar' ) ?>
             </div>
             <?php endif; ?>              
             

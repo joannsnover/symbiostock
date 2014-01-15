@@ -476,7 +476,7 @@ function symbiostock_widgets_init()
 
     register_sidebar( 
             array( 
-                    'name' => 'Footer 1/3',
+                    'name' => __( 'Footer 1/3' , 'symbiostock' ),
                     'id' => 'footer-1-3',
                     'class'         => 'panel-body',
                     'before_widget' => '<div class="panel-body footer_section">',
@@ -486,7 +486,7 @@ function symbiostock_widgets_init()
 
     register_sidebar( 
             array( 
-                    'name' => 'Footer 2/3',
+                    'name' => __( 'Footer 2/3' , 'symbiostock' ),
                     'id' => 'footer-2-3',
                     'class'         => 'panel-body',
                     'before_widget' => '<div class="panel-body footer_section">',
@@ -496,7 +496,7 @@ function symbiostock_widgets_init()
 
     register_sidebar( 
             array( 
-                    'name' => 'Footer 3/3',
+                    'name' => __( 'Footer 3/3' , 'symbiostock' ),
                     'id' => 'footer-3-3',
                     'class'         => 'panel-body',
                     'before_widget' => '<div class="panel-body footer_section">',
@@ -572,7 +572,7 @@ function symbiostock_scripts()
         function symbiostock_header_js()
         {
 		?>
-            <script type="text/javascript">
+<script type="text/javascript">
             var symbiostock_large_loader = "<?php echo symbiostock_IMGDIR
                     . '/loading-large.gif' ?>";
             
@@ -586,7 +586,7 @@ function symbiostock_scripts()
             });        
                     
             </script>
-            <?php
+<?php
         }
         // Add hook for admin <head></head>
         add_action( 'wp_head' , 'symbiostock_header_js' );
@@ -678,9 +678,11 @@ if ( symbiostock_is_login_page( ) )
     function symbiostock_login_stylesheet()
     {
             ?>
-        <link rel="stylesheet" id="custom_wp_admin_css"  href="<?php echo symbiostock_CSSDIR
-                . '/style-login.css'; ?>" type="text/css" media="all" />
-        <?php
+<link rel="stylesheet" id="custom_wp_admin_css"
+	href="<?php echo symbiostock_CSSDIR
+                . '/style-login.css'; ?>"
+	type="text/css" media="all" />
+<?php
     }
 
     add_action( 'login_enqueue_scripts' , 'symbiostock_login_stylesheet' );
@@ -703,13 +705,13 @@ if ( symbiostock_is_login_page( ) )
         }
 
         ?>
-    <style type="text/css">
-        body.login div#login h1 a {
-            background-image: url(<?php echo $symbiostock_login_logo ?>);
-            padding-bottom: 30px;
-        }
-    </style>
-    <?php }
+<style type="text/css">
+body.login div#login h1 a {
+	background-image: url(<?php echo $symbiostock_login_logo ?>);
+	padding-bottom: 30px;
+}
+</style>
+<?php }
     add_action( 'login_enqueue_scripts' , 'symbiostock_login_logo' );
 
 	/**
@@ -768,7 +770,7 @@ function symbiostock_excerpt_more( $more )
     global $post;
 
     return ' ... <a class="read-more" href="' . get_permalink( $post->ID )
-            . '"> See More &raquo;</a>';
+            . '"> '.__( 'See More' , 'symbiostock' ).' &raquo;</a>';
 
 }
 
@@ -1171,7 +1173,7 @@ function symbiostock_directory_link( $text = '', $linkonly = false,
 
     $small_pic == true ? $size = 32 : $size = 128;
 
-    $img = '<img class="img-polaroid" alt="Part of the Symbiostock Network" src = "'
+    $img = '<img class="img-polaroid" alt="'.__( 'Part of the Symbiostock Network' , 'symbiostock' ).'" src = "'
             . symbiostock_IMGDIR . '/' . $size . '_default.jpg" />';
 
     $directory_page_link = '<a title="' . $text . '" href="' . $permalink
@@ -1203,13 +1205,13 @@ function symbiostock_customer_nav_links()
 
         $nav_links = '<li data-toggle="modal" data-target="#symbiostock_member_modal" class="login_register">
         <button type="button" class="btn btn-default navbar-btn">'
-                . symbiostock_customer_login( 'Login / Register' ) . '
+                . symbiostock_customer_login( __( 'Login / Register' , 'symbiostock' ) ) . '
         </button></li>';
 
     } else
     {
         $nav_links = '<li class="logout">        
-        <a href="' . wp_logout_url( get_permalink( ) ) . '" title="Logout">(<i class="icon-key"> </i> Logout)</a>';
+        <a href="' . wp_logout_url( get_permalink( ) ) . '" title="'.__( 'Logout' , 'symbiostock' ).'">(<i class="icon-key"> </i> '.__( 'Logout' , 'symbiostock' ).')</a>';
         $nav_links .= '<li class="license_area">        
         ' . symbiostock_customer_area( $name ) . '        
         </li>';
@@ -1279,7 +1281,7 @@ function symbiostock_truncate( $string, $limit, $break = ".", $pad = "..." )
 function symbiostock_community_activity()
 {
 
-    $rss = fetch_feed( 'http://www.symbiostock.org/feed/rss/news/' );
+    $rss = fetch_feed( 'http://www.symbiostock.org/community/feed.php' );
 
     if ( !is_wp_error( $rss ) ) :
         $maxitems = $rss->get_item_quantity( 10 );
@@ -1443,7 +1445,7 @@ function symbiostock_filter_404_title( $title )
 {
     if ( is_404( ) && is_tax( 'image-tags' ) )
     {
-        $title = 'No results found. ';
+        $title = __( 'No Results Found' , 'symbiostock' ).' ';
     }
     // You can do other filtering here, or
     // just return $title
@@ -1578,23 +1580,22 @@ function symbiostock_credit_links( $position )
 {
 
     $symbiostock_credit_links = get_option( 'symbiostock_credit_links' );
-
+	
     $links = array(             
-            'Symbiostock Community - Network with illustrators, photographers, and designers.' => 'http://www.symbiostock.org/',            
-            'Symbiostock.info - Search images on the Symbiostock network.' => 'http://www.symbiostock.info/',
-            'Symbiostock Search  - Search Symbiostock images and network..' => 'http://symbiostock-search.com/',
-            'Symbioguides.com - Symbiostock knowledge base.' => 'http://www.symbioguides.com/',
-            'Symbiostock.com - Sell your images and network with fellow microstock professionals.' => 'http://www.symbiostock.com/',
-            'ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art' => 'http://www.clipartof.com/', 
-            'ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man' => 'http://www.clipartillustration.com',
-            'Microstockgroup.com - A meeting place for microstock professionals.' => 'http://www.microstockgroup.com',
-            );
-
-    if ( $position == $symbiostock_credit_links )
-    {
-
-        echo '<div class="panel panel-default">
-        <div class="panel-heading dropdown-toggle" data-toggle="dropdown" type="button"><h3 class="panel-title">Symbiostock Community <i class="icon-caret-down"> </i> </h3></div>
+            __( 'Symbiostock Community - Network with illustrators, photographers, and designers.', 'symbiostock' ) => 'http://www.symbiostock.org/',
+			__ ( 'Symbiostock.info - Search images on the Symbiostock network.', 'symbiostock' ) => 'http://www.symbiostock.info/',
+			__ ( 'Symbiostock Search  - Search Symbiostock images and network.', 'symbiostock' ) => 'http://symbiostock-search.com/',
+			__ ( 'Symbioguides.com - Symbiostock knowledge base.', 'symbiostock' ) => 'http://www.symbioguides.com/',
+			__ ( 'Symbiostock.com - Sell your images and network with fellow microstock professionals.', 'symbiostock' ) => 'http://www.symbiostock.com/',
+			__ ( 'ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art', 'symbiostock' ) => 'http://www.clipartof.com/',
+			__ ( 'ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man', 'symbiostock' ) => 'http://www.clipartillustration.com',
+			__ ( 'Microstockgroup.com - A meeting place for microstock professionals.', 'symbiostock' ) => 'http://www.microstockgroup.com' 
+	);
+	
+	if ($position == $symbiostock_credit_links) {
+		
+		echo '<div class="panel panel-default">
+        <div class="panel-heading dropdown-toggle" data-toggle="dropdown" type="button"><h3 class="panel-title">'.__( 'Symbiostock Community', 'symbiostock' ).'<i class="icon-caret-down"> </i> </h3></div>
         <ul class="dropdown-menu list-group" role="menu">';
 
         foreach ( $links as $title => $link )
@@ -1690,25 +1691,27 @@ function symbiostock_website_copyright()
             get_option( 'symbiostock_copyright_name' , '' ) );
 
     ?>
-    <p class="text-muted">    
-    Copyright &copy;
+<p class="text-muted">    
+    <?php _e('Copyright', 'symbiostock')?> &copy;
     <?php $the_year = date( "Y" );
     echo $the_year; ?>
     
     <?php echo ' <strong>' . $copyright_owner . '</strong>, '
             . get_bloginfo( 'url' ) . ''; ?>
-    All Rights Reserved. 
+    <?php _e('All Rights Reserved', 'symbiostock')?>  
     </p>
-    <?php
+<?php
     $theme_credit = get_option( 'symbiostock_theme_credit' , '' );
 
     if ( empty( $theme_credit ) || $theme_credit == 'on' )
     {
     ?>
-        <div class="text-muted">
-            <strong>Stock image</strong> and <strong>networking</strong> platform <a href="http://www.symbiostock.com/">SYMBIOSTOCK</a>, by the maker of <a href="http://www.clipartillustration.com/">ClipArtIllustration.com</a>
-        </div>    
-        <?php
+<div class="text-muted">
+	<?php _e('Stock image and networking platform', 'symbiostock') ?> <a
+		href="http://www.symbiostock.com/">SYMBIOSTOCK</a>, <?php _e('by the maker of', 'symbiostock') ?> <a
+		href="http://www.clipartillustration.com/">ClipArtIllustration.com</a>
+</div>
+<?php
     }
 
 }
@@ -1789,12 +1792,15 @@ function symbiostock_list_admins()
     $args = array( 'role' => 'Administrator', );
     $admins = get_users( $args );
 
-        ?><select id="symbiostock_site_author" name="symbiostock_site_author"><?php
+        ?><select id="symbiostock_site_author"
+	name="symbiostock_site_author"><?php
     foreach ( $admins as $admin )
     {
         $main_author == $admin->ID ? $choice = 'selected="selected"'
                 : $choice = '';
-                                                                              ?><option <?php echo $choice; ?> value="<?php echo $admin
+                                                                              ?><option
+		<?php echo $choice; ?>
+		value="<?php echo $admin
                 ->ID; ?>"><?php echo $admin->display_name; ?></option> <?php
     }  
 }
@@ -1862,70 +1868,69 @@ function symbiostock_social_credentials( $user, $get_fields = false )
                     'Temp Location' ),
             'Temporary Location 2' => '', );
 
-    $select_dropdowns = array( 
-            'Open for Assignment Jobs' => array( 'No', 'Yes' ),
-            'Profession 1' => array( 
-                    '-',
-                    'Illustrator',
-                    'Photographer',
-                    'Developer',
-                    'Artist',
-                    'Marketing',
-                    'Graphic Design',
-                    '3d Design' ),
-            'Profession 2' => array( 
-                    '-',
-                    'Illustrator',
-                    'Photographer',
-                    'Developer',
-                    'Artist',
-                    'Marketing',
-                    'Graphic Design',
-                    '3d Design' ),
-            'Portfolio Focus 1' => array( 
-                    '-',
-                    'Photography',
-                    'Vector',
-                    '3d Design',
-                    'Digital Painting' ),
-            'Portfolio Focus 2' => array( 
-                    '-',
-                    'Photography',
-                    'Vector',
-                    '3d Design',
-                    'Digital Painting' ),
-            'Specialty 1' => array( 
-                    '-',
-                    'Travel',
-                    'People',
-                    'Illustrations',
-                    'Maps',
-                    'Cartoon',
-                    'Nature',
-                    'Editorial',
-                    'Landscape',
-                    'Food',
-                    'Lifestyle',
-                    'Backgrounds',
-                    'Industry',
-                    'Mascot Series' ),
-            'Specialty 2' => array( 
-                    '-',
-                    'Travel',
-                    'People',
-                    'Illustrations',
-                    'Maps',
-                    'Cartoon',
-                    'Nature',
-                    'Editorial',
-                    'Landscape',
-                    'Food',
-                    'Lifestyle',
-                    'Backgrounds',
-                    'Industry',
-                    'Mascot Series' ),
-
-	);
+   $select_dropdowns = array(
+		__( 'Open for Assignment Jobs', 'symbiostock' ) => array( __( 'No', 'symbiostock' ), __( 'Yes', 'symbiostock' ) ),
+		__( 'Profession 1', 'symbiostock' ) => array(
+				'-',
+				__( 'Illustrator', 'symbiostock' ),
+				__( 'Photographer', 'symbiostock' ),
+				__( 'Developer', 'symbiostock' ),
+				__( 'Artist', 'symbiostock' ),
+				__( 'Marketing', 'symbiostock' ),
+				__( 'Graphic Design', 'symbiostock' ),
+				__( '3d Design', 'symbiostock' ) ),
+		__( 'Profession 2', 'symbiostock' ) => array(
+				'-',
+				__( 'Illustrator', 'symbiostock' ),
+						__( 'Photographer', 'symbiostock' ),
+								__( 'Developer', 'symbiostock' ),
+								__( 'Artist', 'symbiostock' ),
+								__( 'Marketing', 'symbiostock' ),
+								__( 'Graphic Design', 'symbiostock' ),
+								__( '3d Design' ), 'symbiostock' ),
+						__( 'Portfolio Focus 1', 'symbiostock' ) => array(
+								'-',
+								__( 'Photography', 'symbiostock' ),
+								__( 'Vector', 'symbiostock' ),
+								__( '3d Design', 'symbiostock' ),
+								__( 'Digital Painting', 'symbiostock' ) ),
+						__( 'Portfolio Focus 2', 'symbiostock' ) => array(
+								'-',
+								__( 'Photography', 'symbiostock' ),
+								__( 'Vector', 'symbiostock' ),
+								__( '3d Design', 'symbiostock' ),
+								__( 'Digital Painting', 'symbiostock' ) ),
+						__( 'Specialty 1', 'symbiostock' ) => array(
+								'-',
+								__( 'Travel', 'symbiostock' ),
+								__( 'People', 'symbiostock' ),
+								__( 'Illustrations', 'symbiostock' ),
+								__( 'Maps', 'symbiostock' ),
+								__( 'Cartoon', 'symbiostock' ),
+								__( 'Nature', 'symbiostock' ),
+								__( 'Editorial', 'symbiostock' ),
+								__( 'Landscape', 'symbiostock' ),
+								__( 'Food', 'symbiostock' ),
+								__( 'Lifestyle', 'symbiostock' ),
+								__( 'Backgrounds', 'symbiostock' ),
+								__( 'Industry', 'symbiostock' ),
+										__( 'Mascot Series', 'symbiostock' ) ),
+								__( 'Specialty 2', 'symbiostock' ) => array(
+										'-',
+										__( 'Travel', 'symbiostock' ),
+										__( 'People', 'symbiostock' ),
+										__( 'Illustrations', 'symbiostock' ),
+										__( 'Maps', 'symbiostock' ),
+										__( 'Cartoon', 'symbiostock' ),
+										__( 'Nature', 'symbiostock' ),
+										__( 'Editorial', 'symbiostock' ),
+										__( 'Landscape', 'symbiostock' ),
+										__( 'Food', 'symbiostock' ),
+										__( 'Lifestyle', 'symbiostock' ),
+										__( 'Backgrounds', 'symbiostock' ),
+										__( 'Industry', 'symbiostock' ),
+										__( 'Mascot Series', 'symbiostock' ) ),
+								);
 
     //this function can also be used to get the expected values array
     if ( $get_fields == true )
@@ -1950,8 +1955,9 @@ function symbiostock_social_credentials( $user, $get_fields = false )
 
     $credentials = get_option( 'symbiostock_social_credentials' );
                    ?>
-    <h2 id="extended_network_info">Symbiostock Profile and Extended Network Info</h2><?php echo sshelp( 
-            'symbiostock_profile' , 'Your profile and network symbiocard' ); ?>
+    <h2 id="extended_network_info">Symbiostock Profile and Extended
+		Network Info</h2><?php echo sshelp( 
+            'symbiostock_profile' , __('Your profile and network symbiocard', 'symbiostock') ); ?>
     <table class="form-table">        
             
         <?php
@@ -1966,8 +1972,8 @@ function symbiostock_social_credentials( $user, $get_fields = false )
 
         ?>                
                 <tr>
-                    <th><label for="<?php echo $name_id; ?>"><?php echo $key; ?></label></th>                
-                    <td>
+			<th><label for="<?php echo $name_id; ?>"><?php echo $key; ?></label></th>
+			<td>
                     
                         <?php
         //if URL field, validate
@@ -1977,8 +1983,8 @@ function symbiostock_social_credentials( $user, $get_fields = false )
             if ( !symbiostock_validate_url( $value ) )
             {
 
-                echo '<p class="error"><strong>Invalid URL for ' . $key
-                        . '. Please try again.</strong></p>';
+                echo '<p class="error"><strong>'.__('Invalid URL for ', 'symbiostock') . $key
+                        . __('. Please try again.', 'symbiostock').'</strong></p>';
 
                 $value = '';
             }
@@ -1986,10 +1992,12 @@ function symbiostock_social_credentials( $user, $get_fields = false )
         }
                         ?>
                         
-                        <input type="text" name="<?php echo $name_id; ?>" id="<?php echo $name_id; ?>" value="<?php echo $value; ?>" class="regular-text" />
-                        <span class="description"><?php echo $text; ?></span>
-                    </td>
-                </tr>                
+                        <input type="text"
+				name="<?php echo $name_id; ?>" id="<?php echo $name_id; ?>"
+				value="<?php echo $value; ?>" class="regular-text" /> <span
+				class="description"><?php echo $text; ?></span>
+			</td>
+		</tr>                
                 <?php
     }
 
@@ -1999,9 +2007,10 @@ function symbiostock_social_credentials( $user, $get_fields = false )
 
                 ?>
                 <tr>
-                    <th><label for="<?php echo $name_id; ?>"> <?php echo $key; ?></label> </th>                
-                    <td>
-                        <select id="<?php echo $name_id ?>" name="<?php echo $name_id; ?>" class="regular-text">                        
+			<th><label for="<?php echo $name_id; ?>"> <?php echo $key; ?></label>
+			</th>
+			<td><select id="<?php echo $name_id ?>"
+				name="<?php echo $name_id; ?>" class="regular-text">                        
                         <?php
         foreach ( $options as $option )
         {
@@ -2009,17 +2018,18 @@ function symbiostock_social_credentials( $user, $get_fields = false )
             $option == $credentials[ $name_id ] ? $selected = 'selected="selected"'
                     : $selected = '';
 
-                        ?> <option <?php echo $selected; ?> value="<?php echo $option; ?>"><?php echo $option; ?></option> <?php
+                        ?> <option <?php echo $selected; ?>
+						value="<?php echo $option; ?>"><?php echo $option; ?></option> <?php
         }
                                                                                                                                ?>                        
-                        </select><br />
-                    </td>
-                </tr>                            
+                        </select><br /></td>
+		</tr>                            
             <?php
     }
             ?>        
-        <input type="hidden" name="symbiostock_social_credentials" value="1" />
-    </table>
+        <input type="hidden" name="symbiostock_social_credentials"
+			value="1" />
+	</table>
 <?php }
 add_action( 'personal_options_update' , 'symbiostock_update_social_credentials' );
 add_action( 'edit_user_profile_update' ,'symbiostock_update_social_credentials' );
@@ -2115,18 +2125,20 @@ function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview', $actio
     $active = true;
 
 ?>
-<div class="symbiostock_carousel_<?php echo $size; ?>_container">    
-    <div id="<?php echo $id ?>" class="symbiostock_carousel_<?php echo $size; ?> carousel slide col-md-12">
-        <ol class="carousel-indicators">
-            <li data-target="#<?php echo $id ?>
-" data-slide-to="0" class="active"></li>
-            <li data-target="#<?php echo $id ?>
+<div class="symbiostock_carousel_<?php echo $size; ?>_container">
+		<div id="<?php echo $id ?>"
+			class="symbiostock_carousel_<?php echo $size; ?> carousel slide col-md-12">
+			<ol class="carousel-indicators">
+				<li data-target="#<?php echo $id ?>
+" data-slide-to="0"
+					class="active"></li>
+				<li data-target="#<?php echo $id ?>
 " data-slide-to="1"></li>
-            <li data-target="#<?php echo $id ?>
+				<li data-target="#<?php echo $id ?>
 " data-slide-to="2"></li>
-        </ol>
-        <!-- Carousel items -->
-        <div class="carousel-inner">
+			</ol>
+			<!-- Carousel items -->
+			<div class="carousel-inner">
             <?php
     $active = true;
     while ( $images->have_posts( ) ) :
@@ -2145,12 +2157,13 @@ function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview', $actio
         {
             $class = '';
         }
-            ?><div class="<?php echo $class; ?>item ">            
-                <a title="<?php the_title( ); ?>" href="<?php the_permalink( ); ?>"><img src="<?php echo $img[ 0 ]; ?>" alt="<?php the_title( ); ?>" /></a>
+            ?><div class="<?php echo $class; ?>item ">
+					<a title="<?php the_title( ); ?>" href="<?php the_permalink( ); ?>"><img
+						src="<?php echo $img[ 0 ]; ?>" alt="<?php the_title( ); ?>" /></a>
                 <?php if ( $size == 'preview' ) : ?>
                 <div class="carousel-caption">
-                    <p><?php the_title( ); ?></p>               
-                </div>
+						<p><?php the_title( ); ?></p>
+					</div>
                 <?php endif; ?>            
                 </div> <?php
 
@@ -2158,12 +2171,14 @@ function symbiostock_image_slider( $id = 'sscarousel', $size = 'preview', $actio
     wp_reset_postdata( );
                        ?>
         </div>
-        <!-- Carousel nav --> 
-        <a class="carousel-control left" href="#<?php echo $id ?>
-" data-slide="prev">&lsaquo;</a> <a class="carousel-control right" href="#<?php echo $id ?>
-" data-slide="next">&rsaquo;</a> 
-    </div>
-</div>
+			<!-- Carousel nav -->
+			<a class="carousel-control left" href="#<?php echo $id ?>
+"
+				data-slide="prev">&lsaquo;</a> <a class="carousel-control right"
+				href="#<?php echo $id ?>
+" data-slide="next">&rsaquo;</a>
+		</div>
+	</div>
 <?php
 }
 
@@ -2424,13 +2439,13 @@ if ( is_admin )
                         <script type="text/javascript">
                             jQuery(document).ready(function() {
                                 jQuery('<option>').val('reprocess').text('<?php _e( 
-                            'Reprocess' ) ?>').appendTo("select[name='action']");
+                            'Reprocess', 'symbiostock' ) ?>').appendTo("select[name=\'action\']");
                                 jQuery('<option>').val('reprocess').text('<?php _e( 
-                            'Reprocess' ) ?>').appendTo("select[name='action2']");
+                            'Reprocess', 'symbiostock'  ) ?>').appendTo("select[name=\'action2\']");
                                 jQuery('<option>').val('makepromo').text('<?php _e( 
-                            'Make Promo Preview' ) ?>').appendTo("select[name='action']");
+                            'Make Promo Preview', 'symbiostock'  ) ?>').appendTo("select[name=\'action\']");
                                 jQuery('<option>').val('makepromo').text('<?php _e( 
-                            'Make Promo Preview' ) ?>').appendTo("select[name='action2']");                                
+                            'Make Promo Preview', 'symbiostock'  ) ?>').appendTo("select[name=\'action2\']");                                
                             });
                         </script>
                     <?php
@@ -2567,8 +2582,8 @@ if ( is_admin )
                         && (int ) $_REQUEST[ 'reprocessed' ] )
                 {
                     $message = sprintf( 
-                            _n( 'Image Reprocessed.' ,
-                                    '%s posts reprocessed.' ,
+                            _n( __( 'Image Reprocessed.', 'symbiostock' ) ,
+                                     __( '%s posts reprocessed.', 'symbiostock' ),
                                     $_REQUEST[ 'reprocessed' ] ) ,
                             number_format_i18n( $_REQUEST[ 'reprocessed' ] ) );
                     echo "<div class=\"updated\"><p>{$message}</p></div>";
@@ -2658,60 +2673,76 @@ function symbiostock_dublin_core( $head = true )
     if ( $head == true )
     {
                     ?>  
-<!--dublin core-->    
-<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
-<meta name="dc.title" content="<?php echo $image[ 'post_title' ] ?>" />
-<meta name="dc.identifier" content="<?php echo $permalink; ?>" />
-<meta name="dc.description" content="<?php echo $image[ 'post_title' ] ?>" />
-<meta name="dc.subject" content="<?php echo $terms ?>" />
-<meta name="dc.creator" content="<?php echo $author; ?>" />
-<meta name="dc.contributor" content="<?php echo $author; ?>" />
-<meta name="dc.publisher" content="<?php echo $author; ?>" />
-<meta name="dc.license" content="<?php echo symbiostock_eula( '' , true ); ?>" />
-<meta name="dc.type" scheme="dcMITYPE" content="http://purl.org/dc/dcmitype/Image" />
-<meta name="dc.type" scheme="dcMITYPE" content="http://purl.org/dc/dcmitype/StillImage" />        
+<!--dublin core-->
+	<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
+	<meta name="dc.title" content="<?php echo $image[ 'post_title' ] ?>" />
+	<meta name="dc.identifier" content="<?php echo $permalink; ?>" />
+	<meta name="dc.description"
+		content="<?php echo $image[ 'post_title' ] ?>" />
+	<meta name="dc.subject" content="<?php echo $terms ?>" />
+	<meta name="dc.creator" content="<?php echo $author; ?>" />
+	<meta name="dc.contributor" content="<?php echo $author; ?>" />
+	<meta name="dc.publisher" content="<?php echo $author; ?>" />
+	<meta name="dc.license"
+		content="<?php echo symbiostock_eula( '' , true ); ?>" />
+	<meta name="dc.type" scheme="dcMITYPE"
+		content="http://purl.org/dc/dcmitype/Image" />
+	<meta name="dc.type" scheme="dcMITYPE"
+		content="http://purl.org/dc/dcmitype/StillImage" />        
 <?php if ( $related_images )
         {
             foreach ( $related_images as $related_image )
             {
 ?>
-<meta name="dc.relation" content="<?php echo get_permalink( $related_image->ID ); ?>" />
+<meta name="dc.relation"
+		content="<?php echo get_permalink( $related_image->ID ); ?>" />
 <?php
             }
         }
 ?>
 <link rel="schema.dcTERMS" href="http://purl.org/dc/terms/" />
-<meta name="dcterms.created" scheme="ISO8601" content="<?php echo $date[ 0 ] ?>" />  
-<!--/dublin core-->         
+	<meta name="dcterms.created" scheme="ISO8601"
+		content="<?php echo $date[ 0 ] ?>" />
+	<!--/dublin core-->         
         <?php
     } else
     {
 
         ?>
 <dl class="dublincore">
-    <dt>Title:</dt>
-    <dd class="title"><?php echo $image[ 'post_title' ] ?></dd>
-    <dt>Url:</dt>
-    <dd><a href="<?php echo $permalink; ?>" class="identifier"><?php echo $permalink; ?></a></dd>
-    <dt>Description:</dt>
-    <dd class="description"><?php echo $image[ 'post_title' ] ?></dd>
-    <dt>Subjects:</dt>
-    <dd class="subject"><?php echo $terms ?></dd>
-    <dt>Author:</dt>
-    <dd><a href="<?php echo $author; ?>" class="creator"><?php echo $author_name; ?></a></dd>
-    <dt>License:</dt>
-    <dd><a href="<?php echo symbiostock_eula( '' , true ); ?>" class="license"><?php echo symbiostock_eula( 
-                '' , true ); ?></a></dd>
-    <dt>Created:</dt>
-    <dd class="created"><?php echo $date[ 0 ] ?></dd>
-    <dt>Related:</dt>    
+		<dt>Title:</dt>
+		<dd class="title"><?php echo $image[ 'post_title' ] ?></dd>
+		<dt>Url:</dt>
+		<dd>
+			<a href="<?php echo $permalink; ?>" class="identifier"><?php echo $permalink; ?></a>
+		</dd>
+		<dt>Description:</dt>
+		<dd class="description"><?php echo $image[ 'post_title' ] ?></dd>
+		<dt>Subjects:</dt>
+		<dd class="subject"><?php echo $terms ?></dd>
+		<dt>Author:</dt>
+		<dd>
+			<a href="<?php echo $author; ?>" class="creator"><?php echo $author_name; ?></a>
+		</dd>
+		<dt>License:</dt>
+		<dd>
+			<a href="<?php echo symbiostock_eula( '' , true ); ?>"
+				class="license"><?php echo symbiostock_eula( 
+                '' , true ); ?></a>
+		</dd>
+		<dt>Created:</dt>
+		<dd class="created"><?php echo $date[ 0 ] ?></dd>
+		<dt>Related:</dt>    
 <?php if ( $related_images )
         {
             foreach ( $related_images as $related_image )
             {
 ?>
-<dd><a href="<?php echo get_permalink( $related_image->ID ); ?>" class="relation"><?php echo $related_image
-                        ->post_title; ?></a></dd>
+<dd>
+			<a href="<?php echo get_permalink( $related_image->ID ); ?>"
+				class="relation"><?php echo $related_image
+                        ->post_title; ?></a>
+		</dd>
 <?php
             }
         }
@@ -2845,10 +2876,11 @@ if ( is_admin( ) )
                 if ( $count == 100 )
                 {
 
-                    $subject = 'Image Process Update: ' . $total_count
-                            . ' Completed.';
-                    $message = 'Image process update: ' . $total_count
-                            . ' image pages updated on ' . home_url( );
+                    $subject = __('Image Process Update: ', 'symbiostock')  . $total_count
+                            . __( ' Completed.', 'symbiostock' );
+                    
+                    $message = __( 'Image process update: ', 'symbiostock') . $total_count
+                            . __( ' image pages updated on ', 'symbiostock') . home_url( );
 
                     wp_mail( get_option( 'admin_email' ) , $subject , $message );
 
@@ -2859,8 +2891,8 @@ if ( is_admin( ) )
                 wp_cache_flush( );
             endwhile;
 
-            $complete = 'Operation complete!' . $total_count
-                    . ' images updated.';
+            $complete = __( 'Operation complete!', 'symbiostock') . $total_count
+                    . __( 'images updated.', 'symbiostock');
 
             wp_mail( get_option( 'admin_email' ) , $complete , $complete );
         }
@@ -2991,10 +3023,10 @@ if ( is_admin( ) )
                     $_POST[ 'symbiostock_comments' ] );
 
         $symbiostock_comment_status = get_option( 'symbiostock_comments' );
-        $symbiostock_comment_status == 'open'
+        $symbiostock_comment_status == __( 'open', 'symbiostock')
                 || !isset( $symbiostock_comment_selected ) ? $symbiostock_comment_selected = 'selected="selected"'
                 : $symbiostock_comment_selected = '';
-        $symbiostock_comment_status == 'closed' ? $symbiostock_comment_not_selected = 'selected="selected"'
+        $symbiostock_comment_status == __( 'closed', 'symbiostock') ? $symbiostock_comment_not_selected = 'selected="selected"'
                 : $symbiostock_comment_not_selected = '';
         //reflections on or off on minipics
         if ( isset( $_POST[ 'symbiostock_reflections' ] ) && $update == true )
@@ -3002,9 +3034,9 @@ if ( is_admin( ) )
                     $_POST[ 'symbiostock_reflections' ] );
 
         $symbiostock_reflections = get_option( 'symbiostock_reflections' );
-        $symbiostock_reflections == 'on' || !isset( $symbiostock_reflections ) ? $symbiostock_reflections_on = 'selected="selected"'
+        $symbiostock_reflections == __( 'on', 'symbiostock') || !isset( $symbiostock_reflections ) ? $symbiostock_reflections_on = 'selected="selected"'
                 : $symbiostock_reflections_on = '';
-        $symbiostock_reflections == 'off' ? $symbiostock_reflections_off = 'selected="selected"'
+        $symbiostock_reflections == __( 'off', 'symbiostock') ? $symbiostock_reflections_off = 'selected="selected"'
                 : $symbiostock_reflections_off = '';
         //model release Yes / No / N/A
         if ( isset( $_POST[ 'symbiostock_model_released' ] ) && $update == true )
@@ -3012,13 +3044,13 @@ if ( is_admin( ) )
                     $_POST[ 'symbiostock_model_released' ] );
 
         $symbiostock_model_release = get_option( 
-                'symbiostock_model_released' , 'N/A' );
-        $symbiostock_model_release == 'Yes'
+                'symbiostock_model_released' , __( 'N/A', 'symbiostock'));
+        $symbiostock_model_release == __( 'Yes', 'symbiostock')
                 || !isset( $symbiostock_model_release ) ? $symbiostock_model_released_yes = 'selected="selected"'
                 : $symbiostock_model_released_yes = '';
-        $symbiostock_model_release == 'No' ? $symbiostock_model_released_no = 'selected="selected"'
+        $symbiostock_model_release == __( 'No', 'symbiostock') ? $symbiostock_model_released_no = 'selected="selected"'
                 : $symbiostock_model_released_no = '';
-        $symbiostock_model_release == 'N/A' ? $symbiostock_model_released_na = 'selected="selected"'
+        $symbiostock_model_release == __( 'N/A', 'symbiostock') ? $symbiostock_model_released_na = 'selected="selected"'
                 : $symbiostock_model_released_na = '';
         //property release Yes / No / N/A
         if ( isset( $_POST[ 'symbiostock_property_released' ] )
@@ -3027,25 +3059,25 @@ if ( is_admin( ) )
                     $_POST[ 'symbiostock_property_released' ] );
 
         $symbiostock_property_release = get_option( 
-                'symbiostock_property_released' , 'N/A' );
-        $symbiostock_property_release == 'Yes'
+                'symbiostock_property_released' , __( 'N/A', 'symbiostock') );
+        $symbiostock_property_release == __( 'Yes', 'symbiostock')
                 || !isset( $symbiostock_property_released_yes ) ? $symbiostock_property_released_yes = 'selected="selected"'
                 : $symbiostock_property_released_yes = '';
-        $symbiostock_property_release == 'No' ? $symbiostock_property_released_no = 'selected="selected"'
+        $symbiostock_property_release == __( 'No', 'symbiostock') ? $symbiostock_property_released_no = 'selected="selected"'
                 : $symbiostock_property_released_no = '';
-        $symbiostock_property_release == 'N/A' ? $symbiostock_property_released_na = 'selected="selected"'
+        $symbiostock_property_release == __( 'N/A', 'symbiostock') ? $symbiostock_property_released_na = 'selected="selected"'
                 : $symbiostock_property_released_na = '';
 
         $symbiostock_bloggee_available = get_option( 
-                'symbiostock_bloggee_available' , 'yes' );
+                'symbiostock_bloggee_available' , __( 'yes', 'symbiostock') );
         $symbiostock_small_available = get_option( 
-                'symbiostock_small_available' , 'yes' );
+                'symbiostock_small_available' , __( 'yes', 'symbiostock')  );
         $symbiostock_medium_available = get_option( 
-                'symbiostock_medium_available' , 'yes' );
+                'symbiostock_medium_available' , __( 'yes', 'symbiostock')  );
         $symbiostock_large_available = get_option( 
-                'symbiostock_large_available' , 'yes' );
+                'symbiostock_large_available' , __( 'yes', 'symbiostock')  );
         $symbiostock_vector_available = get_option( 
-                'symbiostock_vector_available' , 'yes' );
+                'symbiostock_vector_available' , __( 'yes', 'symbiostock')  );
         $symbiostock_zip_available = get_option( 'symbiostock_zip_available' ,
                 'yes' );
         $symbiostock_medium_size = get_option( 'symbiostock_medium_size' , 1000 );
@@ -3070,248 +3102,260 @@ if ( is_admin( ) )
             $referral_count++;
         }
 ?>
-    <table class="symbiostock-author-settings widefat wp-list-table">        
-        <thead>
-            <tr>
-                <th colspan-=2> <strong>&raquo; Image Status</strong> </th>
-            </tr>
-        </thead>        
-        <tr>
+    <table class="symbiostock-author-settings widefat wp-list-table">
+		<thead>
+			<tr>
+				<th colspan-=2><strong>&raquo; <?php _e('Image Status', 'symbiostock') ?></strong></th>
+			</tr>
+		</thead>
+		<tr>
             <?php do_action( 'ss_bulk_edit_before' ); ?>
-            <th scope="row">Exclusive</th>
-            <td><select id="symbiostock_exclusive"  name="symbiostock_exclusive">
-                    <option <?php echo $not_exclusive; ?> value="not_exclusive">Not Exclusive</option>
-                    <option <?php echo $exclusive; ?> value="exclusive">Exclusive</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Live<br /><?php echo sshelp( 'live' , 'Live' ); ?></th>
-            <td><select id="symbiostock_live"  name="symbiostock_live">
-                    <option <?php echo $live; ?> value="live">Live</option>
-                    <option <?php echo $not_live; ?> value="not_live">Not Live</option>
-                </select>
-            </td>
-        </tr>        
-        <!--rank rating-->        
-        <tr>
-            <th scope="row">Rank<br /><?php echo sshelp( 'rank' , 'Rank' ); ?></th>
-            <td>            
-                <select id="symbiostock_rank"  name="symbiostock_rank">
-                    <option <?php echo $rank_1; ?> value="1">1st</option>
-                    <option <?php echo $rank_2; ?> value="2">2nd</option>
-                    <option <?php echo $rank_3; ?> value="3">3rd</option>                
-                </select>
-                <br />
-                <p class="description">Relative ranking system, putting premium at front of search results, second in the middle, third last.</p>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Rating<br /><?php echo sshelp( 'rating' , 'Rating' ); ?></th>
-            <td>
-                <select id="symbiostock_rating"  name="symbiostock_rating">
-                    <option <?php echo $rating_0; ?> value="0"> - </option>
-                    <option <?php echo $rating_1; ?> value="1">GREEN</option>
-                    <option <?php echo $rating_2; ?> value="2">YELLOW</option>
-                    <option <?php echo $rating_3; ?> value="3">RED</option>                              
-                </select>
-                <p class="description">Nudity filter. See info link for definitions.</p>
-            </td>
-        </tr>
-        <!--pricing and options-->        
-        <thead>
-            <tr>
-                <th colspan-=2>  <strong>&raquo; Pricing and Options <?php echo sshelp( 
-                'default_pricing' , 'Default Pricing' ); ?></strong><br />
-                    *See <strong>Settings</strong> to change type.
-                </th>
-            </tr>
-        </thead>
-        <tr>
-            <th scope="row"><strong>Vector</strong></th>
-            <td><input type="text" name="price_vector"  id="price_vector" value="<?php echo get_option( 
+            <th scope="row"><?php _e('Exclusive', 'symbiostock') ?></th>
+			<td><select id="symbiostock_exclusive" name="symbiostock_exclusive">
+					<option <?php echo $not_exclusive; ?> value="not_exclusive">Not
+						Exclusive</option>
+					<option <?php echo $exclusive; ?> value="exclusive"><?php _e('Exclusive', 'symbiostock') ?></option>
+			</select></td>
+		</tr>
+		<tr>
+			<th scope="row">Live<br /><?php echo sshelp( 'live' , __('Live', 'symbiostock')  ); ?></th>
+			<td><select id="symbiostock_live" name="symbiostock_live">
+					<option <?php echo $live; ?> value="live"><?php _e('Live', symbiostock) ?></option>
+					<option <?php echo $not_live; ?> value="not_live"><?php _e('not_Live', symbiostock) ?></option>
+			</select></td>
+		</tr>
+		<!--rank rating-->
+		<tr>
+			<th scope="row"><?php _e('Rank', 'symbiostock') ?><br /><?php echo sshelp( 'rank' , __('Rank', 'symbiostock') ); ?></th>
+			<td><select id="symbiostock_rank" name="symbiostock_rank">
+					<option <?php echo $rank_1; ?> value="1"><?php _e('1st', 'symbiostock') ?></option>
+					<option <?php echo $rank_2; ?> value="2"><?php _e('2nd', 'symbiostock') ?></option>
+					<option <?php echo $rank_3; ?> value="3"><?php _e('3rd', 'symbiostock') ?></option>
+			</select> <br />
+				<p class="description"><?php _e('Relative ranking system, putting premium at
+					front of search results, second in the middle, third last.', 'symbiostock') ?></p></td>
+		</tr>
+		<tr>
+			<th scope="row"><?php _e('Rating', 'symbiostock') ?><br /><?php echo sshelp( 'rating' , __('Rating', 'symbiostock') ); ?></th>
+			<td><select id="symbiostock_rating" name="symbiostock_rating">
+					<option <?php echo $rating_0; ?> value="0">-</option>
+					<option <?php echo $rating_1; ?> value="1"><?php _e('GREEN', 'symbiostock') ?></option>
+					<option <?php echo $rating_2; ?> value="2"><?php _e('YELLOW', 'symbiostock') ?></option>
+					<option <?php echo $rating_3; ?> value="3"><?php _e('RED', 'symbiostock') ?></option>
+			</select>
+				<p class="description"><?php _e('Nudity filter. See info link for definitions.', 'symbiostock') ?></p>
+			</td>
+		</tr>
+		<!--pricing and options-->
+		<thead>
+			<tr>
+				<th colspan-=2><strong>&raquo; <?php _e('Pricing and Options.', 'symbiostock') ?><?php echo sshelp( 
+                'default_pricing' , __('Default Pricing', 'symbiostock') ); ?></strong><br />
+					<?php _e( ' *See "Settings" to change type.', 'symbiostock') ?></th>
+			</tr>
+		</thead>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Vector', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="price_vector" id="price_vector"
+				value="<?php echo get_option( 
                 'price_vector' , '20.00' ); ?>" />
                 <?php symbiostock_size_available( 'vector' ,
                 $symbiostock_vector_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Zip</strong> (packaged alternate files)</th>
-            <td><input type="text" name="price_zip"  id="price_zip" value="<?php echo get_option( 
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Zip', 'symbiostock') ?></strong> (<?php _e( 'Packaged alternate files.', 'symbiostock') ?>)</th>
+			<td><input type="text" name="price_zip" id="price_zip"
+				value="<?php echo get_option( 
                 'price_zip' , '30.00' ); ?>" />
                 <?php symbiostock_size_available( 'zip' ,
                 $symbiostock_zip_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Large</strong></th>
-            <td><input type="text" name="price_large"  id="price_large" value="<?php echo get_option( 
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Large', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="price_large" id="price_large"
+				value="<?php echo get_option( 
                 'price_large' , '20.00' ); ?>" />
                 <?php symbiostock_size_available( 'large' ,
                 $symbiostock_large_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Medium</strong></th>
-            <td><input type="text" name="price_medium"  id="price_medium" value="<?php echo get_option( 
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Medium', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="price_medium" id="price_medium"
+				value="<?php echo get_option( 
                 'price_medium' , '10.00' ); ?>" />
                 <?php symbiostock_size_available( 'medium' ,
                 $symbiostock_medium_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Small</strong></th>
-            <td><input type="text" name="price_small"  id="price_small" value="<?php echo get_option( 
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Small', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="price_small" id="price_small"
+				value="<?php echo get_option( 
                 'price_small' , '5.00' ); ?>" />
                 <?php symbiostock_size_available( 'small' ,
                 $symbiostock_small_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Bloggee</strong></th>
-            <td><input type="text" name="price_bloggee"  id="price_bloggee" value="<?php echo get_option( 
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Bloggee', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="price_bloggee" id="price_bloggee"
+				value="<?php echo get_option( 
                 'price_bloggee' , '2.50' ); ?>" />
                 <?php symbiostock_size_available( 'bloggee' ,
                 $symbiostock_bloggee_available ) ?>
             </td>
-        </tr>
-        <tr>
-            <th scope="row">Discount %</th>
-            <td><input type="text" name="symbiostock_discount"  id="symbiostock_discount" value="<?php echo get_option( 
-                'symbiostock_discount' , '0' ); ?>" />
-                Enter "<strong>00</strong>" to reset to 0.
-            </td>
-        </tr>
-        <thead>
-            <tr>
-                <th colspan-=2>  <strong>&raquo; Default Size Settings</strong>  
-                <br /><?php echo sshelp( 'default_size_settings' ,
-                'Default Size Settings' ); ?>
+		</tr>
+		<tr>
+			<th scope="row"><?php _e( 'Discount', 'symbiostock') ?> %</th>
+			<td><input type="text" name="symbiostock_discount"
+				id="symbiostock_discount"
+				value="<?php echo get_option( 
+                'symbiostock_discount' , '0' ); ?>" /> <?php _e( 'Enter', 'symbiostock') ?> "<strong>00</strong>"
+				<?php _e( ' to reset to ', 'symbiostock') ?> 0.</td>
+		</tr>
+		<thead>
+			<tr>
+				<th colspan-=2><strong>&raquo; <?php _e( 'Default Size Settings', 'symbiostock') ?></strong> <br /><?php echo sshelp( 'default_size_settings' ,
+                __('Default Size Settings', 'symbiostock') ); ?>
                 </th>
-            </tr>
-        </thead>
-        <tr>
-            <th scope="row"><strong>Medium</strong></th>
-            <td><input type="text" name="symbiostock_medium_size"  id="symbiostock_medium_size" value="<?php echo $symbiostock_medium_size ?>" /></td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Small</strong></th>
-            <td><input type="text" name="symbiostock_small_size"  id="symbiostock_small_size" value="<?php echo $symbiostock_small_size ?>" /></td>
-        </tr>
-        <tr>
-            <th scope="row"><strong>Bloggee</strong></th>
-            <td><input type="text" name="symbiostock_bloggee_size"  id="symbiostock_bloggee_size" value="<?php echo $symbiostock_bloggee_size ?>" /></td>
-        </tr>
-        <thead>
-            <tr>
-                <th colspan-=2>  <strong>&raquo; Image SEO</strong> *Entering "<strong><em>-Royalty Free Image</em></strong>" will append that phrase to all image titles. </th>
-            </tr>
-        </thead>
-        <tr>
-            <th scope="row"><strong>Append Text to Title:</strong></th>    
-            <td><input type="text" name="symbiostock_title_seo_text"  id="symbiostock_title_seo_text" value="<?php echo get_option( 
-                'symbiostock_title_seo_text' , '' ); ?>" /><br /><br /></td>
-        </tr>   
-        <tr>        
-            <th scope="row"><strong>Image Comments</strong> <br /> Applied during processing. Must manually change afterward.</th>
-            <td>
-                <select id="symbiostock_comments"  name="symbiostock_comments">
-                    <option <?php echo $symbiostock_comment_selected; ?> value="open">Allowed</option>
-                    <option <?php echo $symbiostock_comment_not_selected; ?> value="closed">Disabled</option>
-                </select>
-            </td>
-        </tr>
-        <thead>
-            <tr>
-                <th colspan-=2>  <strong>&raquo; Legal</strong> </th>
-            </tr>
-        </thead>         
-        <tr>    
-            <th scope="row"><strong>Model Released?</strong> <br /></th>
-            <td><select id="symbiostock_model_released"  name="symbiostock_model_released">
-                    <option <?php echo $symbiostock_model_released_yes; ?> value="Yes">Yes</option>
-                    <option <?php echo $symbiostock_model_released_no; ?> value="No">No</option>
-                    <option <?php echo $symbiostock_model_released_na; ?> value="N/A">N/A</option>
-                </select>
-            </td>
-        </tr>
-        <tr>    
-            <th scope="row"><strong>Property Released?</strong> <br /></th>
-            <td><select id="symbiostock_property_released"  name="symbiostock_property_released">
-                    <option <?php echo $symbiostock_property_released_yes; ?> value="Yes">Yes</option>
-                    <option <?php echo $symbiostock_property_released_no; ?> value="No">No</option>
-                    <option <?php echo $symbiostock_property_released_na; ?> value="N/A">N/A</option>
-                </select>
-            </td>
-        </tr>
-        <thead>         
-            <tr>
-                <th colspan="2">  <strong>&raquo; Referral Links</strong> </th>
-            </tr>
-        </thead>
-        <tr>            
-            <td>
-                   <label for="symbiostock_referral_link_1" scope="row"><strong>Referral Link #1:</strong></label>
-                <input class="longfield" type="text" name="symbiostock_referral_link_1"  id="symbiostock_referral_link_1" value="<?php echo get_option( 
-                'symbiostock_referral_link_1' , '' ); ?>" />
-            </td>            
-            <td>
-                <label for="symbiostock_referral_label_1" scope="row">Label:</label>
-                <input class="longfield" type="text" name="symbiostock_referral_label_1"  id="symbiostock_referral_label_1" value="<?php echo get_option( 
-                'symbiostock_referral_label_1' , '' ); ?>" />
-            </td>
-        </tr>
-        <tr>            
-            <td>
-                <label scope="row"><strong>Referral Link #2</strong></label>
-                <input class="longfield" type="text" name="symbiostock_referral_link_2"  id="symbiostock_referral_link_2" value="<?php echo get_option( 
-                'symbiostock_referral_link_2' , '' ); ?>" />
-            </td>            
-            <td>
-                <label scope="row">Label:</label>
-                <input class="longfield" type="text" name="symbiostock_referral_label_2"  id="symbiostock_referral_label_2" value="<?php echo get_option( 
-                'symbiostock_referral_label_2' , '' ); ?>" />
-            </td>
-        </tr>
-        <tr>            
-            <td>
-                <label scope="row"><strong>Referral Link #3</strong></label>
-                <input class="longfield" type="text" name="symbiostock_referral_link_3"  id="symbiostock_referral_link_3" value="<?php echo get_option( 
-                'symbiostock_referral_link_3' , '' ); ?>" />
-            </td>                        
-            <td>
-                <label scope="row">Label:</label>
-                   <input class="longfield" type="text" name="symbiostock_referral_label_3"  id="symbiostock_referral_label_3" value="<?php echo get_option( 
-                'symbiostock_referral_label_3' , '' ); ?>" />
-            </td>
-        </tr>
-        <tr>            
-            <td>
-                <label scope="row"><strong>Referral Link #4</strong></label>
-                   <input class="longfield" type="text" name="symbiostock_referral_link_4"  id="symbiostock_referral_link_4" value="<?php echo get_option( 
-                'symbiostock_referral_link_4' , '' ); ?>" />
-            </td>                        
-            <td>
-                <label scope="row">Label:</label>
-                <input class="longfield" type="text" name="symbiostock_referral_label_4"  id="symbiostock_referral_label_4" value="<?php echo get_option( 
-                'symbiostock_referral_label_4' , '' ); ?>" />
-            </td>
-        </tr>
-        <tr>            
-            <td>
-                <label scope="row"><strong>Referral Link #5</strong></label>
-                <input class="longfield" type="text" name="symbiostock_referral_link_5"  id="symbiostock_referral_link_5" value="<?php echo get_option( 
-                'symbiostock_referral_link_5' , '' ); ?>" />
-            </td>            
-            <td>
-                <label scope="row">Label:</label>
-                <input class="longfield" type="text" name="symbiostock_referral_label_5"  id="symbiostock_referral_label_5" value="<?php echo get_option( 
-                'symbiostock_referral_label_5' , '' ); ?>" />
-            </td>
-        </tr>
+			</tr>
+		</thead>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Medium', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="symbiostock_medium_size"
+				id="symbiostock_medium_size"
+				value="<?php echo $symbiostock_medium_size ?>" /></td>
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Small', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="symbiostock_small_size"
+				id="symbiostock_small_size"
+				value="<?php echo $symbiostock_small_size ?>" /></td>
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Bloggee', 'symbiostock') ?></strong></th>
+			<td><input type="text" name="symbiostock_bloggee_size"
+				id="symbiostock_bloggee_size"
+				value="<?php echo $symbiostock_bloggee_size ?>" /></td>
+		</tr>
+		<thead>
+			<tr>
+				<th colspan-=2><strong>&raquo; <?php __('Image SEO -- *Entering "-Royalty Free Image" will append that phrase to all image titles.', 'symbiostock') ?></th>
+			</tr>
+		</thead>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Append Text to Title', 'symbiostock') ?>:</strong></th>
+			<td><input type="text" name="symbiostock_title_seo_text"
+				id="symbiostock_title_seo_text"
+				value="<?php echo get_option( 
+                'symbiostock_title_seo_text' , '' ); ?>" /><br />
+			<br /></td>
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Image Comments', 'symbiostock') ?></strong> <br /> <?php _e( 'Applied during processing. Must manually change afterward.', 'symbiostock') ?></th>
+			<td><select id="symbiostock_comments" name="symbiostock_comments">
+					<option <?php echo $symbiostock_comment_selected; ?> value="open"><?php _e( 'Allowed', 'symbiostock') ?></option>
+					<option <?php echo $symbiostock_comment_not_selected; ?>
+						value="closed"><?php _e( 'Disabled', 'symbiostock') ?></option>
+			</select></td>
+		</tr>
+		<thead>
+			<tr>
+				<th colspan-=2><strong>&raquo; <?php _e( 'Legal', 'symbiostock') ?></strong></th>
+			</tr>
+		</thead>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Model Released?', 'symbiostock') ?></strong> <br /></th>
+			<td><select id="symbiostock_model_released"
+				name="symbiostock_model_released">
+					<option <?php echo $symbiostock_model_released_yes; ?> value="<?php _e( 'Yes', 'symbiostock') ?>"><?php _e( 'Yes', 'symbiostock') ?></option>
+					<option <?php echo $symbiostock_model_released_no; ?> value="<?php _e( 'No', 'symbiostock') ?>"><?php _e( 'No', 'symbiostock') ?></option>
+					<option <?php echo $symbiostock_model_released_na; ?> value="<?php _e( 'N/A', 'symbiostock') ?>"><?php _e( 'N/A', 'symbiostock') ?></option>
+			</select></td>
+		</tr>
+		<tr>
+			<th scope="row"><strong><?php _e( 'Property Released?', 'symbiostock') ?></strong> <br /></th>
+			<td><select id="symbiostock_property_released"
+				name="symbiostock_property_released">
+					<option <?php echo $symbiostock_property_released_yes; ?>
+						value="<?php _e( 'Yes', 'symbiostock') ?>"><?php _e( 'Yes', 'symbiostock') ?></option>
+					<option <?php echo $symbiostock_property_released_no; ?> value="<?php _e( 'No', 'symbiostock') ?>"><?php _e( 'No', 'symbiostock') ?></option>
+					<option <?php echo $symbiostock_property_released_na; ?>
+						value="<?php _e( 'N/A', 'symbiostock') ?>"><?php _e( 'N/A', 'symbiostock') ?></option>
+			</select></td>
+		</tr>
+		<thead>
+			<tr>
+				<th colspan="2"><strong>&raquo; <?php _e( 'Referral Links', 'symbiostock') ?></strong></th>
+			</tr>
+		</thead>
+		<tr>
+			<td><label for="symbiostock_referral_link_1" scope="row"><strong><?php _e( 'Referral Link', 'symbiostock') ?> #1:</strong></label> <input class="longfield" type="text"
+				name="symbiostock_referral_link_1" id="symbiostock_referral_link_1"
+				value="<?php echo get_option( 
+                'symbiostock_referral_link_1' , '' ); ?>" /></td>
+			<td><label for="symbiostock_referral_label_1" scope="row"><?php _e( 'Label', 'symbiostock') ?>:</label>
+				<input class="longfield" type="text"
+				name="symbiostock_referral_label_1"
+				id="symbiostock_referral_label_1"
+				value="<?php echo get_option( 
+                'symbiostock_referral_label_1' , '' ); ?>" /></td>
+		</tr>
+		<tr>
+			<td><label scope="row"><strong><?php _e( 'Referral Link', 'symbiostock') ?> #2</strong></label> <input
+				class="longfield" type="text" name="symbiostock_referral_link_2"
+				id="symbiostock_referral_link_2"
+				value="<?php echo get_option( 
+                'symbiostock_referral_link_2' , '' ); ?>" /></td>
+			<td><label scope="row"><?php _e( 'Label', 'symbiostock') ?>:</label> <input class="longfield"
+				type="text" name="symbiostock_referral_label_2"
+				id="symbiostock_referral_label_2"
+				value="<?php echo get_option( 
+                'symbiostock_referral_label_2' , '' ); ?>" /></td>
+		</tr>
+		<tr>
+			<td><label scope="row"><strong><?php _e( 'Referral Link', 'symbiostock') ?> #3</strong></label> <input
+				class="longfield" type="text" name="symbiostock_referral_link_3"
+				id="symbiostock_referral_link_3"
+				value="<?php echo get_option( 
+                'symbiostock_referral_link_3' , '' ); ?>" /></td>
+			<td><label scope="row"><?php _e( 'Label', 'symbiostock') ?>:</label> <input class="longfield"
+				type="text" name="symbiostock_referral_label_3"
+				id="symbiostock_referral_label_3"
+				value="<?php echo get_option( 
+                'symbiostock_referral_label_3' , '' ); ?>" /></td>
+		</tr>
+		<tr>
+			<td><label scope="row"><strong><?php _e( 'Referral Link', 'symbiostock') ?> #4</strong></label> <input
+				class="longfield" type="text" name="symbiostock_referral_link_4"
+				id="symbiostock_referral_link_4"
+				value="<?php echo get_option( 
+                'symbiostock_referral_link_4' , '' ); ?>" /></td>
+			<td><label scope="row"><?php _e( 'Label', 'symbiostock') ?>:</label> <input class="longfield"
+				type="text" name="symbiostock_referral_label_4"
+				id="symbiostock_referral_label_4"
+				value="<?php echo get_option( 
+                'symbiostock_referral_label_4' , '' ); ?>" /></td>
+		</tr>
+		<tr>
+			<td><label scope="row"><strong><?php _e( 'Referral Link', 'symbiostock') ?> #5</strong></label> <input
+				class="longfield" type="text" name="symbiostock_referral_link_5"
+				id="symbiostock_referral_link_5"
+				value="<?php echo get_option( 
+                'symbiostock_referral_link_5' , '' ); ?>" /></td>
+			<td><label scope="row"><?php _e( 'Label', 'symbiostock') ?>:</label> <input class="longfield"
+				type="text" name="symbiostock_referral_label_5"
+				id="symbiostock_referral_label_5"
+				value="<?php echo get_option( 
+                'symbiostock_referral_label_5' , '' ); ?>" /></td>
+		</tr>
         <?php do_action( 'ss_bulk_edit_after' ); ?>
-    </table>   
-    <br /><br />
+    </table>
+	<br />
+<br />
     <?php
 
     }
@@ -3343,10 +3387,11 @@ function ss_image_blog_form_option(){
     
     if($menu_option == 1){
         ?>
-            <select class="form-control" id="select_type" name="post_type" >
-                <option value="image">Images</option>
-                <option value="post">Blog</option>
-            </select>
+            <select class="form-control" id="select_type"
+	name="post_type">
+		<option value="image"><?php _e( 'Images', 'symbiostock') ?></option>
+		<option value="post"><?php _e( 'Blog', 'symbiostock') ?></option>
+</select>
         <?php 
     } else {
         ?>
@@ -3383,19 +3428,16 @@ function ss_use_customizer(){
 
     ?>
     <tr>
-        <td colspan="2">
-            <strong>Symbiostock Customizer</strong> <span class="description">Keep OFF if you have specific child theme setups that you don't want overridden by the customizer.</span><br />
-            <label for="ss_use_customizer_1">
-                <input type="radio" id="ss_use_customizer_1" name="ss_use_customizer" <?php echo $ss_use_customizer_yes; ?> value="1" />
-                On
-            </label>
-             
-            <label for="ss_use_customizer_2">
-                <input type="radio" id="ss_use_customizer_2" name="ss_use_customizer" <?php echo $ss_use_customizer_no ; ?> value="0" />
-                Off
-            </label>                      
-        </td>
-    </tr>
+		<td colspan="2"><strong><?php _e( 'Symbiostock Customizer', 'symbiostock') ?></strong> <span
+			class="description"><?php _e( 'Keep OFF if you have specific child theme setups	that you don\'t want overridden by the customizer.', 'symbiostock') ?></span><br /> <label
+			for="ss_use_customizer_1"> <input type="radio"
+				id="ss_use_customizer_1" name="ss_use_customizer"
+				<?php echo $ss_use_customizer_yes; ?> value="1" /> <?php _e( 'On', 'symbiostock') ?>
+		</label> <label for="ss_use_customizer_2"> <input type="radio"
+				id="ss_use_customizer_2" name="ss_use_customizer"
+				<?php echo $ss_use_customizer_no ; ?> value="0" /> <?php _e( 'Off', 'symbiostock') ?>
+		</label></td>
+	</tr>
     <?php 
 
 }
@@ -3435,19 +3477,17 @@ function ss_daily_update_settings(){
 
     ?>
     <tr>
-        <td colspan="2">
-            <strong>Run daily image update?</strong> (for network and connected search engines) <br />
-            <label for="symbiostock_update_settings_1">
-                <input type="radio" id="symbiostock_update_settings_1" name="symbiostock_update_settings" <?php echo $symbiostock_update_settings_yes; ?> value="1" />
-                Yes
-            </label>
-             
-            <label for="symbiostock_update_settings_2">
-                <input type="radio" id="symbiostock_update_settings_2" name="symbiostock_update_settings" <?php echo $symbiostock_update_settings_no ; ?> value="0" />
-                No
-            </label>                      
-        </td>
-    </tr>
+		<td colspan="2"><?php _e( 'Run daily image update? (for network	and connected search engines)', 'symbiostock') ?> <br /> <label
+			for="symbiostock_update_settings_1"> <input type="radio"
+				id="symbiostock_update_settings_1"
+				name="symbiostock_update_settings"
+				<?php echo $symbiostock_update_settings_yes; ?> value="1" /> <?php _e( 'Yes', 'symbiostock') ?>
+		</label> <label for="symbiostock_update_settings_2"> <input
+				type="radio" id="symbiostock_update_settings_2"
+				name="symbiostock_update_settings"
+				<?php echo $symbiostock_update_settings_no ; ?> value="0" /> <?php _e( 'No', 'symbiostock') ?>
+		</label></td>
+	</tr>
     <?php 
 
 }
@@ -3468,16 +3508,14 @@ function ss_name_download_button(){
         update_option('symbiostock_download_button_name', trim($_POST['symbiostock_download_button_name']));
 
     }
-    $name = get_option('symbiostock_download_button_name', 'DOWNLOAD');
+    $name = get_option('symbiostock_download_button_name', __('DOWNLOAD', 'symbiostock'));
     ?>
     <tr>
-        <td colspan="2">            
-            <label for="symbiostock_download_button_name">
-                <strong>Product table "Cart" Button Name</strong><br />             
-                <input type="text" id="symbiostock_download_button_name" name="symbiostock_download_button_name" value="<?php echo $name ?>" />
-            </label>                   
-        </td>
-    </tr>
+		<td colspan="2"><label for="symbiostock_download_button_name"> <strong><?php _e( 'Product table "Cart" Button Name', 'symbiostock') ?></strong><br /> <input type="text"
+				id="symbiostock_download_button_name"
+				name="symbiostock_download_button_name" value="<?php echo $name ?>" />
+		</label></td>
+	</tr>
     <?php 
 }
 add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );

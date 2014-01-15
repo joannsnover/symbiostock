@@ -193,7 +193,7 @@ if( $bootstrap_search_menu_type != '' ) {
     <?php 
     if(isset($_GET['register'])){
         ?>
-        <div class="alert alert-success">Registration successful! <?php echo symbiostock_customer_area( 'Your <strong>cart area</strong> is here' )?>.</div>
+        <div class="alert alert-success"><?php _e('Registration successful!', 'symbiostock') ?> <?php echo symbiostock_customer_area( __('Your <strong>cart area</strong> is here', 'symbiostock') )?>.</div>
         <?php         
     }    
     ?>

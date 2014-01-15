@@ -28,12 +28,12 @@ if ( !function_exists('wp_new_user_notification') ) {
         $user = new WP_User( $user_id );
         $user_login = stripslashes( $user->user_login );
         $user_email = stripslashes( $user->user_email );
-        $message  = sprintf( __('New user registration on %s:'), get_option('blogname') ) . "\r\n\r\n";
-        $message .= sprintf( __('Username: %s'), $user_login ) . "\r\n\r\n";
-        $message .= sprintf( __('E-mail: %s'), $user_email ) . "\r\n";
+        $message  = sprintf( __('New user registration on %s:', 'symbiostock'), get_option('blogname') ) . "\r\n\r\n";
+        $message .= sprintf( __('Username: %s', 'symbiostock'), $user_login ) . "\r\n\r\n";
+        $message .= sprintf( __('E-mail: %s', 'symbiostock'), $user_email ) . "\r\n";
         @wp_mail(
             get_option('admin_email'),
-            sprintf(__('[%s] New Symbiostock User Registration'), get_option('blogname') ),
+            sprintf(__('[%s] New Symbiostock User Registration', 'symbiostock'), get_option('blogname') ),
             $message
         );
         
@@ -51,7 +51,7 @@ if ( !function_exists('wp_new_user_notification') ) {
         $message  = $symbiostock_greeting->send_registration_email($user_login, $plaintext_pass);
         wp_mail(
             $user_email,
-            $user_login . ' - Your username and password for ' . home_url(),
+            $user_login . __(' - Your username and password for ', 'symbiostock') . home_url(),
             $message
         );
     }
@@ -69,11 +69,11 @@ function symbiostock_reset_password_message( $message, $key ) {
         $user_data = get_userdatabylogin($login);
     }
     $user_login = $user_data->user_login;
-    $msg = __('Just wanted to let you know the password for the following account has been requested to be reset:'). "<br /><br />";
+    $msg = __('Just wanted to let you know the password for the following account has been requested to be reset:', 'symbiostock'). "<br /><br />";
     $msg .= network_site_url() . "\r\n\r\n";
     $msg .= sprintf(__('Username: %s'), $user_login) . "<br />";
-    $msg .= __('If this message was sent in error, please ignore this email.') . "<br /><br />";
-    $msg .= __('To reset your password, visit the following address:');
+    $msg .= __('If this message was sent in error, please ignore this email.', 'symbiostock') . "<br /><br />";
+    $msg .= __('To reset your password, visit the following address:', 'symbiostock');
     
     $go_to = network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') ;
     
@@ -164,17 +164,17 @@ class symbiostock_mail{
             home_url(),
             
              //*|TITLE|*
-            'Welcome to ' . get_bloginfo('name') ,         
+            __('Welcome to ', 'symbiostock') . get_bloginfo('name') ,         
             
             //*|LOGO|*
             $this->site_info['symbiostock_logo_link'],            
             
             //*|BODY|*
-            'Login Name: <strong>' . $user_login . '</strong><br />' . 
-            'Login Password: <strong>' . $plaintext_pass . '</strong><br />' . 
-            '- Please Log In: <strong><em>' . symbiostock_customer_login('Login Page') . '</em></strong><br />' .
+            __('Login Name:', 'symbiostock') . '<strong>' . $user_login . '</strong><br />' . 
+            __('Login Password:', 'symbiostock') .'<strong>' . $plaintext_pass . '</strong><br />' . 
+            '- '.__(' Please Log In:', 'symbiostock') .' <strong><em>' . symbiostock_customer_login('Login Page') . '</em></strong><br />' .
             
-            'Customer Area: <strong>
+            __('Customer Area:', 'symbiostock') .' <strong>
             ' . symbiostock_customer_area('Licensing and Downloads') . '
             </strong><br /><br />' .
             
@@ -189,7 +189,7 @@ class symbiostock_mail{
             get_bloginfo('description'),                    
             
             //*|SYMBIOSTOCK|*
-            '<a title="A Symbiostock Site" href="http://www.symbiostock.com/">
+            '<a title="'.__('A Symbiostock Site', 'symbiostock') .'" href="http://www.symbiostock.com/">
                 <img src="' . symbiostock_LOGOSMALL . '" />
             </a>'                                           
             
@@ -213,11 +213,11 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
             //*|URL|*
             home_url(),
              //*|TITLE|*
-            'Thank you for your purchase at ' . get_bloginfo('name') ,         
+            __('Thank you for your purchase at ', 'symbiostock') . get_bloginfo('name') ,         
             //*|LOGO|*
             $this->site_info['symbiostock_logo_link'],            
             //*|BODY|*            
-            '<br /><strong>' . symbiostock_customer_area('Get your images here...') . '
+            '<br /><strong>' . symbiostock_customer_area(__('Get your images here...', 'symbiostock') ) . '
             </strong><br /><br />' .
                         
             $purchased_items_to_display . '<br />' .
@@ -231,7 +231,7 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
             //*|DESCRIPTION|*
             get_bloginfo('description'),                    
             //*|SYMBIOSTOCK|*
-            '<a title="A Symbiostock Site" href="http://www.symbiostock.com/">
+            '<a title="'.__('A Symbiostock Site', 'symbiostock') .'" href="http://www.symbiostock.com/">
                 <img src="' . symbiostock_LOGOSMALL . '" />
             </a>'                                           
             
@@ -245,7 +245,7 @@ public function send_thank_you_email($payer_email, $first_name,  $purchased_item
         
         wp_mail(
             $payer_email,
-            $first_name . ' - Thank you for your purchase at ' . home_url(),
+            $first_name . ' - '.__('Thank you for your purchase at ', 'symbiostock')  . home_url(),
             $this->message, 
             
             $headers

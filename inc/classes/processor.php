@@ -1,6 +1,6 @@
 <div id="symbiostock_admin">
     <div id="wpbody-content" tabindex="0" aria-label="Main content">
-        <h1>Process Images</h1>
+        <h1><?php _e( 'Process Images', 'symbiostock') ?></h1>
         
         <form id="symbiostock_admin_form" action="" method="post" >
         
@@ -21,30 +21,30 @@ $symbiostock_images->list_images();
                         
                         <option selected="selected" value="0"> - </option>
                         
-                        <option value="1">GREEN</option>
+                        <option value="1"><?php _e( 'GREEN', 'symbiostock') ?></option>
                         
-                        <option value="2">YELLOW</option>
+                        <option value="2"><?php _e( 'YELLOW', 'symbiostock') ?></option>
                         
-                        <option value="3">RED</option>  
+                        <option value="3"><?php _e( 'RED', 'symbiostock') ?></option>  
                         
                     </select>
                     <select name="action">
                     
-                        <option selected="selected" value="process_drafts">Process to Drafts</option>
+                        <option selected="selected" value="process_drafts"><?php _e( 'Process to Drafts', 'symbiostock') ?></option>
                         
-                        <option value="process_publish">Process to Publish</option>
+                        <option value="process_publish"><?php _e( 'Process to Publish', 'symbiostock') ?></option>
                         
-                        <option value="delete">Delete Selected Files</option>
+                        <option value="delete"><?php _e( 'Delete Selected Files', 'symbiostock') ?></option>
                         
-                        <option value="delete_all">Delete ALL Files</option>
+                        <option value="delete_all"><?php _e( 'Delete ALL Files', 'symbiostock') ?></option>
                         
                     </select>
                                  
-                     <input type="submit" value="Process Images" class="button action" id="doaction" name="">
+                     <input type="submit" value="<?php _e( 'Process Images', 'symbiostock') ?>" class="button action" id="doaction" name="">
                      
                      <p>
-                     <?php echo sshelp('rating', 'Rating Filter'); ?><br />
-                     * NOTE: Images without IPTC data (at least <strong>title</strong> and <strong>keywords</strong>) are always saved as drafts.</p>
+                     <?php echo sshelp('rating', __('Rating Filter', 'symbiostock')); ?><br />
+                     <?php _e( '* NOTE: Images without IPTC data (at least <strong>title</strong> and <strong>keywords</strong>) are always saved as drafts.', 'symbiostock') ?></p>
                      
                 </div>
                 

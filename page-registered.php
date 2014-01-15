@@ -24,16 +24,16 @@ get_header(); ?>
                     
                     //this is the register form which can be included in a number of areas.
                     if(!is_user_logged_in()){
-                        $user_login_title = 'Please Log In';
+                        $user_login_title = __('Please Log In', 'symbiostock');
                         
                         } else {
                             
-                        $user_login_title = 'You are logged in.';    
+                        $user_login_title = __('You are logged in.', 'symbiostock');    
                             }                    
                     ?>
-                    <div class="jumbotron">Thank you for registering. <strong>Please check your email</strong> and log in below.</div>
+                    <div class="jumbotron"><?php _e('Thank you for registering. <strong>Please check your email</strong> and log in below.', 'symbiostock') ?></div>
                     <div class="jumbotron">
-                        
+                                            
                         <h2 class="entry-title"><i class="icon-user"> </i> <?php echo $user_login_title; ?></h2>
                         
                         <?php
@@ -54,18 +54,18 @@ get_header(); ?>
                             $args = array(
                                 'redirect' => admin_url(), 
                                 'form_id' => 'loginform-custom',
-                                'label_username' => __( 'User Name' ),
-                                'label_password' => __( 'Password' ),
-                                'label_remember' => __( 'Keep me logged in' ),
-                                'label_log_in' => __( 'Log In' ),
+                                'label_username' => __( 'User Name', 'symbiostock' ),
+                                'label_password' => __( 'Password', 'symbiostock' ),
+                                'label_remember' => __( 'Keep me logged in', 'symbiostock' ),
+                                'label_log_in' => __( 'Log In', 'symbiostock' ),
                                 'remember' => true,
                                 'redirect' => $symbiostock_redirect,
                             );
                             wp_login_form( $args );
                         } else { // If logged in:
-                            echo symbiostock_customer_area('Customer Area');
+                            echo symbiostock_customer_area(__('Customer Area', 'symbiostock'));
                             echo " | ";
-                            ?> <a href="<?php echo wp_logout_url( $symbiostock_redirect ); ?>" title="Logout"><i class="icon-key"> Logout</i></a> <?php
+                            ?> <a href="<?php echo wp_logout_url( $symbiostock_redirect ); ?>" title="<?php _e('Logout', 'symbiostock') ?>"><i class="icon-key"> <?php _e('Logout', 'symbiostock') ?></i></a> <?php
                         }                       
                     ?>
                     </div> 
