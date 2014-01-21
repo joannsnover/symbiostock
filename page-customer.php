@@ -25,12 +25,12 @@ get_header(); ?>
                     ?>
                     
                     <div class="alert alert-success">
-                        <strong>Thank you for your purchase!</strong>
+                        <strong><?php _e('Thank you for your purchase!', 'symbiostock') ?></strong>
                     </div> 
                     <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><em>Items still in your cart, and not in your download area?</em></strong><br /> Wait a few seconds and refresh the page. 
-                    Sometimes paypal takes a few minutes to notify us. If you still have problems, please contact us.
+                    <strong><em><?php _e('Items still in your cart, and not in your download area?', 'symbiostock') ?></em></strong><br /> <?php _e('Wait a few seconds and refresh the page.', 'symbiostock') ?> 
+                    <?php _e('Sometimes paypal takes a few minutes to notify us. If you still have problems, please contact us.', 'symbiostock') ?>
                     </div>
                     
                     <?php

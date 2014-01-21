@@ -77,8 +77,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Menu Location', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '0' => 'Top Anchored',
-                    '1' => 'Under Header'                    
+                    '0' => __('Top Anchored', 'symbiostock'),
+                    '1' => __('Under Header', 'symbiostock')                    
             ),            
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'menu_location',
@@ -98,8 +98,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Main/Nav Menu Style', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '1' => 'Basic',
-                    '0' => 'Inverted'
+                    '1' => __('Basic', 'symbiostock'),
+                    '0' => __('Inverted', 'symbiostock')
             ),
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'invert_main_menu',
@@ -117,8 +117,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Search/Account Menu Style', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '1' => 'Basic',
-                    '0' => 'Inverted'
+                    '1' => __('Basic', 'symbiostock'),
+                    '0' => __('Inverted', 'symbiostock')
             ),
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'invert_search_menu',
@@ -135,8 +135,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Search/Account Menu Fill', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '1' => 'Basic',
-                    '0' => 'Blank'
+                    '1' => __('Basic', 'symbiostock'),
+                    '0' => __('Blank', 'symbiostock')
             ),
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'invert_search_menu_type',
@@ -153,9 +153,9 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Separate Search/Account Menu?', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '2' => 'Yes - Anchored',
-                    '1' => 'Yes - Floated',
-                    '0' => 'No'
+                    '2' => __('Yes - Anchored', 'symbiostock'),
+                    '1' => __('Yes - Floated', 'symbiostock'),
+                    '0' => __('No', 'symbiostock')
             ),
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'separate_search_menu',
@@ -173,8 +173,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Show "Image/Blog" search option?', 'symbiostock' ),
             'type'       => 'radio',
             'choices' => array(
-                    '1' => 'Yes',
-                    '0' => 'No'
+                    '1' => __('Yes', 'symbiostock'),
+                    '0' => __('No', 'symbiostock')
             ),
             'section'    => 'symbiostock_nav_menu',
             'settings'   => 'show_blog_search',
@@ -201,8 +201,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'priority'    => 0,
             'type'       => 'radio',
             'choices' => array(
-                    '0' => 'Left',
-                    '1' => 'Centered'
+                    '0' => __('Left', 'symbiostock'),
+                    '1' => __('Centered', 'symbiostock')
             ),
             'section'    => 'symbiostock_general',
             'settings'   => 'logo_location',
@@ -484,8 +484,8 @@ function symbiostock_customize_register( $wp_customize ) {
             'label'        => __( 'Image Page Content', 'symbiostock' ),            
             'type'       => 'radio',
             'choices' => array(
-                    0  => 'Strictly Minimal',
-                    1  => 'Default'
+                    0  => __('Strictly Minimal', 'symbiostock'),
+                    1  => __('Default', 'symbiostock')
             ),
             'section'    => 'image_page',
             'settings'   => 'strictly_minimal',

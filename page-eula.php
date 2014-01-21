@@ -28,10 +28,6 @@ get_header(); ?>
                     <?php endwhile; // end of the loop. ?>
     
                 </div><!-- #content .site-content -->
-            
-            
-          
-            <?php dynamic_sidebar( 'Featured Posts (Below Content)' ) ?>
          
             </div><!-- #primary .content-area -->
         

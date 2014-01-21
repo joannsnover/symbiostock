@@ -61,9 +61,7 @@ get_header(); ?>
                              } else {
                                  $id_key_pairs[$key]['child'] = 0;                                 
                              }                           
-                         }                    
-            
-                         
+                         }  
                          
                          foreach ( $terms as $term ) {
                            $category_count++;

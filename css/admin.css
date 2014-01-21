@@ -14,8 +14,7 @@ hr {
     border-width: 1px 0;
     margin: 20px 0;
 }
-.symbiostock_networkr {
-}
+
 .symbiostock_networkr input[type="text"] {
     
     width: 75%;
@@ -156,7 +155,7 @@ min-width: 400px;
     }
 .symbiostock_frame_container{
     margin: 10px;
-    padding: 10px;    
+    padding: 20px;    
     margin-bottom: 0;
     padding-bottom: 0;
     margin-left: 0;

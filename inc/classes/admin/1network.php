@@ -26,7 +26,7 @@ while ( $site_count <= 5 ) {
         } else {
             delete_option( 'symbiostock_network_site_' . $site_count );    
                     
-            $alerts['symbiostock_network_site_' . $site_count] = '<p class="alert">Site' . $site_count . ': You\'ve entered an invalid url. <strong>http://www.somesite.com</strong> is the preferred format.</p>';                       
+            $alerts['symbiostock_network_site_' . $site_count] = '<p class="alert">' . __( 'Site', 'symbiostock') . $site_count . __( ': You\'ve entered an invalid url. <strong>http://www.somesite.com</strong> is the preferred format.</p>', 'symbiostock');                       
         }
     }
     $site_count++;
@@ -67,7 +67,7 @@ if(isset($_POST['symbiostock_my_network_about_page'])){
 if(isset($_POST['symbiostock_my_promoted_keywords'])){ 
     $total = explode(',', $_POST['symbiostock_my_promoted_keywords']);
     if(count($total) > 40){
-        $no_more_keywords =  '<p>Please choose no more than 20 promoted keywords. Promoted keywords not saved.</p>';
+        $no_more_keywords =  '<p>' . __( 'Please choose no more than 20 promoted keywords. Promoted keywords not saved.', 'symbiostock') . '</p>';
         
         } else {
         $keywords = array();    
@@ -82,7 +82,7 @@ if(isset($_POST['symbiostock_my_promoted_keywords'])){
 if(isset($_POST['symbiostock_my_filtered_keywords'])){ 
     $total = explode(',', $_POST['symbiostock_my_filtered_keywords']);
     if(count($total) > 40){
-        $no_more_f_keywords =  '<p>Please choose no more than 40 promoted keywords. Promoted keywords not saved.</p>';
+        $no_more_f_keywords =  '<p>' . __( 'Please choose no more than 40 promoted keywords. Promoted keywords not saved.', 'symbiostock') . '</p>';
         
         } else {
         $keywords = array();    
@@ -127,7 +127,7 @@ $ssnet_no = '';
 <div id="symbiostock_network_container">
     <div id="symbiostock_network_header">
         <div class="symbiostock_frame_container">
-            <h3>Symbiostock Network - Associates and Status</h3>           
+            <h3><?php _e( 'Symbiostock Network - Associates and Status', 'symbiostock') ?></h3>           
         </div>
     </div>
     <div id="symbiostock_network_main">
@@ -140,42 +140,41 @@ $ssnet_no = '';
         </div>
     </div>
     <div id="symbiostock_network_sidebar">
-        <div class="symbiostock_frame_container"> <a target="_blank" title="Symbiostock Updates" href="http://www.symbiostock.com"> <img title="Symbiostock Updates" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>       <hr />
+        <div class="symbiostock_frame_container"> <a target="_blank" title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" href="http://www.symbiostock.com"> <img title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a> <hr />
        
-       <p class="description"><a target="_blank" title="Community Forums" href="http://www.symbiostock.org">www.symbiostock.org</a>, Community activity
-       </p><br />
+       <p class="description"><a target="_blank" title="<?php _e( 'Community Forums', 'symbiostock') ?>" href="http://www.symbiostock.org/community/">www.symbiostock.org/community/</a>, <?php _e( 'Community Activity', 'symbiostock') ?></p><br />
        <?php        
-        symbiostock_feed_display('http://www.symbiostock.org/feed/rss/', 10);        
+        symbiostock_feed_display('http://www.symbiostock.org/community/feed.php', 10);        
         ?>
         
         </div>
     </div>
     <div id="symbiostock_network_updates">
         <div class="symbiostock_frame_container">
-            <table id="your_site_info"  class="widefat form-table symbiostock-settings">
+            <table id="your_site_info"  class="widefat symbiostock-settings">
                 <thead>
                     <tr>
-                        <th colspan="2"> <strong>Your Site Info</strong> - How your site appears to others. </th>
+                        <th colspan="2"> <?php _e( 'Your Site Info- How your site appears to others.', 'symbiostock') ?> </th>
                     </tr>
                 </thead>
                 <tr>
-                    <th scope="row">Author Settings <br /> <?php echo sshelp('author_settings', 'Author Settings'); ?></th>
+                    <th scope="row"><?php _e( 'Author Settings', 'symbiostock') ?> <br /> <?php echo sshelp('author_settings',  __( 'Author Settings', 'symbiostock' ) ); ?></th>
                     <td>
-                        <strong><a title="Author Settings" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php">&raquo; Author Settings </a></strong>
+                        <strong><a title="<?php _e( 'Author Settings', 'symbiostock') ?>" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php">&raquo; <?php _e( 'Author Settings', 'symbiostock') ?></a></strong>
                         <span class="description"> &mdash; Basic author settings used by wordpress and Symbiostock.</span> 
                         <br /> 
-                        <strong><a title="Network Bonus Info" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php#extended_network_info">&raquo; Network Bonus Info</a></strong>
-                        <span class="description"> &mdash; Special extended info settings used by Symbiostock on author pages and outside network referring pages.</span>
-                        <br /><label for="symbiostock_site_author"><?php symbiostock_list_admins(); ?> Symbiocard Author</label>
+                        <strong><a title="<?php _e( 'Network Bonus Info', 'symbiostock') ?>" href="<?php echo get_bloginfo('wpurl'); ?>/wp-admin/profile.php#extended_network_info">&raquo; <?php _e( 'Network Bonus Info', 'symbiostock') ?></a></strong>
+                        <span class="description"> &mdash; <?php _e( 'Special extended info settings used by Symbiostock on author pages and outside network referring pages.', 'symbiostock') ?></span>
+                        <br /><label for="symbiostock_site_author"><?php symbiostock_list_admins(); ?> <?php _e( 'Symbiocard Author', 'symbiostock') ?></label>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Name</th>
+                    <th scope="row"><?php _e( 'Site Name', 'symbiostock') ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_name"  id="symbiostock_my_network_name" value="<?php echo stripslashes ( get_option('symbiostock_my_network_name', $current_user->user_firstname . ' ' . $current_user->user_lastname . ' (' . $current_user->display_name  . ')')); ?>" /></td>
                 </tr>
                 
                 <tr>
-                    <th scope="row">Promoted Keywords <em>(choose up to 40)</em>  <br /> <?php echo sshelp('promoted_keywords', 'Promoted Keywords'); ?></th>
+                    <th scope="row"><?php _e( 'Promoted Keywords (choose up to 40)', 'symbiostock') ?>  <br /> <?php echo sshelp('promoted_keywords', 'Promoted Keywords'); ?></th>
                     <td>
                     <?php
                     if(isset($no_more_keywords )){ echo $no_more_keywords; }
@@ -186,66 +185,66 @@ $ssnet_no = '';
 
                 <tr>
                     <th scope="row">                    
-                    Content Filtering <?php echo sshelp('rating', 'Rating'); ?> <br />
+                    Content Filtering <?php echo sshelp('rating', __('Rating', 'symbiostock')); ?> <br />
                         <select id="symbiostock_filter_level" name="symbiostock_filter_level">
                                <option <?php echo $rating_0; ?> value="0"> - </option>
-                            <option <?php echo $rating_1; ?> value="1">Content Filter: GREEN</option>
-                            <option <?php echo $rating_2; ?> value="2">Content Filter: YELLOW</option>
-                            <option <?php echo $rating_3; ?> value="3">Content Filter: RED</option>
+                            <option <?php echo $rating_1; ?> value="1"><?php _e( 'Content Filter: GREEN', 'symbiostock') ?></option>
+                            <option <?php echo $rating_2; ?> value="2"><?php _e( 'Content Filter: YELLOW', 'symbiostock') ?></option>
+                            <option <?php echo $rating_3; ?> value="3"><?php _e( 'Content Filter: RED', 'symbiostock') ?></option>
                         </select>
                         <br />                       
-                        Allow unrated content?<br />
+                        <?php _e( 'Allow unrated content?', 'symbiostock') ?><br />
                         <label for="symbiostock_allow_unrated_no">
                         <input <?php echo $allow_unrated_1; ?> id="symbiostock_allow_unrated_no" type="radio" name="symbiostock_allow_unrated" value="0" />
-                        No</label>
+                        <?php _e( 'No', 'symbiostock') ?></label>
                         <label for="symbiostock_allow_unrated_yes">
                         <input <?php echo $allow_unrated_2; ?> id="symbiostock_allow_unrated_yes" type="radio" name="symbiostock_allow_unrated" value="1" />
-                        Yes</label>  
+                        <?php _e( 'Yes', 'symbiostock') ?></label>  
                     </th>
                     
                     <td>
                     <?php
                     if(isset($no_more_f_keywords )){ echo $no_more_f_keywords; }
                     ?>
-                    <strong>Keyword Filtering</strong> <?php echo sshelp('filtered_keywords', 'Filtered Keywords'); ?><br />
+                    <strong><?php _e( 'Keyword Filtering', 'symbiostock') ?></strong> <?php echo sshelp('filtered_keywords', __('Filtered Keywords', 'symbiostock')); ?><br />
                     <textarea class="longfield" name="symbiostock_my_filtered_keywords"  id="symbiostock_my_filtered_keywords" ><?php echo trim( stripslashes ( get_option('symbiostock_my_filtered_keywords', '') ) ) ?></textarea>
                     </td>
                 </tr>    
                 
                 <tr>
-                    <th scope="row">Site Announcement  <br /> <?php echo sshelp('site_announcement', 'Announcement'); ?></th>
+                    <th scope="row"><?php _e( 'Site Announcement', 'symbiostock') ?>  <br /> <?php echo sshelp('site_announcement', __('Announcement', 'symbiostock')); ?></th>
                     <td><textarea class="longfield" name="symbiostock_my_network_announcement"  id="symbiostock_my_network_announcement" ><?php echo stripslashes ( get_option('symbiostock_my_network_announcement', '')) ?></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Description  <br /> <?php echo sshelp('site_description', 'Description'); ?></th>
+                    <th scope="row"><?php _e( 'Site Description', 'symbiostock') ?> <br /> <?php echo sshelp('site_description', __('Description', 'symbiostock')); ?></th>
                     <td><textarea class="longfield" name="symbiostock_my_network_description"  id="symbiostock_my_network_description" ><?php echo stripslashes ( get_option('symbiostock_my_network_description')) ?> </textarea></td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Avatar  <br /> <?php echo sshelp('site_avatar', 'Avatar'); ?></th>
+                    <th scope="row"><?php _e( 'Site Avatar', 'symbiostock') ?> <br /> <?php echo sshelp('site_avatar', __('Avatar', 'symbiostock')); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_avatar"  id="symbiostock_my_network_avatar" value="<?php echo stripslashes ( get_option('symbiostock_my_network_avatar', symbiostock_32_DEFAULT)) ?>" />
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">Site Logo  <br /> <?php echo sshelp('site_logo', 'Small Logo'); ?></th>
+                    <th scope="row"><?php _e( 'Site Logo', 'symbiostock') ?>  <br /> <?php echo sshelp('site_logo', __('Small Logo', 'symbiostock')); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_logo"  id="symbiostock_my_network_logo" value="<?php echo stripslashes ( get_option('symbiostock_my_network_logo', symbiostock_128_DEFAULT)) ?>" />
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row">About Page  <br /> <?php echo sshelp('about_page', 'About'); ?></th>
+                    <th scope="row"><?php _e( 'About Page', 'symbiostock') ?>  <br /> <?php echo sshelp('about_page', __('About', 'symbiostock')); ?></th>
                     <td><input class="longfield" type="text" name="symbiostock_my_network_about_page"  id="symbiostock_my_network_about_page" value="<?php echo stripslashes( get_option('symbiostock_my_network_about_page', '')) ?>" />
                     </td>
                 </tr>
                 <tfoot>
                     <tr>
-                        <td colspan="2"><a class="savelink" title="save_changes" href="#save_changes"><strong>Save Changes</strong></a></td>
+                        <td colspan="2"><a class="savelink" title="save_changes" href="#save_changes"><strong><?php _e( 'Save Changes', 'symbiostock') ?></strong></a></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
-    <h2>Integrate Your Site with the Symbiostock Community</h2>
-    <p>More relevant stuff will be placed here as the need is discovered</p>
+    <h2><?php _e( 'Integrate Your Site with the Symbiostock Community', 'symbiostock') ?></h2>
+    <p><?php _e( 'More relevant stuff will be placed here as the need is discovered', 'symbiostock') ?></p>
     <div> <span id="save_changes" >&nbsp;</span>
         <?php } else { 
     
@@ -253,19 +252,19 @@ $ssnet_no = '';
     $ssnet_no = 'checked="checked"';
     ?>
         <br />
-        <a target="_blank" title="Symbiostock Updates" href="http://www.symbiostock.com"> <img title="Symbiostock Updates" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>
+        <a target="_blank" title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" href="http://www.symbiostock.com"> <img title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>
         <?php
     //if not using the network, just display the feed
     symbiostock_feed_display('http://www.symbiostock.com/feed/', 3);
     
  } ?>
-        <p>Use Symbiostock Network?<br />
+        <p><?php _e( 'Use Symbiostock Network?', 'symbiostock') ?><br />
             <label for="symbiostock_use_network_1">
                 <input id="symbiostock_use_network_1" type="radio" name="symbiostock_use_network" value="true" <?php echo $ssnet_yes; ?> />
-                Activate</label>
+                <?php _e( 'Activate', 'symbiostock') ?></label>
             <br />
             <label for="symbiostock_use_network_2">
                 <input id="symbiostock_use_network_2" type="radio" name="symbiostock_use_network" value="false" <?php echo $ssnet_no; ?> />
-                Deactivate</label>
+                <?php _e( 'Deactivate', 'symbiostock') ?></label>
         </p>
     </div>

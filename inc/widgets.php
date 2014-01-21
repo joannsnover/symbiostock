@@ -12,7 +12,7 @@ class symbiostock_widgets extends WP_Widget {
 			'symbiostock_widget',
 			'symbiostock_widgets',
 			array(
-				'description' => __( 'symbiostock Multi-Purpose Widget' ), 'symbiostock'
+				'description' => __( 'symbiostock Multi-Purpose Widget', 'symbiostock' )
 			)
 		
 		);

@@ -118,7 +118,7 @@ class symbiostock_cart
         
         $option = $this->product_option( 'eps', 'vector' );
         
-        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . '</td><td>eps</td><td>Filesize: ' . $this->product_info[ 'size_eps' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
+        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . '</td><td>eps</td><td>' . __('Filesize', 'symbiostock' ) . ': ' . $this->product_info[ 'size_eps' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
         ';
         
         $row = apply_filters('list_eps', $row);
@@ -142,7 +142,7 @@ class symbiostock_cart
             
         $option = $this->product_option( 'zip', 'zip' );
         
-        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . 'Supporting Files</td><td>ZIP</td><td>Filesize: ' . $this->product_info[ 'size_zip' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
+        $row = '<tr class="'. $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . __('Supporting Files', 'symbiostock') . '</td><td>'.__('ZIP', 'symbiostock').'</td><td>'.__('Filesize', 'symbiostock').': ' . $this->product_info[ 'size_zip' ][ 0 ] . '</td><td>' . $price['compare'] . '</td></tr>
         ';
         
         $row = apply_filters('list_eps', $row);
@@ -200,7 +200,7 @@ class symbiostock_cart
         <div class="alert alert-success text-center">
             <strong>
             <i class="icon-star"> </i> 
-            <?php echo 'EXCLUSIVE IMAGE'; ?> <i class="icon-star"> </i> <br /><small>Found only on <strong><?php bloginfo('url'); ?></strong></small>
+            <?php echo __('EXCLUSIVE IMAGE', 'symbiostock'); ?> <i class="icon-star"> </i> <br /><small><?php _e( 'Found only on ', 'symbiostock') ?> <strong><?php bloginfo('url'); ?></strong></small>
             </strong>
         </div>
         <?php endif; ?>        
@@ -209,19 +209,19 @@ class symbiostock_cart
         <thead>
             <tr>
                 <th>
-                Size
+                <?php _e( 'Size', 'symbiostock') ?>
                 </th>
                 <th>
-                Type
+                <?php _e( 'Type', 'symbiostock') ?>
                 </th>                
                 <th>
-                File Info
+                <?php _e( 'File Info', 'symbiostock') ?>
                 </th>
                 <th>
-                Price <br /><span class="symbiostock_currency">( <?php echo $curr[0]; ?> )</span><?php 
+                <?php _e( 'Price', 'symbiostock') ?> <br /><span class="symbiostock_currency">( <?php echo $curr[0]; ?> )</span><?php 
                         
                 $discount = $this->product_info['discount_percent'][0];
-                $discount == 0?  $savings = '' : $savings = '<em>' . $discount . '% off</em>';
+                $discount == 0?  $savings = '' : $savings = '<em>' . $discount . __('% off', 'symbiostock') . '</em>';
                 echo $savings;
                  ?>
                 </th>
@@ -280,7 +280,7 @@ class symbiostock_cart
 ?>    
              <tr class="info text-right">
             <?php               
-            $license_option = array('license_html' => '<td class="text-right" colspan="4"><strong><em>' . symbiostock_eula('End User License Agreement') . '</em></strong></td>');
+            $license_option = array('license_html' => '<td class="text-right" colspan="4"><strong><em>' . symbiostock_eula(__('End User License Agreement', 'symbiostock')) . '</em></strong></td>');
             
             if(isset($this->user) && !empty($this->user)){
                 
@@ -350,7 +350,7 @@ class symbiostock_cart
     {
         if(!is_user_logged_in()) { 
         
-        ?><p>Please <a title="Please log in..." data-toggle="modal" data-target="#symbiostock_member_modal" class="login_register" href="#"><strong><i class="icon-key"> </i> log in</strong></a> to view your cart.</p><?php 
+        ?><p><a title="<?php _e( 'Please log in...', 'symbiostock') ?>" data-toggle="modal" data-target="#symbiostock_member_modal" class="login_register" href="#"><strong><i class="icon-key"> </i> <?php _e( 'Log in to view your cart...', 'symbiostock') ?></strong></a></p><?php 
         
         return;
         
@@ -397,9 +397,9 @@ class symbiostock_cart
             <table class="table cart">
         <thead>
             <tr>
-                <th>Preview</th>
-                <th>Option</th>
-                <th>Price - <?php echo $curr[0]; ?></th>
+                <th><?php _e( 'Preview', 'symbiostock') ?></th>
+                <th><?php _e( 'Option', 'symbiostock') ?></th>
+                <th><?php _e( 'Price', 'symbiostock') ?> - <?php echo $curr[0]; ?></th>
                 <th>&nbsp;</th>
             </tr>            
         </thead>
@@ -439,8 +439,8 @@ class symbiostock_cart
             
             //make the row    ?>                                        
             <tr>
-            <input type="hidden" value="Image Number <?php echo $product; ?>" name="item_name_<?php echo $product_count; ?>" />
-            <input type="hidden" value="Size" name="on0_<?php echo $product_count; ?>" />
+            <input type="hidden" value="<?php _e( 'Image Number', 'symbiostock') ?> <?php echo $product; ?>" name="item_name_<?php echo $product_count; ?>" />
+            <input type="hidden" value="<?php _e( 'Size', 'symbiostock') ?>" name="on0_<?php echo $product_count; ?>" />
             <input type="hidden" value="<?php echo $size_name; ?>" name="os0_<?php echo $product_count; ?>" />
             <input type="hidden" value="<?php echo $price['final_price']; ?>" name="amount_<?php echo $product_count; ?>" />
             <input type="hidden" value="<?php echo $product; ?>" name="item_number_<?php echo $product_count; ?>" /> 
@@ -465,7 +465,7 @@ class symbiostock_cart
              <tr class="info">
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula('License Agreement & Terms'); ?></em></strong>
+                <td class="text-right" colspan="2"><strong><em><?php echo symbiostock_eula(__('License Agreement & Terms', 'symbiostock')); ?></em></strong>
                 
                 </td>
              </tr>
@@ -477,10 +477,10 @@ class symbiostock_cart
                 <a onclick="javascript:window.open('https://www.paypal.com/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');" href="#"><img border="0" alt="Solution Graphics" src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif"></a>
                 </td>
               
-                <td ><span class="total">Total: <?php echo $this->get_cart_value(); ?></span>
+                <td ><span class="total"><?php _e( 'Total', 'symbiostock') ?> <?php echo $this->get_cart_value(); ?></span>
                 <div class="alert alert-info">                
-                <label class="aligncenter checkbox"><input class="" name="aggree_to_EULA" id="aggree_to_EULA" type="checkbox" /> Agree to terms above</label><br />
-                <button disabled id="symbiostock_pay_now" class="aligncenter btn btn-large btn-success" type="submit"><i class="icon-shopping-cart"> Pay Now </i></button>
+                <label class="aligncenter checkbox"><input class="" name="aggree_to_EULA" id="aggree_to_EULA" type="checkbox" /> <?php _e( 'Agree to Terms Above', 'symbiostock') ?></label><br />
+                <button disabled id="symbiostock_pay_now" class="aligncenter btn btn-large btn-success" type="submit"><i class="icon-shopping-cart"> <?php _e( 'Pay Now', 'symbiostock') ?> </i></button>
                 <span class="clearfix"><br /></span>
                 </div>
                 </td>
@@ -513,9 +513,9 @@ class symbiostock_cart
 <table class="table cart">
     <thead>
         <tr>
-            <th>Preview</th>
-            <th>Option</th>
-            <th>Price</th>               
+            <th>'.__( 'Preview', 'symbiostock').'</th>
+            <th>'.__( 'Option', 'symbiostock').'</th>
+            <th>'.__( 'Price', 'symbiostock').'</th>               
         </tr>            
     </thead>
     <tbody>
@@ -556,14 +556,14 @@ class symbiostock_cart
     }    
         $product_string .='
          <tr class="info">        
-            <td class="text-right" colspan="3"><strong><em>' . symbiostock_eula('End User License Agreement') . '</em></strong></td>
+            <td class="text-right" colspan="3"><strong><em>' . symbiostock_eula(__('End User License Agreement', 'symbiostock')) . '</em></strong></td>
          </tr>            
     </tbody>
     <tfoot>
         <tr>
         <td colspan="2">               
         </td>              
-        <td ><span class="total">Total:' . $this->get_cart_value() . '</span></td>
+        <td ><span class="total">'.__( 'Total:', 'symbiostock').'' . $this->get_cart_value() . '</span></td>
         </tr>  
     </tfoot>
 </table>';       
@@ -676,11 +676,11 @@ class symbiostock_cart
             !isset($symbiostock_currency)  ? $symbiostock_currency = 'USD' : '';
         
             $symbiostock_currencies = array(
-                'USD' => array( 'US Dollars $',       '$', 'USD' ),
-                'EUR' => array( 'Euros €',            '€', 'EUR' ),
-                'GBP' => array( 'Pounds Sterling £',  '£', 'GBP' ),
-                'CAD' => array( 'Canadian Dollars $', '$', 'CAD' ),
-                'JPY' => array( 'Japanese Yen ¥',     '¥', 'JPY' ),
+                'USD' => array( __('US Dollars $', 'symbiostock'),       '$', 'USD' ),
+                'EUR' => array( __('Euros €', 'symbiostock'),            '€', 'EUR' ),
+                'GBP' => array( __('Pounds Sterling £', 'symbiostock'),  '£', 'GBP' ),
+                'CAD' => array( __('Canadian Dollars $', 'symbiostock'), '$', 'CAD' ),
+                'JPY' => array( __('Japanese Yen ¥', 'symbiostock'),     '¥', 'JPY' ),
             );        
             
             $symbiostock_currency = $symbiostock_currencies[$symbiostock_currency];    

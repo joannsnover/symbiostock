@@ -33,7 +33,7 @@ get_header(); ?>
             <?php
 
             
-            echo '<h1 class="results_for">Results for "' . ucwords(urldecode( get_query_var('image-tags'))) . '"  '.symbiostock_feed('rss_url','icon', 'image-tags').'</h1>';
+            echo '<h1 class="results_for">'.__('Results for', 'symbiostock').' "' . ucwords(urldecode( get_query_var('image-tags'))) . '"  '.symbiostock_feed('rss_url','icon', 'image-tags').'</h1>';
             
             $local_results->display_results(false);
                 

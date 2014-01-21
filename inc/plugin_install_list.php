@@ -27,7 +27,7 @@ function symbiostock_register_required_plugins() {
     		),*/
 
     array(
-    'name'     				=> 'SYMBIOSTOCK - Emails and Notifications',
+    'name'     				=> __('SYMBIOSTOCK - Emails and Notifications', 'symbiostock'),
     'slug'     				=> 'symbiostock_emailer',
     'source'   				=> dirname(__FILE__) . '/installer/symbiostock_emailer.zip',
     'required' 				=> true,
@@ -36,7 +36,7 @@ function symbiostock_register_required_plugins() {
     ),
 
     array(
-    'name'     				=> 'Related Posts by Taxonomy',
+    'name'     				=> __('Related Posts by Taxonomy', 'symbiostock'),
     'slug'     				=> 'related-posts-by-taxonomy',
     'source'   				=> dirname(__FILE__) . '/installer/related-posts-by-taxonomy.zip',
     'required' 				=> true,
@@ -45,7 +45,7 @@ function symbiostock_register_required_plugins() {
     ),
     
     array(
-    'name'     				=> 'SYMBIOSTOCK - Cart Manager',
+    'name'     				=> __('SYMBIOSTOCK - Cart Manager', 'symbiostock'),
     'slug'     				=> 'ss-cart-manager',
     'source'   				=> dirname(__FILE__) . '/installer/ss-cart-manager.zip',
     'required' 				=> false,
@@ -54,7 +54,7 @@ function symbiostock_register_required_plugins() {
     ),    
 
     array(
-    'name'     				=> 'Category Meta',
+    'name'     				=> __('Category Meta', 'symbiostock'),
     'slug'     				=> 'wp-category-meta',
     'source'   				=> dirname(__FILE__) . '/installer/wp-category-meta.zip',
     'required' 				=> true,
@@ -63,31 +63,31 @@ function symbiostock_register_required_plugins() {
     ),
 
     array(
-    'name'     				=> 'Contact Form 7',
+    'name'     				=> __('Contact Form 7', 'symbiostock'),
     'slug'     				=> 'contact-form-7',
     'required' 	=> false,
     ),
 
     array(
-    'name'     				=> 'Wordfence Security',
+    'name'     				=> __('Wordfence Security', 'symbiostock'),
     'slug'     				=> 'wordfence',
     'required' 	=> false,
     ),
 
     array(
-    'name'     				=> 'Slideshow',
+    'name'     				=> __('Slideshow', 'symbiostock'),
     'slug'     				=> 'slideshow-jquery-image-gallery',
     'required' 	=> false,
     ),
 
     array(
-    'name'     				=> 'WordPress SEO by Yoast',
+    'name'     				=> __('WordPress SEO by Yoast', 'symbiostock'),
     'slug'     				=> 'wordpress-seo',
     'required' 	=> false,
     ),
 
     array(
-    'name'     				=> 'SYMBIOSTOCK - Image Sitemap',
+    'name'     				=> __('SYMBIOSTOCK - Image Sitemap', 'symbiostock'),
     'slug'     				=> 'ss-professional',
     'source'                => false,
     'required' 				=> false,
@@ -95,7 +95,7 @@ function symbiostock_register_required_plugins() {
     ),
      
     array(
-    'name'     				=> 'SYMBIOSTOCK -Premium Upgrade',
+    'name'     				=> __('SYMBIOSTOCK -Premium Upgrade', 'symbiostock'),
     'slug'     				=> 'ss-img-sitemap',
     'source'                => false,
     'required' 				=> false,

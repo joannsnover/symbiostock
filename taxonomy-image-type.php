@@ -12,7 +12,7 @@ $sscount = new results_counter();
 $local_results = new network_manager();
 $local_results->local_search();
 get_header(); ?>
-    <div class=row>
+    <div class="row">
         <section id="primary" class="content-area col-md-12">
             <div id="content" class="site-content" role="main">
             
@@ -20,16 +20,14 @@ get_header(); ?>
             //add support for YOAST SEO
              if ( function_exists('yoast_breadcrumb') ) {
             yoast_breadcrumb('<colspan class="text-info" id="breadcrumbs">','</colspan>');
-            } ?>
-    
+            } ?>    
             
             <?php
                         
             $term = get_term_by( 'slug', get_query_var( 'image-type' ),  'image-type' );        
             $title = $term->name;
-                    
-            
-            echo '<h1 class="results_for">Images in category: <strong>"' . ucwords($title)  . '"</strong>  '.symbiostock_feed('rss_url','icon', 'image-type').'</h1>';
+                                
+            echo '<h1 class="results_for">'.__('Images in category:', 'symbiostock').' <strong>"' . ucwords($title)  . '"</strong>  '.symbiostock_feed('rss_url','icon', 'image-type').'</h1>';
             
             $local_results->display_results(false);
             

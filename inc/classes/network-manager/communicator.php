@@ -241,8 +241,8 @@ function symbiostock_xml_results($network_query){
             'current' => max( 1, $paged ),
             'total' => $wp_query->max_num_pages,
             'type' => 'array',
-            'prev_text'    => __('Previous'),
-            'next_text'    => __('Next'),
+            'prev_text'    => __('Previous', 'symbiostock'),
+            'next_text'    => __('Next', 'symbiostock'),
         ) );
         
         wp_reset_query();
@@ -264,7 +264,7 @@ function symbiostock_xml_results($network_query){
     } else {
         
         $noResults = $root->appendChild( 
-            $symbiostock_xml->createElement( "no_results", 'No results found.' ) );
+            $symbiostock_xml->createElement( "no_results", __('No results found.', 'symbiostock') ) );
         
         }
         

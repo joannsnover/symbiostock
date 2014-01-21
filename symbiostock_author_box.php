@@ -31,7 +31,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
     $symbiocard = array_map('strip_tags', $symbiocard);
     
     if( empty($symbiocard) || !is_array($symbiocard) ){
-        echo '<em>Symbiocard not available...</em>';
+        _e('<em>Symbiocard not available...</em>', 'symbiostock');
         return;
     }
     
@@ -85,7 +85,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
             <div class="bio-container">                        
            		 <div class="author-name">
            		 <!-- jas add rel="author" for Google rich data  -->
-            	<span class="panel-title h-card" itemprop="<?php echo $creator_credits ?>" ><a class="ssref fn"  rel ="author" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
+            	<span class="panel-title h-card" itemprop="<?php echo $creator_credits ?>" ><a class="ssref fn"  rel ="author" title="<?php _e('Author', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a></span>                   
        		 	</div>
                 <p <?php echo $bio; ?>>
                 <!-- jas end -->
@@ -94,7 +94,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                  if(isset($symbiocard['symbiostock_author_bio']) && !empty($symbiocard['symbiostock_author_bio'])){
                     if($compact == true && strlen($symbiocard['symbiostock_author_bio']) > 74){
                         $pos=strpos(stripslashes($symbiocard['symbiostock_author_bio']), ' ', 75);
-                        $bio_text = substr($symbiocard['symbiostock_author_bio'], 0, min(max($pos,75),90) ) . '...<small><a class="ssref" title="See full author bio..." href="'.$symbiocard['symbiostock_author_page'].'"> [more]</a></small>';
+                        $bio_text = substr($symbiocard['symbiostock_author_bio'], 0, min(max($pos,75),90) ) . '...<small><a class="ssref" title="'.__('See full author bio...', 'symbiostock').'" href="'.$symbiocard['symbiostock_author_page'].'"> '.__('[more]', 'symbiostock').'</a></small>';
 
                     } else {
                         if(!empty($symbiocard['symbiostock_author_bio'])):
@@ -131,7 +131,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 <!--author important links-->  
                 <div class="accordion-group ">
                     <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseOne_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-link">&nbsp;</i>  <span itemprop="address">Author </span></a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseOne_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-link">&nbsp;</i>  <span itemprop="address"><?php _e('Author', 'symbiostock') ?> </span></a>
                     </div>
                     <div id="collapseOne_<?php echo $id ?>" class="accordion-body collapse">
                         <div class="accordion-inner">                    
@@ -139,7 +139,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 
                 <div class="<?php echo $btn_group ?>">
                     <?php if($compact == true): ?>
-                    <button type="button" class="btn btn-default" data-toggle="dropdown">info</button>
+                    <button type="button" class="btn btn-default" data-toggle="dropdown"><?php _e('info', 'symbiostock') ?></button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     </button>
@@ -147,27 +147,27 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                     
                     <ul class="<?php echo $links ?>">
                         <?php if (isset($symbiocard['symbiostock_author_page']) && !empty($symbiocard['symbiostock_author_page'])): ?>
-                        <li><a class="ssref" itemprop="" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><i class="icon-user"> </i> Author Page</a></li>                
+                        <li><a class="ssref" itemprop="" title="<?php _e('Author', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><i class="icon-user"> </i> <?php _e(' Author Page ', 'symbiostock') ?></a></li>                
                         <?php endif; ?>
                         
                         <?php if (isset($symbiocard['symbiostock_portfolio']) && !empty($symbiocard['symbiostock_portfolio'])): ?>
-                        <li><a itemprop="" class="symbiostock_num_images_link ssref" title="Portfolio" href="<?php echo $symbiocard['symbiostock_portfolio'] ?>"><i class="icon-search"> </i> Portfolio: <?php echo $symbiocard['symbiostock_num_images'] ?> images.</a></li>
+                        <li><a itemprop="" class="symbiostock_num_images_link ssref" title="<?php _e('Portfolio', 'symbiostock') ?>" href="<?php echo $symbiocard['symbiostock_portfolio'] ?>"><i class="icon-search"> </i> <?php _e('Portfolio:', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_num_images'] ?> <?php _e('images.', 'symbiostock') ?></a></li>
                         <?php endif; ?>
                         
                         <?php if (isset($symbiocard['symbiostock_gallery_page']) && !empty($symbiocard['symbiostock_gallery_page'])): ?>
-                        <li><a itemprop="" class="symbiostock_gallery_link ssref" title="Gallery" href="<?php echo $symbiocard['symbiostock_gallery_page'] ?>"><i class="icon-star"> </i> Gallery Page</a></li>
+                        <li><a itemprop="" class="symbiostock_gallery_link ssref" title="<?php _e('Gallery', 'symbiostock') ?>" href="<?php echo $symbiocard['symbiostock_gallery_page'] ?>"><i class="icon-star"> </i> <?php _e('Gallery Page', 'symbiostock') ?></a></li>
                         <?php endif; ?>
                         
                         <?php if (isset($symbiocard['symbiostock_contact_page']) && !empty($symbiocard['symbiostock_contact_page'])): ?>
-                        <li><a itemprop="" class="symbiostock_contact_author contact author ssref" title="Contact <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_contact_page'] ?>"><i class="icon-envelope"> </i> Contact <?php echo $symbiocard['symbiostock_first_name'] ?></a></li>
+                        <li><a itemprop="" class="symbiostock_contact_author contact author ssref" title="<?php _e('Contact', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_contact_page'] ?>"><i class="icon-envelope"> </i> <?php _e('Contact', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_first_name'] ?></a></li>
                         <?php endif; ?>
                        
                            <?php if (isset($symbiocard['symbiostock_rss']) && !empty($symbiocard['symbiostock_rss'])): ?>
-                        <li><a itemprop="" class="symbiostock_author_rss ssref" href="<?php echo $symbiocard['symbiostock_rss'] ?>"><i class="icon-rss"> </i> Updates / RSS</a></li>
+                        <li><a itemprop="" class="symbiostock_author_rss ssref" href="<?php echo $symbiocard['symbiostock_rss'] ?>"><i class="icon-rss"> </i> <?php _e('Updates / RSS', 'symbiostock') ?></a></li>
                         <?php endif; ?>
                         
                         <?php if (isset($symbiocard['symbiostock_network_page']) && !empty($symbiocard['symbiostock_network_page'])): ?>
-                        <li><a itemprop="" class="symbiostock_network_page ssref" href="<?php echo $symbiocard['symbiostock_network_page'] ?>"><i class="icon-sitemap"> </i> Network</a></li>
+                        <li><a itemprop="" class="symbiostock_network_page ssref" href="<?php echo $symbiocard['symbiostock_network_page'] ?>"><i class="icon-sitemap"> </i> <?php _e('Network', 'symbiostock') ?></a></li>
                         <?php endif; ?>
                     </ul>           
                 </div>  
@@ -181,7 +181,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 <div class="symbiostock_author_categories accordion-group">                    
                     <div class="accordion-heading">
                         <div>
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseTwo_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-reorder">&nbsp;</i>  <span itemprop="address"> Categories </span> </a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseTwo_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-reorder">&nbsp;</i>  <span itemprop="address"> <?php _e('Categories', 'symbiostock') ?> </span> </a>
                         </div>
                     </div>
                     <div id="collapseTwo_<?php echo $id ?>" class="accordion-body collapse">
@@ -196,7 +196,7 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 <!--author network-->
                 <div class="symbiostock_author_network accordion-group">                    
                     <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseThree_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-sitemap">&nbsp;</i>  <span>Network </span> </a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseThree_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-sitemap">&nbsp;</i>  <span><?php _e('Network', 'symbiostock') ?></span> </a>
                     </div>
                     <div id="collapseThree_<?php echo $id ?>" class="accordion-body collapse">
                         <div class="accordion-inner">
@@ -221,75 +221,75 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
                 <!--author site attributes-->
                 <div class="accordion-group">
                        <div class="accordion-heading">    
-                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseFour_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-book">&nbsp;</i> <span data-toggle="collapse" data-target="#symbiostock-author-attributes-toggle">Attributes & Symbiocard</span></a>
+                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#<?php echo $id ?>" href="#collapseFour_<?php echo $id ?>"><i style="margin-right: 20px;" class="icon-expand-alt"> </i><i class="icon-book">&nbsp;</i> <span data-toggle="collapse" data-target="#symbiostock-author-attributes-toggle"><?php _e('Attributes & Symbiocard', 'symbiostock') ?></span></a>
                     </div>
                     <div id="collapseFour_<?php echo $id ?>" class="accordion-body collapse">
                         <table id="symbiostock-author-attributes-toggle" class="table table-condensed accordion-inner">
-                            <thead><tr class="info"><th colspan="2">Author Attributes</th></tr></thead>
+                            <thead><tr class="info"><th colspan="2"><?php _e('Author Attributes', 'symbiostock') ?></th></tr></thead>
                            
                             <?php if (isset($symbiocard['symbiostock_profession_1']) && !empty($symbiocard['symbiostock_profession_1'])): ?>
-                            <tr><td>Profession 1:</td><td itemprop="jobTitle"><?php echo $symbiocard['symbiostock_profession_1'] ?></td></tr>
+                            <tr><td><?php _e('Profession 1: ', 'symbiostock') ?></td><td itemprop="jobTitle"><?php echo $symbiocard['symbiostock_profession_1'] ?></td></tr>
                             <?php endif; ?>
                             
                             <?php if (isset($symbiocard['symbiostock_profession_2']) && !empty($symbiocard['symbiostock_profession_2'])): ?>
-                            <tr><td>Profession 2: </td><td itemprop="jobTitle"><?php echo $symbiocard['symbiostock_profession_2'] ?></td></tr>
+                            <tr><td><?php _e('Profession 2: ', 'symbiostock') ?></td><td itemprop="jobTitle"><?php echo $symbiocard['symbiostock_profession_2'] ?></td></tr>
                             <?php endif; ?>
                             
                             <?php if (isset($symbiocard['symbiostock_languages']) && !empty($symbiocard['symbiostock_languages'])): ?>
-                            <tr><td>Language(s): </td><td><?php echo $symbiocard['symbiostock_languages'] ?></td></tr> 
+                            <tr><td><?php _e('Language(s):', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_languages'] ?></td></tr> 
                             <?php endif; ?>
                             
                             <?php if (isset($symbiocard['symbiostock_equipment']) && !empty($symbiocard['symbiostock_equipment'])): ?>                    
-                            <tr><td>Equipment: </td><td><?php echo $symbiocard['symbiostock_equipment'] ?></td></tr> 
+                            <tr><td><?php _e('Equipment:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_equipment'] ?></td></tr> 
                             <?php endif; ?>                    
                             
                             <?php if (isset($symbiocard['symbiostock_software']) && !empty($symbiocard['symbiostock_software'])): ?>                 
-                            <tr><td>Software: </td><td><?php echo $symbiocard['symbiostock_software'] ?></td></tr>
+                            <tr><td><?php _e('Software:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_software'] ?></td></tr>
                             <?php endif; ?> 
                             
                             <?php if (isset($symbiocard['symbiostock_open_for_assignment_jobs']) && !empty($symbiocard['symbiostock_open_for_assignment_jobs'])): ?> 
-                            <tr><td>Available for<br /> Assignments: </td><td><?php echo $symbiocard['symbiostock_open_for_assignment_jobs'] ?></td></tr>
+                            <tr><td><?php _e('Available for<br /> Assignments: ', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_open_for_assignment_jobs'] ?></td></tr>
                             <?php endif; ?> 
                             <?php if (isset($home_area) && !empty($home_area)): ?>
-                            <tr><td>Home<br /> Location: </td><td itemprop="address"><?php echo '<a target="_blank" title="' . $home_area . '" href="https://maps.google.com/?q='.urlencode($home_area).'">' . $home_area . '</a>'; ?></td></tr>
+                            <tr><td><?php _e('Home<br /> Location: ', 'symbiostock') ?> </td><td itemprop="address"><?php echo '<a target="_blank" title="' . $home_area . '" href="https://maps.google.com/?q='.urlencode($home_area).'">' . $home_area . '</a>'; ?></td></tr>
                             <?php endif; ?> 
                             
                             <?php if (isset($temp_location_1) && !empty($temp_location_1)): ?>
-                            <tr><td>Temporary<br /> Location 1: </td><td><?php echo '<a target="_blank" title="' . $temp_location_1 . '" href="https://maps.google.com/?q='.urlencode($temp_location_1).'">' . $temp_location_1 . '</a>'; ?></td></tr>
+                            <tr><td><?php _e('Temporary <br /> Location 1: ', 'symbiostock') ?> </td><td><?php echo '<a target="_blank" title="' . $temp_location_1 . '" href="https://maps.google.com/?q='.urlencode($temp_location_1).'">' . $temp_location_1 . '</a>'; ?></td></tr>
                             <?php endif; ?> 
                             
                             <?php if (isset($temp_location_2) && !empty($temp_location_2)): ?>
-                            <tr><td>Temporary<br /> Location 2: </td><td><?php echo '<a target="_blank" title="' . $temp_location_2 . '" href="https://maps.google.com/?q='.urlencode($temp_location_2).'">' . $temp_location_2 . '</a>'; ?></td></tr>
+                            <tr><td><?php _e('Temporary <br /> Location 2: ', 'symbiostock') ?> </td><td><?php echo '<a target="_blank" title="' . $temp_location_2 . '" href="https://maps.google.com/?q='.urlencode($temp_location_2).'">' . $temp_location_2 . '</a>'; ?></td></tr>
                             <?php endif; ?> 
                             
-                            <thead><tr class="info"><th colspan="2">Site Attributes</th></tr></thead>
+                            <thead><tr class="info"><th colspan="2"><?php _e('Site Attributes', 'symbiostock') ?></th></tr></thead>
                             
                             <?php if (isset($symbiocard['symbiostock_num_images']) && !empty($symbiocard['symbiostock_num_images'])): ?>
-                            <tr><td># Images: </td><td><?php echo $symbiocard['symbiostock_num_images'] ?></td></tr> 
+                            <tr><td><?php _e('# Images:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_num_images'] ?></td></tr> 
                             <?php endif; ?> 
                             
                             <?php if (isset($symbiocard['symbiostock_portfolio_focus_1']) && !empty($symbiocard['symbiostock_portfolio_focus_1'])): ?>
-                            <tr><td>Focus 1: </td><td><?php echo $symbiocard['symbiostock_portfolio_focus_1'] ?></td></tr> 
+                            <tr><td><?php _e('Focus 1:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_portfolio_focus_1'] ?></td></tr> 
                             <?php endif; ?> 
                             
                             <?php if (isset($symbiocard['symbiostock_portfolio_focus_2']) && !empty($symbiocard['symbiostock_portfolio_focus_2'])): ?>
-                            <tr><td>Focus 2: </td><td><?php echo $symbiocard['symbiostock_portfolio_focus_2'] ?></td></tr>
+                            <tr><td><?php _e('Focus 2:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_portfolio_focus_2'] ?></td></tr>
                             <?php endif; ?> 
                             
                             <?php if (isset($symbiocard['symbiostock_specialty_1']) && !empty($symbiocard['symbiostock_specialty_1'])): ?>
-                            <tr><td>Specialty 1: </td><td><?php echo $symbiocard['symbiostock_specialty_1'] ?></td></tr>
+                            <tr><td><?php _e('Specialty 1:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_specialty_1'] ?></td></tr>
                             <?php endif; ?>
                             
                             <?php if (isset($symbiocard['symbiostock_specialty_2']) && !empty($symbiocard['symbiostock_specialty_2'])): ?>
-                            <tr><td>Specialty 2: </td><td><?php echo $symbiocard['symbiostock_specialty_2'] ?></td></tr> 
+                            <tr><td><?php _e('Specialty 2:', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_specialty_2'] ?></td></tr> 
                             <?php endif; ?>                    
                                                  
-                            <tr><td>Symbiostock vsn: </td><td><?php echo $symbiocard['symbiostock_version'] ?></td></tr>
-                            <tr><td>Last Update: </td><td><?php echo $symbiocard['symbiostock_csv_generated_time'] ?></td></tr>       
+                            <tr><td><?php _e('Symbiostock vsn', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_version'] ?></td></tr>
+                            <tr><td><?php _e('Last update: ', 'symbiostock') ?> </td><td><?php echo $symbiocard['symbiostock_csv_generated_time'] ?></td></tr>       
                         </table>
                         <div class=row>
                         
-                        <a class="btn btn-primary btn-large col-md-12" title="Get Symbiocard" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>">Get <?php echo $symbiocard['symbiostock_display_name'] ?>'s Symbiocard</a>
+                        <a class="btn btn-primary btn-large col-md-12" title="<?php _e('Get Symbiocard', 'symbiostock') ?>" href="<?php echo $symbiocard['symbiostock_site'].'/symbiocard.csv' ?>"><?php echo $symbiocard['symbiostock_display_name'] ?></a>
                         </div>
                     </div>
                 </div>
@@ -300,14 +300,14 @@ function symbiostock_csv_symbiocard_box($symbiocard_location = '', $compact = tr
 
         <div class="symbiostock_author_avatar panel-body col-md-5">
             
-            <?php         
-            
-            
+            <?php      
+                        
             !isset($symbiocard['symbiostock_personal_photo'])||!isset($symbiocard['symbiostock_personal_photo']) ? $avatar_img = symbiostock_IMGDIR . '/generic-user.jpg' : $avatar_img = $symbiocard['symbiostock_personal_photo'] ;
+            
             ?>
             <p>
             <a class="ssref pull-right" title="<?php echo $symbiocard['symbiostock_display_name']; ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>">          
-                <img class="avatar avatar-150 thumbnail" src="<?php echo $avatar_img  ?>" alt="Author avatar" /> 
+                <img class="avatar avatar-150 thumbnail" src="<?php echo $avatar_img  ?>" alt="<?php _e('Author avatar', 'symbiostock') ?>" /> 
             </a> 
         </div>
         
@@ -341,7 +341,7 @@ function symbiostock_csv_symbiocard_network_results($symbiocard_location = ''){
     ?>
 <img class="network_avatar" alt="<?php echo $symbiocard['symbiostock_my_network_name']; ?>" src="<?php echo $symbiocard['symbiostock_my_network_avatar']; ?>" />            
 <div class="btn-group">    
-    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-user"> </i> <?php echo $symbiocard['symbiostock_display_name'] ?> Network Results:</button>
+    <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="icon-user"> </i> <?php echo $symbiocard['symbiostock_display_name'] ?> <?php _e(' Network Results:', 'symbiostock') ?></button>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <colspan class="caret"></colspan>
     </button> 
@@ -354,27 +354,27 @@ function symbiostock_csv_symbiocard_network_results($symbiocard_location = ''){
         <?php endif; ?>        
             
         <?php if (isset($symbiocard['symbiostock_author_page']) && !empty($symbiocard['symbiostock_author_page'])): ?>
-        <li><a class="ssref" itemprop="" title="Author <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><i class="icon-user"> </i> Author Page</a></li>                
+        <li><a class="ssref" itemprop="" title="<?php _e('Author', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_author_page'] ?>"><i class="icon-user"> </i> <?php _e('Author Page', 'symbiostock') ?></a></li>                
         <?php endif; ?>
         
         <?php if (isset($symbiocard['symbiostock_portfolio']) && !empty($symbiocard['symbiostock_portfolio'])): ?>
-        <li><a itemprop="" class="symbiostock_num_images_link ssref" title="Portfolio" href="<?php echo $symbiocard['symbiostock_portfolio'] ?>"><i class="icon-search"> </i> Portfolio: <?php echo $symbiocard['symbiostock_num_images'] ?> images.</a></li>
+        <li><a itemprop="" class="symbiostock_num_images_link ssref" title="<?php _e('Portfolio:', 'symbiostock') ?>" href="<?php echo $symbiocard['symbiostock_portfolio'] ?>"><i class="icon-search"> </i> <?php _e('Portfolio:', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_num_images'] ?></a></li>
         <?php endif; ?>
         
         <?php if (isset($symbiocard['symbiostock_gallery_page']) && !empty($symbiocard['symbiostock_gallery_page'])): ?>
-        <li><a itemprop="" class="symbiostock_gallery_link ssref" title="Gallery" href="<?php echo $symbiocard['symbiostock_gallery_page'] ?>"><i class="icon-star"> </i> Gallery Page</a></li>
+        <li><a itemprop="" class="symbiostock_gallery_link ssref" title="<?php _e('Gallery', 'symbiostock') ?>" href="<?php echo $symbiocard['symbiostock_gallery_page'] ?>"><i class="icon-star"> </i> <?php _e('Gallery Page:', 'symbiostock') ?></a></li>
         <?php endif; ?>
         
         <?php if (isset($symbiocard['symbiostock_contact_page']) && !empty($symbiocard['symbiostock_contact_page'])): ?>
-        <li><a itemprop="" class="symbiostock_contact_author contact author ssref" title="Contact <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_contact_page'] ?>"><i class="icon-envelope"> </i> Contact <?php echo $symbiocard['symbiostock_first_name'] ?></a></li>
+        <li><a itemprop="" class="symbiostock_contact_author contact author ssref" title="Contact <?php echo $symbiocard['symbiostock_display_name'] ?>" href="<?php echo $symbiocard['symbiostock_contact_page'] ?>"><i class="icon-envelope"> </i> <?php _e('Contact:', 'symbiostock') ?> <?php echo $symbiocard['symbiostock_first_name'] ?></a></li>
         <?php endif; ?>
        
         <?php if (isset($symbiocard['symbiostock_rss']) && !empty($symbiocard['symbiostock_rss'])): ?>
-        <li><a itemprop="" class="symbiostock_author_rss ssref" href="<?php echo $symbiocard['symbiostock_rss'] ?>"><i class="icon-rss"> </i> Updates / RSS</a></li>
+        <li><a itemprop="" class="symbiostock_author_rss ssref" href="<?php echo $symbiocard['symbiostock_rss'] ?>"><i class="icon-rss"> </i> <?php _e('Updates / RSS:', 'symbiostock') ?></a></li>
         <?php endif; ?>
         
         <?php if (isset($symbiocard['symbiostock_network_page']) && !empty($symbiocard['symbiostock_network_page'])): ?>
-        <li><a itemprop="" class="symbiostock_network_page ssref" href="<?php echo $symbiocard['symbiostock_network_page'] ?>"><i class="icon-sitemap"> </i> Network</a></li>
+        <li><a itemprop="" class="symbiostock_network_page ssref" href="<?php echo $symbiocard['symbiostock_network_page'] ?>"><i class="icon-sitemap"> </i> <?php _e('Network:', 'symbiostock') ?></a></li>
         <?php endif; ?>
     </ul>           
 </div>

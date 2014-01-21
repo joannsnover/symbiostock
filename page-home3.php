@@ -13,9 +13,9 @@ get_header(); ?>
     
             <div id="primary" class="content-area col-md-12">
             
-                <?php if(is_active_sidebar( 'Home Page (Above Content)' )): ?>
+                <?php if(is_active_sidebar( 'home-page-above-content' )): ?>
                 <div class="panel panel-default ss-widget-12">
-                    <?php dynamic_sidebar( 'Home Page (Above Content)' ) ?>
+                    <?php dynamic_sidebar( 'home-page-above-content' ) ?>
                 </div>
                 <?php endif; ?>
             
@@ -24,7 +24,7 @@ get_header(); ?>
                     <div class="col-md-6">
                         <div class="panel panel-default ss-widget-6">
                         
-                        <?php dynamic_sidebar( 'Home Page (Beside Content)' ) ?>
+                        <?php dynamic_sidebar( 'home-page-beside-content' ) ?>
                         
                         </div>
                     </div>                
@@ -46,10 +46,10 @@ get_header(); ?>
                 </div><!-- #content .site-content -->
             
             
-            <?php if(is_dynamic_sidebar( 'Home Page (Above Content)' )): ?>
+            <?php if(is_dynamic_sidebar( 'home-page-above-content' )): ?>
             <div class="panel panel-default ss-widget-12">
            
-            <?php dynamic_sidebar( 'Home Page (Below Content)' ) ?>
+            <?php dynamic_sidebar( 'home-page-below-content' ) ?>
             
             </div>
             

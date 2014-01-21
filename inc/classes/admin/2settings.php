@@ -53,66 +53,64 @@ if(empty($logo)){
 global $current_user;
       get_currentuserinfo();
 ?>
-<p>Customize your site's appearance here: <a title="Customize" href="<?php echo get_home_url() ?>/wp-admin/customize.php">Customize Symbiostock</a></p>
-<table class="widefat form-table symbiostock-settings">
+<p><?php _e( 'Customize your site\'s appearance here:', 'symbiostock') ?> <a title="<?php _e( 'Customize', 'symbiostock') ?>" href="<?php echo get_home_url() ?>/wp-admin/customize.php"><?php _e( 'Customize Symbiostock', 'symbiostock') ?></a></p>
+<table class="widefat symbiostock-settings">
     <thead>
         <tr>
-            <th colspan="2"> <strong>Branding and Image</strong> - Paste urls from <a title="Media Uploader" href="<?php echo get_home_url(); ?>/wp-admin/upload.php">media uploader</a> below. <br />
-                <br />
-                <em>Need some templates? (<a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a>)</em>
-                &mdash; <?php echo sshelp('templates', 'Templates'); ?> </th>
+            <th colspan="2"> <strong><?php _e( 'Branding and Image', 'symbiostock') ?></strong> - <?php _e( 'Paste URLS from ', 'symbiostock') ?><a title="<?php _e( 'Media Uploader', 'symbiostock') ?>" href="<?php echo get_home_url(); ?>/wp-admin/upload.php"><?php _e( 'Media uploader', 'symbiostock') ?></a> <?php _e( 'below', 'symbiostock') ?>. <br />
+                           
         </tr>
     </thead>
     
     <?php do_action('ss_settings_table_top') ?>
     
     <tr>
-        <th scope="row">Header Logo<br /><?php echo sshelp('header_logo', 'Header Logo'); ?></th>
+        <th scope="row"><?php _e( 'Header Logo', 'symbiostock') ?><br /><?php echo sshelp('header_logo', __( 'Header Logo', 'symbiostock')); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_logo_link"  id="symbiostock_logo_link" value="<?php echo get_option('symbiostock_logo_link', symbiostock_LOGO  ); ?>" />
     </td>
     </tr>
     <tr>
-        <th scope="row">Login Page Logo<br /> <?php echo sshelp('login_page_logo', 'Login Page Logo'); ?></th>
+        <th scope="row"><?php _e( 'Login Page Logo', 'symbiostock') ?><br /> <?php echo sshelp('login_page_logo', __( 'Login Page Logo', 'symbiostock')); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_login_logo_link"  id="symbiostock_login_logo_link" value="<?php echo get_option('symbiostock_login_logo_link', symbiostock_IMGDIR . '/site-login-logo.png'  ); ?>" />
         </td>
     </tr>
     <tr>
-        <th scope="row">Watermark Image<br /> <?php echo sshelp('watermark_image', 'Watermark Image'); ?></th>
+        <th scope="row"><?php _e( 'Watermark Image', 'symbiostock') ?><br /> <?php echo sshelp('watermark_image', __( 'Watermark Image', 'symbiostock')); ?></th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_watermark_link"  id="symbiostock_watermark_link" value="<?php echo get_option('symbiostock_watermark_link', $watermark ); ?>" />
             <br />
         </td>
     </tr>
     <thead>
         <tr>
-            <th colspan="2"> <strong>Email and Payment Process Communication</strong></th>
+            <th colspan="2"> <strong><?php _e( 'Email and Payment Process Communication', 'symbiostock') ?></strong></th>
         </tr>
     </thead>
     <tr>
-        <th scope="row">Paypal Email &amp; IPN <br />
+        <th scope="row"><?php _e( 'Paypal Email & IPN ', 'symbiostock') ?><br />
             <br />
             <label for="symbiostock_paypal_live">
                 <input type="radio" id="symbiostock_paypal_live" name="symbiostock_paypal_live_or_sandbox" <?php echo $symbiostock_paypal_live; ?> value="live" />
-                <a target="_blank" title="Paypal" href="https://www.paypal.com/">Live</a> </label>
+                <a target="_blank" title="<?php _e( 'Paypal', 'symbiostock') ?>" href="https://www.paypal.com/">Live</a> </label>
             <label for="symbiostock_paypal_sandbox">
                 <input type="radio" id="symbiostock_paypal_sandbox" name="symbiostock_paypal_live_or_sandbox" <?php echo $symbiostock_paypal_sandbox ; ?> value="sandbox" />
-                <a target="_blank" title="Paypal Sandbox" href="https://www.sandbox.paypal.com//">Sandbox (testing)</a> </label>
-                <br /><br /><br /> <?php echo sshelp('paypal', 'Paypal help.'); ?> 
+                <a target="_blank" title="<?php _e( 'Paypal Sandbox', 'symbiostock') ?>" href="https://www.sandbox.paypal.com//"><?php _e( 'Sandbox (testing)', 'symbiostock') ?></a> </label>
+                <br /><br /><br /> <?php echo sshelp('paypal', __('Paypal help.', 'symbiostock')); ?> 
         </th>
         <td><label for="symbiostock_paypal_email">
                 <input class="symbiostock_settings" type="text" name="symbiostock_paypal_email"  id="symbiostock_paypal_email" value="<?php echo get_option('symbiostock_paypal_email'); ?>" />
-                Paypal Email</label>
+                <?php _e( 'Paypal Email', 'symbiostock') ?></label>
             <br />
             <br />
             <label for="symbiostock_ipn"><strong>
                 <input onClick="this.select();" id="symbiostock_ipn" class="symbiostock_settings" type="text"  value="<?php echo get_bloginfo('url') . '/symbiostock_ipn/'; ?>" />
-                </strong> Paypal IPN</label>
+                </strong><?php _e( 'Paypal IPN', 'symbiostock') ?></label>
             <br />
             <br />
             <label for="symbiostock_logo_for_paypal">
                 <input class="symbiostock_settings" type="text" name="symbiostock_logo_for_paypal"  id="symbiostock_logo_for_paypal" value="<?php echo get_option('symbiostock_logo_for_paypal'); ?>" />
-                Site Paypal Logo</label>
+                <?php _e( 'Site Paypal Logo', 'symbiostock') ?></label>
             <br />
-            *Your logo seen on the paypal site when the customer is paying. Exactly <strong>150px by 50px</strong>. 
+            <?php _e( '*Your logo seen on the paypal site when the customer is paying. {Exactly 150px by 50px}. ', 'symbiostock') ?>
             
             <!--CURRENCY--> 
             <br />
@@ -137,28 +135,28 @@ global $current_user;
                 }
             ?>
                 </select>
-                - Shop Currency </label>
+                - <?php _e( 'Shop Currency', 'symbiostock') ?> </label>
             
             <!--/CURRENCY--></td>
     </tr>
     <tr>
-        <th scope="row">Correspondence Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
+        <th scope="row"><?php _e( 'Correspondence Email', 'symbiostock') ?> <br /> <?php echo sshelp('email', __('Email', 'symbiostock') ); ?> </th>
         <td><input class="symbiostock_settings" type="text" name="symbiostock_correspondence_email"  id="symbiostock_correspondence_email" value="<?php echo get_option('symbiostock_correspondence_email', $current_user->user_email); ?>" />
         </td>
     </tr>
     <tr>
-        <th scope="row">Customer Area Greeting</th>
+        <th scope="row"><?php _e( 'Customer Area Greeting', 'symbiostock') ?></th>
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_area_greeting"  id="symbiostock_customer_area_greeting"><?php echo stripslashes(get_option('symbiostock_customer_area_greeting')); ?></textarea>
             <br />
-            Welcome your customer, talk about stuff - <?php echo symbiostock_customer_area( '<em>Top of Customer Area.</em>' ); ?> HTML allowed.</td>
+            <?php _e( 'Welcome your customer, talk about stuff', 'symbiostock') ?> - <?php echo symbiostock_customer_area( __('Top of Customer Area.', 'symbiostock') ); ?> <?php _e( 'HTML Allowed', 'symbiostock') ?></td>
     </tr>
     <tr>
-        <th scope="row">Customer Welcome Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
+        <th scope="row"><?php _e( 'Customer Welcome Email', 'symbiostock') ?> <br /> <?php echo sshelp('email', __( 'Email', 'symbiostock')); ?> </th>
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_welcome_body"  id="symbiostock_customer_welcome_body"><?php echo stripslashes(get_option('symbiostock_customer_welcome_body')); ?></textarea>
         </td>
     </tr>
     <tr>
-        <th scope="row">Customer Thank You Email <br /> <?php echo sshelp('email', 'Email'); ?> </th>
+        <th scope="row"><?php _e( 'Customer Thank You Email', 'symbiostock') ?> <br /> <?php echo sshelp('email', __( 'Email', 'symbiostock') ); ?> </th>
         <td><textarea class="symbiostock_settings" name="symbiostock_customer_thank_you"  id="symbiostock_customer_thank_you"><?php echo stripslashes(get_option('symbiostock_customer_thank_you')); ?></textarea>
         </td>
     </tr>
@@ -167,35 +165,35 @@ global $current_user;
     
     <thead>
         <tr>
-            <th colspan="2"> <strong>Credit Links</strong> &mdash; <?php echo sshelp('credit_links', 'About Credit Links'); ?> </th>
+            <th colspan="2"> <?php _e( 'Credit Links', 'symbiostock') ?> -- <?php echo sshelp('credit_links', __( 'About Credit Links', 'symbiostock')); ?> </th>
         </tr>
     </thead>
     <tr>
         <td colspan="2"><label for="symbiostock_credit_links_1">
                 <input type="radio" id="symbiostock_credit_links_1" name="symbiostock_credit_links" <?php echo $symbiostock_credit_links_product_page; ?> value="product_page" />
-                <strong> Product Page (Suggested)</strong></label>
+                <strong><?php _e( 'Product Page (Suggested)', 'symbiostock') ?></strong></label>
             <br />
             <label for="symbiostock_credit_links_2">
                 <input type="radio" id="symbiostock_credit_links_2" name="symbiostock_credit_links" <?php echo $symbiostock_credit_links_footer ; ?> value="footer" />
-                In Footer </label>
+                <?php _e( 'In Footer', 'symbiostock') ?> </label>
             <br />
             <label for="symbiostock_credit_links_3">
                 <input type="radio" id="symbiostock_credit_links_3" name="symbiostock_credit_links" <?php echo $symbiostock_credit_links_no_use ; ?> value="no_use" />
-                Do Not Use</label>
+                <?php _e( 'Do Not Use', 'symbiostock') ?></label>
             <br />
             <br />
-            Backlinks to <a title="clipartillustration.com" href="http://www.clipartillustration.com/">Leo Blanchette's main selling website</a>, <a title="ClipArtOf.com" href="http://www.clipartof.com/">ClipArtOf.com</a> (Special thanks to Kenny and Jamie), and <a title="Microstockgroup.com" href="http://www.microstockgroup.com/">MicrostockGroup.com</a>, who hosts the Symbiostock knowledge forums.<br />
-            This is one of the few ways I profit on this theme, so I thank you for keeping this live.
+            <?php _e( 'Backlinks to <a title="clipartillustration.com" href="http://www.clipartillustration.com/">Leo Blanchette\'s main selling website</a>, <a title="ClipArtOf.com" href="http://www.clipartof.com/">ClipArtOf.com</a> (Special thanks to Kenny and Jamie), and <a title="Microstockgroup.com" href="http://www.microstockgroup.com/">MicrostockGroup.com</a>, who hosts the Symbiostock knowledge forums.<br />
+            This is one of the few ways I profit on this theme, so I thank you for keeping this live.', 'symbiostock') ?>
             
             <br /><br />
             
             <label for="symbiostock_theme_credit_on">
                 <input type="radio" id="symbiostock_theme_credit_on" name="symbiostock_theme_credit" <?php echo $symbiostock_theme_credit_on; ?> value="on" />
-                Wordpress / Theme credit <strong>ON</strong></label>
+                <?php _e( 'Wordpress / Theme Credit', 'symbiostock') ?> <strong><?php _e( 'ON', 'symbiostock') ?></strong></label>
             <br />
             <label for="symbiostock_theme_credit_off">
                 <input type="radio" id="symbiostock_theme_credit_off" name="symbiostock_theme_credit" <?php echo $symbiostock_theme_credit_off ; ?> value="off" />
-                Wordpress / Theme credit <strong>OFF</strong></label>
+                <?php _e( 'Wordpress / Theme Credit', 'symbiostock') ?>  <strong><?php _e( 'OFF', 'symbiostock') ?></strong></label>
             
             </td>
             
@@ -203,8 +201,8 @@ global $current_user;
     
            
         <tr>
-        <th scope="row">Footer Copyright Info</th>
-        <td><label>Copyright name: <input type="text" class="symbiostock_settings" name="symbiostock_copyright_name"  id="symbiostock__copyright_name" value="<?php echo stripslashes(get_option('symbiostock_copyright_name', '')); ?>" /></label>          
+        <th scope="row"><?php _e( 'Footer Copyright Info', 'symbiostock') ?></th>
+        <td><label><?php _e( 'Copyright Name', 'symbiostock') ?>: <input type="text" class="symbiostock_settings" name="symbiostock_copyright_name"  id="symbiostock__copyright_name" value="<?php echo stripslashes(get_option('symbiostock_copyright_name', '')); ?>" /></label>          
         </td>
     </tr>
 </table>

@@ -37,10 +37,9 @@ get_header(); ?>
             } ?> 
             
             <?php
-            echo '<h1 class="results_for">Images in ' . get_bloginfo('name'). '</em> '.symbiostock_feed('rss_url','icon', 'new-images').'</h1>';
+            echo '<h1 class="results_for">' . get_bloginfo('name'). '</em> '.symbiostock_feed('rss_url','icon', 'new-images').'</h1>';
             
-            $local_results->display_results(false);        
-        
+            $local_results->display_results(false);  
             
             ?>
             </div><!-- #content .site-content -->

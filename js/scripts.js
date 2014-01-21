@@ -260,9 +260,13 @@ jQuery(document).ready(function ($) {
 	$(window).resize(checkWidth);  
 
 
+	
+	var no_match_txt = $('#ss_password_no_match_text').val();
+	var ss_create_account_txt = $('#ss_create_account_text').val();
+	
     //login/logout functions
     $('#ss_account_submit').attr('disabled','disabled');            
-    $('#ss_account_submit').val('Password does not match.');
+    $('#ss_account_submit').val(no_match_txt);
 		
 	$('.password').keyup(function(){
       if($("#ss_password_1").val() == $("#ss_password_2").val()){
@@ -275,13 +279,13 @@ jQuery(document).ready(function ($) {
             }
                           
             $('#ss_account_submit').removeAttr('disabled');
-            $('#ss_account_submit').val('Create Account!');
+            $('#ss_account_submit').val(ss_create_account_txt);
            
             $('.password').removeClass('password_mismatch');
             $('.password').addClass('password_match');
       }else{
             $('#ss_account_submit').attr('disabled','disabled');            
-            $('#ss_account_submit').val('Password does not match.');
+            $('#ss_account_submit').val(no_match_txt);
             
             $('.password').addClass('password_mismatch');
             $('.password').removeClass('password_match');

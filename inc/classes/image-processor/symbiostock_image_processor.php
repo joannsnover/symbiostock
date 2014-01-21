@@ -50,16 +50,16 @@ function symbiostock_get_meta($file){
         
         $date = date("Y/m/d H:i:s"). substr((string)microtime(), 1, 6);
         $new_ps_file_info_array = array(
-             'title' => isset($info[ 'title' ]) && !empty($info[ 'title' ]) ? $info[ 'title' ] : 'Stock image by ' . $author,
+             'title' => isset($info[ 'title' ]) && !empty($info[ 'title' ]) ? $info[ 'title' ] : __('Stock image by ', 'symbiostock') . $author,
             'author' => trim($author),
             'authorsposition' => $info[ 'authorsposition' ],
             'caption' => !empty( $info[ 'caption' ] ) ? $info[ 'caption' ] : 'Stock image by ' . $author,
             'captionwriter' => !empty( $info[ 'captionwriter' ] ) ? $info[ 'captionwriter' ] : $info[ 'author' ],
             'jobname' => $info[ 'jobname' ],
-            'copyrightstatus' => "Copyrighted Work",
-            'copyrightnotice' => trim("Copyright (c) " . trim(date( "Y" )) . " " . $author . "\nImage Location: " . $permalink . "\nImage Contact: " . $current_user->user_email),
+            'copyrightstatus' => __("Copyrighted Work", 'symbiostock'),
+            'copyrightnotice' => trim(__("Copyright (c) ", 'symbiostock') . trim(date( "Y" )) . " " . $author . __("\nImage Location: ", 'symbiostock') . $permalink . __("\nImage Contact: ", 'symbiostock') . $current_user->user_email),
             'ownerurl' => $author_url,
-            'keywords' => isset($info[ 'keywords' ]) && !empty($info[ 'keywords' ]) ? $info[ 'keywords' ] : 'Stock Image, Download, Graphic, Image',
+            'keywords' => isset($info[ 'keywords' ]) && !empty($info[ 'keywords' ]) ? $info[ 'keywords' ] : __('Stock Image, Download, Graphic, Image', 'symbiostock'),
             'category' => $info[ 'category' ],
             'supplementalcategories' => $info[ 'supplementalcategories' ],
             'date' => !empty($info['date'])?$info['date']: $date,
@@ -69,7 +69,7 @@ function symbiostock_get_meta($file){
             'credit' => $info[ 'credit' ],
             'source' => $permalink,
             'headline' => !empty( $info[ 'headline' ] ) ? $info[ 'headline' ] : $info[ 'title' ],
-            'instructions' => !empty( $info[ 'instructions' ] ) ? 'This image is from ' . $author_url . ', by ' . $author . '. Please contact ' . $current_user->user_email . ' if you have found this image being used unlawfully.' : '',
+            'instructions' => !empty( $info[ 'instructions' ] ) ? __('This image is from ', 'symbiostock') . $author_url . __(', by ', 'symbiostock') . $author . __('. Please contact ', 'symbiostock') . $current_user->user_email . __(' if you have found this image being used unlawfully.', 'symbiostock') : '',
             'transmissionreference' => $info[ 'transmissionreference' ],
             'urgency' => $info[ 'urgency' ] 
         );
@@ -125,8 +125,8 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
             'caption' => !empty( $info[ 'caption' ] ) ? $info[ 'caption' ] : $info[ 'title' ],
             'captionwriter' => !empty( $info[ 'captionwriter' ] ) ? $info[ 'captionwriter' ] : $info[ 'author' ],
             'jobname' => $info[ 'jobname' ],
-            'copyrightstatus' => "Copyrighted Work",
-            'copyrightnotice' => trim("Copyright (c) " . trim(date( "Y" )) . " " . $author . "\nImage Location: " . $permalink . "\nImage Contact: " . $current_user->user_email),
+            'copyrightstatus' => __("Copyrighted Work", 'symbiostock'),
+            'copyrightnotice' => trim(__("Copyright (c) ", 'symbiostock') . trim(date( "Y" )) . " " . $author . __("\nImage Location: ", 'symbiostock') . $permalink . __("\nImage Contact: ", 'symbiostock') . $current_user->user_email),
             'ownerurl' => $author_url,
             'keywords' => $info[ 'keywords' ],
             'category' => $info[ 'category' ],
@@ -138,7 +138,7 @@ function symbiostock_update_meta( $original, $source, $destination, $postid )
             'credit' => $info[ 'credit' ],
             'source' => $permalink,
             'headline' => !empty( $info[ 'headline' ] ) ? $info[ 'headline' ] : $info[ 'title' ],
-            'instructions' => !empty( $info[ 'instructions' ] ) ? 'This image is from ' . $author_url . ', by ' . $author . '. Please contact ' . $current_user->user_email . ' if you have found this image being used unlawfully.' : '',
+            'instructions' => !empty( $info[ 'instructions' ] ) ? __('This image is from ', 'symbiostock') . $author_url . __(', by ', 'symbiostock') . $author . __('. Please contact ', 'symbiostock') . $current_user->user_email . __(' if you have found this image being used unlawfully.', 'symbiostock') : '',
             'transmissionreference' => $info[ 'transmissionreference' ],
             'urgency' => $info[ 'urgency' ] 
         );
@@ -237,7 +237,7 @@ class symbiostock_gd_watermark
         // Load source file and render image
         $renderImage = self::_render( $input, $options );
         if ( !$renderImage ) {
-            user_error( 'Error rendering image', E_USER_NOTICE );
+            user_error( __('Error rendering image', 'symbiostock'), E_USER_NOTICE );
             return false;
         } //!$renderImage
         
@@ -248,7 +248,7 @@ class symbiostock_gd_watermark
                 header( 'Content-Type: ' . $content_type );
             } //!headers_sent()
             else {
-                user_error( 'Headers have already been sent. Could not display image.', E_USER_NOTICE );
+                user_error( __('Headers have already been sent. Could not display image.', 'symbiostock'), E_USER_NOTICE );
                 return false;
             }
         } //empty( $output )
@@ -268,13 +268,13 @@ class symbiostock_gd_watermark
                 break;
             
             default:
-                user_error( 'Image type ' . $content_type . ' not supported by PHP', E_USER_NOTICE );
+                user_error( __('Image type ', 'symbiostock') . $content_type . __(' not supported by PHP', 'symbiostock'), E_USER_NOTICE );
                 return false;
         } //$options[ 'type' ]
         
         // Output image (to browser or to file)
         if ( !$result ) {
-            user_error( 'Error output image', E_USER_NOTICE );
+            user_error( __('Error output image', 'symbiostock'), E_USER_NOTICE );
             return false;
         } //!$result
         
@@ -298,13 +298,13 @@ class symbiostock_gd_watermark
     {
         $sourceImage = self::_imageCreate( $input, false );
         if ( !is_resource( $sourceImage ) ) {
-            user_error( 'Invalid image resource', E_USER_NOTICE );
+            user_error( __('Invalid image resource', 'symbiostock'), E_USER_NOTICE );
             return false;
         } //!is_resource( $sourceImage )
         
         $watermark = self::_imageCreate( $options[ 'watermark' ], true );
         if ( !is_resource( $watermark ) ) {
-            user_error( 'Invalid watermark resource', E_USER_NOTICE );
+            user_error( __('Invalid watermark resource', 'symbiostock'), E_USER_NOTICE );
             return false;
         } //!is_resource( $watermark )
         
@@ -361,7 +361,7 @@ class symbiostock_gd_watermark
     private static function _imageCreateFromFile( $filename, $wm = false )
     {
         if ( !is_file( $filename ) || !is_readable( $filename ) ) {
-            user_error( 'Unable to open file "' . $filename . '"', E_USER_NOTICE );
+            user_error( __('Unable to open file "', 'symbiostock') . $filename . '"', E_USER_NOTICE );
             return false;
         } //!is_file( $filename ) || !is_readable( $filename )
         
@@ -400,7 +400,7 @@ class symbiostock_gd_watermark
                 }
                 break;
         } //$type
-        user_error( 'Unsupport image type', E_USER_NOTICE );
+        user_error( __('Unsupport image type', 'symbiostock'), E_USER_NOTICE );
         return false;
     }
     
@@ -416,7 +416,7 @@ class symbiostock_gd_watermark
     private static function _imageCreateFromString( $string )
     {
         if ( !is_string( $string ) || empty( $string ) ) {
-            user_error( 'Invalid image value in string', E_USER_NOTICE );
+            user_error( __('Invalid image value in string', 'symbiostock'), E_USER_NOTICE );
             return false;
         } //!is_string( $string ) || empty( $string )
         
@@ -462,7 +462,7 @@ function symbiostock_watermark_image( $source_path, $destination, $watermark_pat
 
         if(!ss_url_exists($watermark_path)){
             
-            echo '<p>Cannot find watermark at location: <strong>' . $watermark_path . '< ... Please check that you entered it correctly in your Settings Area. Default watermark used.';
+            echo '<p>'.__('Cannot find watermark at location:', 'symbiostock') . '<strong>' . $watermark_path . __(' ... Please check that you entered it correctly in your Settings Area. Default watermark used.', 'symbiostock') . '</p>';
             
             $watermark_path = symbiostock_CLASSROOT . 'image-processor/symbiostock-watermark.png';
         
@@ -880,7 +880,7 @@ class symbiostock_image_processor
                 $title = $post_stuff[ 'post_title' ];
                 
                 //make it file-name ready...
-                $title = sanitize_title( $title, 'stock-image-content.jpg' );
+                $title = sanitize_title( $title, __('stock-image-content', 'symbiostock'). '.jpg' );
                 
                 $name = $posted_id . '-' . $title . '.jpg';
                 
@@ -926,7 +926,7 @@ class symbiostock_image_processor
                         
                         'post_title' => 'Stock Image: ' . ucwords( $post_stuff[ 'post_title' ] ),
                         
-                        'post_content' => '<p>Preview image for image <a title="Stock Image" href="' . $parent_permalink . '">' . $post_stuff[ 'post_title' ] . '</a></p>',
+                        'post_content' => '<p>' . __('Preview image for image:', 'symbiostock') . ' <a title="'. __('Stock Image', 'symbiostock') .'" href="' . $parent_permalink . '">' . $post_stuff[ 'post_title' ] . '</a></p>',
                         
                         'post_status' => 'inherit' 
                         
@@ -946,9 +946,9 @@ class symbiostock_image_processor
                         
                          'post_mime_type' => $wp_filetype[ 'type' ],
                         
-                        'post_title' => 'Transparency Preview For ' . ucwords( $post_stuff[ 'post_title' ] ),
+                        'post_title' => __('Transparency Preview For: ', 'symbiostock') . ucwords( $post_stuff[ 'post_title' ] ),
                         
-                        'post_content' => '<p>PNG transparency preview for stock image: <a title="Image" href="' . $parent_permalink . '">' . $post_stuff[ 'post_title' ] . '</a></p>',
+                        'post_content' => '<p>' . __('PNG transparency preview for stock image: ', 'symbiostock'). ' <a title="'.__('Image', 'symbiostock').'" href="' . $parent_permalink . '">' . $post_stuff[ 'post_title' ] . '</a></p>',
                         
                         'post_status' => 'inherit' 
                         
@@ -1020,7 +1020,7 @@ class symbiostock_image_processor
             $old_file = $this->upload_dir . $image_file . '.' . $type;
               if ( file_exists( $old_file ) ) {
                 if ( !copy( $old_file, symbiostock_STOCKDIR . $created_page . '.' . $type ) ) {
-                    echo "failed to copy $file...\n";
+                    echo __("failed to copy", 'symbiostock') .  "$file...\n";
                     
                     }
                 
@@ -1070,14 +1070,14 @@ class symbiostock_image_processor
         $image = getimagesize( $path, $info );
         
         if ( isset( $info[ 'APP13' ] ) ) {
-            die( 'Error: IPTC data found in source image, cannot continue' );
+            die( __('Error: IPTC data found in source image, cannot continue', 'symbiostock') );
         } //isset( $info[ 'APP13' ] )
         
         if( isset($info[ '2#025' ] ) && is_array($info[ '2#025' ]) && !empty($info[ '2#025' ] )){
             
             $keywords = implode( ",\n ", $info[ '2#025' ] );
             
-            } else {$keywords = "graphic,\n image,\n ";}
+            } else {$keywords = __("graphic,\n image,\n ", 'symbiostock');}
         
         // Set the IPTC tags
         $size = getimagesize( $old_file, $info );
@@ -1135,7 +1135,7 @@ class symbiostock_image_processor
                 $this->error = true;
                 echo '<br />';
                 $error = $image->get_error_message();
-                echo 'There was a problem with the file...';
+                echo __('There was a problem with the file...', 'symbiostock');
                 return;                
             }
             
@@ -1166,7 +1166,7 @@ class symbiostock_image_processor
             
         } //in_array( 'jpg', $info[ 'extensions' ] )
         else {
-            $this->report .= '<p class="alert">No jpeg file found for file: ' . $name . '</p>';
+            $this->report .= '<p class="alert">'.__('No jpeg file found for file: ', 'symbiostock') . $name . '</p>';
             return false;
         }
         
@@ -1293,7 +1293,7 @@ class symbiostock_image_processor
         //make sure we have at least one image file.
         
         if ( !in_array( 'jpg', $available_extensions ) && !in_array( 'png', $available_extensions ) ) {
-            $reports .= '<li>' . $bad_icon . '<span class="negative">No matching image files found. You may have named them incorrectly. Fix problem and re-upload. <strong>This file has been removed</strong>. </span><strong>Example:</strong> "<em><strong>my_stock_art</strong>.eps</em>" or "<em><strong>my_stock_art</strong>.zip</em>" must have accompanying ""<em><strong>my_stock_art</strong>.jpg</em>" to be considered a valid set/file.</li>';
+            $reports .= '<li>' . $bad_icon . __('<span class="negative">No matching image files found. You may have named them incorrectly. Fix problem and re-upload. <strong>This file has been removed</strong>. </span><strong>Example:</strong> "<em><strong>my_stock_art</strong>.eps</em>" or "<em><strong>my_stock_art</strong>.zip</em>" must have accompanying ""<em><strong>my_stock_art</strong>.jpg</em>" to be considered a valid set/file.', 'symbiostock') . '</li>';
             
             //$this->delete_image( $file_name );
             
@@ -1301,39 +1301,39 @@ class symbiostock_image_processor
         
         
         if ( !in_array( 'jpg', $available_extensions ) && in_array( 'png', $available_extensions ) ) {
-            $reports .= '<li class="neutral">' . $good_icon . '<strong>.png</strong> image only. Make sure it contains transparency.</li>';
+            $reports .= '<li class="neutral">' . $good_icon . __('<strong>.png</strong> image only. Make sure it contains transparency.', 'symbiostock') . '</li>';
             
         } //!in_array( 'jpg', $available_extensions ) && in_array( 'png', $available_extensions )
         if ( in_array( 'jpg', $available_extensions ) && in_array( 'eps', $available_extensions ) ) {
-            $reports .= '<li class="neutral">' . $good_icon . 'This is a vector image.</li>';
+            $reports .= '<li class="neutral">' . $good_icon . __('This is a vector image.', 'symbiostock') . '</li>';
             
         } //in_array( 'jpg', $available_extensions ) && in_array( 'eps', $available_extensions )
         
         //if we have a jpeg, see if it contains all IPTC data.    
         if ( in_array( 'jpg', $available_extensions ) ) {
             if ( !empty( $attributes[ $file_name ][ 'title' ] ) ) {
-                $reports .= '<li class="positive">' . $good_icon . 'Title found.</li>';
+                $reports .= '<li class="positive">' . $good_icon . __('Title found.', 'symbiostock').'</li>';
             } //!empty( $attributes[ $file_name ][ 'title' ] )
             else {
-                $reports .= '<li class="negative">' . $bad_icon . 'Title not found.</li>';
+                $reports .= '<li class="negative">' . $bad_icon . __('Title not found.', 'symbiostock').'</li>';
             }
             
             if ( !empty( $attributes[ $file_name ][ 'desc' ] ) ) {
-                $reports .= '<li class="positive">' . $good_icon . 'Description found.</li>';
+                $reports .= '<li class="positive">' . $good_icon . __('Description found.', 'symbiostock').'</li>';
             } //!empty( $attributes[ $file_name ][ 'desc' ] )
             else {
-                $reports .= '<li class="negative">' . $bad_icon . 'Description not found.</li>';
+                $reports .= '<li class="negative">' . $bad_icon . __('Description not found', 'symbiostock').'.</li>';
             }
             
             if ( !empty( $attributes[ $file_name ][ 'keywords' ] ) ) {
-                $reports .= '<li class="positive">' . $good_icon . 'Keywords found.</li>';
+                $reports .= '<li class="positive">' . $good_icon . __('Keywords found.', 'symbiostock').'</li>';
             } //!empty( $attributes[ $file_name ][ 'keywords' ] )
             else {
-                $reports .= '<li class="negative">' . $bad_icon . 'Keywords not found.</li>';
+                $reports .= '<li class="negative">' . $bad_icon . __('Keywords not found.', 'symbiostock').'</li>';
             }
             
             if ( empty( $attributes[ $file_name ][ 'title' ] ) && empty( $attributes[ $file_name ][ 'desc' ] ) ) {
-                $reports .= '<li class="negative">' . $bad_icon . 'Title and description empty. <strong>Save as draft and edit to fix</strong>.</li>';
+                $reports .= '<li class="negative">' . $bad_icon . __('Title and description empty. <strong>Save as draft and edit to fix</strong>.', 'symbiostock').'</li>';
             } //empty( $attributes[ $file_name ][ 'title' ] ) && empty( $attributes[ $file_name ][ 'desc' ] )
             
         } //in_array( 'jpg', $available_extensions )
@@ -1363,7 +1363,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'image-x-generic-32.png';
                 
-                $title = 'png file';
+                $title = __('png file', 'symbiostock');
                 
                 break;
             
@@ -1371,7 +1371,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'image-x-eps-32.png';
                 
-                $title = 'encapsulated postscript, vector graphic';
+                $title = __('encapsulated postscript, vector graphic', 'symbiostock');
                 
                 break;
             
@@ -1379,7 +1379,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'application-zip-32.png';
                 
-                $title = 'zip file';
+                $title = __('zip file', 'symbiostock');
                 
                 break;
             
@@ -1387,7 +1387,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'image-x-generic-jpg-32.png';
                 
-                $title = 'jpeg';
+                $title = __('jpeg', 'symbiostock');
                 
                 break;
             
@@ -1395,7 +1395,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'name.png';
                 
-                $title = 'File Name';
+                $title = __('File Name', 'symbiostock');
                 
                 break;
             
@@ -1411,7 +1411,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'supplied.png';
                 
-                $title = 'supplied';
+                $title = __('supplied', 'symbiostock');
                 
                 break;
             
@@ -1419,7 +1419,7 @@ class symbiostock_image_processor
                 
                 $url = $src . 'none.png';
                 
-                $title = 'not supplied';
+                $title = __('not supplied', 'symbiostock');
                 
                 break;
                 
@@ -1501,20 +1501,20 @@ class symbiostock_image_processor
      
         if(function_exists('exec')){
         	                	
-        	$exec_access = ' (<em><strong>exec</strong> enabled</em>)';
+        	$exec_access = __(' (<em><strong>exec</strong> enabled</em>)', 'symbiostock');
         
         } else {
         
-        	$exec_access =  ' (<em><strong>exec</strong> disabled</em>)';
+        	$exec_access =  __(' (<em><strong>exec</strong> disabled</em>)', 'symbiostock');
         }   
         
      if( extension_loaded( 'imagick' ) ||  class_exists( 'Imagick' ) ||  class_exists( 'ImagickPixel' )) 
-     { $using = '<span class="description">Using <strong>ImageMagick</strong> '.$exec_access.'.</span>'; } 
+     { $using = '<span class="description">'.__('Using <strong>ImageMagick</strong> ', 'symbiostock').$exec_access.'.</span>'; } 
      else  
-     { $using = '<span class="description">Using <strong>GD Library</strong>'.$exec_access.'.</span>'; }
+     { $using = '<span class="description">'.__('Using <strong>GD Library</strong>').$exec_access.'.</span>'; }
         
 ?> 
-<p><?php echo $using; ?> <?php echo sshelp('image_processing', 'Image Processing.'); ?></p>
+<p><?php echo $using; ?> <?php echo sshelp('image_processing', __('Image Processing.', 'symbiostock')); ?></p>
 <table class="symbiostock-image-processor wp-list-table widefat"> 
         
                 <thead>
@@ -1522,12 +1522,12 @@ class symbiostock_image_processor
                         <th class="manage-column column-cb check-column" id="cb" scope="col"> <input type="checkbox" id="cb-select-all-1">
                         </th>
                         <th class="manage-column jpg" scope="col">#</th>
-                        <th class="manage-column jpg" scope="col">File Name</th>
-                        <th class="manage-column jpg" scope="col">Info </th>
-                        <th class="manage-column jpg" scope="col">jpeg</th>
-                        <th class="manage-column png" scope="col">png</th>
-                        <th class="manage-column eps" scope="col">eps</th>
-                        <th class="manage-column zip" scope="col">zip</th>
+                        <th class="manage-column jpg" scope="col"><?php _e( 'File Name', 'symbiostock') ?></th>
+                        <th class="manage-column jpg" scope="col"><?php _e( 'Info', 'symbiostock') ?> </th>
+                        <th class="manage-column jpg" scope="col"><?php _e( 'jpeg', 'symbiostock') ?></th>
+                        <th class="manage-column png" scope="col"><?php _e( 'png', 'symbiostock') ?></th>
+                        <th class="manage-column eps" scope="col"><?php _e( 'eps', 'symbiostock') ?></th>
+                        <th class="manage-column zip" scope="col"><?php _e( 'zip', 'symbiostock') ?></th>
                     </tr>
                 </thead>
                 <tr class="key">
@@ -1609,12 +1609,12 @@ class symbiostock_image_processor
                 <th class="manage-column column-cb check-column" id="cb" scope="col"> <input type="checkbox" id="cb-select-all-2">
                 </th>
                 <th class="manage-column jpg" scope="col">#</th>
-                <th class="manage-column jpg" scope="col">File Name</th>
-                <th class="manage-column jpg" scope="col">Info</th>
-                <th class="manage-column jpg" scope="col">jpeg</th>
-                <th class="manage-column png" scope="col">png</th>
-                <th class="manage-column eps" scope="col">eps</th>
-                <th class="manage-column zip" scope="col">zip</th>
+                <th class="manage-column jpg" scope="col"><?php _e( 'File Name', 'symbiostock') ?></th>
+                <th class="manage-column jpg" scope="col"><?php _e( 'Info', 'symbiostock') ?></th>
+                <th class="manage-column jpg" scope="col"><?php _e( 'jpeg', 'symbiostock') ?></th>
+                <th class="manage-column png" scope="col"><?php _e( 'png', 'symbiostock') ?></th>
+                <th class="manage-column eps" scope="col"><?php _e( 'eps', 'symbiostock') ?></th>
+                <th class="manage-column zip" scope="col"><?php _e( 'zip', 'symbiostock') ?></th>
             </tr>
         </tfoot>
         
@@ -1654,7 +1654,7 @@ class symbiostock_image_processor
             
             'post_excerpt' => $excerpt, //For all your post excerpt needs.
             
-            'post_name' => !isset($title) || empty($title) ? 'Image / Graphic' : $title, // The name (slug) for your post
+            'post_name' => !isset($title) || empty($title) ? __('Image / Graphic', 'symbiostock') : $title, // The name (slug) for your post
             
             'post_status' => $status, //[ 'draft' | 'publish' | 'pending'| 'future' | 'private' | custom registered status ] 
             
@@ -1724,7 +1724,7 @@ class symbiostock_image_processor
                 
                 return $file_size;
                 
-                } else { return 'N/A'; }
+                } else { return __('N/A', 'symbiostock'); }
             
             break;
             
@@ -1738,7 +1738,7 @@ class symbiostock_image_processor
                 
                 return $file_size;                
                 
-                } else { return 'N/A'; }
+                } else { return __('N/A', 'symbiostock'); }
                         
             break;
                         
@@ -1792,7 +1792,7 @@ class symbiostock_image_processor
         
         $width_scaled > 1500 || $height_scaled > 1500 ? $dpi = 300 : $dpi = 72;
         
-        $inches_dpi_statement = round( $width_scaled / $dpi, 2 ) . '" &times; ' . round( $height_scaled / $dpi, 2 ) . '" @ ' . $dpi . ' dpi';
+        $inches_dpi_statement = round( $width_scaled / $dpi, 2 ) . '" &times; ' . round( $height_scaled / $dpi, 2 ) . '" @ ' . $dpi . __(' dpi', 'symbiostock');
         
         $pixel_statement = $width_scaled . ' &times; ' . $height_scaled . 'px';
         
@@ -1925,21 +1925,21 @@ class symbiostock_image_processor
             
             'price_zip' => get_option( 'price_zip', '25.00' ),
             
-            'symbiostock_bloggee_available' => get_option( 'symbiostock_bloggee_available', 'yes'),
+            'symbiostock_bloggee_available' => get_option( 'symbiostock_bloggee_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_small_available'   => get_option( 'symbiostock_small_available', 'yes'),
+            'symbiostock_small_available'   => get_option( 'symbiostock_small_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_medium_available'  => get_option( 'symbiostock_medium_available', 'yes'),
+            'symbiostock_medium_available'  => get_option( 'symbiostock_medium_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_large_available'   => get_option( 'symbiostock_large_available', 'yes'),
+            'symbiostock_large_available'   => get_option( 'symbiostock_large_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_vector_available'  => get_option( 'symbiostock_vector_available', 'yes'),
+            'symbiostock_vector_available'  => get_option( 'symbiostock_vector_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_zip_available'     => get_option( 'symbiostock_zip_available', 'yes'),
+            'symbiostock_zip_available'     => get_option( 'symbiostock_zip_available', __( 'yes', 'symbiostock') ),
             
-            'symbiostock_model_released'     => get_option('symbiostock_model_released', 'N/A'),
+            'symbiostock_model_released'     => get_option('symbiostock_model_released', __( 'N/A', 'symbiostock') ),
             
-            'symbiostock_property_released'     => get_option('symbiostock_property_released', 'N/A'),
+            'symbiostock_property_released'     => get_option('symbiostock_property_released', __( 'N/A', 'symbiostock') ),
             
             'size_eps' => $this->get_file_size($data, 'eps'),
             
@@ -1984,7 +1984,7 @@ class symbiostock_image_processor
         
         //Did user select the files to process?
         if ( empty( $_POST[ 'process-image' ] ) ) {
-            echo '<p><em>Please select files to process.</em></p>';
+            echo '<p><em>'.__('Please select files to process.', 'symbiostock').'</em></p>';
             
             return;
             
@@ -2024,11 +2024,11 @@ class symbiostock_image_processor
                 
                 $data[ $image_file ] = array(
                     
-                     'title' => 'Stock Image',
+                     'title' => __('Stock Image', 'symbiostock'),
                     
-                    'desc' => 'Stock Image',
+                    'desc' => __('Stock Image', 'symbiostock'),
                     
-                    'keywords' => 'Stock Image, Graphic, Download' 
+                    'keywords' => __('Stock Image, Graphic, Download', 'symbiostock') 
                     
                 );
                 

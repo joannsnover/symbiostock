@@ -26,7 +26,7 @@ get_header(); ?>
             $title = $term->name;            
                     
             ?>
-            <h1 class="results_for">Images in Collection: <strong><?php echo  ucwords($title)  ?></strong><?php echo symbiostock_feed('rss_url','icon', 'Collection') ?></h1>;
+            <h1 class="results_for"><?php _e('Images in Collection:', 'symbiostock') ?> <strong><?php echo  ucwords($title)  ?></strong><?php echo symbiostock_feed('rss_url','icon', 'Collection') ?></h1>;
             <?php
             
                 $args = array(

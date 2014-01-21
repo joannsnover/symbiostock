@@ -13,9 +13,9 @@ class symbiostock_featured_images extends WP_Widget{
         
             'symbiostock_featured_images',
             
-            'Featured Images',
+            __('Featured Images', 'symbiostock'),
             
-            array( 'description' => __( 'Symbiostock featured images below content area.' ) )
+            array( 'description' => __( 'Symbiostock featured images below content area.', 'symbiostock' ) )
         
         );
         
@@ -25,17 +25,17 @@ class symbiostock_featured_images extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Featured Images';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Featured Images', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
     <br />
     <br />
-    Symbiostock installs with a <em><strong>Symbiostock Featured Images</strong></em> category. Images in this category will show up where this widget is added. 6 images suggested max.
+    <?php _e( 'Symbiostock installs with a <em><strong>Symbiostock Featured Images</strong></em> category. Images in this category will show up where this widget is added. 6 images suggested max.', 'symbiostock') ?>
 </p>
 <?php
                 
@@ -87,7 +87,7 @@ class symbiostock_featured_images extends WP_Widget{
         
         } else {
                         
-            echo '<p>Featured Images category does not exist. Has it been deleted? Please re-activate theme and place featured images into "Symbiostock Featured Images" category.</p>';
+            echo __('<p>Featured Images category does not exist. Has it been deleted? Please re-activate theme and place featured images into "Symbiostock Featured Images" category.</p>', 'symbiostock');
             
             }
         $featuredWidget = new WP_Query($args);
@@ -135,9 +135,9 @@ class symbiostock_latest_images extends WP_Widget{
         
             'symbiostock_latest_images',
             
-            'Latest Images',
+            __('Latest Images', 'symbiostock'),
             
-            array( 'description' => __( 'Displays your latest images on whatever widget you assign it to.' ) )
+            array( 'description' => __( 'Displays your latest images on whatever widget you assign it to.', 'symbiostock' ) )
         
         );
         
@@ -148,23 +148,23 @@ class symbiostock_latest_images extends WP_Widget{
         //outputs the options form on Admin screen
         // jas looking for number as well as title
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Latest Images';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Latest Images', 'symbiostock');
         $num = (isset( $instance[ 'num' ])) ? $instance[ 'num' ] : '6';
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
     <!--jas ask how many images; no more than24? the max will allow only that number via the arrows but more can be typed in -->
     <label for="<?php echo $this->get_field_id( 'num' ); ?>">
-        <?php _e( 'How many? ' ); ?>
+        <?php _e( 'How many? ', 'symbiostock'  ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'num' ); ?>" name="<?php echo $this->get_field_name( 'num' ); ?>"  type="number" min="1" max="24" value ="<?php echo esc_attr( $num ); ?>" />
 
     <br />
     <br />
-    Displays your latest images!
+    <?php _e( 'Displays your latest images!', 'symbiostock') ?>
 </p>
 <?php
                 
@@ -246,9 +246,9 @@ class symbiostock_mobile_navigation extends WP_Widget{
         
             'symbiostock_mobile_nav',
             
-            'Mobile Navigation',
+            __('Mobile Navigation', 'symbiostock'),
             
-            array( 'description' => __( 'Dropdown menu of main navigation for devices with small screens.' ) )
+            array( 'description' => __( 'Dropdown menu of main navigation for devices with small screens.', 'symbiostock' ) )
         
         );
         
@@ -258,12 +258,12 @@ class symbiostock_mobile_navigation extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Mobile Navigation';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Mobile Navigation', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
 </p>
@@ -313,9 +313,9 @@ class symbiostock_latest_images_preview_slider extends WP_Widget{
         
             'symbiostock_latest_images_preview_slider',
             
-            'Latest Images Slider (Large)',
+            __('Latest Images Slider (Large)', 'symbiostock'),
             
-            array( 'description' => __( 'Shows latest images (preview size).' ) )
+            array( 'description' => __( 'Shows latest images (preview size).', 'symbiostock' ) )
         
         );
         
@@ -325,7 +325,7 @@ class symbiostock_latest_images_preview_slider extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Latest Images';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Latest Images', 'symbiostock');
         
         ?>
 <p>
@@ -333,7 +333,7 @@ class symbiostock_latest_images_preview_slider extends WP_Widget{
         <?php _e( 'Title: ' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>This widget displays sliding previews of <strong>latest</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use: <?php echo sshelp('shortcodes', 'See Shortcodes Help'); ?></p>
+    <p><?php _e( 'This widget displays sliding previews of <strong>latest</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use: ', 'symbiostock') ?> <?php echo sshelp('shortcodes', __('See Shortcodes Help', 'symbiostock')); ?></p>
 </p>
 <?php
                 
@@ -378,9 +378,9 @@ class symbiostock_latest_images_minipic_slider extends WP_Widget{
         
             'symbiostock_latest_images_minipic_slider',
             
-            'Latest Images Slider (Small)',
+            __('Latest Images Slider (Small)', 'symbiostock'),
             
-            array( 'description' => __( 'Shows latest images (minipic size).' ) )
+            array( 'description' => __( 'Shows latest images (minipic size).', 'symbiostock' ) )
         
         );
         
@@ -390,15 +390,16 @@ class symbiostock_latest_images_minipic_slider extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Latest Images';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Latest Images', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>This widget displays sliding minipics of <strong>latest</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use: <?php echo sshelp('shortcodes', 'See Shortcodes Help'); ?></p>
+    <p><?php _e( 'This widget displays sliding minipics of <strong>latest</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use:', 'symbiostock') ?>
+     <?php echo sshelp('shortcodes', __('See Shortcodes Help', 'symbiostock')); ?></p>
 </p>
 <?php
                 
@@ -443,9 +444,9 @@ class symbiostock_featured_images_preview_slider extends WP_Widget{
         
             'symbiostock_featured_images_preview_slider',
             
-            'Featured Images Slider (Large)',
+            __('Featured Images Slider (Large)', 'symbiostock'),
             
-            array( 'description' => __( 'Shows featured images (preview size).' ) )
+            array( 'description' => __( 'Shows featured images (preview size).', 'symbiostock' ) )
         
         );
         
@@ -455,15 +456,16 @@ class symbiostock_featured_images_preview_slider extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Featured Images';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Featured Images', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>This widget displays sliding previews of <strong>featured</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use: <?php echo sshelp('shortcodes', 'See Shortcodes Help'); ?></p>
+    <p><?php _e( 'This widget displays sliding previews of <strong>featured</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use:', 'symbiostock') ?>
+     <?php echo sshelp('shortcodes', __('See Shortcodes Help', 'symbiostock')); ?></p>
 </p>
 <?php
                 
@@ -508,9 +510,9 @@ class symbiostock_featured_images_minipic_slider extends WP_Widget{
         
             'symbiostock_featured_images_minipic_slider',
             
-            'Featured Images Slider (Small)',
+            __('Featured Images Slider (Small)', 'symbiostock'),
             
-            array( 'description' => __( 'Shows featured images (minipic size).' ) )
+            array( 'description' => __( 'Shows featured images (minipic size).', 'symbiostock' ) )
         
         );
         
@@ -525,10 +527,10 @@ class symbiostock_featured_images_minipic_slider extends WP_Widget{
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>This widget displays sliding minipics of <strong>featured</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use: <?php echo sshelp('shortcodes', 'See Shortcodes Help'); ?></p>
+    <p><?php _e( 'This widget displays sliding minipics of <strong>featured</strong> images. Also utilizes <strong>shortcodes</strong> for your freedom of use:', 'symbiostock') ?> <?php echo sshelp('shortcodes', __('See Shortcodes Help', 'symbiostock')); ?></p>
 </p>
 <?php
                 
@@ -574,9 +576,9 @@ class symbiostock_network_members extends WP_Widget{
         
             'symbiostock_network_members',
             
-            'Symbiostock Network (Detailed)',
+            __('Symbiostock Network (Detailed)', 'symbiostock'),
             
-            array( 'description' => __( 'Detailed list of your site network members.' ) )
+            array( 'description' => __( 'Detailed list of your site network members.', 'symbiostock' ) )
         
         );
         
@@ -586,15 +588,15 @@ class symbiostock_network_members extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Network Members';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Network Members', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>Displays your network members in a detailed listing.</p>
+    <p><?php _e( 'Displays your network members in a detailed listing.', 'symbiostock') ?></p>
 </p>
 <?php
                 
@@ -639,9 +641,9 @@ class symbiostock_network_members_simple extends WP_Widget{
         
             'symbiostock_network_members_simple',
             
-            'Symbiostock Network (Simple)',
+            __('Symbiostock Network (Simple)', 'symbiostock'),
             
-            array( 'description' => __( 'simple list of your site network members.' ) )
+            array( 'description' => __( 'simple list of your site network members.', 'symbiostock' ) )
         
         );
         
@@ -651,15 +653,15 @@ class symbiostock_network_members_simple extends WP_Widget{
         
         //outputs the options form on Admin screen
         
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Network Members';
+        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Network Members', 'symbiostock');
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" /><br />
-    <p>Displays your network members in a simple listing.</p>
+    <p><?php _e( 'Displays your network members in a simple listing.', 'symbiostock') ?></p>
 </p>
 <?php
                 
@@ -703,9 +705,9 @@ class symbiostock_network_directory extends WP_Widget{
         
             'symbiostock_network_directory',
             
-            'Symbiostock Network Directory',
+            __('Symbiostock Network Directory', 'symbiostock'),
             
-            array( 'description' => __( 'Network directory, automatically scanned / created.' ) )
+            array( 'description' => __( 'Network directory, automatically scanned / created.', 'symbiostock' ) )
         
         );
         
@@ -714,7 +716,7 @@ class symbiostock_network_directory extends WP_Widget{
     public function form( $instance ) {
       
         
-        ?><p>A prominent widget which links to your site's Symbiostock directory (an area automatically created and maintained by your site).</p><?php
+        ?><p><?php _e( 'A prominent widget which links to your site\'s Symbiostock directory (an area automatically created and maintained by your site).', 'symbiostock') ?></p><?php
                 
         }    
         
@@ -749,9 +751,9 @@ class symbiostock_similar_images extends WP_Widget{
         
             'symbiostock_similar_images',
             
-            'Symbiostock - Similar Images',
+            __('Symbiostock - Similar Images', 'symbiostock'),
             
-            array( 'description' => __( 'Shows related images on a given image page.' ) )
+            array( 'description' => __( 'Shows related images on a given image page.', 'symbiostock' ) )
         
         );
         
@@ -761,24 +763,24 @@ class symbiostock_similar_images extends WP_Widget{
         
         //outputs the options form on Admin screen
         // jas looking for number of thumbs and number of columns as well as title; default to 6 images and 2 columns
-        $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : 'Similar Images';
+         $title = (isset( $instance[ 'title' ])) ? $instance[ 'title' ] : __('Similar Images', 'symbiostock');
         $num = (isset( $instance[ 'num' ])) ? $instance[ 'num' ] : '6';
         $cols = (isset( $instance[ 'cols' ])) ? $instance[ 'cols' ] : '2';
         
         ?>
 <p>
     <label for="<?php echo $this->get_field_id( 'title' ); ?>">
-        <?php _e( 'Title: ' ); ?>
+        <?php _e( 'Title: ', 'symbiostock' ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value ="<?php echo esc_attr( $title ); ?>" />
     <!--jas ask how many images; no more than 24? the max will allow only that number via the arrows but more can be typed in -->
     <label for="<?php echo $this->get_field_id( 'num' ); ?>">
-        <?php _e( 'How many images? ' ); ?>
+        <?php _e( 'How many images? ', 'symbiostock'  ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'num' ); ?>" name="<?php echo $this->get_field_name( 'num' ); ?>"  type="number" min="1" max="24" value ="<?php echo esc_attr( $num ); ?>" />
     <!--jas ask how many columns; no more than 4? the max will allow only that number via the arrows but more can be typed in -->
     <label for="<?php echo $this->get_field_id( 'cols' ); ?>">
-        <?php _e( 'How many columns? ' ); ?>
+        <?php _e( 'How many columns? ', 'symbiostock'  ); ?>
     </label>
     <input class="widefat" id="<?php echo $this->get_field_id( 'cols' ); ?>" name="<?php echo $this->get_field_name( 'cols' ); ?>"  type="number" min="1" max="4" value ="<?php echo esc_attr( $cols ); ?>" />
 

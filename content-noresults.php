@@ -8,12 +8,12 @@
         <div id="content" class="site-content col-md-12" role="main">
             <article id="post-0" class="post error404 not-found">
                 <header class="entry-header">
-                    <h1 class="entry-title"><?php _e( 'No results found for ' . ucwords(urldecode (get_query_var('image-tags'))), 'symbiostock' ); ?></h1>
+                    <h1 class="entry-title"><?php _e( 'No results found for ', 'symbiostock' ) . ucwords(urldecode (get_query_var('image-tags'))); ?></h1>
                 </header><!-- .entry-header -->
                 <div class="entry-content">
                     
            <div class="jumbotron">
-                    <h2>No Results found. Try browsing the categories. Maybe you will find some hidden gems!</h2>                    
+                    <h2><?php _e('No Results found. Try browsing the categories.', 'symbiostock') ?></h2>                    
                    <?php
                    
                    //list terms in a given taxonomy using wp_list_categories (also useful as a widget if using a PHP Code plugin)
@@ -22,7 +22,7 @@
                     $show_count   = 1;      // 1 for yes, 0 for no
                     $pad_counts   = 1;      // 1 for yes, 0 for no
                     $hierarchical = 1;      // 1 for yes, 0 for no
-                    $title        = '<h2 class="muted">Image Categories</h2><hr />';
+                    $title        = '<h2 class="muted">'.__('Image Categories', 'symbiostock').'</h2><hr />';
                     
                     $args = array(
                       'taxonomy'     => $taxonomy,

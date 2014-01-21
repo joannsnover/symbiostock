@@ -11,8 +11,7 @@ get_header();
 ?>        
         <div class=row>
         
-            <div id="primary" class="content-area">
-            
+            <div id="primary" class="content-area">            
             
                 <div class="col-md-12">
                 <?php
