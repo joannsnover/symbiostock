@@ -4,6 +4,7 @@
  * @since symbiostock 1.0
  */
  /*
+  * edited 2014-01-21 jas to modify Image No. Model/Property release strings to be like other SYM strings in 3.1.2
   * edited 2013-12-12 jas to make changes to schema.org rich data to remove errors Google's Rich Snippets tool reports
   * edited 2013-12-07 jas to add hcard and h-entry (p-name) information for Google+ authorship
   * edited 2013-11-08 jas to move the updated date outside of the author box and under the description. Make text smaller.
@@ -81,7 +82,7 @@ do_action( 'ss_before_image_page', $symbiostock_post_meta );
 						} //empty( $property_released ) || $property_released == false
 						?>
                     	<!-- center the three pieces of information under the image -->
-                        <div style="margin: 5px; font-size: small; text-align: center;">Image No. <?php echo $postid;?>   ▪   Model Released: <?php echo $model_released; ?>   ▪   Property Released: <?php echo $property_released; ?>
+                        <div style="margin: 5px; font-size: small; text-align: center;"><?php _e('Image No. ', 'symbiostock'); echo $postid; _e(' ▪   Model Released: ', 'symbiostock'); echo $model_released; _e(' ▪   Property Released: ', 'symbiostock'); echo $property_released; ?>
                         </div>
 						<!--jas end -->
 						<?php 

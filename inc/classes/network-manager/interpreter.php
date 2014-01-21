@@ -2,6 +2,7 @@
 //simply a function that gives our network manager class useable results
 //this converts our simple xml object to a basic array, more easy to work with
 //
+// jas 01-20-2014 Remove most of the custom changes after 3.1.2 update but keep class to make 3 columns
 // jas 11-24-2013 incorporate Andrzej's changes to keep the second page on host site rather than moving to symbiostock.info
 // jas 11-21-2013 put a global search on the "no results" page using http://ajotte.com/global-search-api/ by Andrzej Tokarski
 //
@@ -163,7 +164,6 @@ function symbiostock_display_pagination($pagination, $results, $position, $size)
     }
     
 
-// jas begin
 function symbiostock_build_html_results($results, $network_search, $site_count = 0){
     //site_count variable is simply the site's position on the page/loop. 
     //if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
