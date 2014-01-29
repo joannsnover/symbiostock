@@ -1500,12 +1500,12 @@ class symbiostock_image_processor
         $listings = $this->files;
      
         if(function_exists('exec')){
-        	                	
-        	$exec_access = __(' (<em><strong>exec</strong> enabled</em>)', 'symbiostock');
+                                
+            $exec_access = __(' (<em><strong>exec</strong> enabled</em>)', 'symbiostock');
         
         } else {
         
-        	$exec_access =  __(' (<em><strong>exec</strong> disabled</em>)', 'symbiostock');
+            $exec_access =  __(' (<em><strong>exec</strong> disabled</em>)', 'symbiostock');
         }   
         
      if( extension_loaded( 'imagick' ) ||  class_exists( 'Imagick' ) ||  class_exists( 'ImagickPixel' )) 
@@ -1671,6 +1671,8 @@ class symbiostock_image_processor
         
         $posted_id = wp_insert_post( $post, $wp_error );
         
+        do_action('ss_image_processor_setup_default', $posted_id);
+        
         //update post meta, excluding certain values
         
         $exclude = array(
@@ -1811,8 +1813,9 @@ class symbiostock_image_processor
     }
     
     
-    function establish_image_sizes( $image_file, $bloggee_size = 250, $small_size = 1000, $medium_size = 2000 )
+    function establish_image_sizes( $image_file, $bloggee_size = 0, $small_size = 0, $medium_size = 0 )
     {
+                
         //we consider png superior to jpg due to transparency. 
         //if png is included, we will use that as sell-able item.
         
@@ -1838,9 +1841,9 @@ class symbiostock_image_processor
                 
                 //get jpg size                    
                 
-            $medium_size = get_option('symbiostock_medium_size', 1000);
-            $small_size = get_option('symbiostock_small_size', 500);
-            $bloggee_size = get_option('symbiostock_bloggee_size', 250);                
+                $medium_size = get_option('symbiostock_medium_size', 1000);
+                $small_size = get_option('symbiostock_small_size', 500);
+                $bloggee_size = get_option('symbiostock_bloggee_size', 250);                
                 
             } //in_array( 'jpg', $image_file[ 'extensions' ] )
             else {
@@ -1968,6 +1971,9 @@ class symbiostock_image_processor
             'symbiostock_referral_link_5' => get_option( 'symbiostock_referral_link_5', '' ),
             
         );
+
+		$image_meta = apply_filters('ss_image_processor_values_defaults', $image_meta);		
+
         return $image_meta;
     }
     

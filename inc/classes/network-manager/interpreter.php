@@ -190,13 +190,13 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         libxml_use_internal_errors( false );
                  }        
         ?>
-		<div class="hero-unit">
-		<h3>Try browsing categories:</h3>
-		<?php
+        <div class="hero-unit">
+        <h3>Try browsing categories:</h3>
+        <?php
             ss_list_categories();
         ?>
-		</div>
-		<?php
+        </div>
+        <?php
         }
         
         return;
@@ -218,8 +218,8 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             
         
     ?>
-	<div id="network_site_<?php echo $site_count; ?>" class="network_results row">
-	<?php if ($site_count != -1): ?>
+    <div id="network_site_<?php echo $site_count; ?>" class="network_results row">
+    <?php if ($site_count != -1): ?>
         <div class="col-md-12 well well-small network_results_header">            
             <?php 
             if(file_exists(symbiostock_NETDIR . symbiostock_website_to_key($network_info['url']) . '.csv')){
@@ -230,7 +230,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             echo symbiostock_csv_symbiocard_network_results($card_path);
             ?>            
         </div>
-	<?php endif; ?>
+    <?php endif; ?>
         <div class="network_results_container"><!--network_results_container-->
     <?php   
     endif;
@@ -247,73 +247,73 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
             $paginate = false;
         }    
         
-		
+        
         if($network_search == true){
 
-			$position = 'right';
+            $position = 'right';
         
-			$size = 'small';
+            $size = 'small';
         
-			//correct the output of our pagination so the user doesn't get led to xml results    
-			//extracts all $_GET vars attached to href, everything after "?" and before "'", 
+            //correct the output of our pagination so the user doesn't get led to xml results    
+            //extracts all $_GET vars attached to href, everything after "?" and before "'", 
                     
-			$remove_vars = array(
-				'symbiostock_network_search',
-				'symbiostock_network_info',
-			);
+            $remove_vars = array(
+                'symbiostock_network_search',
+                'symbiostock_network_info',
+            );
     
-			$corrected_pagination = array();
+            $corrected_pagination = array();
         
-			foreach($pagination as $href_link){
+            foreach($pagination as $href_link){
         
-			$href_link = str_replace('&hellip;', '...', $href_link);    
+            $href_link = str_replace('&hellip;', '...', $href_link);    
                         
-			$a = new SimpleXMLElement( $href_link );
-			$link = $a['href'];
-			$pattern = "/(href=(\"|'))[^\"']+(?=(\"|'))/";            
+            $a = new SimpleXMLElement( $href_link );
+            $link = $a['href'];
+            $pattern = "/(href=(\"|'))[^\"']+(?=(\"|'))/";            
         
-			if(isset($link) && !empty($link)){
+            if(isset($link) && !empty($link)){
             
-				if(strstr($link, 'post_type=image')){
-					//http://tulip.kerioak.com?s=animal&submit=Search&post_type=image&symbiostock_network_search=1&symbiostock_network_info=1&page=2
+                if(strstr($link, 'post_type=image')){
+                    //http://tulip.kerioak.com?s=animal&submit=Search&post_type=image&symbiostock_network_search=1&symbiostock_network_info=1&page=2
                 
-					$user_link = explode('?', $link);
-					$user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
-					$edited_link = str_replace($link, htmlentities($user_link), $href_link);
-					$edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);                
+                    $user_link = explode('?', $link);
+                    $user_link = $network_info['url'] . '?' . remove_query_arg('paged', $user_link[1]);
+                    $edited_link = str_replace($link, htmlentities($user_link), $href_link);
+                    $edited_link = str_replace("href", "data-networklink='" . htmlentities($user_link)  . "' href", $edited_link);                
                             
-					$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
-					$edited_link = preg_replace($pattern,$crawler_link,$edited_link);          
+                    $crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
+                    $edited_link = preg_replace($pattern,$crawler_link,$edited_link);          
                 
-					} else {
+                    } else {
                 
-					$user_link = explode('?', $link);
-					$user_link = $user_link[0];    
-					$edited_link = str_replace($link, htmlentities($user_link), $href_link);
-					$edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
+                    $user_link = explode('?', $link);
+                    $user_link = $user_link[0];    
+                    $edited_link = str_replace($link, htmlentities($user_link), $href_link);
+                    $edited_link = str_replace("href", "data-networklink='" . htmlentities($link) . "' href", $edited_link);
                 
-					$crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
-					$edited_link = preg_replace($pattern,$crawler_link,$edited_link);
-				}
+                    $crawler_link = "href='" . remove_query_arg(array('symbiostock_network_search', 'symbiostock_network_info'), $user_link) . "'";                    
+                    $edited_link = preg_replace($pattern,$crawler_link,$edited_link);
+                }
                 
-			} else { $edited_link = $href_link;}
+            } else { $edited_link = $href_link;}
         
-			array_push($corrected_pagination, $edited_link);
+            array_push($corrected_pagination, $edited_link);
         
-			unset($a);
-			}
+            unset($a);
+            }
                 
-			$pagination = $corrected_pagination;    
+            $pagination = $corrected_pagination;    
                 
-		} 
-		else {
-		
-        	$position = 'centered';
-			$size = 'large'; 
-			
-		  }
- 				
-		
+        } 
+        else {
+        
+            $position = 'centered';
+            $size = 'large'; 
+            
+          }
+                 
+        
         ?><div class="results_info"<?php if ($site_count == -1) echo 'style="padding-bottom:15px;"';?>>
         <?php 
         if( $paginate == true && ($network_search == false || $site_count == -1) ){
@@ -473,7 +473,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
         ?>
         </div><!--/network_results_container--> 
         <?php    
-		}
+        }
 
     if($paginate == true){
         symbiostock_display_pagination($pagination, $results['total_results'], $position, 'pagination-' . $size);

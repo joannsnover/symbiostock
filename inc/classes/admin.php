@@ -38,7 +38,9 @@ class symbiostock_render_admin_panel
         
 ?>
 <div id="symbiostock_admin" class="wrap">
+
     <?php
+
         $this->symbiostock_admin_tabs();
         
 ?>
@@ -87,8 +89,11 @@ class symbiostock_render_admin_panel
     
     public function symbiostock_admin_tabs( $current = '1home' )
     {
+    	
         $tabs = $this->options;
-        include_once(symbiostock_CLASSROOT . '/paypal.php');            
+        include_once(symbiostock_CLASSROOT . '/paypal.php');   
+        echo ss_twitter_link();
+        echo ss_facebook_link();
         echo '<div id="icon-themes" class="icon32"><br></div>';
         
         echo '<h2 class="nav-tab-wrapper">';
@@ -119,9 +124,9 @@ class symbiostock_render_admin_panel
             
         } //$tabs as $tab => $name
         
+        
         echo '</h2>';
-        
-        
+               
     }
     
     //gets pages and builds array for symbiostock_admin_tabs

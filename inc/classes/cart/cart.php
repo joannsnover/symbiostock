@@ -16,13 +16,19 @@ class symbiostock_cart
     
     public $cart = array( );
     
+    public $size_key = array();
+    
     //cordinates number with size
     public $number_size = array( );
     
     //constructor
     function __construct( $symbiostock_post_meta = array( ) )
     {
-    	define("symbiostock_remove_cap", true);
+        global $ss_sizenames;        
+        
+        $this->size_key = $ss_sizenames;
+                        
+        define("symbiostock_remove_cap", true);
         if(function_exists('ipn_user_id')){
         $this->user = get_userdata(ipn_user_id());
         
@@ -89,8 +95,8 @@ class symbiostock_cart
                     
             if(isset($this->product_info['symbiostock_' . $size . '_available'][0]) 
             && $this->product_info['symbiostock_' . $size . '_available'][0] == 'no_select'){ 
-                $available_class = 'not_available'; } else {$available_class = ''; }
-                        
+                $available_class = 'not_available'; } else {$available_class = ''; }            
+                
             $row = '<tr class="' . $available_class . ' ' . $option[ 'in_cart' ][ '1' ] . '"><td>' . $option[ 'option' ] . '</td><td>' . $extension . '</td><td>' . $size_info[ $size ][ 'dpi' ] . '<br />' . $size_info[ $size ][ 'pixels' ] . '</td><td>' . $price['compare']  . '</td></tr>
             ';
             $data .= $row;
@@ -174,7 +180,7 @@ class symbiostock_cart
         //check our availability options    
         if(isset($this->product_info['symbiostock_' . $name . '_available'][0]) && $this->product_info['symbiostock_' . $name . '_available'][0] == 'no_select'){ $state="disabled"; } else { $state = '';}
         
-        $option = '<label class="radio" for="' . $field_id . '"><input data-price="'.$data_price[0].'" ' . $in_cart[ 0 ] . 'type="radio" value="' . $field_id . '" id="' . $field_id . '" ' . $input_attrs  . ' ' . $state . ' />' . ucwords( $name ) . '</label>';
+        $option = '<label class="radio" for="' . $field_id . '"><input data-price="'.$data_price[0].'" ' . $in_cart[ 0 ] . 'type="radio" value="' . $field_id . '" id="' . $field_id . '" ' . $input_attrs  . ' ' . $state . ' />' . $this->size_key[$name] . '</label>';
        
         
         //add on other elements (invisible) this way...
@@ -431,7 +437,7 @@ class symbiostock_cart
             
             $size_name = $info['size_name'];
             
-            $option = '<strong>' .$product . '</strong><br /><br /><strong>' . $info['type'] . ', ' . ucwords($info['size_name']) . '</strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] ;
+            $option = '<strong>' .$product . '</strong><br /><br /><strong>' . $info['type'] . ', ' . $this->size_key[$info['size_name']] . '</strong><br />' . $size_info[$size_name]['pixels'] . '<br />' . $size_info[$size_name]['dpi'] ;
                     
             
             //make the row    ?>                                        
@@ -543,8 +549,8 @@ class symbiostock_cart
         
         //this simply allows a plugin to take an array of info, and formulate a string to append "extra" text to product info.
         $xtra = apply_filters('ss_purchased_appended_info', $xtra);
-		if(is_array($xtra))
-			$xtra = '';
+        if(is_array($xtra))
+            $xtra = '';
         
         $product_string .='<tr>'.        
          '<td>' . $minipic . '</td><td>' . $option  . '</td><td class="price">' . $price['compare'] . ' ' . $xtra  .  '</td>' 

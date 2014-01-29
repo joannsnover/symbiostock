@@ -131,10 +131,10 @@ function ss_home_page_options()
     $homepage_options = new ss_home_page( );
     
 ?>
-	<div class="wrap">
-    	<h1>Symbiostock Home Page Generator</h1>
-    	
-    	<form action="" method="post">        
+    <div class="wrap">
+        <h1>Symbiostock Home Page Generator</h1>
+        
+        <form action="" method="post">        
             <h2>Not a web designer?</h2>
             <p>By setting up the options below, you can easily set up an awesome landing (home) page for your site. <br />
             Simply follow the directions below with each step and you will have a good looking standard Symbiostock landing page.            
@@ -359,9 +359,9 @@ function ss_home_page_options()
             </table>
                 <p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="ss_update_home_page"></p>
         </form>
-    	
-	</div>
-	<?php
+        
+    </div>
+    <?php
 
 }
 endif;

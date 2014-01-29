@@ -137,6 +137,7 @@ if( $bootstrap_search_menu_type != '' ) {
             <div class="row">
             <div <?php echo $search_account_nav_fixed ?> role="navigation" class="<?php echo $search_menu_style ?> <?php echo $fixed_class ?> <?php echo $inverted_search_menu ?>"> <?php
             //get the search form
+                        
             include_once('searchform_symbiostock.php');
         
             symbiostock_above_header_nav( );
@@ -156,21 +157,31 @@ if( $bootstrap_search_menu_type != '' ) {
         </div>
         
         
-        <div class="row"> 
+        <div class="row" id="ss-navigation"> 
+            
+            <div id="ss-search-transform-mobile"></div>
                     
-            <nav <?php echo $main_nav_fixed ?> role="navigation" class="<?php echo $is_fixed; ?> navbar navbar-default <?php echo $inverted_main_menu ?>"> 
+            <nav <?php echo $main_nav_fixed ?> role="navigation" class="<?php echo $is_fixed; ?>  navbar navbar-default <?php echo $inverted_main_menu ?>"> 
                
                 <h1 class="assistive-text"><?php _e( 'Menu', 'symbiostock' ); ?></h1>
                 
                 <div class="assistive-text skip-link">
                     <a href="#content" title="<?php esc_attr_e( 'Skip to content', 'symbiostock' ); ?>"><?php _e( 'Skip to content', 'symbiostock' ); ?></a>
                 </div>
-            
-                <div id="main-navigation" class="col-md-12"> 
+            	
+            	<button class="navbar-toggle" data-target="#main-navigation" data-toggle="collapse" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><?php bloginfo('name'); ?></a>
+            	
+                <div id="main-navigation" class="col-md-12 collapse navbar-collapse"> 
+                
                 <?php symbiostock_header_nav( ); ?>
 
-                <?php
-                
+                <?php                
                 if($top == 0){
                 
                 //get the search form
@@ -181,7 +192,7 @@ if( $bootstrap_search_menu_type != '' ) {
                 symbiostock_above_header_nav( ); 
                 }
                 ?>   
-                
+
                 </div>
              </nav><!-- .site-navigation .main-navigation -->
                 

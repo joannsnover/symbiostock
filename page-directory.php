@@ -46,7 +46,7 @@ get_header(); ?>
     </a><br /><br />
     <p><a title="<?php _e('Symbiostock, the Stock Photography Network', 'symbiostock') ?>" href="http://www.symbiostock.com/">Symbiostock - </a> <?php _e('is a network of independent photographers and illustrators.<br />Browse our network to find the high quality images you are looking for. <br /><br />The network contributor results below are automatically generated for your convenience.', 'symbiostock') ?></p>
     
-    <h4><?php _e('Community News / Activity', 'symbiostock') ?></h4>
+    <h4><?php _e('Community News / Activity', 'symbiostock') ?> <?php echo ss_twitter_link(); echo ss_facebook_link(); ?></h4>
     <?php symbiostock_community_activity(); ?>
     
     </div>

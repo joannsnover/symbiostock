@@ -69,6 +69,10 @@ get_header(); ?>
                             <a target="_blank" title="<?php _e('Symbiostock Community Activity', 'symbiostock') ?>" href="http://www.symbiostock.org">
                             <?php _e('Symbiostock Community News and Activity', 'symbiostock') ?>
                             </a>
+                            <?php 
+                            echo ss_twitter_link();
+                            echo ss_facebook_link();
+                            ?>
                         </h2>
                     </div>
                     <div class="panel-body">

@@ -99,10 +99,10 @@ if(!is_user_logged_in()){
         $args = array(
             'echo' => false,
             'form_id' => 'loginform-custom',
-            'label_username' => __( 'User Name' ),
-            'label_password' => __( 'Password' ),
-            'label_remember' => __( 'Keep me logged in' ),
-            'label_log_in' => __( 'Log In' ),
+            'label_username' => __( 'User Name', 'symbiostock' ),
+            'label_password' => __( 'Password', 'symbiostock'  ),
+            'label_remember' => __( 'Keep me logged in', 'symbiostock'  ),
+            'label_log_in' => __( 'Log In', 'symbiostock'  ),
             'remember' => true,
             'redirect' => $symbiostock_redirect,
         );

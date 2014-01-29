@@ -42,23 +42,23 @@ if ( isset( $_POST[ 'download_file' ] ) ) {
         $selection = $file_and_selection[ 1 ];
         
         $type = $user_products[ $file_and_selection[ 0 ] ][ 'type' ];
-			
-		//A minor fix in case referenced file does not exist, try for png version
-		if (! file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . $type )) {
-			if (file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . 'jpg' )) {
-				$type = 'jpg';
-			}
-			if (file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . 'png' )) {
-				$type = 'png';
-			}
-		}        
+            
+        //A minor fix in case referenced file does not exist, try for png version
+        if (! file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . $type )) {
+            if (file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . 'jpg' )) {
+                $type = 'jpg';
+            }
+            if (file_exists ( ABSPATH . 'symbiostock_rf/' . $file_and_selection [0] . '.' . 'png' )) {
+                $type = 'png';
+            }
+        }        
         
         
         $file_name = $file_and_selection[ 0 ] . '-' . $file_and_selection[ 1 ] . '.' . $type;
         
         header( 'Content-Disposition: attachment; filename="' . $file_name . '"' );
         
-        header( symbiostock_content_header( $user_products[ 'type' ] ) );
+        header( symbiostock_content_header( $type ) );
         
         header( "Cache-Control: no-cache, must-revalidate" );
         

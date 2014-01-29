@@ -179,11 +179,11 @@ foreach($symbiocards as $symbiocard){
             </label>                
             </td>
             </tr>
-			<tr>
-			<td colspan="2">
+            <tr>
+            <td colspan="2">
              <label class="description" for="symbiostock_global_search"><input id="symbiostock_global_search" name="symbiostock_global_search" type="checkbox" <?php if ( get_option('symbiostock_global_search', 1) == 1 ) echo 'checked="1"' ?> value="1" /> <?php _e( 'If no local results found, show images from Global Symbiostock Search Engine', 'symbiostock') ?></label>         
-			</td>
-			</tr>
+            </td>
+            </tr>
         </tfoot>
     </table>
    
