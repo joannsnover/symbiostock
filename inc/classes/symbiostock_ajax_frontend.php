@@ -34,6 +34,7 @@ class symbiostock_front_ajax
 
     public function process()
     {
+      	
         if ( isset( $_POST[ 'product_selection' ] ) )
         {
             $selection = explode( '_' , $_POST[ 'product_selection' ] );

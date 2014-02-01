@@ -33,7 +33,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     show_admin_bar( false );
 }
 
-
 $symbiostock_template_directory = get_bloginfo( 'template_directory' );
 
 /**
@@ -106,7 +105,6 @@ define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.jpg' );
  */
 define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.jpg' );
 
-
 /**
  * Simple function for returning a sizename key array.
  *
@@ -134,6 +132,7 @@ $ss_sizenames = ss_get_sizenames();
 
 //filepath constants 
 $symbiostock_theme_root = get_theme_root( ) . '/' . get_template();
+
 
 /**
  * FILE PATH to the "symbiostock_rf" directory. "rf" is meaningless, but
@@ -1371,6 +1370,33 @@ function symbiostock_validate_url( $url )
     {
         return false;
     }
+}
+
+/**
+ * Notify Symbiostock sites of successful deployment or update.
+ * 
+ * For community integration, we post updates to the main hub sites.
+ * This helps keep the network current and connected, and also allows
+ * hub site owners to create new toys for Symbiostockers :D to be able
+ * to run, for instance, a network directory and so forth. 
+ * 
+ */
+
+function ss_update_hub_sites(){		
+		$site = get_site_url();
+		$hubsites = array(
+			'http://www.symbiostock.com/',
+			'http://www.symbiostock.com/'
+		);			
+		foreach($hubsites as $hubsite){		
+			$ch = curl_init();			
+			curl_setopt($ch, CURLOPT_URL,$hubsite."sitelaunch/");
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "site_update=".$site."");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);			
+			$server_output = curl_exec ($ch);			
+			curl_close ($ch);
+		}
 }
 
 
@@ -3616,6 +3642,52 @@ function ss_name_download_button(){
 add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );
 
 /**
+ * Allows the turning off and on of public network analytics. 
+ * 
+ * This is a very important feature. See symbiostock help file. This is controlled in the 
+ * BEE->SETTINGS tab in the admin area. 
+ */
+function ss_public_analytics(){
+
+	/*
+
+	if(isset($_POST['symbiostock_public_analytics'])){
+
+		update_option('symbiostock_public_analytics', $_POST['symbiostock_public_analytics']);
+
+	}
+
+	$public_analytics = get_option('symbiostock_public_analytics', 1);
+
+	if($public_analytics == 1){
+		$symbiostock_public_analytics_yes = 'checked';
+		$symbiostock_public_analytics_no = '';
+	} else {
+		$symbiostock_public_analytics_yes = '';
+		$symbiostock_public_analytics_no = 'checked';
+	}
+
+	?>
+    <tr>
+        <td colspan="2"><?php _e( 'Allow Public Analytics?', 'symbiostock') ?> <?php echo sshelp('public_analytics', __( 'About Network Analytics (IMPORTANT)', 'symbiostock')); ?> <br /> <label
+            for="symbiostock_public_analytics_1"> <input type="radio"
+                id="symbiostock_public_analytics_1"
+                name="symbiostock_public_analytics"
+                <?php echo $symbiostock_public_analytics_yes; ?> value="1" /> <?php _e( 'Yes', 'symbiostock') ?>
+        </label> <label for="symbiostock_public_analytics_2"> <input
+                type="radio" id="symbiostock_public_analytics_2"
+                name="symbiostock_public_analytics"
+                <?php echo $symbiostock_public_analytics_no ; ?> value="0" /> <?php _e( 'No', 'symbiostock') ?>
+        </label></td>
+    </tr>
+    <?php 
+	*/
+}
+add_action( 'ss_settings_table_bottom' , 'ss_public_analytics', 6 );
+
+
+
+/**
  * Sets the names of sizes to user-defined ones: Bloggee, Small, Medium, etc.
  * 
  * Some webmasters want control over the Size Names
@@ -3692,7 +3764,7 @@ function symbiostock_info_sitelist(){
  * Keyword Analytics
  */ 
 
-require_once ( get_template_directory( ) . '/inc/keyword_analytics.php' );
+require_once ( get_template_directory( ) . '/inc/classes/analytics.php' );
 
 /*
  * Get category template

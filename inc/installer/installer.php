@@ -311,4 +311,6 @@ wp_mail( get_bloginfo( 'admin_email' ), $subject, $message, $headers);
 $upgrade_notice = new network_manager();
 $upgrade_notice->installation_upgrade_email();
 
+//Update symbiostock hubs
+ss_update_hub_sites();
 ?>

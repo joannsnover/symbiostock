@@ -442,9 +442,6 @@ class network_manager
         }
     }    
     
-    
-    
-    
     public function write_network_csv( $uploaded = false )
     {
         
@@ -1518,7 +1515,10 @@ class network_manager
             $image_tags = get_query_var( 'image-tags' );
         }
         
+        /*
+        //this function is not needed anymore. DEPRICATED!
         symbiostock_keyword_update($image_tags);
+        */
         
         //if this is a category page, then we set the value
         $category = get_query_var( 'image-type' );
@@ -2413,6 +2413,8 @@ function symbiostock_site_data_activation() {
 
 function update_symbiostock_site_data() {
     
+	ss_update_hub_sites();
+	
     do_action('symbiostock_daily_chron');
     
     $update = new network_manager();

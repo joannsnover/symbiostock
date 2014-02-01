@@ -278,7 +278,9 @@
                 <h3 id="open_for_assignment"><span class="description">Author Options (profile area)  &mdash; </span>Open for Assignment Jobs</h3>
                 <p>If you are available for photography / assignments in your area or in your travels.</p>
             </li>
-            
+            <?php 
+            /*
+            ?>
             <li>
                 <h3 id="marketing_services"><span class="description">Marketing &mdash; </span>Marketing Services</h3>
                 <p><strong>For outside marketing services</strong> &mdash; provides info via XML regarding your images, as well as <em> protected access</em> to unwatermarked previews (600px)</p>
@@ -300,7 +302,84 @@
                 
             </li>
             
-            
+            <li>
+	            <h3 id="public_analytics"><span class="description">Analytics &mdash; </span>Network Analytics (Public or Not?)</h3>
+	            
+	            <p>Symbiostock, as a network, must be aware of how it is functioning, where traffic is coming and going, and so forth.</p>
+	        
+	        	<p>Every Symbiostock site (after version 3.2.4) has the ability to share a large amount of traffic information. This information is 
+	        	collected by Specialized network hubs, analyzed, and used to show network status, traffic, performance, and so forth. </p>
+	        
+	        	<p>While we wish for you to keep your analytics information public, you have the option to turn it off from public viewing. This will, however, disadvantage beneficial services 
+	        	created for Symbiostock's network.</p>
+	        	
+	        	<p>Your site is able to give traffic reports <em><strong>live</strong> as they are happening.</em> This means that we can set-up hourly-updated network reports
+	        	showing traffic states accross the entire network, on a virtually live basis. Other valuable things provided are general traffic flows of browsing people, general traffic breakdowns of all sites, and so forth.</p>
+	        	
+        		<h3>What is Shared?</h3> 
+        	
+	        	<ol>
+		        	<li>Traffic History (up to 60 days).</li>
+		        	<li>Keyword Performance History (up to 60 days).</li>
+		        	<li>Referrals (Which symbio-sites are sending traffic your way)</li>
+		        	<li>Image Views (So you can track what is popular in your portfolio)</li>
+		        	<li>Keyword Views (Which keywords are most popular in your portfolio)</li>
+		       	</ol> 
+		       	
+		       	<h3>Which Values are Shared?</h3> 
+		       	
+		       	<ol>
+		       		<li>Time values for each action.</li>
+		       		<li>Landing and Referral URLs</li>
+		       		<li>Image numbers</li>
+		       		<li>Keywords</li>
+		       		<li>Categories</li>
+		       		<li>IP Addresses of Visiting Bots/People.</li>
+		       		
+		       	</ol>
+		       	
+		       	<h3>Machine-parsed Data Locations</h3>
+		       	<p>Traffic data is provided in a light-weight CSV format, which network computers use to turn it into proper visual data for human viewing.</p>
+		       	<p>If public traffic is ENABLED (admin->bee->settings->Allow Public Analytics) you can find your reports here:</p> 
+		       	
+		       	<?php 
+		       	$ss_time_var = '&ss_std='.str_replace(' ', '_', date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s"))-(60*60*24))) .
+		       	'&ss_edt=' . str_replace(' ', '_', date('Y-m-d H:i:s'));	
+		       	$ss_site = get_site_url();	       	
+		       	?> 
+		       	
+		       	<table>
+			       	<thead>
+			       	<tr>
+			       		<th>Report</th><th>Location</th>
+			       	</tr>
+			       	</thead>
+			       	<tr>
+			       		<td>General History:</td><td><a title="General History" href="<?php echo $ss_site .'?ss_analytics=history'. $ss_time_var; ?>"><?php echo $ss_site .'?ss_analytics=history'. $ss_time_var; ?></a><br /></td>
+			       	</tr>
+			       				       	
+			       	<tr>
+			       		<td>Keyword History:</td><td><a title="Keyword History" href="<?php echo $ss_site .'?ss_analytics=term_views'. $ss_time_var; ?>"><?php echo $ss_site .'?ss_analytics=history'. $ss_time_var; ?></a><br /></td>
+			       	</tr>
+			       	
+			       	<tr>
+			       		<td>Keyword Views:</td><td><a title="Keyword Views" href="<?php echo $ss_site .'?ss_analytics=term_views'; ?>"><?php echo $ss_site .'?ss_analytics=term_views'; ?></a><br /></td>
+			       	</tr>
+			       	
+			       	<tr>
+			       		<td>Referrals:</td><td><a title="Referrals" href="<?php echo $ss_site .'?ss_analytics=referrals'; ?>"><?php echo $ss_site .'?ss_analytics=referrals'; ?></a><br /></td>
+			       	</tr>
+			       	
+			       	<tr>
+			       		<td>Image Views:</td><td><a title="Image Views" href="<?php echo $ss_site .'?ss_analytics=image_views'; ?>"><?php echo $ss_site .'?ss_analytics=image_views'; ?></a><br /></td>
+			       	</tr>
+			       	
+		       	</table>
+		       	      	
+            </li>
+            <?php 
+            */
+            ?>
             <li>
                 <h3 id="image_processing"><span class="description">Image Processing  &mdash; </span>ImageMagic or GD Library</h3>
                 <p>Some notes on your server's image processing methods &mdash; there are a few things that influence your server's ability to process large images, and large amounts of images.</p>

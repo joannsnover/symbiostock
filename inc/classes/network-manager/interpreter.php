@@ -162,7 +162,41 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
     //site_count variable is simply the site's position on the page/loop. 
     //if this is an incoming request, we alter the page_count according to $_POST['symbiostock_site_order'] so that our 
     //friend's page handle's it properly.
-  
+	
+    //----  ----  ----  ----  ---- START ANALYTICS ----  ----  ----  ----  ----  
+	
+	$current_site = $results['network_info']['url'];
+	$network = new network_manager();
+	$network_info = $network->get_connected_networks( );
+	
+	$network_sites = array();
+	
+	foreach($network_info as $site){
+		if(empty($site['address']))
+			continue;
+		array_push($network_sites, $site['address']);
+	}
+		
+	switch($current_site){
+	 
+	case $current_site == get_home_url():
+		$result_type = 1;
+		break;
+		 
+	case in_array($current_site, $network_sites):
+		$result_type = 2;
+		break;
+		 
+	case !in_array($current_site, $network_sites):
+		$result_type = 3;
+		break;
+
+	}
+		
+	$analytics = new ss_analytics(2, $current_site, $result_type);
+	
+	//----  ----  ----  ----  ---- END ANALYTICS ----  ----  ----  ----  ----
+	
     if(!isset($results['image'])){
         if($network_search != true) {
                  if (get_option('symbiostock_global_search', 0) != 1)

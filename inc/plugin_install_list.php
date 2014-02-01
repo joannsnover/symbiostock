@@ -54,15 +54,6 @@ function symbiostock_register_required_plugins() {
     ),    
 
     array(
-    'name'                     => __('Category Meta', 'symbiostock'),
-    'slug'                     => 'wp-category-meta',
-    'source'                   => dirname(__FILE__) . '/installer/wp-category-meta.zip',
-    'required'                 => true,
-    'force_activation'         => true,
-    'force_deactivation'     => true,
-    ),
-
-    array(
     'name'                     => __('Contact Form 7', 'symbiostock'),
     'slug'                     => 'contact-form-7',
     'required'     => false,
