@@ -439,7 +439,7 @@ class ss_analytics{
 	 * Deletes history over 60 days old
 	 */
 	public function delete_expired(){
-		$expiration = 1;		
+		$expiration = 60;		
 		global $wpdb;		
 		$wpdb->query("DELETE FROM ".$wpdb->prefix."ss_analytics_history 
 				WHERE time < UNIX_TIMESTAMP(DATE_SUB(NOW(), 
