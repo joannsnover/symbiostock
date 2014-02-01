@@ -106,12 +106,12 @@ class ss_analytics{
 			
 			header('Content-type: text/plain');
 			
-			/*			
+					
 			if($public_analytics == 0){
 				echo 0;
 				die;				
 			}			
-			*/
+			
 			
 			switch($_GET['ss_analytics']){
 				

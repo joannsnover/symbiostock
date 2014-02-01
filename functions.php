@@ -3649,8 +3649,6 @@ add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );
  */
 function ss_public_analytics(){
 
-	/*
-
 	if(isset($_POST['symbiostock_public_analytics'])){
 
 		update_option('symbiostock_public_analytics', $_POST['symbiostock_public_analytics']);
@@ -3681,7 +3679,7 @@ function ss_public_analytics(){
         </label></td>
     </tr>
     <?php 
-	*/
+
 }
 add_action( 'ss_settings_table_bottom' , 'ss_public_analytics', 6 );
 

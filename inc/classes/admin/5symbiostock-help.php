@@ -278,9 +278,7 @@
                 <h3 id="open_for_assignment"><span class="description">Author Options (profile area)  &mdash; </span>Open for Assignment Jobs</h3>
                 <p>If you are available for photography / assignments in your area or in your travels.</p>
             </li>
-            <?php 
-            /*
-            ?>
+        
             <li>
                 <h3 id="marketing_services"><span class="description">Marketing &mdash; </span>Marketing Services</h3>
                 <p><strong>For outside marketing services</strong> &mdash; provides info via XML regarding your images, as well as <em> protected access</em> to unwatermarked previews (600px)</p>
@@ -314,7 +312,7 @@
 	        	created for Symbiostock's network.</p>
 	        	
 	        	<p>Your site is able to give traffic reports <em><strong>live</strong> as they are happening.</em> This means that we can set-up hourly-updated network reports
-	        	showing traffic states accross the entire network, on a virtually live basis. Other valuable things provided are general traffic flows of browsing people, general traffic breakdowns of all sites, and so forth.</p>
+	        	showing traffic states accross the entire network, on a virtually live basis. Other valuable things provided are general traffic flows of browsing people, general traffic breakdowns of all sites, and generally geeky geeky stuff like that. Geeky, but important, like Symbio in general. :D</p>
 	        	
         		<h3>What is Shared?</h3> 
         	
@@ -377,9 +375,7 @@
 		       	</table>
 		       	      	
             </li>
-            <?php 
-            */
-            ?>
+         
             <li>
                 <h3 id="image_processing"><span class="description">Image Processing  &mdash; </span>ImageMagic or GD Library</h3>
                 <p>Some notes on your server's image processing methods &mdash; there are a few things that influence your server's ability to process large images, and large amounts of images.</p>

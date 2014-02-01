@@ -1078,6 +1078,9 @@ class network_manager
         $network_info[ 'symbiostock_temporary_location_1_info' ] = $temp_1_coords;
         $network_info[ 'symbiostock_temporary_location_2_info' ] = $temp_2_coords;
         
+        //Using Public Analytics?
+        $network_info[ 'symbiostock_public_analytics' ] = get_option('symbiostock_public_analytics', 1);
+        
         //set up categories
         $categories = wp_list_categories( array(
              'taxonomy' => 'image-type',
