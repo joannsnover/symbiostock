@@ -10,12 +10,12 @@
         <ul>
             <li><a title="Symbiostock Community site..." href="http://www.symbiostock.org/">Symbiostock.org</a> </li>
            
-            <li><a title="Welcome" href="http://www.symbiostock.org/forum/14/welcome/">Welcome</a></li>
-            <li><a title="Network Building" href="http://www.symbiostock.org/forum/3/network-building/">Network Building</a></li>
-            <li><a title="Hosting" href="http://www.symbiostock.org/forum/4/hosting/">Hosting</a></li>
-            <li><a title="Site Launching" href="http://www.symbiostock.org/forum/20/site-launching/">Site Launching</a></li>            
-            <li><a title="Technical Support" href="http://www.symbiostock.org/forum/5/technical-support/">Technical Support</a></li>
-            <li><a title="SEO and Marketing" href="http://www.symbiostock.org/forum/7/seo-marketing/">SEO and Marketing</a></li>
+            <li><a title="Welcome" href="http://www.symbiostock.org/community/viewforum.php?f=14">Welcome</a></li>
+            <li><a title="Network Building" href="http://www.symbiostock.org/community/viewforum.php?f=3">Network Building</a></li>
+            <li><a title="Hosting" href="http://www.symbiostock.org/community/viewforum.php?f=4">Hosting</a></li>
+            <li><a title="Site Launching" href="http://www.symbiostock.org/community/viewforum.php?f=20">Site Launches</a></li>            
+            <li><a title="Technical Support" href="http://www.symbiostock.org/community/viewforum.php?f=5">Technical Support</a></li>
+            <li><a title="SEO and Marketing" href="http://www.symbiostock.org/community/viewforum.php?f=7">SEO and Marketing</a></li>
                         
         </ul>    
     
@@ -73,7 +73,7 @@
     <p>Avoid adding content which will flag you (and your network associates!) in a content area which is blocked or filtered! </p>
     <h2>Symbiostock Goals</h2>
     <p>Symbiostock's main goal is to be a strong network. Thoughtfully created content, a strong SEO regimen, and a prolific networking system will hopefully make Symbiostock a well recognized and trusted network. </p>
-    <p>Above all it aims to benefit individuals who work hard to provide for themselves and their families. </p>
+    
     <p>While the system is made to promote royalty free content, its main objective is to bring customers to artists and build professional relationships.</p>
    
     <div id="help_topics" class="help_topics">
@@ -145,11 +145,6 @@
             <li>
                 <h3 id="about_page"><span class="description">Network  &mdash; </span>About Page</h3>
                 <p>Make an awesome about page and post the URL here. Remember that many sites will lead back to this page, so make it a good one :D.</p>
-            </li>
-            <li>
-                <h3 id="templates"><span class="description">Settings  &mdash; </span>Symbiostock's First Templates by <strong>9lives!</strong></h3>
-                <span class="description"> Templates &mdash; <a title="Photoshop and Jpeg Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbiostock%20branding%20templates%20PSD%20and%20JPG.zip?raw=true">PSD and JPG</a> | <a title="AI and EPS Symbiostock Branding Templates" href="https://github.com/orangeman555/symbiostock/blob/master/Symbistock%20branding%20templates%20AI%20and%20EPS.zip?raw=true">AI and EPS</a></em></span><br />
-                <p>No need to reinvent the wheel! To make life simple, 9lives (<a title="9lives Site" href="http://cartoonpictureshop.com/">Symbiostock site</a> & <a title="9lives Site" href="http://www.creativembers.com/introducing-clean-theme-for-symbiostock/">Clean Child Theme</a>) has made you some awesome templates to build your branding on top of. Just use these to save yourself much measuring, trial, and error.</p>
             </li>
             <li>
                 <h3 id="header_logo"><span class="description">Settings  &mdash; </span>Header Logo</strong></h3>
@@ -404,7 +399,7 @@
                     <li> <strong>action=latest</strong> &mdash; Possible values: <strong>latest</strong> or <strong>featured</strong>. </li>
                 </ol>
                 <p>So by way of example: Lets say I'm making a post or setting up a gallery page. I want to show a slider of my featured images, and I want them "minipic" size as opposed to "preview". I will simply paste this shortcode into the post: [ss-slider id=some-random-id size=minipic action=featured]</p>
-                Fealing lazy? Want me to just give you some? <br />
+                Here are a few examples<br />
                 <br />
                 <strong>[ss-slider id=my-preview-slider size=preview action=latest]</strong> &mdash; Type: Latest, Size: Preview <br />
                 <br />

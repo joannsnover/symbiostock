@@ -22,7 +22,7 @@
  * @link http://dev.mysql.com/doc/refman/4.1/en/datetime.html
  * 
  * @category   Symbiostock Analytics
- * @package    Symbiostock
+ * @package    symbiostock
  * @author     Leo Blanchette <leo@symbiostock.com>
  * @copyright  Symbiostock
  */
@@ -390,7 +390,10 @@ class ss_analytics{
 	 */
 	function update_term_analytic(){
 		global $wpdb;
-	
+		
+		if(!isset($this->id) || empty($this->id))
+			return;
+		
 		$wpdb->query(
 				"INSERT INTO `".$wpdb->prefix."ss_analytics_term`
 			(`id`, `lastview`, `views`)
@@ -425,6 +428,9 @@ class ss_analytics{
 	function update_referrals(){
 		global $wpdb;
 	
+		if(empty($this->referrer))
+			return;
+		
 		$wpdb->query(
 			"INSERT INTO `".$wpdb->prefix."ss_analytics_referrals`
 			(`siteid`, `referrals`)
