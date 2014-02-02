@@ -359,91 +359,88 @@ class network_manager
     }
     
     public function fetch_symbiocards( $sites, $seed = false )
-    {	
-		$seed == true ? $dir = 'seeds/' : '';
-		$urls = array ();
-		$files = array ();
-		foreach ( $sites as $site ) {
-			array_push($urls, $site . '/symbiocard.csv' );
-			$key = symbiostock_website_to_key( $site );
-			array_push( $files, symbiostock_NETDIR . $dir . $key . '.csv' );
-		}
+    {    
+        $seed == true ? $dir = 'seeds/' : '';
+        $urls = array ();
+        $files = array ();
+        foreach ( $sites as $site ) {
+            array_push($urls, $site . '/symbiocard.csv' );
+            $key = symbiostock_website_to_key( $site );
+            array_push( $files, symbiostock_NETDIR . $dir . $key . '.csv' );
+        }
 
-		$amount = 70;
-		for ( $start = 0; $start < count ( $urls ); $start += $amount ) {
-			$ch = array( );
-			$mh = curl_multi_init();
-			for ( $i = 0; $i < $amount && $start + $i < count( $urls ); $i++ ) {
-				array_push( $ch, curl_init() );
-				curl_setopt( $ch[$i], CURLOPT_HEADER, 0 );
-				curl_setopt( $ch[$i], CURLOPT_BINARYTRANSFER, true );
-				curl_setopt( $ch[$i], CURLOPT_RETURNTRANSFER, true );
-				curl_setopt( $ch[$i], CURLOPT_FOLLOWLOCATION, false );
-				curl_setopt( $ch[$i], CURLOPT_TIMEOUT, 25 );
-				curl_setopt( $ch[$i], CURLOPT_URL, $urls[$start + $i] );
-				curl_multi_add_handle( $mh, $ch[$i] );
-			}
-			$still_running = false;
-			ajt_full_curl_multi_exec($mh, $still_running); // start requests
-			do {
-				curl_multi_select($mh); // non-busy (!) wait for state change
-				ajt_full_curl_multi_exec($mh, $still_running); // get new state
-				while ($info = curl_multi_info_read($mh)) {
-					for ( $i = 0; $start+$i < count( $urls ); $i++ )
-						if ( $ch[$i] == $info['handle'] ) break;
-					$raw = curl_multi_getcontent( $info['handle'] );
-					echo 'Getting site: ' . $sites[$start+$i] . '...<br />';
-					if( ! curl_errno( $info['handle'] ) ) {
-						echo '&mdash;<strong>'.__( 'Success', 'symbiostock').'<br /></strong>';
+        $amount = 70;
+        for ( $start = 0; $start < count ( $urls ); $start += $amount ) {
+            $ch = array( );
+            $mh = curl_multi_init();
+            for ( $i = 0; $i < $amount && $start + $i < count( $urls ); $i++ ) {
+                array_push( $ch, curl_init() );
+                curl_setopt( $ch[$i], CURLOPT_HEADER, 0 );
+                curl_setopt( $ch[$i], CURLOPT_BINARYTRANSFER, true );
+                curl_setopt( $ch[$i], CURLOPT_RETURNTRANSFER, true );
+                curl_setopt( $ch[$i], CURLOPT_FOLLOWLOCATION, false );
+                curl_setopt( $ch[$i], CURLOPT_TIMEOUT, 25 );
+                curl_setopt( $ch[$i], CURLOPT_URL, $urls[$start + $i] );
+                curl_multi_add_handle( $mh, $ch[$i] );
+            }
+            $still_running = false;
+            ajt_full_curl_multi_exec($mh, $still_running); // start requests
+            do {
+                curl_multi_select($mh); // non-busy (!) wait for state change
+                ajt_full_curl_multi_exec($mh, $still_running); // get new state
+                while ($info = curl_multi_info_read($mh)) {
+                    for ( $i = 0; $start+$i < count( $urls ); $i++ )
+                        if ( $ch[$i] == $info['handle'] ) break;
+                    $raw = curl_multi_getcontent( $info['handle'] );
+                    echo 'Getting site: ' . $sites[$start+$i] . '...<br />';
+                    if( ! curl_errno( $info['handle'] ) ) {
+                        echo '&mdash;<strong>'.__( 'Success', 'symbiostock').'<br /></strong>';
 
-						if ( file_exists( $files[$start+$i] ) ) {
-							unlink( $files[$start+$i] );
-						}
-						$fp = fopen( $files[$start+$i], 'x' );
-						fwrite( $fp, $raw );
-						fclose( $fp );
+                        if ( file_exists( $files[$start+$i] ) ) {
+                            unlink( $files[$start+$i] );
+                        }
+                        $fp = fopen( $files[$start+$i], 'x' );
+                        fwrite( $fp, $raw );
+                        fclose( $fp );
         
-						$required_fields = array(
-							'symbiostock_site',
-							'admin_email',
-							'symbiostock_version'
-						);
+                        $required_fields = array(
+                            'symbiostock_site',
+                            'admin_email',
+                            'symbiostock_version'
+                        );
         
-						//convert our info
-						$converted = $this->csv_to_array( $files[$start+$i], ',' );
-						$network_associate_info = $converted[ 0 ];
+                        //convert our info
+                        $converted = $this->csv_to_array( $files[$start+$i], ',' );
+                        $network_associate_info = $converted[ 0 ];
         
-						//validate
-				
-						foreach ( $required_fields as $must_have ) {
-            
-							if ( !isset( $converted[0][$must_have] ) || empty( $converted[0][$must_have] ) ) {
+                        //validate
                 
-								unlink( $files[$start+$i] );
-								echo ''.__( 'Invalid Symbiocard. Missing:', 'symbiostock').' <strong>' . $must_have . '</strong>. '.__( 'Deleted!', 'symbiostock').'<br />';
-								break;
-							} //!isset( $must_have ) || empty( $must_have )
+                        foreach ( $required_fields as $must_have ) {
             
-						} //$required_fields as $must_have
+                            if ( !isset( $converted[0][$must_have] ) || empty( $converted[0][$must_have] ) ) {
+                
+                                unlink( $files[$start+$i] );
+                                echo ''.__( 'Invalid Symbiocard. Missing:', 'symbiostock').' <strong>' . $must_have . '</strong>. '.__( 'Deleted!', 'symbiostock').'<br />';
+                                break;
+                            } //!isset( $must_have ) || empty( $must_have )
+            
+                        } //$required_fields as $must_have
 
-					}	
-					else {
-						echo '&mdash;<strong>' . $info['http_code'] . " @$urls[$i]</strong> " . ' '.__( 'Aborting Site...', 'symbiostock').'<br />';
-					}
-					echo '<br />';
-				} // while
-			} while ($still_running);
+                    }    
+                    else {
+                        echo '&mdash;<strong>' . $info['http_code'] . " @$urls[$i]</strong> " . ' '.__( 'Aborting Site...', 'symbiostock').'<br />';
+                    }
+                    echo '<br />';
+                } // while
+            } while ($still_running);
 
-			for ( $i = 0; $i < $amount && $start + $i < count( $urls ); $i++ ) {
-				curl_multi_remove_handle( $mh, $ch[$i] );
-				curl_close( $ch[$i] );
-			}
-			curl_multi_close($mh);
-		}
-    }	
-	
-    
-    
+            for ( $i = 0; $i < $amount && $start + $i < count( $urls ); $i++ ) {
+                curl_multi_remove_handle( $mh, $ch[$i] );
+                curl_close( $ch[$i] );
+            }
+            curl_multi_close($mh);
+        }
+    }    
     
     public function write_network_csv( $uploaded = false )
     {
@@ -1081,6 +1078,9 @@ class network_manager
         $network_info[ 'symbiostock_temporary_location_1_info' ] = $temp_1_coords;
         $network_info[ 'symbiostock_temporary_location_2_info' ] = $temp_2_coords;
         
+        //Using Public Analytics?
+        $network_info[ 'symbiostock_public_analytics' ] = get_option('symbiostock_public_analytics', 1);
+        
         //set up categories
         $categories = wp_list_categories( array(
              'taxonomy' => 'image-type',
@@ -1518,7 +1518,10 @@ class network_manager
             $image_tags = get_query_var( 'image-tags' );
         }
         
+        /*
+        //this function is not needed anymore. DEPRICATED!
         symbiostock_keyword_update($image_tags);
+        */
         
         //if this is a category page, then we set the value
         $category = get_query_var( 'image-type' );
@@ -1900,7 +1903,7 @@ class network_manager
 
         $collected_addresses = array_unique($collected_addresses);
 
-	$this->fetch_symbiocards( $collected_addresses, true );
+    $this->fetch_symbiocards( $collected_addresses, true );
 
         //log our travels...
         $visited_addresses = array_unique($collected_addresses);
@@ -1961,9 +1964,9 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
         $max_cache_delete = get_option('symbiostock_cache_max_delete', 100);
 
         $crawler = ajt_crawler_detect();
-	if ( $crawler == '' )
-	        $days = min( get_option('symbiostock_cache_days', 21), 60 );
-	else	
+    if ( $crawler == '' )
+            $days = min( get_option('symbiostock_cache_days', 21), 60 );
+    else    
                 $days = 60;
         $caching_time = $days * 24 * 3600;   // must be number of seconds
         
@@ -2013,16 +2016,16 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                      ajt_cache_log_file_close( $log_file );
                      
                   if ( $crawler != '' && $result_list[$count] == '' && $search_site ) {
-			$cached = get_option( 'symbiostock_cached_results', 0 );
-			if ( $crawler[0] == 'G' ) $level = 1;
-			else $level = 0;
-			if ( $cached > $level ) 
+            $cached = get_option( 'symbiostock_cached_results', 0 );
+            if ( $crawler[0] == 'G' ) $level = 1;
+            else $level = 0;
+            if ( $cached > $level ) 
                              $result_list[$count] = ajt_xml_no_results_found();    
                    }
 
                    if ( $result_list[$count] == '' ) {
                          array_push( $ch, curl_init() );
-                         curl_setopt( $ch[$count], CURLOPT_RETURNTRANSFER, true );
+                         curl_setopt( $ch[$count], CURLOPT_RETURNTRANSFER, true ); 
                          if ($random_enabled )
                            $timeout = 7;
                          else
@@ -2030,10 +2033,10 @@ if ( ! function_exists( 'ajt_network_search_all' ) ) {
                          curl_setopt( $ch[$count], CURLOPT_CONNECTTIMEOUT, $timeout );
                          curl_setopt( $ch[$count], CURLOPT_TIMEOUT, $timeout );
                          curl_setopt( $ch[$count], CURLOPT_REFERER, get_home_url() );
-                         curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, true );
+                         curl_setopt( $ch[$count], CURLOPT_FOLLOWLOCATION, false );  
                          curl_setopt( $ch[$count], CURLOPT_URL, $query_list[$count] );
                          curl_multi_add_handle( $mh, $ch[$count] );
-                         $call_curl = true;
+                         $call_curl = true; 
                    } 
                    else {
                          array_push( $ch, 0 );
@@ -2111,9 +2114,9 @@ if ( ! function_exists( 'ajt_get_remote_xml' ) ) {
 
       $crawler = ajt_crawler_detect();
       if ( $crawler == '' )
-	$days = min( get_option('symbiostock_cache_days', 21), 60 );
-      else	
-	$days = 60;
+    $days = min( get_option('symbiostock_cache_days', 21), 60 );
+      else    
+    $days = 60;
       $caching_time = $days * 24 * 3600;   // must be number of seconds
 
       $key = ajt_make_cache_key_from_url( $url );
@@ -2412,7 +2415,11 @@ function symbiostock_site_data_activation() {
 }
 
 function update_symbiostock_site_data() {
-
+    
+	ss_update_hub_sites();
+	
+    do_action('symbiostock_daily_chron');
+    
     $update = new network_manager();
     $sites  = $update->get_connected_networks();
     foreach ( $sites as $site ) {
@@ -2427,8 +2434,5 @@ function update_symbiostock_site_data() {
     update_option('symbiostock_site_data_last_update', current_time( 'mysql' ));
 
     wp_mail( get_bloginfo( 'admin_email' ), ''.__( '[symbiostock_network_update] Site has updated image and network - ', 'symbiostock') . current_time( 'mysql' ), __( 'Public image and tag info updated. Network has been scanned and directory updated. - ', 'symbiostock') . current_time( 'mysql' ) );
-    
-    
-    do_action('symbiostock_daily_chron');
-    
+     
 }

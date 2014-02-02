@@ -1,0 +1,3762 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Symbiostock\n"
+"POT-Creation-Date: 2014-01-12 22:28-1000\n"
+"PO-Revision-Date: 2014-01-12 22:28-1000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../collections-taxonomy.php:7
+msgid "Search Collections"
+msgstr ""
+
+#: ../collections-taxonomy.php:8
+msgid "All Collections"
+msgstr ""
+
+#: ../collections-taxonomy.php:9
+msgid "Parent Collection"
+msgstr ""
+
+#: ../collections-taxonomy.php:10
+msgid "Parent Collection:"
+msgstr ""
+
+#: ../collections-taxonomy.php:11
+msgid "Edit Collection"
+msgstr ""
+
+#: ../collections-taxonomy.php:12
+msgid "Update Collection"
+msgstr ""
+
+#: ../collections-taxonomy.php:13
+msgid "Add New Collection"
+msgstr ""
+
+#: ../collections-taxonomy.php:14
+msgid "New Collection Name"
+msgstr ""
+
+#: ../collections-taxonomy.php:15
+msgid "Collection"
+msgstr ""
+
+#: ../symbiostock_author_box.php:32
+msgid "<em>Symbiocard not available...</em>"
+msgstr ""
+
+#: ../symbiostock_author_box.php:80 ../symbiostock_author_box.php:128
+#: ../symbiostock_author_box.php:144 ../symbiostock_author_box.php:351
+msgid "Author"
+msgstr ""
+
+#: ../symbiostock_author_box.php:91
+msgid "See full author bio..."
+msgstr ""
+
+#: ../symbiostock_author_box.php:91
+msgid "[more]"
+msgstr ""
+
+#: ../symbiostock_author_box.php:136
+msgid "info"
+msgstr ""
+
+#: ../symbiostock_author_box.php:144
+msgid " Author Page "
+msgstr ""
+
+#: ../symbiostock_author_box.php:148
+#: ../inc/classes/network-manager/network-list-manager.php:108
+msgid "Portfolio"
+msgstr ""
+
+#: ../symbiostock_author_box.php:148 ../symbiostock_author_box.php:355
+msgid "Portfolio:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:148
+msgid "images."
+msgstr ""
+
+#: ../symbiostock_author_box.php:152 ../symbiostock_author_box.php:359
+msgid "Gallery"
+msgstr ""
+
+#: ../symbiostock_author_box.php:152
+msgid "Gallery Page"
+msgstr ""
+
+#: ../symbiostock_author_box.php:156
+#: ../inc/classes/network-manager/network-list-manager.php:110
+msgid "Contact"
+msgstr ""
+
+#: ../symbiostock_author_box.php:160
+msgid "Updates / RSS"
+msgstr ""
+
+#: ../symbiostock_author_box.php:164 ../symbiostock_author_box.php:193
+msgid "Network"
+msgstr ""
+
+#: ../symbiostock_author_box.php:178
+msgid "Categories"
+msgstr ""
+
+#: ../symbiostock_author_box.php:218
+msgid "Attributes & Symbiocard"
+msgstr ""
+
+#: ../symbiostock_author_box.php:222
+msgid "Author Attributes"
+msgstr ""
+
+#: ../symbiostock_author_box.php:225
+msgid "Profession 1: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:229
+msgid "Profession 2: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:233
+msgid "Language(s):"
+msgstr ""
+
+#: ../symbiostock_author_box.php:237
+msgid "Equipment:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:241
+msgid "Software:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:245
+msgid "Available for<br /> Assignments: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:248
+msgid "Home<br /> Location: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:252
+msgid "Temporary <br /> Location 1: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:256
+msgid "Temporary <br /> Location 2: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:259
+msgid "Site Attributes"
+msgstr ""
+
+#: ../symbiostock_author_box.php:262
+msgid "# Images:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:266
+msgid "Focus 1:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:270
+msgid "Focus 2:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:274
+msgid "Specialty 1:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:278
+msgid "Specialty 2:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:281
+msgid "Symbiostock vsn"
+msgstr ""
+
+#: ../symbiostock_author_box.php:282
+msgid "Last update: "
+msgstr ""
+
+#: ../symbiostock_author_box.php:286
+msgid "Get Symbiocard"
+msgstr ""
+
+#: ../symbiostock_author_box.php:304
+msgid "Author avatar"
+msgstr ""
+
+#: ../symbiostock_author_box.php:338
+msgid " Network Results:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:351
+#: ../inc/classes/network-manager/network-list-manager.php:107
+msgid "Author Page"
+msgstr ""
+
+#: ../symbiostock_author_box.php:359
+msgid "Gallery Page:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:363
+msgid "Contact:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:367
+msgid "Updates / RSS:"
+msgstr ""
+
+#: ../symbiostock_author_box.php:371
+msgid "Network:"
+msgstr ""
+
+#: ../image.php:20
+#, php-format
+msgid ""
+"Published <span class=\"entry-date\"><time class=\"entry-date\" datetime="
+"\"%1$s\" pubdate>%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-"
+"size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s"
+"\" rel=\"gallery\">%7$s</a>"
+msgstr ""
+
+#: ../image.php:30 ../image.php:88 ../page-categories.php:31
+#: ../page-home2.php:23 ../content-page.php:16 ../page-home-sidebar.php:26
+#: ../page-home3.php:40 ../content-image.php:219 ../page-categories-2.php:159
+#: ../single-license.php:32 ../page-fullwidth.php:32 ../page-registered.php:81
+#: ../page-directory.php:34 ../page-network.php:37 ../content.php:52
+#: ../page-home0.php:30 ../page-home1.php:33 ../page-login.php:28
+#: ../content-single.php:47 ../content-customer.php:27
+#: ../page-sidebar-left.php:33
+msgid "Edit"
+msgstr ""
+
+#: ../image.php:33
+msgid "&larr; Previous"
+msgstr ""
+
+#: ../image.php:34
+msgid "Next &rarr;"
+msgstr ""
+
+#: ../image.php:76 ../page-categories.php:30 ../content-page.php:15
+#: ../page-home-sidebar.php:25 ../content-image.php:73
+#: ../page-categories-2.php:158 ../single-license.php:31
+#: ../page-fullwidth.php:31 ../page-registered.php:80 ../page-directory.php:33
+#: ../page-network.php:36 ../content.php:23 ../page-login.php:27
+#: ../content-single.php:16 ../page-sidebar-left.php:32
+msgid "Pages:"
+msgstr ""
+
+#: ../image.php:80
+#, php-format
+msgid ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a "
+"comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
+"title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr ""
+
+#: ../image.php:82
+#, php-format
+msgid ""
+"Comments are closed, but you can leave a trackback: <a class=\"trackback-link"
+"\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback"
+"\">Trackback URL</a>."
+msgstr ""
+
+#: ../image.php:84
+msgid ""
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond"
+"\" title=\"Post a comment\">post a comment</a>."
+msgstr ""
+
+#: ../image.php:86
+msgid "Both comments and trackbacks are currently closed."
+msgstr ""
+
+#: ../searchform.php:13 ../searchform_symbiostock.php:11
+#: ../searchform_symbiostock.php:22
+msgid "Search"
+msgstr ""
+
+#: ../searchform.php:20
+msgid "Search "
+msgstr ""
+
+#: ../taxonomy-image-type.php:30
+msgid "Images in category:"
+msgstr ""
+
+#: ../no-results.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: ../no-results.php:17
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: ../no-results.php:19
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: ../no-results.php:22
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: ../content-image.php:38 ../content.php:9
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: ../content-image.php:66 ../content.php:22
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../content-image.php:88
+msgid "Image updated"
+msgstr ""
+
+#: ../content-image.php:115 ../content-noresults.php:25
+#: ../inc/rf-custom-post-functions.php:58 ../inc/installer/installer.php:251
+msgid "Image Categories"
+msgstr ""
+
+#: ../content-image.php:163
+msgid "Image #"
+msgstr ""
+
+#: ../content-image.php:201 ../content-image.php:208 ../content.php:30
+#: ../content.php:39 ../content-single.php:21 ../content-single.php:23
+msgid ", "
+msgstr ""
+
+#: ../content-image.php:204 ../content.php:34
+#, php-format
+msgid "Posted in %1$s"
+msgstr ""
+
+#: ../content-image.php:211 ../content.php:44
+#, php-format
+msgid "Tagged %1$s"
+msgstr ""
+
+#: ../content-image.php:216 ../content.php:50
+msgid "Leave a comment"
+msgstr ""
+
+#: ../content-image.php:216 ../content.php:50
+msgid "1 Comment"
+msgstr ""
+
+#: ../content-image.php:216 ../content.php:50
+msgid "% Comments"
+msgstr ""
+
+#: ../functions.php:351
+msgid "Sidebar"
+msgstr ""
+
+#: ../functions.php:362
+msgid "Home Page (Above Content)"
+msgstr ""
+
+#: ../functions.php:373
+msgid "Home Page (Beside Content)"
+msgstr ""
+
+#: ../functions.php:384
+msgid "Home Page (Below Content)"
+msgstr ""
+
+#: ../functions.php:395
+msgid "Home Page Bottom  1/3"
+msgstr ""
+
+#: ../functions.php:404
+msgid "Home Page Bottom  2/3"
+msgstr ""
+
+#: ../functions.php:413
+msgid "Home Page Bottom  3/3"
+msgstr ""
+
+#: ../functions.php:426
+msgid "Author Page (Below Content)"
+msgstr ""
+
+#: ../functions.php:435
+msgid "Author Page (Sidebar)"
+msgstr ""
+
+#: ../functions.php:447
+msgid "Image Page Side"
+msgstr ""
+
+#: ../functions.php:457
+msgid "Image Page Bottom"
+msgstr ""
+
+#: ../functions.php:467
+msgid "Image Page Bottom Fullwidth"
+msgstr ""
+
+#: ../functions.php:479
+msgid "Footer 1/3"
+msgstr ""
+
+#: ../functions.php:489
+msgid "Footer 2/3"
+msgstr ""
+
+#: ../functions.php:499
+msgid "Footer 3/3"
+msgstr ""
+
+#: ../functions.php:773
+msgid "See More"
+msgstr ""
+
+#: ../functions.php:1176
+msgid "Part of the Symbiostock Network"
+msgstr ""
+
+#: ../functions.php:1208 ../modal-login.php:7
+msgid "Login / Register"
+msgstr ""
+
+#: ../functions.php:1214 ../page-registered.php:68
+msgid "Logout"
+msgstr ""
+
+#: ../functions.php:1448
+msgid "No Results Found"
+msgstr ""
+
+#: ../functions.php:1585
+msgid ""
+"Symbiostock Community - Network with illustrators, photographers, and "
+"designers."
+msgstr ""
+
+#: ../functions.php:1586
+msgid "Symbiostock.info - Search images on the Symbiostock network."
+msgstr ""
+
+#: ../functions.php:1587
+msgid "Symbiostock Search  - Search Symbiostock images and network."
+msgstr ""
+
+#: ../functions.php:1588
+msgid "Symbioguides.com - Symbiostock knowledge base."
+msgstr ""
+
+#: ../functions.php:1589
+msgid ""
+"Symbiostock.com - Sell your images and network with fellow microstock "
+"professionals."
+msgstr ""
+
+#: ../functions.php:1590
+msgid "ClipArtof.com - High Resolution Stock Illustrations &amp; Clip Art"
+msgstr ""
+
+#: ../functions.php:1591
+msgid ""
+"ClipArtIllustration.com - First Symbiostock Site, and home of the Orange Man"
+msgstr ""
+
+#: ../functions.php:1592
+msgid "Microstockgroup.com - A meeting place for microstock professionals."
+msgstr ""
+
+#: ../functions.php:1598
+msgid "Symbiostock Community"
+msgstr ""
+
+#: ../functions.php:1695
+msgid "Copyright"
+msgstr ""
+
+#: ../functions.php:1701
+msgid "All Rights Reserved"
+msgstr ""
+
+#: ../functions.php:1710
+msgid "Stock image and networking platform"
+msgstr ""
+
+#: ../functions.php:1711
+msgid "by the maker of"
+msgstr ""
+
+#: ../functions.php:1872
+msgid "Open for Assignment Jobs"
+msgstr ""
+
+#: ../functions.php:1872 ../functions.php:3051 ../functions.php:3066
+#: ../functions.php:3275 ../functions.php:3285 ../functions.php:3488
+#: ../customizer.php:158 ../customizer.php:177
+#: ../inc/rf-custom-post-functions.php:331
+#: ../inc/rf-custom-post-functions.php:335
+#: ../inc/rf-custom-post-functions.php:342
+#: ../inc/rf-custom-post-functions.php:348
+#: ../inc/classes/admin/1network.php:199
+#: ../inc/theme-options/theme-options.php:123
+msgid "No"
+msgstr ""
+
+#: ../functions.php:1872 ../functions.php:3048 ../functions.php:3063
+#: ../functions.php:3274 ../functions.php:3284 ../functions.php:3484
+#: ../customizer.php:176 ../inc/rf-custom-post-functions.php:330
+#: ../inc/rf-custom-post-functions.php:334
+#: ../inc/rf-custom-post-functions.php:341
+#: ../inc/rf-custom-post-functions.php:347
+#: ../inc/classes/admin/1network.php:202
+#: ../inc/theme-options/theme-options.php:119
+msgid "Yes"
+msgstr ""
+
+#: ../functions.php:1873
+msgid "Profession 1"
+msgstr ""
+
+#: ../functions.php:1875 ../functions.php:1884
+msgid "Illustrator"
+msgstr ""
+
+#: ../functions.php:1876 ../functions.php:1885
+msgid "Photographer"
+msgstr ""
+
+#: ../functions.php:1877 ../functions.php:1886
+msgid "Developer"
+msgstr ""
+
+#: ../functions.php:1878 ../functions.php:1887
+msgid "Artist"
+msgstr ""
+
+#: ../functions.php:1879 ../functions.php:1888
+msgid "Marketing"
+msgstr ""
+
+#: ../functions.php:1880 ../functions.php:1889
+msgid "Graphic Design"
+msgstr ""
+
+#: ../functions.php:1881 ../functions.php:1890 ../functions.php:1895
+#: ../functions.php:1901
+msgid "3d Design"
+msgstr ""
+
+#: ../functions.php:1882
+msgid "Profession 2"
+msgstr ""
+
+#: ../functions.php:1891
+msgid "Portfolio Focus 1"
+msgstr ""
+
+#: ../functions.php:1893 ../functions.php:1899
+msgid "Photography"
+msgstr ""
+
+#: ../functions.php:1894 ../functions.php:1900 ../functions.php:3158
+#: ../inc/rf-custom-post-functions.php:575
+msgid "Vector"
+msgstr ""
+
+#: ../functions.php:1896 ../functions.php:1902
+msgid "Digital Painting"
+msgstr ""
+
+#: ../functions.php:1897
+msgid "Portfolio Focus 2"
+msgstr ""
+
+#: ../functions.php:1903
+msgid "Specialty 1"
+msgstr ""
+
+#: ../functions.php:1905 ../functions.php:1920
+#: ../inc/installer/taxonomies_and_links.php:105
+msgid "Travel"
+msgstr ""
+
+#: ../functions.php:1906 ../functions.php:1921
+#: ../inc/installer/taxonomies_and_links.php:97
+msgid "People"
+msgstr ""
+
+#: ../functions.php:1907 ../functions.php:1922
+msgid "Illustrations"
+msgstr ""
+
+#: ../functions.php:1908 ../functions.php:1923
+msgid "Maps"
+msgstr ""
+
+#: ../functions.php:1909 ../functions.php:1924
+msgid "Cartoon"
+msgstr ""
+
+#: ../functions.php:1910 ../functions.php:1925
+#: ../inc/installer/taxonomies_and_links.php:95
+msgid "Nature"
+msgstr ""
+
+#: ../functions.php:1911 ../functions.php:1926
+msgid "Editorial"
+msgstr ""
+
+#: ../functions.php:1912 ../functions.php:1927
+#: ../inc/installer/taxonomies_and_links.php:93
+msgid "Landscape"
+msgstr ""
+
+#: ../functions.php:1913 ../functions.php:1928
+msgid "Food"
+msgstr ""
+
+#: ../functions.php:1914 ../functions.php:1929
+msgid "Lifestyle"
+msgstr ""
+
+#: ../functions.php:1915 ../functions.php:1930
+msgid "Backgrounds"
+msgstr ""
+
+#: ../functions.php:1916 ../functions.php:1931
+#: ../inc/installer/taxonomies_and_links.php:109
+msgid "Industry"
+msgstr ""
+
+#: ../functions.php:1917 ../functions.php:1932
+msgid "Mascot Series"
+msgstr ""
+
+#: ../functions.php:1918
+msgid "Specialty 2"
+msgstr ""
+
+#: ../functions.php:1960
+msgid "Your profile and network symbiocard"
+msgstr ""
+
+#: ../functions.php:1986
+msgid "Invalid URL for "
+msgstr ""
+
+#: ../functions.php:1987
+msgid ". Please try again."
+msgstr ""
+
+#: ../functions.php:2442 ../functions.php:2444
+msgid "Reprocess"
+msgstr ""
+
+#: ../functions.php:2446 ../functions.php:2448
+msgid "Make Promo Preview"
+msgstr ""
+
+#: ../functions.php:2585
+msgid "Image Reprocessed."
+msgstr ""
+
+#: ../functions.php:2586
+#, php-format
+msgid "%s posts reprocessed."
+msgstr ""
+
+#: ../functions.php:2879
+msgid "Image Process Update: "
+msgstr ""
+
+#: ../functions.php:2880
+msgid " Completed."
+msgstr ""
+
+#: ../functions.php:2882
+msgid "Image process update: "
+msgstr ""
+
+#: ../functions.php:2883
+msgid " image pages updated on "
+msgstr ""
+
+#: ../functions.php:2894
+msgid "Operation complete!"
+msgstr ""
+
+#: ../functions.php:2895
+msgid "images updated."
+msgstr ""
+
+#: ../functions.php:3026
+msgid "open"
+msgstr ""
+
+#: ../functions.php:3029
+msgid "closed"
+msgstr ""
+
+#: ../functions.php:3037 ../inc/classes/marketing/extended_network.php:146
+msgid "on"
+msgstr ""
+
+#: ../functions.php:3039 ../inc/classes/marketing/extended_network.php:144
+msgid "off"
+msgstr ""
+
+#: ../functions.php:3047 ../functions.php:3053 ../functions.php:3062
+#: ../functions.php:3068 ../functions.php:3276 ../functions.php:3287
+#: ../inc/rf-custom-post-functions.php:329
+#: ../inc/rf-custom-post-functions.php:333
+#: ../inc/rf-custom-post-functions.php:343
+#: ../inc/rf-custom-post-functions.php:349
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1727
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1741
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1940
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1942
+msgid "N/A"
+msgstr ""
+
+#: ../functions.php:3072 ../functions.php:3074 ../functions.php:3076
+#: ../functions.php:3078 ../functions.php:3080
+#: ../inc/rf-custom-post-functions.php:109
+#: ../inc/rf-custom-post-functions.php:117
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1928
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1930
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1932
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1934
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1936
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1938
+msgid "yes"
+msgstr ""
+
+#: ../functions.php:3108
+msgid "Image Status"
+msgstr ""
+
+#: ../functions.php:3113 ../functions.php:3117
+#: ../inc/rf-custom-post-functions.php:311
+#: ../inc/rf-custom-post-functions.php:570
+msgid "Exclusive"
+msgstr ""
+
+#: ../functions.php:3121 ../functions.php:3123
+#: ../inc/rf-custom-post-functions.php:323
+msgid "Live"
+msgstr ""
+
+#: ../functions.php:3124
+msgid "not_Live"
+msgstr ""
+
+#: ../functions.php:3129 ../inc/rf-custom-post-functions.php:222
+msgid "Rank"
+msgstr ""
+
+#: ../functions.php:3131
+msgid "1st"
+msgstr ""
+
+#: ../functions.php:3132
+msgid "2nd"
+msgstr ""
+
+#: ../functions.php:3133
+msgid "3rd"
+msgstr ""
+
+#: ../functions.php:3135
+msgid ""
+"Relative ranking system, putting premium at\n"
+"\t\t\t\t\tfront of search results, second in the middle, third last."
+msgstr ""
+
+#: ../functions.php:3139 ../inc/rf-custom-post-functions.php:204
+#: ../inc/classes/admin/1network.php:188
+msgid "Rating"
+msgstr ""
+
+#: ../functions.php:3142 ../inc/rf-custom-post-functions.php:200
+#: ../inc/classes/processor.php:24
+msgid "GREEN"
+msgstr ""
+
+#: ../functions.php:3143 ../inc/rf-custom-post-functions.php:201
+#: ../inc/classes/processor.php:26
+msgid "YELLOW"
+msgstr ""
+
+#: ../functions.php:3144 ../inc/rf-custom-post-functions.php:202
+#: ../inc/classes/processor.php:28
+msgid "RED"
+msgstr ""
+
+#: ../functions.php:3146
+msgid "Nudity filter. See info link for definitions."
+msgstr ""
+
+#: ../functions.php:3152
+msgid "Pricing and Options."
+msgstr ""
+
+#: ../functions.php:3153
+msgid "Default Pricing"
+msgstr ""
+
+#: ../functions.php:3154
+msgid " *See \"Settings\" to change type."
+msgstr ""
+
+#: ../functions.php:3167
+msgid "Zip"
+msgstr ""
+
+#: ../functions.php:3167
+msgid "Packaged alternate files."
+msgstr ""
+
+#: ../functions.php:3176 ../modal-search.php:35
+#: ../inc/rf-custom-post-functions.php:574
+msgid "Large"
+msgstr ""
+
+#: ../functions.php:3185 ../functions.php:3227 ../modal-search.php:30
+#: ../inc/rf-custom-post-functions.php:573
+msgid "Medium"
+msgstr ""
+
+#: ../functions.php:3194 ../functions.php:3233 ../modal-search.php:25
+#: ../inc/rf-custom-post-functions.php:572
+msgid "Small"
+msgstr ""
+
+#: ../functions.php:3203 ../functions.php:3239 ../modal-search.php:20
+#: ../inc/rf-custom-post-functions.php:571
+msgid "Bloggee"
+msgstr ""
+
+#: ../functions.php:3212
+msgid "Discount"
+msgstr ""
+
+#: ../functions.php:3216
+msgid "Enter"
+msgstr ""
+
+#: ../functions.php:3217
+msgid " to reset to "
+msgstr ""
+
+#: ../functions.php:3221 ../functions.php:3222
+msgid "Default Size Settings"
+msgstr ""
+
+#: ../functions.php:3246
+msgid ""
+"Image SEO -- *Entering \"-Royalty Free Image\" will append that phrase to "
+"all image titles."
+msgstr ""
+
+#: ../functions.php:3250
+msgid "Append Text to Title"
+msgstr ""
+
+#: ../functions.php:3258
+msgid "Image Comments"
+msgstr ""
+
+#: ../functions.php:3258
+msgid "Applied during processing. Must manually change afterward."
+msgstr ""
+
+#: ../functions.php:3260
+msgid "Allowed"
+msgstr ""
+
+#: ../functions.php:3262
+msgid "Disabled"
+msgstr ""
+
+#: ../functions.php:3267
+msgid "Legal"
+msgstr ""
+
+#: ../functions.php:3271
+msgid "Model Released?"
+msgstr ""
+
+#: ../functions.php:3280
+msgid "Property Released?"
+msgstr ""
+
+#: ../functions.php:3292
+msgid "Referral Links"
+msgstr ""
+
+#: ../functions.php:3296 ../functions.php:3308 ../functions.php:3320
+#: ../functions.php:3332 ../functions.php:3344
+#: ../inc/rf-custom-post-functions.php:369
+#: ../inc/rf-custom-post-functions.php:380
+#: ../inc/rf-custom-post-functions.php:391
+#: ../inc/rf-custom-post-functions.php:402
+#: ../inc/rf-custom-post-functions.php:413
+msgid "Referral Link"
+msgstr ""
+
+#: ../functions.php:3300 ../functions.php:3313 ../functions.php:3325
+#: ../functions.php:3337 ../functions.php:3349
+msgid "Label"
+msgstr ""
+
+#: ../functions.php:3392
+msgid "Images"
+msgstr ""
+
+#: ../functions.php:3393
+msgid "Blog"
+msgstr ""
+
+#: ../functions.php:3431
+msgid "Symbiostock Customizer"
+msgstr ""
+
+#: ../functions.php:3432
+msgid ""
+"Keep OFF if you have specific child theme setups\tthat you don't want "
+"overridden by the customizer."
+msgstr ""
+
+#: ../functions.php:3435
+msgid "On"
+msgstr ""
+
+#: ../functions.php:3438
+msgid "Off"
+msgstr ""
+
+#: ../functions.php:3480
+msgid "Run daily image update? (for network\tand connected search engines)"
+msgstr ""
+
+#: ../functions.php:3511
+msgid "DOWNLOAD"
+msgstr ""
+
+#: ../functions.php:3514
+msgid "Product table \"Cart\" Button Name"
+msgstr ""
+
+#: ../archive.php:19
+#, php-format
+msgid "Category Archives: %s"
+msgstr ""
+
+#: ../archive.php:21
+#, php-format
+msgid "Tag Archives: %s"
+msgstr ""
+
+#: ../archive.php:27
+#, php-format
+msgid "Author Archives: %s"
+msgstr ""
+
+#: ../archive.php:34
+#, php-format
+msgid "Daily Archives: %s"
+msgstr ""
+
+#: ../archive.php:36
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr ""
+
+#: ../archive.php:38
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr ""
+
+#: ../archive.php:40 ../sidebar.php:15
+msgid "Archives"
+msgstr ""
+
+#: ../sub-search.php:3 ../page-network.php:55 ../see-directory.php:4
+msgid "Extended Network Directory"
+msgstr ""
+
+#: ../sub-search.php:4
+msgid "See more image authors: "
+msgstr ""
+
+#: ../sub-search.php:4
+msgid "Symbiostock Author Directory"
+msgstr ""
+
+#: ../taxonomy-collection.php:29
+msgid "Images in Collection:"
+msgstr ""
+
+#: ../taxonomy-image-tags.php:36
+msgid "Results for"
+msgstr ""
+
+#: ../customizer.php:65
+msgid "Symbiostock Nav Menus"
+msgstr ""
+
+#: ../customizer.php:77
+msgid "Menu Location"
+msgstr ""
+
+#: ../customizer.php:80
+msgid "Top Anchored"
+msgstr ""
+
+#: ../customizer.php:81
+msgid "Under Header"
+msgstr ""
+
+#: ../customizer.php:98
+msgid "Main/Nav Menu Style"
+msgstr ""
+
+#: ../customizer.php:101 ../customizer.php:120 ../customizer.php:138
+msgid "Basic"
+msgstr ""
+
+#: ../customizer.php:102 ../customizer.php:121
+msgid "Inverted"
+msgstr ""
+
+#: ../customizer.php:117
+msgid "Search/Account Menu Style"
+msgstr ""
+
+#: ../customizer.php:135
+msgid "Search/Account Menu Fill"
+msgstr ""
+
+#: ../customizer.php:139
+msgid "Blank"
+msgstr ""
+
+#: ../customizer.php:153
+msgid "Separate Search/Account Menu?"
+msgstr ""
+
+#: ../customizer.php:156
+msgid "Yes - Anchored"
+msgstr ""
+
+#: ../customizer.php:157
+msgid "Yes - Floated"
+msgstr ""
+
+#: ../customizer.php:173
+msgid "Show \"Image/Blog\" search option?"
+msgstr ""
+
+#: ../customizer.php:187
+msgid "Symbiostock General"
+msgstr ""
+
+#: ../customizer.php:200
+msgid "Logo Location"
+msgstr ""
+
+#: ../customizer.php:204
+msgid "Left"
+msgstr ""
+
+#: ../customizer.php:205
+msgid "Centered"
+msgstr ""
+
+#: ../customizer.php:219
+msgid "Background Color"
+msgstr ""
+
+#: ../customizer.php:234
+msgid "Panel Background Color"
+msgstr ""
+
+#: ../customizer.php:250
+msgid "Panel Head [TOP] Gradient"
+msgstr ""
+
+#: ../customizer.php:264
+msgid "Panel Head [BOTTOM] Gradient"
+msgstr ""
+
+#: ../customizer.php:278
+msgid "Content/Paragraph Color"
+msgstr ""
+
+#: ../customizer.php:291
+msgid "Content/Header Color"
+msgstr ""
+
+#: ../customizer.php:299
+msgid "Symbiostock Footer"
+msgstr ""
+
+#: ../customizer.php:313
+msgid "Footer [TOP] Gradient"
+msgstr ""
+
+#: ../customizer.php:327
+msgid "Footer [BOTTOM] Gradient"
+msgstr ""
+
+#: ../customizer.php:341
+msgid "Footer Panels"
+msgstr ""
+
+#: ../customizer.php:355
+msgid "Header Font"
+msgstr ""
+
+#: ../customizer.php:370
+msgid "Body Font"
+msgstr ""
+
+#: ../customizer.php:385
+msgid "Minipic Corner Radius"
+msgstr ""
+
+#: ../customizer.php:405
+msgid "Symbiostock Image Page"
+msgstr ""
+
+#: ../customizer.php:417
+msgid "Image Container (Background Color)"
+msgstr ""
+
+#: ../customizer.php:430
+msgid "Author Container (Background Color)"
+msgstr ""
+
+#: ../customizer.php:443
+msgid "Widget - Page Side (Background Color)"
+msgstr ""
+
+#: ../customizer.php:457
+msgid "Widget - Under Image (Background Color)"
+msgstr ""
+
+#: ../customizer.php:472
+msgid "Widget - Bottom Fullwidth (Background Color)"
+msgstr ""
+
+#: ../customizer.php:484
+msgid "Image Page Content"
+msgstr ""
+
+#: ../customizer.php:487
+msgid "Strictly Minimal"
+msgstr ""
+
+#: ../customizer.php:488
+msgid "Default"
+msgstr ""
+
+#: ../content-noresults.php:11
+msgid "No results found for "
+msgstr ""
+
+#: ../content-noresults.php:16
+msgid "No Results found. Try browsing the categories."
+msgstr ""
+
+#: ../content-404.php:11
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: ../content-404.php:14
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+
+#: ../content-404.php:21
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr ""
+
+#: ../page-customer.php:28
+msgid "Thank you for your purchase!"
+msgstr ""
+
+#: ../page-customer.php:32
+msgid "Items still in your cart, and not in your download area?"
+msgstr ""
+
+#: ../page-customer.php:32
+msgid "Wait a few seconds and refresh the page."
+msgstr ""
+
+#: ../page-customer.php:33
+msgid ""
+"Sometimes paypal takes a few minutes to notify us. If you still have "
+"problems, please contact us."
+msgstr ""
+
+#: ../page-registered.php:27 ../inc/installer/installer.php:199
+#: ../inc/installer/symbiostock_emailer.php:173
+msgid "Please Log In"
+msgstr ""
+
+#: ../page-registered.php:31
+msgid "You are logged in."
+msgstr ""
+
+#: ../page-registered.php:34
+msgid ""
+"Thank you for registering. <strong>Please check your email</strong> and log "
+"in below."
+msgstr ""
+
+#: ../page-registered.php:57 ../register_symbiostock.php:97
+msgid "User Name"
+msgstr ""
+
+#: ../page-registered.php:58 ../register_symbiostock.php:40
+#: ../register_symbiostock.php:98
+msgid "Password"
+msgstr ""
+
+#: ../page-registered.php:59 ../register_symbiostock.php:99
+msgid "Keep me logged in"
+msgstr ""
+
+#: ../page-registered.php:60 ../register_symbiostock.php:100
+msgid "Log In"
+msgstr ""
+
+#: ../page-registered.php:66 ../inc/installer/symbiostock_emailer.php:175
+msgid "Customer Area"
+msgstr ""
+
+#: ../page-directory.php:43 ../page-directory.php:47
+msgid "Symbiostock, the Stock Photography Network"
+msgstr ""
+
+#: ../page-directory.php:44
+msgid "The Symbiostock Network"
+msgstr ""
+
+#: ../page-directory.php:47
+msgid ""
+"is a network of independent photographers and illustrators.<br />Browse our "
+"network to find the high quality images you are looking for. <br /><br />The "
+"network contributor results below are automatically generated for your "
+"convenience."
+msgstr ""
+
+#: ../page-directory.php:49
+msgid "Community News / Activity"
+msgstr ""
+
+#: ../register_symbiostock.php:10
+msgid "Register"
+msgstr ""
+
+#: ../register_symbiostock.php:29
+msgid "Username"
+msgstr ""
+
+#: ../register_symbiostock.php:33
+msgid "Your Email"
+msgstr ""
+
+#: ../register_symbiostock.php:45
+msgid "Confirm Password"
+msgstr ""
+
+#: ../register_symbiostock.php:53
+msgid "Sign up!"
+msgstr ""
+
+#: ../register_symbiostock.php:54
+msgid "<p>Check your email for the password!</p>"
+msgstr ""
+
+#: ../register_symbiostock.php:55
+msgid "<p><br />*A password will be emailed to you.</p>"
+msgstr ""
+
+#: ../page-network.php:57
+msgid "Local Symbiostock author directory"
+msgstr ""
+
+#: ../page-network.php:69
+msgid "Symbiostock Community Activity"
+msgstr ""
+
+#: ../page-network.php:70
+msgid "Symbiostock Community News and Activity"
+msgstr ""
+
+#: ../modal-search.php:8
+msgid "By"
+msgstr ""
+
+#: ../modal-search.php:8
+msgid "Somone"
+msgstr ""
+
+#: ../modal-search.php:10 ../inc/rf-custom-post-functions.php:230
+#: ../inc/rf-custom-post-functions.php:599
+msgid "Image Preview"
+msgstr ""
+
+#: ../modal-search.php:14 ../inc/classes/cart/cart.php:210
+#: ../inc/classes/cart/cart.php:440
+msgid "Size"
+msgstr ""
+
+#: ../modal-search.php:15 ../inc/classes/cart/cart.php:216
+msgid "File Info"
+msgstr ""
+
+#: ../modal-search.php:16 ../inc/classes/cart/cart.php:219
+#: ../inc/classes/cart/cart.php:400 ../inc/classes/cart/cart.php:515
+msgid "Price"
+msgstr ""
+
+#: ../modal-search.php:39
+msgid "Filetypes"
+msgstr ""
+
+#: ../modal-search.php:41 ../modal-search.php:44
+msgid "Go to image page for more details..."
+msgstr ""
+
+#: ../modal-search.php:45
+msgid "Close Window"
+msgstr ""
+
+#: ../search.php:42
+msgid "Results for "
+msgstr ""
+
+#: ../search.php:78
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: ../comments.php:35 ../comments.php:53
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:36 ../comments.php:54
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:37 ../comments.php:55
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:63
+msgid "Comments are closed."
+msgstr ""
+
+#: ../comments.php:70
+msgid "Leave a Reply"
+msgstr ""
+
+#: ../comments.php:71
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: ../comments.php:72
+msgid "Cancel Reply"
+msgstr ""
+
+#: ../comments.php:73
+msgid "Post Comment"
+msgstr ""
+
+#: ../comments.php:81
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: ../comments.php:87
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
+"this account\">Log out?</a>"
+msgstr ""
+
+#: ../comments.php:94
+msgid "Your email address will not be published."
+msgstr ""
+
+#: ../comments.php:99
+#, php-format
+msgid ""
+"You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
+"and attributes: %s"
+msgstr ""
+
+#: ../comments.php:107
+#: ../inc/classes/network-manager/network-list-manager.php:61
+msgid "Name"
+msgstr ""
+
+#: ../comments.php:113 ../inc/classes/admin/2settings.php:143
+#: ../inc/classes/admin/2settings.php:154
+#: ../inc/classes/admin/2settings.php:159
+msgid "Email"
+msgstr ""
+
+#: ../comments.php:120
+msgid "Website"
+msgstr ""
+
+#: ../sidebar.php:25
+msgid "Meta"
+msgstr ""
+
+#: ../header.php:163
+msgid "Menu"
+msgstr ""
+
+#: ../header.php:166
+msgid "Skip to content"
+msgstr ""
+
+#: ../header.php:196
+msgid "Registration successful!"
+msgstr ""
+
+#: ../content-single.php:27
+#, php-format
+msgid ""
+"This entry was tagged %2$s. Bookmark the <a href=\"%3$s\" title=\"Permalink "
+"to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:29
+#, php-format
+msgid ""
+"Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark"
+"\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:34
+#, php-format
+msgid ""
+"This entry was posted in %1$s and tagged %2$s. Bookmark the <a href=\"%3$s\" "
+"title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-single.php:36
+#, php-format
+msgid ""
+"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../content-customer.php:47
+msgid "Your Licensed Images/Files"
+msgstr ""
+
+#: ../see-directory.php:6
+msgid "See the page for more sites / authors. "
+msgstr ""
+
+#: ../see-directory.php:6
+msgid "Symbiostock Directory"
+msgstr ""
+
+#: ../inc/widgets.php:15
+msgid "symbiostock Multi-Purpose Widget"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:12
+msgid "Symbiostock Images"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:13
+#: ../inc/rf-custom-post-functions.php:31
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:951
+msgid "Image"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:14
+#: ../inc/rf-custom-post-functions.php:17
+msgid "New Image"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:15
+msgid "Add New Image"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:16
+msgid "Edit Image"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:18
+msgid "All Images"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:19
+msgid "View Image"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:20
+#: ../inc/rf-custom-post-functions.php:85
+msgid "Search Images"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:21
+msgid "No image found"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:22
+msgid "No images found in Trash"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:24
+msgid "Stock Images"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:25
+msgid "No images found"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:32
+msgid "Image Listings"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:59
+msgid "Image Type"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:74
+msgid "Image Keyword"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:86
+msgid "All Image Keywords"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:87
+msgid "Edit Image Keyword"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:88
+msgid "Update Image Keyword"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:89
+msgid "Add New Image Keyword"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:90
+msgid "New Keyword Name"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:91
+msgid "Image Keywords"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:103
+msgid "Symbiostock Image Info"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:111
+#: ../inc/rf-custom-post-functions.php:118
+msgid "no"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:117
+msgid "Available"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:118
+msgid "Not Available"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:119
+msgid "No Select"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:310
+msgid "Not Exclusive"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:324
+msgid "Not Live"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:339
+msgid "Model Released:"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:345
+msgid "Property Released:"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:361
+msgid "Values Locked: "
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:363
+msgid "Not Locked"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:364
+msgid "Locked"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:374
+#: ../inc/rf-custom-post-functions.php:385
+#: ../inc/rf-custom-post-functions.php:396
+#: ../inc/rf-custom-post-functions.php:407
+#: ../inc/rf-custom-post-functions.php:418
+msgid "Label:"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:566 ../inc/classes/cart/cart.php:398
+#: ../inc/classes/cart/cart.php:513
+#: ../inc/classes/network-manager/interpreter.php:132
+msgid "Preview"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:567
+msgid "Uploaded"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:568
+msgid "Image Name"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:569
+#: ../inc/classes/admin/1network.php:220
+msgid "Description"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:576
+msgid "Category"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:577
+msgid "Keywords"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:680
+msgid "Upload Images"
+msgstr ""
+
+#: ../inc/rf-custom-post-functions.php:682
+msgid "Process Uploads"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:30
+msgid "SYMBIOSTOCK - Emails and Notifications"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:39
+msgid "Related Posts by Taxonomy"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:48
+msgid "SYMBIOSTOCK - Cart Manager"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:57
+msgid "Category Meta"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:66
+msgid "Contact Form 7"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:72
+msgid "Wordfence Security"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:78
+msgid "Slideshow"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:84
+msgid "WordPress SEO by Yoast"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:90
+msgid "SYMBIOSTOCK - Image Sitemap"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:98
+msgid "SYMBIOSTOCK -Premium Upgrade"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:127
+#: ../inc/classes/class-tgm-plugin-activation.php:155
+msgid "Install Required Plugins"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:128
+#: ../inc/classes/class-tgm-plugin-activation.php:156
+msgid "Install Plugins"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:129
+#: ../inc/classes/class-tgm-plugin-activation.php:157
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:130
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: ../inc/plugin_install_list.php:141
+#: ../inc/classes/class-tgm-plugin-activation.php:169
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: ../inc/plugin_install_list.php:142
+#: ../inc/classes/class-tgm-plugin-activation.php:171
+#: ../inc/classes/class-tgm-plugin-activation.php:1840
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: ../inc/plugin_install_list.php:143
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: ../inc/menus.php:62
+msgid "Header Menu"
+msgstr ""
+
+#: ../inc/menus.php:63
+msgid "Account/Cart Menu"
+msgstr ""
+
+#: ../inc/menus.php:64
+msgid "Sidebar Menu"
+msgstr ""
+
+#: ../inc/extras.php:64
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: ../inc/front_page_generator.php:127
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: ../inc/template-tags.php:33
+msgid "Post navigation"
+msgstr ""
+
+#: ../inc/template-tags.php:39
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: ../inc/template-tags.php:42
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:64
+msgid "Pingback:"
+msgstr ""
+
+#: ../inc/template-tags.php:64 ../inc/template-tags.php:86
+msgid "(Edit)"
+msgstr ""
+
+#: ../inc/template-tags.php:74
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: ../inc/template-tags.php:77
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../inc/template-tags.php:84
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: ../inc/template-tags.php:107
+#, php-format
+msgid ""
+"Posted on <a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class="
+"\"entry-date\" datetime=\"%3$s\" pubdate>%4$s</time></a><span class=\"byline"
+"\"> by <span class=\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" "
+"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+msgstr ""
+
+#: ../inc/template-tags.php:113
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: ../inc/classes/admin.php:51
+msgid "You submitted the form "
+msgstr ""
+
+#: ../inc/classes/admin.php:58
+msgid "Update public network info."
+msgstr ""
+
+#: ../inc/classes/admin.php:59
+msgid "Update public image info."
+msgstr ""
+
+#: ../inc/classes/admin.php:68
+msgid "Network info updated."
+msgstr ""
+
+#: ../inc/classes/admin.php:73
+msgid "Image info updated."
+msgstr ""
+
+#: ../inc/classes/widgets.php:11 ../inc/classes/widgets.php:23
+#: ../inc/classes/widgets.php:443
+msgid "Featured Images"
+msgstr ""
+
+#: ../inc/classes/widgets.php:13
+msgid "Symbiostock featured images below content area."
+msgstr ""
+
+#: ../inc/classes/widgets.php:28 ../inc/classes/widgets.php:150
+#: ../inc/classes/widgets.php:250 ../inc/classes/widgets.php:317
+#: ../inc/classes/widgets.php:382 ../inc/classes/widgets.php:448
+#: ../inc/classes/widgets.php:514 ../inc/classes/widgets.php:580
+#: ../inc/classes/widgets.php:645 ../inc/classes/widgets.php:755
+msgid "Title: "
+msgstr ""
+
+#: ../inc/classes/widgets.php:33
+msgid ""
+"Symbiostock installs with a <em><strong>Symbiostock Featured Images</"
+"strong></em> category. Images in this category will show up where this "
+"widget is added. 6 images suggested max."
+msgstr ""
+
+#: ../inc/classes/widgets.php:85
+msgid ""
+"<p>Featured Images category does not exist. Has it been deleted? Please re-"
+"activate theme and place featured images into \"Symbiostock Featured Images"
+"\" category.</p>"
+msgstr ""
+
+#: ../inc/classes/widgets.php:133 ../inc/classes/widgets.php:145
+#: ../inc/classes/widgets.php:312 ../inc/classes/widgets.php:377
+msgid "Latest Images"
+msgstr ""
+
+#: ../inc/classes/widgets.php:135
+msgid "Displays your latest images on whatever widget you assign it to."
+msgstr ""
+
+#: ../inc/classes/widgets.php:155
+msgid "Displays your latest images!"
+msgstr ""
+
+#: ../inc/classes/widgets.php:233 ../inc/classes/widgets.php:245
+msgid "Mobile Navigation"
+msgstr ""
+
+#: ../inc/classes/widgets.php:235
+msgid "Dropdown menu of main navigation for devices with small screens."
+msgstr ""
+
+#: ../inc/classes/widgets.php:300
+msgid "Latest Images Slider (Large)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:302
+msgid "Shows latest images (preview size)."
+msgstr ""
+
+#: ../inc/classes/widgets.php:320
+msgid ""
+"This widget displays sliding previews of <strong>latest</strong> images. "
+"Also utilizes <strong>shortcodes</strong> for your freedom of use: "
+msgstr ""
+
+#: ../inc/classes/widgets.php:320 ../inc/classes/widgets.php:386
+#: ../inc/classes/widgets.php:452 ../inc/classes/widgets.php:517
+msgid "See Shortcodes Help"
+msgstr ""
+
+#: ../inc/classes/widgets.php:365
+msgid "Latest Images Slider (Small)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:367
+msgid "Shows latest images (minipic size)."
+msgstr ""
+
+#: ../inc/classes/widgets.php:385
+msgid ""
+"This widget displays sliding minipics of <strong>latest</strong> images. "
+"Also utilizes <strong>shortcodes</strong> for your freedom of use:"
+msgstr ""
+
+#: ../inc/classes/widgets.php:431
+msgid "Featured Images Slider (Large)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:433
+msgid "Shows featured images (preview size)."
+msgstr ""
+
+#: ../inc/classes/widgets.php:451
+msgid ""
+"This widget displays sliding previews of <strong>featured</strong> images. "
+"Also utilizes <strong>shortcodes</strong> for your freedom of use:"
+msgstr ""
+
+#: ../inc/classes/widgets.php:497
+msgid "Featured Images Slider (Small)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:499
+msgid "Shows featured images (minipic size)."
+msgstr ""
+
+#: ../inc/classes/widgets.php:517
+msgid ""
+"This widget displays sliding minipics of <strong>featured</strong> images. "
+"Also utilizes <strong>shortcodes</strong> for your freedom of use:"
+msgstr ""
+
+#: ../inc/classes/widgets.php:563
+msgid "Symbiostock Network (Detailed)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:565
+msgid "Detailed list of your site network members."
+msgstr ""
+
+#: ../inc/classes/widgets.php:575 ../inc/classes/widgets.php:640
+msgid "Network Members"
+msgstr ""
+
+#: ../inc/classes/widgets.php:583
+msgid "Displays your network members in a detailed listing."
+msgstr ""
+
+#: ../inc/classes/widgets.php:628
+msgid "Symbiostock Network (Simple)"
+msgstr ""
+
+#: ../inc/classes/widgets.php:630
+msgid "simple list of your site network members."
+msgstr ""
+
+#: ../inc/classes/widgets.php:648
+msgid "Displays your network members in a simple listing."
+msgstr ""
+
+#: ../inc/classes/widgets.php:692 ../inc/installer/installer.php:118
+msgid "Symbiostock Network Directory"
+msgstr ""
+
+#: ../inc/classes/widgets.php:694
+msgid "Network directory, automatically scanned / created."
+msgstr ""
+
+#: ../inc/classes/widgets.php:703
+msgid ""
+"A prominent widget which links to your site's Symbiostock directory (an area "
+"automatically created and maintained by your site)."
+msgstr ""
+
+#: ../inc/classes/widgets.php:738
+msgid "Symbiostock - Similar Images"
+msgstr ""
+
+#: ../inc/classes/widgets.php:740
+msgid "Shows related images on a given image page."
+msgstr ""
+
+#: ../inc/classes/widgets.php:750
+msgid "Similar Images"
+msgstr ""
+
+#: ../inc/classes/nav_walker_description.php:175
+msgid "Add a menu"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:158
+msgid "Something went wrong."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:170
+msgid "Return to the dashboard"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:172
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:173
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:174
+msgid "Dismiss this notice"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1085
+msgid "External Link"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1090
+msgid "Private Repository"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1093
+msgid "Pre-Packaged"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1097
+msgid "WordPress Repository"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1100
+msgid "Required"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1100
+msgid "Recommended"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1103
+msgid "Not Installed"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1105
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1275
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1291
+msgid "Plugin"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1292
+msgid "Source"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1293
+#: ../inc/classes/cart/cart.php:213
+msgid "Type"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1294
+msgid "Status"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1312
+msgid "Install"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1313
+#: ../inc/classes/admin/1network.php:264
+msgid "Activate"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1823
+msgid "Install package not available."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1824
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1825
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1826
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1827
+msgid "Plugin install failed."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1828
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1839
+msgid "Plugin activation failed."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1949
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1950
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1950
+#: ../inc/classes/class-tgm-plugin-activation.php:1959
+msgid "Show Details"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1950
+#: ../inc/classes/class-tgm-plugin-activation.php:1959
+msgid "Hide Details"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1951
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1952
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1956
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1957
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1958
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1959
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1960
+msgid "All installations have been completed."
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:1961
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../inc/classes/class-tgm-plugin-activation.php:2052
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: ../inc/classes/processor.php:3 ../inc/classes/processor.php:43
+#: ../inc/classes/uploader.php:26
+msgid "Process Images"
+msgstr ""
+
+#: ../inc/classes/processor.php:33
+msgid "Process to Drafts"
+msgstr ""
+
+#: ../inc/classes/processor.php:35
+msgid "Process to Publish"
+msgstr ""
+
+#: ../inc/classes/processor.php:37
+msgid "Delete Selected Files"
+msgstr ""
+
+#: ../inc/classes/processor.php:39
+msgid "Delete ALL Files"
+msgstr ""
+
+#: ../inc/classes/processor.php:46
+msgid "Rating Filter"
+msgstr ""
+
+#: ../inc/classes/processor.php:47
+msgid ""
+"* NOTE: Images without IPTC data (at least <strong>title</strong> and "
+"<strong>keywords</strong>) are always saved as drafts."
+msgstr ""
+
+#: ../inc/classes/paypal.php:5
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr ""
+
+#: ../inc/classes/paypal.php:7
+msgid "Symbiostock Project"
+msgstr ""
+
+#: ../inc/classes/uploader.php:2
+msgid "Symbiostock Image Uploader"
+msgstr ""
+
+#: ../inc/classes/uploader.php:5
+msgid ""
+"You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 "
+"support."
+msgstr ""
+
+#: ../inc/classes/uploader.php:9
+msgid "<em>Want to use <strong>FTP</strong></em>? Here is the uploads folder:"
+msgstr ""
+
+#: ../inc/classes/uploader.php:11
+msgid "Uploading Directions <strong>( .jpg .eps .png .zip )</strong>"
+msgstr ""
+
+#: ../inc/classes/uploader.php:13
+msgid "For best results, upload in batches of less than 40 or 50."
+msgstr ""
+
+#: ../inc/classes/uploader.php:15
+msgid ""
+"<strong>Shift+drag</strong> to select groups of files, or <strong>CTRL"
+"+click</strong> to select individual files one by one.</p>"
+msgstr ""
+
+#: ../inc/classes/uploader.php:17
+msgid ""
+"    <p><strong>EPS</strong>(vector) files must be accompanied by high-res "
+"<strong>JPEG</strong> or <strong>PNG</strong> files with <em>the same name</"
+"em>. Example:\n"
+"    <ul>\n"
+"        <li><strong>my_stock_art</strong>.eps</li>\n"
+"        <li><strong>my_stock_art</strong>.jpg        \n"
+"        </li>\n"
+"    </ul>\n"
+"    </p>"
+msgstr ""
+
+#: ../inc/classes/uploader.php:25
+msgid "When uploading is completed..."
+msgstr ""
+
+#: ../inc/classes/uploader.php:26
+msgid "...proceed to"
+msgstr ""
+
+#: ../inc/classes/uploader.php:26
+msgid "Process files"
+msgstr ""
+
+#: ../inc/classes/uploader.php:26
+msgid " to process them."
+msgstr ""
+
+#: ../inc/classes/image-processor/reprocess_image.php:93
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1023
+msgid "failed to copy"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:53
+msgid "Stock image by "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:59
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:128
+msgid "Copyrighted Work"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:60
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:129
+msgid "Copyright (c) "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:60
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:129
+msgid ""
+"\n"
+"Image Location: "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:60
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:129
+msgid ""
+"\n"
+"Image Contact: "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:62
+msgid "Stock Image, Download, Graphic, Image"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:72
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:141
+msgid "This image is from "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:72
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:141
+msgid ", by "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:72
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:141
+msgid ". Please contact "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:72
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:141
+msgid " if you have found this image being used unlawfully."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:240
+msgid "Error rendering image"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:251
+msgid "Headers have already been sent. Could not display image."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:271
+msgid "Image type "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:271
+msgid " not supported by PHP"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:277
+msgid "Error output image"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:301
+msgid "Invalid image resource"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:307
+msgid "Invalid watermark resource"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:364
+msgid "Unable to open file \""
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:403
+msgid "Unsupport image type"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:419
+msgid "Invalid image value in string"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:465
+msgid "Cannot find watermark at location:"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:465
+msgid ""
+" ... Please check that you entered it correctly in your Settings Area. "
+"Default watermark used."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:883
+msgid "stock-image-content"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:929
+msgid "Preview image for image:"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:929
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:2027
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:2029
+msgid "Stock Image"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:949
+msgid "Transparency Preview For: "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:951
+msgid "PNG transparency preview for stock image: "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1073
+msgid "Error: IPTC data found in source image, cannot continue"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1080
+msgid ""
+"graphic,\n"
+" image,\n"
+" "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1138
+msgid "There was a problem with the file..."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1169
+msgid "No jpeg file found for file: "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1296
+msgid ""
+"<span class=\"negative\">No matching image files found. You may have named "
+"them incorrectly. Fix problem and re-upload. <strong>This file has been "
+"removed</strong>. </span><strong>Example:</strong> "
+"\"<em><strong>my_stock_art</strong>.eps</em>\" or "
+"\"<em><strong>my_stock_art</strong>.zip</em>\" must have accompanying "
+"\"\"<em><strong>my_stock_art</strong>.jpg</em>\" to be considered a valid "
+"set/file."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1304
+msgid "<strong>.png</strong> image only. Make sure it contains transparency."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1308
+msgid "This is a vector image."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1315
+msgid "Title found."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1318
+msgid "Title not found."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1322
+msgid "Description found."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1325
+msgid "Description not found"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1329
+msgid "Keywords found."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1332
+msgid "Keywords not found."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1336
+msgid ""
+"Title and description empty. <strong>Save as draft and edit to fix</strong>."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1366
+msgid "png file"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1374
+msgid "encapsulated postscript, vector graphic"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1382
+msgid "zip file"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1390
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1527
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1614
+msgid "jpeg"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1398
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1525
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1612
+msgid "File Name"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1414
+msgid "supplied"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1422
+msgid "not supplied"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1504
+msgid " (<em><strong>exec</strong> enabled</em>)"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1508
+msgid " (<em><strong>exec</strong> disabled</em>)"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1512
+msgid "Using <strong>ImageMagick</strong> "
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1514
+msgid "Using <strong>GD Library</strong>"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1517
+msgid "Image Processing."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1526
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1613
+msgid "Info"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1528
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1615
+msgid "png"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1529
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1616
+msgid "eps"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1530
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1617
+msgid "zip"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1657
+msgid "Image / Graphic"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1795
+msgid " dpi"
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:1987
+msgid "Please select files to process."
+msgstr ""
+
+#: ../inc/classes/image-processor/symbiostock_image_processor.php:2031
+msgid "Stock Image, Graphic, Download"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:14
+msgid "Marketer ON"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:15
+msgid "Marketer OFF"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:18
+msgid "Important: About Marketing Services"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:27
+msgid "Marketer Options"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:36
+msgid "Marketer user number regenerated. Please update your marketer account."
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:46
+msgid "Generate marketer user number."
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:48
+msgid "Are you sure?"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:52
+msgid ""
+"This \"user number\" acts as a key between you and marketer. <strong>Do not "
+"share it with anyone besides marketer</strong>.<br />\n"
+" It provides access to small unwatermarked preview images as well for their "
+"system's fingerprinting and preview generating.</p>"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:57
+msgid "Marketer user number:"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:58
+msgid "Please generate #..."
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:66
+msgid "Marketing services base link:"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:66
+msgid "Marketing link"
+msgstr ""
+
+#: ../inc/classes/marketing/marketer.php:67
+msgid "Fetched from given date: "
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:1
+msgid "Symbiostock Network Scanner"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:5
+msgid "Scan network and update directory "
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:8
+msgid "Fetch from"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:8
+msgid "network hub of Symbiostock"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:14
+msgid "Reset extended network (deletes all listings)."
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:15
+msgid ""
+"This scans your network friends and adds their networks to your directory. "
+"<br />\n"
+"    In the near future it will follow more leads than that, but this is "
+"where we start while the network is still small. <br />\n"
+"    This could take a while...be patient and grab a soda or something."
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:56
+msgid "Local Site Directory Listing"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:57
+msgid "Promoted Keywords"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:58
+msgid "# Images"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:59
+msgid "Marketing Option"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:60
+msgid "Promote"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:61
+msgid "Exclude"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:62
+msgid "Delete"
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:163
+msgid "See extended directory..."
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:181
+msgid "Enqueued Seeds "
+msgstr ""
+
+#: ../inc/classes/marketing/extended_network.php:181
+msgid ""
+"Symbiocards discovered through keyword traffic activity, and enqueued for "
+"directory. Will be added or updated. "
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:56
+msgid "Customize your site's appearance here:"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:56
+msgid "Customize"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:56
+msgid "Customize Symbiostock"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:60
+msgid "Branding and Image"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:60
+msgid "Paste URLS from "
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:60
+msgid "Media Uploader"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:60
+msgid "Media uploader"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:60
+msgid "below"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:68
+msgid "Header Logo"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:73
+msgid "Login Page Logo"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:78
+msgid "Watermark Image"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:85
+msgid "Email and Payment Process Communication"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:89
+msgid "Paypal Email & IPN "
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:93
+msgid "Paypal"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:96
+msgid "Paypal Sandbox"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:96
+msgid "Sandbox (testing)"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:97
+msgid "Paypal help."
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:101
+msgid "Paypal Email"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:106
+msgid "Paypal IPN"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:111
+msgid "Site Paypal Logo"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:113
+msgid ""
+"*Your logo seen on the paypal site when the customer is paying. {Exactly "
+"150px by 50px}. "
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:120 ../inc/classes/cart/cart.php:676
+msgid "US Dollars $"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:121 ../inc/classes/cart/cart.php:677
+msgid "Euros €"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:122 ../inc/classes/cart/cart.php:678
+msgid "Pounds Sterling £"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:123 ../inc/classes/cart/cart.php:679
+msgid "Canadian Dollars $"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:124 ../inc/classes/cart/cart.php:680
+msgid "Japanese Yen ¥"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:138
+msgid "Shop Currency"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:143
+msgid "Correspondence Email"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:148
+msgid "Customer Area Greeting"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:151
+msgid "Welcome your customer, talk about stuff"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:151
+msgid "Top of Customer Area."
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:151
+msgid "HTML Allowed"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:154
+msgid "Customer Welcome Email"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:159
+msgid "Customer Thank You Email"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:168
+msgid "Credit Links"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:168
+msgid "About Credit Links"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:174
+msgid "Product Page (Suggested)"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:178
+msgid "In Footer"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:182
+msgid "Do Not Use"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:185
+msgid ""
+"Backlinks to <a title=\"clipartillustration.com\" href=\"http://www."
+"clipartillustration.com/\">Leo Blanchette's main selling website</a>, <a "
+"title=\"ClipArtOf.com\" href=\"http://www.clipartof.com/\">ClipArtOf.com</a> "
+"(Special thanks to Kenny and Jamie), and <a title=\"Microstockgroup.com\" "
+"href=\"http://www.microstockgroup.com/\">MicrostockGroup.com</a>, who hosts "
+"the Symbiostock knowledge forums.<br />\n"
+"            This is one of the few ways I profit on this theme, so I thank "
+"you for keeping this live."
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:192
+#: ../inc/classes/admin/2settings.php:196
+msgid "Wordpress / Theme Credit"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:192
+msgid "ON"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:196
+msgid "OFF"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:204
+msgid "Footer Copyright Info"
+msgstr ""
+
+#: ../inc/classes/admin/2settings.php:205
+msgid "Copyright Name"
+msgstr ""
+
+#: ../inc/classes/admin/3Author-Options.php:1
+msgid "Author Default Settings and Pricing"
+msgstr ""
+
+#: ../inc/classes/admin/3Author-Options.php:5
+msgid "Site images updated."
+msgstr ""
+
+#: ../inc/classes/admin/3Author-Options.php:13
+msgid "Save as defaults?"
+msgstr ""
+
+#: ../inc/classes/admin/3Author-Options.php:13
+msgid "(Will apply to uploads as well)."
+msgstr ""
+
+#: ../inc/classes/admin/3Author-Options.php:18
+msgid "Update ALL existing images with new values? *Caution!*"
+msgstr ""
+
+#: ../inc/classes/admin/4Marketing.php:8
+msgid "Use these for marketing sites to aggregate your info."
+msgstr ""
+
+#: ../inc/classes/admin/4Marketing.php:16
+msgid "Keyword list:"
+msgstr ""
+
+#: ../inc/classes/admin/4Marketing.php:23
+msgid "Image list:"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:29
+msgid "Site"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:29
+msgid ""
+": You've entered an invalid url. <strong>http://www.somesite.com</strong> is "
+"the preferred format.</p>"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:70
+msgid ""
+"Please choose no more than 20 promoted keywords. Promoted keywords not saved."
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:85
+msgid ""
+"Please choose no more than 40 promoted keywords. Promoted keywords not saved."
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:130
+msgid "Symbiostock Network - Associates and Status"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:143 ../inc/classes/admin/1network.php:255
+msgid "Symbiostock Updates"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:145
+msgid "Community Forums"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:145
+msgid "Community Activity"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:157
+msgid "Your Site Info- How your site appears to others."
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:161 ../inc/classes/admin/1network.php:163
+msgid "Author Settings"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:166
+msgid "Network Bonus Info"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:167
+msgid ""
+"Special extended info settings used by Symbiostock on author pages and "
+"outside network referring pages."
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:168
+msgid "Symbiocard Author"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:172
+msgid "Site Name"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:177
+msgid "Promoted Keywords (choose up to 40)"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:191
+msgid "Content Filter: GREEN"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:192
+msgid "Content Filter: YELLOW"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:193
+msgid "Content Filter: RED"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:196
+msgid "Allow unrated content?"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:209
+msgid "Keyword Filtering"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:209
+msgid "Filtered Keywords"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:215
+msgid "Site Announcement"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:215
+msgid "Announcement"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:220
+msgid "Site Description"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:224
+msgid "Site Avatar"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:224
+msgid "Avatar"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:229
+msgid "Site Logo"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:229
+msgid "Small Logo"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:234
+msgid "About Page"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:234
+msgid "About"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:240
+msgid "Save Changes"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:246
+msgid "Integrate Your Site with the Symbiostock Community"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:247
+msgid "More relevant stuff will be placed here as the need is discovered"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:261
+msgid "Use Symbiostock Network?"
+msgstr ""
+
+#: ../inc/classes/admin/1network.php:268
+msgid "Deactivate"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:119 ../inc/classes/cart/cart.php:143
+msgid "Filesize"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:143
+msgid "Supporting Files"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:143
+msgid "ZIP"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:201
+msgid "EXCLUSIVE IMAGE"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:201
+msgid "Found only on "
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:222
+#, php-format
+msgid "% off"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:281 ../inc/classes/cart/cart.php:556
+#: ../inc/installer/installer.php:91
+msgid "End User License Agreement"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:351
+msgid "Please log in..."
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:351
+msgid "Log in to view your cart..."
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:399 ../inc/classes/cart/cart.php:514
+msgid "Option"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:439
+msgid "Image Number"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:465
+msgid "License Agreement & Terms"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:477
+msgid "Total"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:479
+msgid "Agree to Terms Above"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:480
+msgid "Pay Now"
+msgstr ""
+
+#: ../inc/classes/cart/cart.php:563
+msgid "Total:"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:23
+msgid " is an invalid file type!"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:35
+msgid "The file: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:35
+msgid " has been uploaded"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:43
+msgid ""
+"There was an error trying to upload the file. Check the file and file "
+"location before trying again!"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:59
+msgid "Linked Sites"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:60
+msgid "Networking"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:62
+msgid "(Small desc. or label)"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:74
+msgid "Never"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:102
+msgid "Network Logo"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:102
+msgid "Get network associate CSV file..."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:109
+msgid "Image Updates"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:117
+msgid "REMOVE"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:120
+msgid "UP"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:121
+msgid "DOWN"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:155
+msgid "My Site"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:158
+msgid "ADD ROW"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:164
+msgid "Add by"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:164
+msgid "file"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:164
+msgid ".csv files explained."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:169
+msgid "Update Symbiocards"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:169
+msgid "Last Update: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:172
+msgid "Random Order"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:178
+msgid "Cache days "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-list-manager.php:184
+msgid ""
+"If no local results found, show images from Global Symbiostock Search Engine"
+msgstr ""
+
+#: ../inc/classes/network-manager/communicator.php:244
+msgid "Previous"
+msgstr ""
+
+#: ../inc/classes/network-manager/communicator.php:245
+msgid "Next"
+msgstr ""
+
+#: ../inc/classes/network-manager/communicator.php:267
+#: ../inc/classes/network-manager/network-manager.php:2187
+msgid "No results found."
+msgstr ""
+
+#: ../inc/classes/network-manager/interpreter.php:154
+#: ../inc/classes/network-manager/interpreter.php:323
+msgid "Results: "
+msgstr ""
+
+#: ../inc/classes/network-manager/interpreter.php:169
+msgid "No results found on this site."
+msgstr ""
+
+#: ../inc/classes/network-manager/interpreter.php:172
+msgid ""
+"Nothing found on this site. See results from <a href=\"http://symbiostock."
+"info\" target=\"_blank\">Global Symbiostock Search Engine</a>:"
+msgstr ""
+
+#: ../inc/classes/network-manager/interpreter.php:186
+#: ../inc/classes/network-manager/interpreter.php:189
+#: ../inc/classes/network-manager/interpreter.php:342
+msgid "No results found ..."
+msgstr ""
+
+#: ../inc/classes/network-manager/interpreter.php:431
+msgid "Loading site's results..."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:239
+msgid "Network symbiocard deleted."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:322
+#: ../inc/classes/network-manager/network-manager.php:397
+msgid "Success"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:324
+msgid "Aborting site..."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:353
+msgid "Invalid Symbiocard. Missing: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:353
+#: ../inc/classes/network-manager/network-manager.php:423
+msgid "Deleted!"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:423
+msgid "Invalid Symbiocard. Missing:"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:431
+msgid "Aborting Site..."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:464
+msgid "file "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:464
+msgid "missing"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:544
+msgid "is not a valid URL. Try again."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:739
+#: ../inc/classes/network-manager/network-manager.php:787
+msgid "From: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:747
+msgid " has added you to their site network."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:749
+msgid ""
+"has added you to their site network.<br /> If you have not yet added them to "
+"your site, here is their Symbiocard: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:749
+msgid "Author Symbiocard "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:751
+msgid "See their network info at the author page: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:751
+msgid "Author Page "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:752
+msgid "About network emails... "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:757
+msgid "Member added. Notification sent to "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:760
+msgid ""
+" Notification email not sent. Either their Symbiocard lacks an email address "
+"or something went wrong."
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:763
+msgid "[symbiostock_network_update] Network friend "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:763
+msgid " notified... "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:763
+msgid "Your network friend "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:763
+msgid " was notified that you added them, and recieved this message: "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:794
+msgid "[symbiostock_upgrade] "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:794
+msgid " has upgraded:"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:796
+msgid " About Network Emails... "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:841
+msgid " Could not create network associate. Missing required info:  "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:1168
+#: ../inc/classes/network-manager/network-manager.php:1396
+msgid "can't open file"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:2207
+msgid "  cache log created\n"
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:2429
+msgid "[symbiostock_network_update] Site has updated image and network - "
+msgstr ""
+
+#: ../inc/classes/network-manager/network-manager.php:2429
+msgid ""
+"Public image and tag info updated. Network has been scanned and directory "
+"updated. - "
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:11
+msgid "Symbiostock resources and microstock links."
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:23
+msgid ""
+"Symbiostock. The integrated microstock community. Get connected with the "
+"Symbiostock community. Download the theme and start selling your images."
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:31
+msgid "Leo's illustration website. Was the prototype for Symbiostock."
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:39
+msgid "MicrostockGroup - Professional Microstock Forum"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:47
+msgid "High resolution royalty free clipart"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:81
+msgid "Abstract | Backgrounds | Textures"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:82
+msgid "Animals"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:83
+msgid "Architecture | Interiors"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:84
+msgid "Beauty | Fashion"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:85
+msgid "Business"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:86
+msgid "Cities | Rural | Places"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:87
+msgid "Concepts"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:88
+msgid "Education"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:89
+msgid "Food | Drink"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:90
+msgid "Health"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:91
+msgid "Healthcare"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:92
+msgid "Events"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:94
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:96
+msgid "Objects"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:98
+msgid "Recreation | Hobbies"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:99
+msgid "Science"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:100
+msgid "Shopping | Retail"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:101
+msgid "Signs | Symbols | Icons"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:102
+msgid "Sport"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:103
+msgid "Technology"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:104
+msgid "Transport"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:106
+msgid "Vectors | Illustrations | 3D"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:107
+msgid "Vintage | Retro"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:108
+msgid "Music"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:127
+msgid "images"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:146
+msgid "Symbiostock Featured Images"
+msgstr ""
+
+#: ../inc/installer/taxonomies_and_links.php:149
+msgid ""
+"Category for Symbiostock Featured Images. Used by \"Featured Images\" widget."
+msgstr ""
+
+#: ../inc/installer/installer.php:145
+msgid "Symbiostock Network"
+msgstr ""
+
+#: ../inc/installer/installer.php:172
+msgid "Customer Licence and File Management Area"
+msgstr ""
+
+#: ../inc/installer/installer.php:225
+msgid "Thank You For Registering"
+msgstr ""
+
+#: ../inc/installer/installer.php:291
+msgid "Deployment Notifications"
+msgstr ""
+
+#: ../inc/installer/installer.php:295
+msgid ""
+"To ensure best network performance and SEO, fill out all info: \n"
+"<br />Symbiocard main author info: <a title=\"Network profile info\""
+msgstr ""
+
+#: ../inc/installer/installer.php:296
+msgid "Symbiostock Profile"
+msgstr ""
+
+#: ../inc/installer/installer.php:298
+msgid "Get Suggested Plugins:"
+msgstr ""
+
+#: ../inc/installer/installer.php:298 ../inc/installer/installer.php:300
+msgid "Customize."
+msgstr ""
+
+#: ../inc/installer/installer.php:298
+msgid "Acquire and Activate"
+msgstr ""
+
+#: ../inc/installer/installer.php:300
+msgid "Customize your site live:"
+msgstr ""
+
+#: ../inc/installer/installer.php:302
+msgid "Network Info."
+msgstr ""
+
+#: ../inc/installer/installer.php:302
+msgid "Symbiostock Network Info."
+msgstr ""
+
+#: ../inc/installer/installer.php:304
+msgid "Visit the Community Forums..."
+msgstr ""
+
+#: ../inc/installer/installer.php:304
+msgid "Community Forums."
+msgstr ""
+
+#: ../inc/installer/installer.php:306
+msgid "Symbiostock Site Deployed: "
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:31
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:31
+#, php-format
+msgid "New user registration on %s:"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:32
+#: ../inc/installer/symbiostock_emailer.php:73
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:32
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:74
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:33
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:33
+#, php-format
+msgid "E-mail: %s"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:36
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:36
+#, php-format
+msgid "[%s] New Symbiostock User Registration"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:53
+msgid " - Your username and password for "
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:71
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:72
+msgid ""
+"Just wanted to let you know the password for the following account has been "
+"requested to be reset:"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:74
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:75
+msgid "If this message was sent in error, please ignore this email."
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:75
+#: ../inc/installer/symbiostock_emailer/symbiostock_emailer.php:76
+msgid "To reset your password, visit the following address:"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:165
+msgid "Welcome to "
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:171
+msgid "Login Name:"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:172
+msgid "Login Password:"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:173
+msgid "Login Page"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:176
+msgid "Licensing and Downloads"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:214
+msgid "Thank you for your purchase at "
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:218
+msgid "Get your images here..."
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:232
+msgid "A Symbiostock Site"
+msgstr ""
+
+#: ../inc/installer/symbiostock_emailer.php:246
+msgid " - Thank you for your purchase at "
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:35
+msgid "Sample Checkbox"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:40
+msgid "Sample Text Input"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:41
+msgid "Sample Select Options"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:42
+msgid "Sample Radio Buttons"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:43
+msgid "Sample Textarea"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:68
+#: ../inc/theme-options/theme-options.php:69
+msgid "Theme Options"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:85
+msgid "Zero"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:89
+msgid "One"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:93
+msgid "Two"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:97
+msgid "Three"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:101
+msgid "Four"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:105
+msgid "Five"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:127
+msgid "Maybe"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:159
+msgid "A sample checkbox."
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:170
+msgid "Sample text input"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:194
+msgid "Sample select input"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:222
+msgid "Sample textarea"
+msgstr ""
+
+#: ../inc/theme-options/theme-options.php:235
+#, php-format
+msgid "%s Theme Options"
+msgstr ""
+
+#: ../related-post-plugin/related-posts-links.php:19
+#: ../related-post-plugin/related-posts-posts.php:18
+#: ../related-post-plugin/related-posts-excerpts.php:18
+msgid "No related posts found"
+msgstr ""

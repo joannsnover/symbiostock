@@ -166,6 +166,7 @@ global $current_user;
     <thead>
         <tr>
             <th colspan="2"> <?php _e( 'Credit Links', 'symbiostock') ?> -- <?php echo sshelp('credit_links', __( 'About Credit Links', 'symbiostock')); ?> </th>
+                	        	
         </tr>
     </thead>
     <tr>

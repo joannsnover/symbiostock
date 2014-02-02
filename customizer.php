@@ -501,7 +501,7 @@ function symbiostock_customize_css()
     <style type="text/css">  
     .container p, .container a:link, .container  
     {
-    font-family: '<?php echo str_replace('+', ' ', get_theme_mod('body_font')) ?>', sans-serif !important;    	
+    font-family: '<?php echo str_replace('+', ' ', get_theme_mod('body_font')) ?>', sans-serif !important;        
     }
     
     body 
@@ -617,11 +617,11 @@ add_action( 'wp_head', 'symbiostock_customize_css');
 function symbiostock_customizer_live_preview()
 {
     wp_enqueue_script(
-            'symbiostock-themecustomizer',			//Give the script an ID
+            'symbiostock-themecustomizer',            //Give the script an ID
             get_template_directory_uri().'/js/customizer.js',//Point to file
-            array( 'jquery','customize-preview' ),	//Define dependencies
-            '',						//Define a version (optional)
-            true						//Put script in footer?
+            array( 'jquery','customize-preview' ),    //Define dependencies
+            '',                        //Define a version (optional)
+            true                        //Put script in footer?
     );
 }
 add_action( 'customize_preview_init', 'symbiostock_customizer_live_preview' );

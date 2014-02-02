@@ -144,7 +144,7 @@ $ssnet_no = '';
        
        <p class="description"><a target="_blank" title="<?php _e( 'Community Forums', 'symbiostock') ?>" href="http://www.symbiostock.org/community/">www.symbiostock.org/community/</a>, <?php _e( 'Community Activity', 'symbiostock') ?></p><br />
        <?php        
-        symbiostock_feed_display('http://www.symbiostock.org/community/feed.php', 10);        
+        symbiostock_feed_display('http://www.symbiostock.org/community/feed.php?mode=news', 10);        
         ?>
         
         </div>
@@ -255,7 +255,7 @@ $ssnet_no = '';
         <a target="_blank" title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" href="http://www.symbiostock.com"> <img title="<?php _e( 'Symbiostock Updates', 'symbiostock') ?>" src="<?php echo symbiostock_LOGOSMALL; ?>" /> </a>
         <?php
     //if not using the network, just display the feed
-    symbiostock_feed_display('http://www.symbiostock.com/feed/', 3);
+    symbiostock_feed_display('http://www.symbiostock.org/community/feed.php?mode=news', 3);
     
  } ?>
         <p><?php _e( 'Use Symbiostock Network?', 'symbiostock') ?><br />

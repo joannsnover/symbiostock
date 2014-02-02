@@ -1,257 +1,258 @@
 #ss_primary_search {
-	z-index: 900;
+    z-index: 900;
 }
 
-ol,ul {	
-	padding-left: 10px;
+ol,ul {    
+    padding-left: 10px;
 }
 
 ul{
-	list-style: none;
+    list-style: none;
 }
 
 caption,th,td {
-	font-weight: normal;
-	text-align: left;
+    font-weight: normal;
+    text-align: left;
 }
 
 blockquote:before,blockquote:after,q:before,q:after {
-	content: "";
+    content: "";
 }
 
 blockquote,q {
-	quotes: "" "";
+    quotes: "" "";
 }
 
 a:focus {
-	outline: thin dotted;
+    outline: thin dotted;
 }
 
 a:hover,a:active {
-	/* Improves readability when focused and also mouse hovered in all browsers people.opera.com/patrickl/experiments/keyboard/test */
-	outline: 0;
+    /* Improves readability when focused and also mouse hovered in all browsers people.opera.com/patrickl/experiments/keyboard/test */
+    outline: 0;
 }
 
 /* =WordPress Core
 -------------------------------------------------------------- */
 .alignnone {
-	margin: 5px 20px 20px 0;
+    margin: 5px 20px 20px 0;
 }
 
 .aligncenter,div.aligncenter {
-	display: block;
-	margin: 5px auto 5px auto;
+    display: block;
+    margin: 5px auto 5px auto;
 }
 
 .alignright {
-	float: right;
-	margin: 5px 0 20px 20px;
+    float: right;
+    margin: 5px 0 20px 20px;
 }
 
 .alignleft {
-	float: left;
-	margin: 5px 20px 20px 0;
+    float: left;
+    margin: 5px 20px 20px 0;
 }
 
 .aligncenter {
-	display: block;
-	margin: 5px auto 5px auto;
+    display: block;
+    margin: 5px auto 5px auto;
 }
 
 a img.alignright {
-	float: right;
-	margin: 5px 0 20px 20px;
+    float: right;
+    margin: 5px 0 20px 20px;
 }
 
 a img.alignnone {
-	margin: 5px 20px 20px 0;
+    margin: 5px 20px 20px 0;
 }
 
 a img.alignleft {
-	float: left;
-	margin: 5px 20px 20px 0;
+    float: left;
+    margin: 5px 20px 20px 0;
 }
 
 a img.aligncenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
 .wp-caption {
-	background: #fff;
-	border: 1px solid #f0f0f0;
-	max-width: 96%; /* Image does not overflow the content area */
-	padding: 5px 3px 10px;
-	text-align: center;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
 }
 
 .wp-caption.alignnone {
-	margin: 5px 20px 20px 0;
+    margin: 5px 20px 20px 0;
 }
 
 .wp-caption.alignleft {
-	margin: 5px 20px 20px 0;
+    margin: 5px 20px 20px 0;
 }
 
 .wp-caption.alignright {
-	margin: 5px 0 20px 20px;
+    margin: 5px 0 20px 20px;
 }
 
 .wp-caption img {
-	border: 0 none;
-	height: auto;
-	margin: 0;
-	max-width: 98.5%;
-	padding: 0;
-	width: auto;
+    border: 0 none;
+    height: auto;
+    margin: 0;
+    max-width: 98.5%;
+    padding: 0;
+    width: auto;
 }
 
 .wp-caption p.wp-caption-text {
-	font-size: 11px;
-	line-height: 17px;
-	margin: 0;
-	padding: 0 4px 5px;
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
 }
 /* =Global
 ----------------------------------------------- */
 body {
-	padding-top: 0;
-	text-rendering: optimizelegibility;
+    padding-top: 0;
+    text-rendering: optimizelegibility;
 }
 
 footer .footer_info {
-	text-align: center;
+    text-align: center;
 }
 
 .tags-links .icon-tag,.entry-meta .icon-tag {
-	color: #999;
+    color: #999;
 }
 
 .carousel .carousel-control {
-	
+        width: 5%;
 }
+
 /* Alignment */
 .alignleft {
-	display: inline;
-	float: left;
-	margin-right: 1.5em;
+    display: inline;
+    float: left;
+    margin-right: 1.5em;
 }
 
 .alignright {
-	display: inline;
-	float: right;
-	margin-left: 1.5em;
+    display: inline;
+    float: right;
+    margin-left: 1.5em;
 }
 
 .aligncenter {
-	clear: both;
-	display: block;
-	margin: 0 auto;
+    clear: both;
+    display: block;
+    margin: 0 auto;
 }
 /* Text meant only for screen readers */
 .assistive-text {
-	clip: rect(1px, 1px, 1px, 1px); /* IE6, IE7 */
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
 }
 
 /*--------------------------------------------------------------
 SYMBIOSTOCK CONTENT
 --------------------------------------------------------------*/
 .item-preview img.photo {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .site-content:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
 
 .symbiostock_author_avatar {
-	text-align: right;
+    text-align: right;
 }
 
 .ss-home-main {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .ss-home-main .panel {
-	min-height: 260px;
+    min-height: 260px;
 }
 
 .ss-home-featured .ss-home-minipic, .ss-home-minipic {
-	margin-bottom: 20px;
-	min-height: 170px;
-	max-width: 195px;
-	float: left;
+    margin-bottom: 20px;
+    min-height: 170px;
+    max-width: 195px;
+    float: left;
 }
 
 .cta-cells .panel {
-	min-height: 230px;
+    min-height: 230px;
 }
 
 /*--------------------------------------------------------------
 SYMBIOSTOCK CART
 --------------------------------------------------------------*/
 #symbiostock_product_table tr.in_cart td,#symbiostock_product_table tr.in_cart label
-	{
-	font-style: oblique;
-	background-color: #FFFF64;
+    {
+    font-style: oblique;
+    background-color: #FFFF64;
 }
 
 span.compare_discount {
-	text-decoration: line-through;
-	color: #999;
+    text-decoration: line-through;
+    color: #999;
 }
 
 .not_available {
-	color: #E6E6E6;
+    color: #E6E6E6;
 }
 
 .not_available label {
-	text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 em.compare_discount {
-	text-decoration: none;
-	font-weight: bold;
-	color: #06F;
+    text-decoration: none;
+    font-weight: bold;
+    color: #06F;
 }
 
 .total {
-	font-weight: bold;
-	font-size: 16px;
-	display: block;
-	margin-bottom: 13px;
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 13px;
 }
 
 .gotocart {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 a:link.remove_from_cart {
-	color: #999;
+    color: #999;
 }
 
 a:visited.remove_from_cart {
-	color: #999;
+    color: #999;
 }
 
 a:hover.remove_from_cart {
-	text-decoration: none;
-	color: #F00;
+    text-decoration: none;
+    color: #F00;
 }
 
 a:active.remove_from_cart {
-	
+    
 }
 /*tags*/
 
@@ -259,174 +260,174 @@ a:active.remove_from_cart {
 SYMBIOSTOCK FEATURED 
 --------------------------------------------------------------*/
 .widget_symbiostock_latest_images h3,.widget_symbiostock_featured_images h3
-	{
-	background-color: transparent;
-	margin: 0;
-	margin-bottom: 10px;
+    {
+    background-color: transparent;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .widget_symbiostock_latest_images,.widget_symbiostock_featured_images {
-	border-top: 0;
-	border-bottom: 0;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
+    border-top: 0;
+    border-bottom: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .widget_symbiostock_featured_images_homepage h3 {
-	font-size: 16px;
+    font-size: 16px;
 }
 
 .widget-featured img {
-	border: #E6E6E6 1px solid;
-	-webkit-border-radius: 12px;
-	border-radius: 0;
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-	margin-bottom: 10px;
+    border: #E6E6E6 1px solid;
+    -webkit-border-radius: 12px;
+    border-radius: 0;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
 }
 
 #primary .widget-featured {
-	color: #666;
+    color: #666;
 }
 
 #primary .widget-featured a:link,#primary .widget-featured a,.widget-area  a:link,.widget-area  a
-	{
-	font-size: 14px;
-	color: #333;
+    {
+    font-size: 14px;
+    color: #333;
 }
 
 .widget-area  a:hover {
-	color: #0088CC;
+    color: #0088CC;
 }
 
 #primary .widget-featured p,.widget-area .widget-featured p {
-	margin: 0;
-	max-width: 220px;
-	padding: 0;
-	line-height: 1.618;
-	font-size: 12px;
+    margin: 0;
+    max-width: 220px;
+    padding: 0;
+    line-height: 1.618;
+    font-size: 12px;
 }
 
 #primary .widget-featured .entry-date,.widget-area .widget-featured .entry-date
-	{
-	color: #999;
+    {
+    color: #999;
 }
 
 #primary .widget-featured a:link.read-more {
-	display: block;
-	font-style: oblique;
-	font-size: 12px;
-	text-align: right;
+    display: block;
+    font-style: oblique;
+    font-size: 12px;
+    text-align: right;
 }
 /*--------------------------------------------------------------
 SYMBIOSTOCK SEARCH RESULTS
 --------------------------------------------------------------*/
 .network_carousel {
-	height: 280px;
+    height: 280px;
 }
 
 .search_page {
-	border-right: 0;
-	padding-top: 10px;
-	overflow: hidden;
+    border-right: 0;
+    padding-top: 10px;
+    overflow: hidden;
 }
 
 .search_page .well {
-	border-radius: 0;
+    border-radius: 0;
 }
 
 .search_page  .carousel-control {
-	font-size: 36px;
+    font-size: 36px;
 }
 
 .search-result {
-	height: 170px;
+    height: 170px;
 }
 
 .search_page .search-result {
-	
+    
 }
 
 .ss-widget-12 .widget-featured {
-	width: 15%;
-	min-width: 170px;
+    width: 15%;
+    min-width: 170px;
 }
 
 .image-page-widget-side .similars-container {
-	height: 150px;
-	margin-bottom: 20px;
+    height: 150px;
+    margin-bottom: 20px;
 }
 
 .widget .search-result {
-	height: 160px;
-	min-width: 170px;
-	margin-left: 10px;
-	float: left;
+    height: 160px;
+    min-width: 170px;
+    margin-left: 10px;
+    float: left;
 }
 
 .sscntrl {
-	font-size: 36px;
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 25px;
+    font-size: 36px;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 25px;
 }
 
 .sscntrl a {
-	background-color: white;
-	background: rgba(255, 255, 255, .7);
+    background-color: white;
+    background: rgba(255, 255, 255, .7);
 }
 
 .modal_control {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 .modal-preview {
-	min-height: 400px;
+    min-height: 400px;
 }
 
 .modal-preview img {
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-	text-align: center;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
 }
 
 .results_for {
-	text-align: center;
+    text-align: center;
 }
 
 .results_info {
-	
+    
 }
 
 .search_minipic {
-	border: 1px solid #DDDDDD;
-	border-radius: 4px 4px 4px 4px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
-	padding: 4px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+    padding: 4px;
 }
 
 .symbiostock_pagination {
-	margin: 0;
-	clear: both;
+    margin: 0;
+    clear: both;
 }
 
 .network_results .pagination {
-	margin: 0;
+    margin: 0;
 }
 
 .network_results .pagination ul {
-	margin: 15px 0 5px 0;
+    margin: 15px 0 5px 0;
 }
 
 .purchased_file {
-	text-align: center;
-	float: left;
-	width: 170px;
-	margin: 10px;
+    text-align: center;
+    float: left;
+    width: 170px;
+    margin: 10px;
 }
 
 .network_results_header {
@@ -435,203 +436,237 @@ SYMBIOSTOCK SEARCH RESULTS
 /* =Content
 ----------------------------------------------- */
 .symbiostock-image h1 {
-	font-size: 18px;
-	border: 0;
+    font-size: 18px;
+    border: 0;
 }
 
 .sticky {
-	
+    
 }
 
 .hentry {
-	margin: 0 0 1.5em;
+    margin: 0 0 1.5em;
 }
 
 .entry-meta {
-	clear: both;
+    clear: both;
 }
 
 .byline {
-	display: none;
+    display: none;
 }
 
 .single .byline,.group-blog .byline {
-	display: inline;
+    display: inline;
 }
 
 .entry-content,.entry-summary {
-	margin: 1.5em 0 0;
+    margin: 1.5em 0 0;
 }
 
 .page-links {
-	clear: both;
-	margin: 0 0 1.5em;
+    clear: both;
+    margin: 0 0 1.5em;
 }
 /* =Asides
 ----------------------------------------------- */
 .blog .format-aside .entry-title,.archive .format-aside .entry-title {
-	display: none;
+    display: none;
 }
 /* =Media
 ----------------------------------------------- */
 .site-header img,.entry-content img,.comment-content img,.widget img {
-	max-width: 100%; /* Fluid images for posts, comments, and widgets */
+    max-width: 100%; /* Fluid images for posts, comments, and widgets */
 }
 
 .site-header img,.entry-content img,img[class*="align"],img[class*="wp-image-"]
-	{
-	height: auto;
-	/* Make sure images with WordPress-added height and width attributes are scaled correctly */
+    {
+    height: auto;
+    /* Make sure images with WordPress-added height and width attributes are scaled correctly */
 }
 
 .site-header img,.entry-content img,img.size-full {
-	max-width: 100%;
-	width: auto;
-	/* Prevent stretching of full-size images with height and width attributes in IE8 */
+    max-width: 100%;
+    width: auto;
+    /* Prevent stretching of full-size images with height and width attributes in IE8 */
 }
 
 .entry-content img.wp-smiley,.comment-content img.wp-smiley {
-	border: none;
-	margin-bottom: 0;
-	margin-top: 0;
-	padding: 0;
+    border: none;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
 }
 
 .wp-caption {
-	border: 1px solid #E6E6E6;
-	max-width: 100%;
+    border: 1px solid #E6E6E6;
+    max-width: 100%;
 }
 
 .wp-caption.aligncenter,.wp-caption.alignleft,.wp-caption.alignright {
-	margin-bottom: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 .wp-caption img {
-	display: block;
-	margin: 1.2% auto 0;
-	max-width: 98%;
+    display: block;
+    margin: 1.2% auto 0;
+    max-width: 98%;
 }
 
 .wp-caption-text {
-	text-align: center;
+    text-align: center;
 }
 
 .wp-caption .wp-caption-text {
-	margin: 0.8075em 0;
+    margin: 0.8075em 0;
 }
 
 .site-content .gallery {
-	margin-bottom: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 .site-content .gallery a img {
-	border: none;
-	height: auto;
-	max-width: 90%;
+    border: none;
+    height: auto;
+    max-width: 90%;
 }
 
 .site-content .gallery dd {
-	margin: 0;
+    margin: 0;
 }
 
 .site-content .gallery-columns-4 .gallery-item {
-	
+    
 }
 
 .site-content .gallery-columns-4 .gallery-item img {
-	
+    
 }
 /* Make sure embeds and iframes fit their containers */
 embed,iframe,object {
-	max-width: 100%;
+    max-width: 100%;
 }
 /* =Navigation
 ----------------------------------------------- */
 .site-content .site-navigation {
-	margin: 0 0 1.5em;
-	overflow: hidden;
+    margin: 0 0 1.5em;
+    overflow: hidden;
 }
 
 .site-content .nav-previous {
-	float: left;
-	width: 50%;
+    float: left;
+    width: 50%;
 }
 
 .site-content .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
+    float: right;
+    text-align: right;
+    width: 50%;
 }
 
 .navbar {
-	border-radius: 0;
+    border-radius: 0;
 }
 
+.ss-mobile .navbar-default ul{
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.ss-mobile .navbar-default ul li ul li a{
+	color: #8dc63f;
+}
+
+.ss-mobile .navbar-default ul li a{
+	padding: 10px 30px 10px 30px;
+	border-bottom: 1px solid #DFDFDF;
+	border-right: 0;
+}
+
+.ss-mobile .navbar-default ul li ul li a{	
+	border-bottom: 0;	
+	margin-left: 30px;
+}
+
+.ss-mobile #main-navigation{	
+	clear: both;
+}
+.navbar-brand{
+	display: none;
+}
+#ss-search-transform-mobile{
+	padding: 0 20px 0 20px;
+}
 /* =Comments
 ----------------------------------------------- */
 .bypostauthor {
-	
+    
 }
 
 body.admin-bar {
-	margin-top: -28px;
-	padding-bottom: 28px;
+    margin-top: -28px;
+    padding-bottom: 28px;
 }
 
 #wpadminbar {
-	top: auto !important;
-	bottom: 0;
+    top: auto !important;
+    bottom: 0;
 }
 
 #wpadminbar .quicklinks>ul>li {
-	position: relative;
+    position: relative;
 }
 
 #wpadminbar .ab-top-menu>.menupop>.ab-sub-wrapper {
-	bottom: 28px;
+    bottom: 28px;
 }
 
 /* =Search
 ----------------------------------------------- */
 
 .ss-searchform input,.ss-searchform select {
-	border-right: 0;	
-	border-bottom-right-radius: 0;
-	border-top-right-radius: 0;
-	position: relative;
-	left: 7px;
+    border-right: 0;    
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    position: relative;
+    left: 7px;
 }
 .ss-searchform select{
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
-	left: 3px; 
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    left: 3px; 
  }
 
 .ss-searchform .form-group{
-	margin-right: 0;
+    margin-right: 0;
 }
 
-.ss-searchform input[type=text] {	
-	border-bottom-left-radius: 15px;
-	border-top-left-radius: 15px;
+.ss-searchform input[type=text] {    
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
 }
-.ss-searchform .btn {	
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;	
-	border-bottom-right-radius: 15px;
-	border-top-right-radius: 15px;
+.ss-searchform .btn {    
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;    
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
 }
-.navbar.ss-top-anchored{	
-	background-image: none;
-	box-shadow: none;
-	border: none;
-	margin-bottom: 0;
+.navbar.ss-top-anchored{    
+    background-image: none;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 0;
 }
 
 .password_mismatch{
-	background-color: #FCF2F2;
+    background-color: #FCF2F2;
 }
 
 .password_match{
-	background-color: #F0F7FD;
+    background-color: #F0F7FD;
+}
+
+.ss_social{
+
+	padding: 5px;	
 }

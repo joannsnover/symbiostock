@@ -133,10 +133,10 @@ jQuery(document).ready(function ($) {
     //Product Ajax
     //if product selection changes...
     $(document).on("click", 'input[name="product"]', function (event) {
-    	
-    	var price = $(this).data("price");
-    	
-    	
+        
+        var price = $(this).data("price");
+        
+        
         var process = 'product_cart_action';
         var product_selection = $('input[name="product"]:checked').val();
         // Initialise the request
@@ -234,41 +234,60 @@ jQuery(document).ready(function ($) {
     
     //correct category page parent child relationships
     $('.ss-category-list').each(function() {
-    	
-    	$child = $(this).data('parent');
-    	
-    	if ( typeof $child !== 'undefined') {  
-    		$(this).insertAfter('#panel_list_'+$child);
-    	}
+        
+        $child = $(this).data('parent');
+        
+        if ( typeof $child !== 'undefined') {  
+            $(this).insertAfter('#panel_list_'+$child);
+        }
         
     });
     
-   //adjust searchform for browser widths
-    var $window = $(window);
+    
 
-    // Function to handle changes to style classes based on window width
-    function checkWidth() {
-	    if ($window.width() < 768) {
-	        $('.navbar-form').removeClass('ss-searchform');
-	        };	
-	    if ($window.width() >= 768) {
-	        $('.navbar-form').addClass('ss-searchform');
-	    }
-    }
-	
-	checkWidth();
-	$(window).resize(checkWidth);  
+	/**
+	 * Toggles classes and states to make site more mobile friendly.
+	 */	
+	function make_mobile_ready(){
+		$( '#ss-navigation' ).addClass( 'ss-mobile' );
+		$( '#ss-navigation' ).addClass( 'ss-mobile' );
+		$('.navbar-form').removeClass('ss-searchform');
+		$("#searchform").appendTo("#ss-search-transform-mobile");
+		$(".navbar-brand").show();
+	}
 
+	//on page load, add extra mobile features if needed
+	if ($(window).width() < 768) {		
+		make_mobile_ready();
+		$(".navbar-brand").show();
+	}
 
-	
-	var no_match_txt = $('#ss_password_no_match_text').val();
-	var ss_create_account_txt = $('#ss_create_account_text').val();
-	
+	/**
+	 * Toggles classes and states to make site more browser friendly.
+	 */	
+	function make_browser_ready(){
+		$( '#ss-navigation' ).removeClass( 'ss-mobile' );
+		$('.navbar-form').addClass('ss-searchform');
+		$("#searchform").appendTo("#ss-search-transform-browser");
+		$(".navbar-brand").hide();
+	}		
+
+	$(window).on('resize', function(){
+        if ($(window).width() < 768) {	        	
+        	make_mobile_ready();
+        } else {
+        	make_browser_ready();
+        }
+	});	
+    
+    var no_match_txt = $('#ss_password_no_match_text').val();
+    var ss_create_account_txt = $('#ss_create_account_text').val();
+    
     //login/logout functions
     $('#ss_account_submit').attr('disabled','disabled');            
     $('#ss_account_submit').val(no_match_txt);
-		
-	$('.password').keyup(function(){
+        
+    $('.password').keyup(function(){
       if($("#ss_password_1").val() == $("#ss_password_2").val()){
             
             if($("#ss_password_1").val() == ''){

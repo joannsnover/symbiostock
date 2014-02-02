@@ -37,12 +37,12 @@ if ( !function_exists('wp_new_user_notification') ) {
             $message
         );
         
-        if(isset($_POST['ss_password_1'])){		
-			wp_set_password( $_POST['ss_password_1'], $user_id );			
-			$plaintext_pass = $_POST['ss_password_1'];		
-		} else {		
-			$plaintext_pass = wp_generate_password();			
-		} 
+        if(isset($_POST['ss_password_1'])){        
+            wp_set_password( $_POST['ss_password_1'], $user_id );            
+            $plaintext_pass = $_POST['ss_password_1'];        
+        } else {        
+            $plaintext_pass = wp_generate_password();            
+        } 
         
         //set up Symbiostock Greeting - 
         $symbiostock_greeting = new symbiostock_mail();
@@ -98,13 +98,13 @@ function symbiostock_mail_from_name() {
 }
 
 function symbiostock_registration($user_id) {
-	
-		if(isset($_POST['ss_password_1'])){		
-			wp_set_password( $_POST['ss_password_1'], $user_id );			
-			$new_pass = $_POST['ss_password_1'];		
-		} else {		
-			$new_pass = wp_generate_password();			
-		} 
+    
+        if(isset($_POST['ss_password_1'])){        
+            wp_set_password( $_POST['ss_password_1'], $user_id );            
+            $new_pass = $_POST['ss_password_1'];        
+        } else {        
+            $new_pass = wp_generate_password();            
+        } 
            
         $user_data = get_userdata( $user_id );
         $mail = new symbiostock_mail();

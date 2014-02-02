@@ -22,31 +22,31 @@ function symbiostock_marketer(){
     $deleted = get_query_var( 'deleted' );
     
     if($deleted == 1){
-    	
-    	$deleted_images = maybe_unserialize(get_option('ss_deleted_promo_images', array()));
-    	
-    	if(!empty($deleted_images)){    
-    		if($marketer_key == 'xml'){
-    		
-    			//create the xml document
-    			$xml = new DOMDocument();   			
-    			
-    			$root = $xml->appendChild( $xml->createElement( "deleted" ) );
-    			
-    			foreach($deleted_images as $image){ 
-    				$root->appendChild( 
-                    	$xml->createElement( "img", $image ) );   
-    				}    		
-    			}
-    			
-    		    $xml->formatOutput = true;
-    		
-    			$results = $xml->saveXML();    		
-    			header( "Content-Type: text/plain" );
-    			echo $results;   			
-    			
-    	}
-    	die;
+        
+        $deleted_images = maybe_unserialize(get_option('ss_deleted_promo_images', array()));
+        
+        if(!empty($deleted_images)){    
+            if($marketer_key == 'xml'){
+            
+                //create the xml document
+                $xml = new DOMDocument();               
+                
+                $root = $xml->appendChild( $xml->createElement( "deleted" ) );
+                
+                foreach($deleted_images as $image){ 
+                    $root->appendChild( 
+                        $xml->createElement( "img", $image ) );   
+                    }            
+                }
+                
+                $xml->formatOutput = true;
+            
+                $results = $xml->saveXML();            
+                header( "Content-Type: text/plain" );
+                echo $results;               
+                
+        }
+        die;
     }
     
     //add_rewrite_tag('%ss-'.$image_number.'%','([^&]+)');
@@ -81,8 +81,8 @@ function symbiostock_marketer(){
              'post_type' => 'image',
             'post_status' => 'publish',
             'paged' => $page,
-			'meta_key' => 'ss_is_promo',
-			'meta_value' => 1                  
+            'meta_key' => 'ss_is_promo',
+            'meta_value' => 1                  
         );
         
         //at first we wanted to dump all info, but this might not be smart for people with rediculously large portfolios
@@ -140,9 +140,9 @@ function symbiostock_marketer(){
                 
                 //generate licence type   
                 if(function_exists('ss_get_license_abbreviations')){
-                	$image_meta[ 'license_type' ] = ss_get_license_abbreviations($id);
+                    $image_meta[ 'license_type' ] = ss_get_license_abbreviations($id);
                 } else {
-                	$image_meta[ 'license_type' ] = '';
+                    $image_meta[ 'license_type' ] = '';
                 }
                 
                 //generate url of image page                                       
@@ -236,16 +236,16 @@ function symbiostock_marketer(){
                 $xml->createElement( "per_page", $results_info['post_count'] ) );                    
 
             if(!defined('ss_premium_version')){
-            	define('ss_premium_version', 0);
+                define('ss_premium_version', 0);
             }
             
             $root->appendChild(
-            		$xml->createElement( "premium_version", ss_premium_version ));
+                    $xml->createElement( "premium_version", ss_premium_version ));
 
             $theme = wp_get_theme('symbiostock');
-       		
+               
             $root->appendChild(
-            		$xml->createElement( "symbiostock_version", $theme->get(Version )));            
+                    $xml->createElement( "symbiostock_version", $theme->get(Version )));            
             
             foreach($images_meta as $image_meta){
             

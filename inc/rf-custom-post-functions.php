@@ -38,12 +38,12 @@ function symbiostock_image_manager_register( )
         'exclude_from_search' => false,
         'query_var'           => true,
         'supports'            => array(
-						             'title',
-						            'editor',
-						            'thumbnail',             
-						            'excerpt',
-						            'post-formats',  
-						        ),
+                                     'title',
+                                    'editor',
+                                    'thumbnail',             
+                                    'excerpt',
+                                    'post-formats',  
+                                ),
         'rewrite'             => true,
         
     );
