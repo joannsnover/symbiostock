@@ -124,6 +124,31 @@ define( 'symbiostock_32_DEFAULT' , symbiostock_IMGDIR . '/32_default.png' );
 define( 'symbiostock_128_DEFAULT' , symbiostock_IMGDIR . '/128_default.png' );
 //jas end
 
+/**
+ * Simple function for returning a sizename key array.
+ *
+ * @return Array List of sizes to size-names conversion key. -- $var['bloggee'] gives chosen name for "bloggee" such as "Blog" or "Extra Small"
+ */
+
+function ss_get_sizenames(){
+
+    $sizes = array(
+            'bloggee' => __('Bloggee', 'Symbiostock'),
+            'small'   => __('Small',  'Symbiostock'),
+            'medium'  => __('Medium', 'Symbiostock'),
+            'large'   => __('Large',  'Symbiostock'),
+            'vector'  => __('Vector', 'Symbiostock'),
+            'zip'     => __('Zip',    'Symbiostock'),
+
+    );
+
+    return get_option('symbiostock_size_names', $sizes);
+
+}
+
+//SET UP SIZE NAMES AS GLOBALLY ACCESSIBLE
+$ss_sizenames = ss_get_sizenames();
+
 //filepath constants 
 $symbiostock_theme_root = get_theme_root( ) . '/' . get_template();
 
@@ -1661,10 +1686,17 @@ function symbiostock_credit_links( $position )
  */
 function symbiostock_seo_title( $title )
 {
-    if ( is_single( $post ) && 'image' == get_post_type( ) && in_the_loop( ) )
+	global $post;
+		
+    if ( is_single( $post->ID ) && 'image' == get_post_type( ) && in_the_loop( ) )
     {
-        $append = get_option( 'symbiostock_title_seo_text' , '' );
-
+        $append = get_post_meta( $post->ID, 'symbiostock_title_seo_text' , '' );
+		if(!empty($append[0])){
+			$append = $append[0];
+		} else {
+			$append = get_option('symbiostock_title_seo_text', '');
+		}
+        
         $title = $title . ' ' . $append;
 
     }
@@ -1887,18 +1919,16 @@ function symbiostock_social_credentials( $user, $get_fields = false )
     $prfx = 'symbiostock_';
 
     $text_fields = array( 
-            'Personal Photo' => '(URL) - 150 x 150px'
-                    . sshelp( 'personal_photo' , 'Profile Photo' ),
-            'Gallery Page' => '(URL)' . sshelp( 'gallery_page' , 'Gallery Page' ),
-            'Contact Page' => '(URL)',
-            'Software' => 'Illustrator, photoshop, 3d Studio Max, etc.',
-            'Equipment' => 'Cameras, computers, graphic tablets, etc.',
-            'Languages' => sshelp( 'languages' , 'Languages' ),
-            'Clients' => 'Who you\'ve worked for.',
-            'Home Location' => sshelp( 'location_info' , 'Location' ),
-            'Temporary Location 1' => sshelp( 'temporary_location_info' ,
-                    'Temp Location' ),
-            'Temporary Location 2' => '', );
+            'Personal Photo'            => __('(URL) - 150 x 150px', 'symbiostock') . sshelp( 'personal_photo' , __('Profile Photo', 'symbiostock') ),
+            'Gallery Page'              => __('(URL)', 'symbiostock') . sshelp( 'gallery_page' , __('Gallery Page', 'symbiostock') ),
+            'Contact Page'              => __('(URL)', 'symbiostock'),
+            'Software'                  => __('Illustrator, photoshop, 3d Studio Max, etc.', 'symbiostock'),
+            'Equipment'                 => __('Cameras, computers, graphic tablets, etc.', 'symbiostock'),
+            'Languages'                 => sshelp( 'languages' , __('Languages', 'symbiostock') ),
+            'Clients'                   => __('Who you\'ve worked for.', 'symbiostock' ),
+            'Home Location'             => sshelp( 'location_info' , __('Location', 'symbiostock') ),
+            'Temporary Location 1'      => sshelp( 'temporary_location_info' , __('Temp Location', 'symbiostock')  ),
+            'Temporary Location 2'      => '', );
 
    $select_dropdowns = array(
 		__( 'Open for Assignment Jobs', 'symbiostock' ) => array( __( 'No', 'symbiostock' ), __( 'Yes', 'symbiostock' ) ),
@@ -2351,8 +2381,7 @@ if ( is_admin( ) )
      * @param unknown $medium_size
      * @return void|Ambigous <void, string>
      */
-    function symbiostock_change_image_sizes( $image_id, $bloggee_size,
-            $small_size, $medium_size )
+    function symbiostock_change_image_sizes( $image_id, $bloggee_size,  $small_size, $medium_size )
     {
 
         include_once( symbiostock_CLASSROOT
@@ -2375,9 +2404,7 @@ if ( is_admin( ) )
 
         $process = new symbiostock_image_processor( true );
 
-        $resized = $process
-                ->establish_image_sizes( $image_file , $bloggee_size ,
-                        $small_size , $medium_size );
+        $resized = $process->establish_image_sizes( $image_file , $bloggee_size , $small_size , $medium_size );
 
         return $resized;
 
@@ -2786,6 +2813,7 @@ function symbiostock_dublin_core( $head = true )
 
 }
 
+
 if ( is_admin( ) )
 {
     //in case user updates ALL posts, we up the time limit so it doesn't crash
@@ -2816,6 +2844,7 @@ if ( is_admin( ) )
                 'price_large' => 'price_large',
                 'price_vector' => 'price_vector',
                 'price_zip' => 'price_zip',
+				'symbiostock_title_seo_text' => 'symbiostock_title_seo_text',
                 'symbiostock_discount' => 'discount_percent',
                 'symbiostock_rank' => 'symbiostock_rank',
                 'symbiostock_rating' => 'symbiostock_rating',
@@ -2838,6 +2867,9 @@ if ( is_admin( ) )
                 'symbiostock_referral_link_4' => 'symbiostock_referral_link_4',
                 'symbiostock_referral_link_5' => 'symbiostock_referral_link_5' );
 
+		$meta_values = apply_filters('ss_batch_meta_values', $meta_values);
+		
+	
         $args = array( 
                 'post_type' => 'image',
                 'post_status' => 'publish',
@@ -2880,10 +2912,37 @@ if ( is_admin( ) )
                     if ( $edit == 'not_locked' )
                     {
 
-                        $size_info = symbiostock_change_image_sizes( $id ,
-                                $_POST[ 'symbiostock_bloggee_size' ] ,
-                                $_POST[ 'symbiostock_small_size' ] ,
-                                $_POST[ 'symbiostock_medium_size' ] );
+                        //The following is a correction on the batch editor, properly adjusting image sizes if they are blank
+                        $meta = get_post_meta($id, 'size_info');
+                        $meta_array = maybe_unserialize($meta[0]);
+                        
+                        $meta_array['bloggee']['width'] >= $meta_array['bloggee']['height'] ? $current_size_bloggee = $meta_array['bloggee']['width'] : $current_size_bloggee = $meta_array['bloggee']['height'];
+                        $meta_array['small']['width']   >= $meta_array['small']['height'] ? $current_size_small = $meta_array['small']['width'] : $current_size_small =  $meta_array['small']['height'];
+                        $meta_array['medium']['width']  >= $meta_array['medium']['height'] ? $current_size_medium = $meta_array['medium']['width'] : $current_size_medium = $meta_array['medium']['height'];
+
+                        if(!isset($_POST[ 'symbiostock_bloggee_size' ])){
+                            $size_bloggee = $current_size_bloggee;
+                        } else {
+                            $size_bloggee = trim($_POST[ 'symbiostock_bloggee_size' ]);
+                        }
+
+                        if(!isset($_POST[ 'symbiostock_small_size' ])){
+                            $size_small = $current_size_small;
+                        } else {
+                            $size_small = trim($_POST[ 'symbiostock_small_size' ]);
+                        }
+
+                        if(!isset($_POST[ 'symbiostock_medium_size' ])){
+                            $size_medium = $current_size_medium;
+                        } else {
+                            $size_medium = trim($_POST[ 'symbiostock_medium_size' ]);
+                        }
+                        
+                        $size_info = symbiostock_change_image_sizes( 
+                                $id ,
+                                $size_bloggee ,
+                                $size_small ,
+                                $size_medium );
 
                         update_post_meta( $id , 'size_info' , $size_info );
 
@@ -2894,9 +2953,10 @@ if ( is_admin( ) )
 
                             //echo $meta_value . ': ' . $option . '<br />';
 
+
                             if ( !empty( $option ) )
                             {
-                                update_post_meta( $id , $meta_value , $option );
+                                $success = update_post_meta( $id , $meta_value , $option );
                             }
                         }
 
@@ -2949,9 +3009,12 @@ if ( is_admin( ) )
         $exclusive == 'exclusive' ? $exclusive = 'selected="selected"'
                 : $exclusive = '';
 
-        $_POST[ 'symbiostock_save_defaults' ] == 1 ? $update = true
-                : $update = false;
-
+        $_POST[ 'symbiostock_save_defaults' ] == 1 ? $update = true : $update = false;
+		
+        
+        do_action('ss_settings_and_pricing');
+       
+        
         //live or not live
         if ( isset( $_POST[ 'symbiostock_live' ] ) && $update == true )
             update_option( 'symbiostock_live' , $_POST[ 'symbiostock_live' ] );
@@ -3012,22 +3075,20 @@ if ( is_admin( ) )
             update_option( 'symbiostock_discount' ,
                     $_POST[ 'symbiostock_discount' ] );
 
+
+        //SET SIZES
         if ( isset( $_POST[ 'symbiostock_bloggee_size' ] ) && $update == true )
-            update_option( 'symbiostock_bloggee_size' ,
-                    $_POST[ 'symbiostock_bloggee_size' ] );
+            update_option( 'symbiostock_bloggee_size' , $_POST[ 'symbiostock_bloggee_size' ] );
 
         if ( isset( $_POST[ 'symbiostock_small_size' ] ) && $update == true )
-            update_option( 'symbiostock_small_size' ,
-                    $_POST[ 'symbiostock_small_size' ] );
+            update_option( 'symbiostock_small_size' , $_POST[ 'symbiostock_small_size' ] );
 
         if ( isset( $_POST[ 'symbiostock_medium_size' ] ) && $update == true )
-            update_option( 'symbiostock_medium_size' ,
-                    $_POST[ 'symbiostock_medium_size' ] );
+            update_option( 'symbiostock_medium_size' , $_POST[ 'symbiostock_medium_size' ] );
 
         //SEO title
         if ( isset( $_POST[ 'symbiostock_title_seo_text' ] ) && $update == true )
-            update_option( 'symbiostock_title_seo_text' ,
-                    $_POST[ 'symbiostock_title_seo_text' ] );
+            update_option( 'symbiostock_title_seo_text' , $_POST[ 'symbiostock_title_seo_text' ] );
 
         //Rank
         if ( isset( $_POST[ 'symbiostock_rank' ] ) && $update == true )
@@ -3551,6 +3612,65 @@ function ss_name_download_button(){
     <?php 
 }
 add_action( 'ss_settings_table_top' , 'ss_name_download_button', 8 );
+
+/**
+ * Sets the names of sizes to user-defined ones: Bloggee, Small, Medium, etc.
+ * 
+ * Some webmasters want control over the Size Names
+ * This is controlled in the * BEE->SETTINGS tab in the admin area. 
+ */
+
+function ss_name_size_buttons(){
+
+    $sizes = array(
+            'bloggee' => __('Bloggee', 'Symbiostock'),
+            'small'   => __('Small',  'Symbiostock'),
+            'medium'  => __('Medium', 'Symbiostock'),
+            'large'   => __('Large',  'Symbiostock'),
+            'vector'  => __('Vector', 'Symbiostock'),
+            'zip'     => __('Zip',    'Symbiostock'),
+
+    );
+
+    if(isset($_POST['save_form_info']) && $_POST['save_form_info'] == 1){
+
+        $vals = array();
+    
+        foreach($sizes as $size => $name){
+            
+            if(isset($_POST['ss_name_size_'.$size])){
+                $vals[$size] = trim($_POST['ss_name_size_'.$size]);
+                
+            }
+    
+        }    
+
+        update_option('symbiostock_size_names', $vals);
+    }
+    
+
+    ?><tr><td colspan="2"><?php
+    
+    $size_names = get_option('symbiostock_size_names', $sizes);    
+    if(empty($size_names)){
+        $size_names = $sizes;
+    }
+    ?><strong>Customize Size Names</strong><br /><?php 
+    
+    foreach($size_names  as $size => $name){
+                
+        ?>
+        <label for="ss_name_size_<?php echo $size ?>">
+            <input type="text" value="<?php echo $name ?>" id="ss_name_size_<?php echo $size ?>" name="ss_name_size_<?php echo $size ?>"  /> <?php echo $name ?> <br />            
+        </label>
+        <?php
+        
+    }
+    
+    ?></td></tr><?php    
+}
+add_action( 'ss_settings_table_top' , 'ss_name_size_buttons', 9 );
+
 
 /**
  * Gets an array of connection symbio-sites.

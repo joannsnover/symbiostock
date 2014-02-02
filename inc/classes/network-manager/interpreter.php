@@ -446,7 +446,7 @@ function symbiostock_build_html_results($results, $network_search, $site_count =
                         ?>
                         
                         <div id="n<?php echo $count; ?>_<?php echo $image['id'] ?>_image" class="search-result col-md-2">
-                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>" <?php if ($network_search==true) echo 'target="_blank"' ?>>
+                            <a class="search_result_preview ssref" title="<?php echo $image['title'] ?>" href="<?php echo $image['permalink']  ?>" <?php if ($network_search==true && strpos($image['permalink'],home_url())===false) echo 'target="_blank"' ?>>
                               <img data-toggle="tooltip" alt="image <?php echo $image['id']; ?>" class="img-thumbnail img-responsive" src="<?php echo $image['symbiostock_minipic']  ?>" />
                             </a>
                             <?php symbiostock_list_attr_inputs($count, $image); ?>
